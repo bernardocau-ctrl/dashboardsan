@@ -9,8 +9,8 @@ alimentares (POF) e orçamento familiar (coeficiente de Engel). Descreve
 prevalências e metadados dos inquéritos do IBGE; não inclui regressão, a
 participação de ultraprocessados na aquisição nem resultados do Estudo 2.
 
-As desigualdades aparecem em duas abas: **Filtrar** (mapa por UF com
-recortes) e **Desigualdades no Brasil** (prevalência por marcador social com IC95%,
+As desigualdades aparecem no botão **Filtros** do painel do estado (mapa por
+UF com recortes) e na aba **Desigualdades no Brasil** (prevalência por marcador social com IC95%,
 diferença absoluta e razão entre grupos, teste de mudança 2023-2024). A aba
 **Lacunas e comparabilidade** mostra os anos com EBIA nos inquéritos, as
 comparações sustentadas e os achados sobre a cadeia de informação. Para 2023 e
@@ -27,6 +27,8 @@ internet, sem instalar nada.
 
 ## Histórico
 
+- v44 (15/10/2026): gráfico do coeficiente de Engel redesenhado, com frase de
+  leitura; recortes por UF só pelo botão Filtros (sai a aba Filtrar).
 - v43 (15/10/2026): anos abaixo do menu; aba Desigualdades no Brasil
   redesenhada; frases de leitura na aquisição e nas desigualdades; nomes
   alinhados à dissertação (experiência de acesso; Filtrar).
