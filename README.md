@@ -27,6 +27,8 @@ internet, sem instalar nada.
 
 ## Histórico
 
+- v45 (15/10/2026): fonte do coeficiente de Engel corrigida (POF 2017-2018);
+  versão congelada para a banca.
 - v44 (15/10/2026): gráfico do coeficiente de Engel redesenhado, com frase de
   leitura; recortes por UF só pelo botão Filtros (sai a aba Filtrar).
 - v43 (15/10/2026): anos abaixo do menu; aba Desigualdades no Brasil

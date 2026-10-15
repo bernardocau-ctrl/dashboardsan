@@ -1397,7 +1397,7 @@ table.v41-linha{ font-size:11px; }
       <button class="tab-modo desig" id="tab-desig" onclick="setModo('desig')" aria-pressed="false" title="Desigualdades no Brasil: prevalência por marcador social com IC95%, diferença absoluta e razão entre grupos (PNAD 2004–2013 e PNADC 2023–2024)"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 20V12M12 20V5M19 20v-9"/><path d="M3 20h18"/></svg><span>Desigualdades no Brasil</span></button>
       <button class="tab-modo pof" id="tab-pof" onclick="setModo('pof')" aria-pressed="false" title="Aquisição domiciliar de grupos alimentares — POF 2002/2008/2018"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.4 9h15.2l-1.3 9.4a2 2 0 0 1-2 1.6H7.7a2 2 0 0 1-2-1.6L4.4 9Z"/><path d="M9 9a3 3 0 0 1 6 0"/><path d="M10 12.8v3.4M14 12.8v3.4"/></svg><span>Aquisição domiciliar</span></button>
       
-      <button class="tab-modo engel" id="tab-engel" onclick="setModo('engel')" aria-pressed="false" title="Coeficiente de Engel — comprometimento orçamentário com alimentação por faixa de renda (POF 2008/2017-2018), Brasil vs Rio de Janeiro"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/><path d="M12 4v8h8"/></svg><span>Orçamento familiar</span></button>
+      <button class="tab-modo engel" id="tab-engel" onclick="setModo('engel')" aria-pressed="false" title="Coeficiente de Engel — comprometimento orçamentário com alimentação por faixa de renda (POF 2017-2018), Brasil e Rio de Janeiro"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/><path d="M12 4v8h8"/></svg><span>Orçamento familiar</span></button>
       <button class="tab-modo lacunas" id="tab-lacunas" onclick="setModo('lacunas')" aria-pressed="false" title="Lacunas e comparabilidade: anos com EBIA nos inquéritos, comparações sustentadas e achados sobre a cadeia de informação"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4M8 14h2M14 14h2M8 17h2"/></svg><span>Lacunas e comparabilidade</span></button>
       
     </nav>
@@ -1507,7 +1507,7 @@ table.v41-linha{ font-size:11px; }
       </div>
       <p id="engel-leitura" class="v43-leitura" style="margin:10px 14px 0"></p>
       <div class="chart-wrap" style="height:420px"><div id="div-engel" style="width:100%;height:100%"></div></div>
-      <div style="font-size:.72rem;color:var(--text-faint);padding:8px 14px 4px;line-height:1.5">Fonte: IBGE, POF 2008-2009 e 2017-2018. SIDRA tabelas 1594, 1619, 1783, 1799, 6715, 6972, 6974. Na faixa de menor rendimento (até R$1.908/mês), a despesa corrente média (R$1.448,92) é maior que o rendimento declarado (R$1.236,27). No Rio de Janeiro, o coeficiente de Engel nessa faixa é menor que o do Brasil (17,8% contra 22,8% da despesa); o painel descreve a diferença e não testa a explicação para ela.</div>
+      <div style="font-size:.72rem;color:var(--text-faint);padding:8px 14px 4px;line-height:1.5">Fonte: IBGE, POF 2017-2018. SIDRA tabelas 6715, 6972, 6974 e 6977. Na faixa de menor rendimento (até R$1.908/mês), a despesa corrente média (R$1.448,92) é maior que o rendimento declarado (R$1.236,27). No Rio de Janeiro, o coeficiente de Engel nessa faixa é menor que o do Brasil (17,8% contra 22,8% da despesa); o painel descreve a diferença e não testa a explicação para ela.</div>
     </div>
     
   
@@ -1588,7 +1588,7 @@ table.v41-linha{ font-size:11px; }
       <p>Este painel organiza indicadores de IAN em quatro famílias: <strong>① experiência de acesso</strong> (EBIA — <em>medida direta</em>), <strong>② fatores socioeconômicos e demográficos</strong> (<em>fatores associados</em> — estratificações da prevalência de IA), <strong>③ aquisição domiciliar</strong> (<em>indicador complementar</em> — grupos alimentares, POF) e <strong>④ orçamento familiar</strong> (<em>indicador complementar</em> — Coeficiente de Engel por faixa de renda). Nenhum indicador isolado esgota o fenômeno — a leitura deve articular essas famílias. A família ② aparece no botão <strong>Filtros</strong>, no painel do estado (mapa por UF, com recortes), e na aba <strong>Desigualdades no Brasil</strong> (prevalência por marcador social com IC95%, diferença absoluta e razão entre grupos), que reúne resultados nacionais da dissertação. <strong>Lacunas e comparabilidade</strong> mostra os anos com EBIA, as comparações sustentadas e os achados sobre a cadeia de informação. As cautelas abaixo são obrigatórias em qualquer combinação.</p>
       <h3>O que o painel não mostra</h3>
       <p>A regressão logística preliminar, a participação de ultraprocessados na aquisição (classificador não validado) e os resultados do Estudo 2 (consumo individual). As prevalências são estimativas descritivas dos inquéritos do IBGE; as associações não são causais.</p>
-      <p><strong>Distinção metodológica fundamental:</strong> apenas a EBIA é <em>medida direta</em> de insegurança alimentar. Os fatores socioeconômicos e demográficos são <em>fatores associados</em> que estratificam a prevalência de IA — mostram quem está mais exposto, mas não constituem nova medida de IA. A aquisição domiciliar (POF) é <em>indicador complementar</em> que descreve o que o domicílio adquire, sem medir percepção de insegurança alimentar nem consumo individual.</p>
+      <p><strong>Distinção metodológica fundamental:</strong> apenas a EBIA é <em>medida direta</em> de insegurança alimentar. Os fatores socioeconômicos e demográficos são <em>fatores associados</em> que estratificam a prevalência de IA — mostram quem está mais exposto, mas não constituem nova medida de IA. A aquisição domiciliar (POF) é <em>indicador complementar</em> que descreve o que o domicílio adquire, sem medir insegurança alimentar nem consumo individual.</p>
 
       <h3>O que é a EBIA</h3>
       <p>A Escala Brasileira de Insegurança Alimentar (EBIA) é um instrumento de autorrelato. Segundo o dicionário do IBGE, a PNADC (2023–2024) e a PNAD 2013 aplicam 14 itens (os 6 últimos, apenas em domicílios com moradores menores de 18 anos; sem menores, a escala usa 8 itens). Ela capta a dimensão de <strong>acesso alimentar</strong> — se o domicílio teve dificuldade de obter comida em quantidade ou qualidade suficiente. Não mede consumo efetivo, estado nutricional nem disponibilidade calórica.</p>
@@ -1679,7 +1679,7 @@ table.v41-linha{ font-size:11px; }
         <div>
           <strong>Aquisição domiciliar</strong>
           <p>Indicador complementar — aquisição domiciliar de 17 grupos alimentares em kg/per capita/ano (POF 2002/2008/2018).</p>
-          <em>Não mede percepção de insegurança alimentar; descreve o que o domicílio adquire.</em>
+          <em>Não mede insegurança alimentar; descreve o que o domicílio adquire.</em>
         </div>
       </div>
       
@@ -1687,7 +1687,7 @@ table.v41-linha{ font-size:11px; }
         <div class="fam-num"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/><path d="M12 4v8h8"/></svg></div>
         <div>
           <strong>Orçamento familiar (Coeficiente de Engel)</strong>
-          <p>Indicador complementar — comprometimento do orçamento familiar com alimentação por faixa de rendimento, Brasil e Rio de Janeiro (POF 2008-2009 e 2017-2018).</p>
+          <p>Indicador complementar — comprometimento do orçamento familiar com alimentação por faixa de rendimento, Brasil e Rio de Janeiro (POF 2017-2018).</p>
           <em>Não mede insegurança alimentar.</em>
         </div>
       </div>
@@ -89301,7 +89301,7 @@ const FAMILIA_DESC = {
   },
   pof: {
     tag:'③ Aquisição domiciliar', cls:'fa3',
-    txt:'Indicador complementar — aquisição domiciliar de 17 grupos alimentares em kg/per capita/ano (POF 2002/2008/2018). <em>Não mede percepção de insegurança alimentar; descreve o que o domicílio adquire.</em>',
+    txt:'Indicador complementar — aquisição domiciliar de 17 grupos alimentares em kg/per capita/ano (POF 2002/2008/2018). <em>Não mede insegurança alimentar; descreve o que o domicílio adquire.</em>',
   },
   nova4: {tag:'', cls:'fa4', txt:''},
 };
@@ -89311,7 +89311,7 @@ const MODO_INTRO = {
   filtros: '<strong>Fatores socioeconômicos e demográficos:</strong> como a insegurança alimentar se distribui por renda, cor/raça, instrução, sexo e composição domiciliar. Use <em>② Fatores socioecon.</em> para escolher um recorte.',
   pof:     '<strong>Aquisição domiciliar (POF):</strong> quantidade adquirida por domicílio em kg/per capita/ano — 17 grupos de alimentos (2002/2008/2018). Não mede insegurança alimentar; descreve o que o domicílio adquire.',
   nova4: '',
-  engel:   '<strong>Orçamento familiar (Coeficiente de Engel):</strong> comprometimento da despesa/renda com alimentação por faixa de rendimento, Brasil vs Rio de Janeiro (POF 2008/2017-2018). Quanto menor a renda, maior a proporção do orçamento dedicada à alimentação.',
+  engel:   '<strong>Orçamento familiar (Coeficiente de Engel):</strong> comprometimento da despesa/renda com alimentação por faixa de rendimento, Brasil e Rio de Janeiro (POF 2017-2018). Quanto menor a renda, maior a proporção do orçamento dedicada à alimentação.',
   regressao: '',
   desig:   '<strong>Desigualdades (Brasil):</strong> prevalência por marcador social com IC95% e a diferença entre grupos em duas escalas, absoluta (pontos percentuais) e relativa (razão). A conclusão sobre a mudança da desigualdade depende da escala.',
   lacunas: '<strong>Lacunas e comparabilidade:</strong> em que anos há EBIA nos inquéritos do IBGE, quais comparações entre inquéritos são sustentadas e os dez achados sobre a cadeia de informação documentados na dissertação.',
