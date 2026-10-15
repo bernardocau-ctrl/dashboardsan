@@ -911,7 +911,7 @@ html, body {
   height: 300px; flex-shrink: 0;
 }
 
-/* ── Modal de famílias de marcadores ─────────────────────────── */
+/* ── Modal de famílias de indicadores ─────────────────────────── */
 #familias-overlay {
   display: none; position: fixed; inset: 0; background: rgba(0,0,0,.45);
   z-index: 1000; align-items: center; justify-content: center;
@@ -1286,14 +1286,14 @@ html, body { height:100%; overflow:hidden; background:var(--fao-ocean); }
   <header id="header" role="banner">
     <div style="display:flex;flex-direction:column;justify-content:center;gap:1px">
       <h1 class="h-title">Insegurança Alimentar no <span>Brasil</span></h1>
-      <div class="h-subtitle">PNAD 2004–2013 · POF 2018 · PNADC 2023–2024 · VIGISAN 2021</div>
+      <div class="h-subtitle">PNAD 2004–2013 · POF 2017–2018 · PNADC 2023–2024 · VIGISAN 2021</div>
     </div>
-    <nav id="mode-tabs" aria-label="Família de marcadores">
+    <nav id="mode-tabs" aria-label="Família de indicadores">
       <button class="tab-modo ativo" id="tab-ebia" onclick="setModo('ebia')" aria-pressed="true" title="EBIA — medida direta de acesso/percepção alimentar"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.6 11.2h16.8a8.4 8.4 0 0 1-16.8 0Z"/><path d="M8.6 20h6.8"/><path d="M12 7.4c0-1.1-1.1-1.5-1.1-2.6"/></svg><span>Acesso e percepção</span></button>
       <button class="tab-modo" id="tab-filtros" onclick="setModo('filtros')" aria-pressed="false" title="Fatores socioeconômicos e demográficos — estratificação da IA por renda, cor/raça, instrução, sexo, composição domiciliar"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9.2" cy="8.8" r="3"/><path d="M3.6 19a5.6 5.6 0 0 1 11.2 0"/><path d="M16.2 6.2a3 3 0 0 1 0 5.4"/><path d="M17.6 14.1A5.6 5.6 0 0 1 20.4 19"/></svg><span>Fatores socioecon.</span></button>
-      <button class="tab-modo pof" id="tab-pof" onclick="setModo('pof')" aria-pressed="false" title="Aquisição domiciliar de grupos alimentares — POF 2002/2008/2018"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.4 9h15.2l-1.3 9.4a2 2 0 0 1-2 1.6H7.7a2 2 0 0 1-2-1.6L4.4 9Z"/><path d="M9 9a3 3 0 0 1 6 0"/><path d="M10 12.8v3.4M14 12.8v3.4"/></svg><span>Consumo alimentar</span></button>
+      <button class="tab-modo pof" id="tab-pof" onclick="setModo('pof')" aria-pressed="false" title="Aquisição domiciliar de grupos alimentares — POF 2002/2008/2018"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.4 9h15.2l-1.3 9.4a2 2 0 0 1-2 1.6H7.7a2 2 0 0 1-2-1.6L4.4 9Z"/><path d="M9 9a3 3 0 0 1 6 0"/><path d="M10 12.8v3.4M14 12.8v3.4"/></svg><span>Aquisição domiciliar</span></button>
       
-      <button class="tab-modo engel" id="tab-engel" onclick="setModo('engel')" aria-pressed="false" title="Lei de Engel — comprometimento orçamentário com alimentação por faixa de renda (POF 2008/2017-2018), Brasil vs Rio de Janeiro"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/><path d="M12 4v8h8"/></svg><span>Orçamento familiar</span></button>
+      <button class="tab-modo engel" id="tab-engel" onclick="setModo('engel')" aria-pressed="false" title="Coeficiente de Engel — comprometimento orçamentário com alimentação por faixa de renda (POF 2008/2017-2018), Brasil vs Rio de Janeiro"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/><path d="M12 4v8h8"/></svg><span>Orçamento familiar</span></button>
       
     </nav>
     <div style="display:flex;align-items:center;gap:8px">
@@ -1303,13 +1303,13 @@ html, body { height:100%; overflow:hidden; background:var(--fao-ocean); }
       <button id="btn-link" class="btn-ajuda" onclick="copiarLink()" aria-label="Copiar link desta visão" title="Copiar link compartilhável desta visão" style="width:auto;padding:0 9px;height:22px;font-size:.72rem">🔗 link</button>
       <button class="btn-ajuda" onclick="abrirModal()" aria-label="Nota metodológica completa" title="Nota metodológica" style="width:22px;height:22px;font-size:.78rem">?</button>
     </div>
-    <span class="h-logo">PPGSAN/UNIRIO<br>Bernardo Caú · 2026</span>
+    <span class="h-logo">PPGSAN/UNIRIO<br>Bernardo Castanho · 2026</span>
   </header>
 
   <!-- BARRA DE INTRO (substitui familia-desc + modo-intro) -->
   <div id="intro-bar" aria-live="polite">
     <span id="intro-bar-txt">Este painel mostra a <strong>prevalência de insegurança alimentar</strong> total e grave por UF e a evolução temporal para o Brasil. <em>Clique em uma UF no mapa para ver dados do estado.</em></span>
-    <button id="btn-sobre-painel" onclick="abrirFamilias()" aria-label="Sobre as famílias de marcadores">Sobre o painel ▸</button>
+    <button id="btn-sobre-painel" onclick="abrirFamilias()" aria-label="Sobre as famílias de indicadores">Sobre o painel ▸</button>
   </div>
 
   <!-- BARRA DE RECORTE (sempre visível) -->
@@ -1330,7 +1330,7 @@ html, body { height:100%; overflow:hidden; background:var(--fao-ocean); }
     </div>
     <div class="kpi iag" id="k-iag-card" role="status" aria-label="Insegurança alimentar grave">
       <div class="kpi-val" id="k-iag">—</div>
-      <div class="kpi-lbl" id="k-iag-lbl">Inseg. grave (fome)</div>
+      <div class="kpi-lbl" id="k-iag-lbl">Inseg. grave</div>
       <div class="kpi-sub" id="k-iag-sub" style="color:var(--muted)"></div>
     </div>
     <div class="kpi sa" id="k-sa-card" role="status" aria-label="Segurança alimentar">
@@ -1340,7 +1340,7 @@ html, body { height:100%; overflow:hidden; background:var(--fao-ocean); }
     </div>
     <div class="kpi trend" role="status" aria-label="Variação histórica">
       <div class="kpi-val" id="k-trend">—</div>
-      <div class="kpi-lbl" id="k-trend-lbl">Var. vs mínimo histórico</div>
+      <div class="kpi-lbl" id="k-trend-lbl">PNAD 2013, para referência</div>
       <div class="kpi-sub" id="k-trend-sub" style="color:var(--muted)"></div>
     </div>
   </div>
@@ -1377,9 +1377,9 @@ html, body { height:100%; overflow:hidden; background:var(--fao-ocean); }
   </main>
 
   <!-- LINHA HISTÓRICA: largura total -->
-  <section id="line-row" class="panel" aria-label="Série histórica">
+  <section id="line-row" class="panel" aria-label="Prevalência por inquérito">
     <div class="panel-title">
-      <span id="linha-title">Série histórica Brasil (EBIA)</span>
+      <span id="linha-title">Prevalência no Brasil, por inquérito (EBIA)</span>
       <div style="display:flex;gap:6px;align-items:center">
         <span id="linha-fonte" style="font-size:.72rem;color:var(--muted)"><span class="fonte-badge pnad">PNAD</span><span class="fonte-badge pof">POF</span><span class="fonte-badge pnadc">PNADC</span><span class="fonte-badge vigisan">VIGISAN</span></span>
       </div>
@@ -1392,7 +1392,7 @@ html, body { height:100%; overflow:hidden; background:var(--fao-ocean); }
   <section id="extra-row" style="display:none; padding:0 22px 16px;">
     <div id="panel-engel" class="panel" style="display:none">
       <div class="panel-title">
-        <span>Lei de Engel — comprometimento orçamentário com alimentação por faixa de renda</span>
+        <span>Coeficiente de Engel — comprometimento orçamentário com alimentação por faixa de renda</span>
         <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
           <button class="engel-metrica-btn ativo" data-m="engel_desp" onclick="setEngelMetrica('engel_desp')" style="padding:3px 9px;border-radius:10px;border:1.5px solid var(--border);background:transparent;font-size:.72rem;font-weight:600;cursor:pointer">% despesa</button>
           <button class="engel-metrica-btn" data-m="engel_renda" onclick="setEngelMetrica('engel_renda')" style="padding:3px 9px;border-radius:10px;border:1.5px solid var(--border);background:transparent;font-size:.72rem;font-weight:600;cursor:pointer">% renda</button>
@@ -1400,7 +1400,7 @@ html, body { height:100%; overflow:hidden; background:var(--fao-ocean); }
         </div>
       </div>
       <div class="chart-wrap" style="height:420px"><div id="div-engel" style="width:100%;height:100%"></div></div>
-      <div style="font-size:.72rem;color:var(--text-faint);padding:8px 14px 4px;line-height:1.5">Fonte: IBGE, POF 2008-2009 e 2017-2018. SIDRA tabelas 1594, 1619, 1783, 1799, 6715, 6972, 6974. Faixa mais pobre no Brasil (até R$1.908/mês): despesa corrente média (R$1.448,92) supera a renda declarada (R$1.236,27) — déficit orçamentário estrutural de R$212,65/mês. No RJ, o Engel é menor que a média nacional entre os mais pobres não por abundância, mas por maior peso do custo de moradia no orçamento.</div>
+      <div style="font-size:.72rem;color:var(--text-faint);padding:8px 14px 4px;line-height:1.5">Fonte: IBGE, POF 2008-2009 e 2017-2018. SIDRA tabelas 1594, 1619, 1783, 1799, 6715, 6972, 6974. Na faixa de menor rendimento (até R$1.908/mês), a despesa corrente média (R$1.448,92) é maior que o rendimento declarado (R$1.236,27). No Rio de Janeiro, o coeficiente de Engel nessa faixa é menor que o do Brasil (17,8% contra 22,8% da despesa); o painel descreve a diferença e não testa a explicação para ela.</div>
     </div>
     
   </section>
@@ -1426,8 +1426,8 @@ html, body { height:100%; overflow:hidden; background:var(--fao-ocean); }
   <details id="nota-metodo">
     <summary>ⓘ Notas metodológicas</summary>
     <div>
-      <p>Este painel organiza indicadores de IAN em quatro famílias: <strong>① acesso e percepção</strong> (EBIA — <em>medida direta</em>), <strong>② fatores socioeconômicos e demográficos</strong> (<em>fatores associados</em> — estratificações da prevalência de IA), <strong>③ consumo alimentar</strong> (<em>marcador complementar</em> — aquisição domiciliar por grupos, POF) e <strong>④ orçamento familiar</strong> (<em>marcador complementar</em> — Lei de Engel por faixa de renda). Nenhum indicador isolado esgota o fenômeno — a leitura deve articular essas famílias. As cautelas abaixo são obrigatórias em qualquer combinação. <strong>Estatuto (12/10/2026):</strong> as prevalências são estimativas descritivas dos inquéritos do IBGE; a regressão logística preliminar e a participação de ultraprocessados na aquisição (classificador não validado) foram <em>retiradas</em> desta versão; resultados do Estudo 2 (consumo individual) não estão neste painel.</p>
-      <p><strong>Distinção metodológica fundamental:</strong> apenas a EBIA é <em>medida direta</em> de insegurança alimentar. Os fatores socioeconômicos e demográficos são <em>fatores associados</em> que estratificam a prevalência de IA — mostram quem está mais exposto, mas não constituem nova medida de IA. A aquisição domiciliar (POF) é <em>marcador complementar</em> que descreve o que o domicílio adquire, sem medir percepção de insegurança alimentar nem consumo individual.</p>
+      <p>Este painel organiza indicadores de IAN em quatro famílias: <strong>① acesso e percepção</strong> (EBIA — <em>medida direta</em>), <strong>② fatores socioeconômicos e demográficos</strong> (<em>fatores associados</em> — estratificações da prevalência de IA), <strong>③ aquisição domiciliar</strong> (<em>indicador complementar</em> — grupos alimentares, POF) e <strong>④ orçamento familiar</strong> (<em>indicador complementar</em> — Coeficiente de Engel por faixa de renda). Nenhum indicador isolado esgota o fenômeno — a leitura deve articular essas famílias. As cautelas abaixo são obrigatórias em qualquer combinação. <strong>Estatuto (12/10/2026):</strong> as prevalências são estimativas descritivas dos inquéritos do IBGE; a regressão logística preliminar e a participação de ultraprocessados na aquisição (classificador não validado) foram <em>retiradas</em> desta versão; resultados do Estudo 2 (consumo individual) não estão neste painel. Texto alinhado à dissertação v21 em 15/10/2026.</p>
+      <p><strong>Distinção metodológica fundamental:</strong> apenas a EBIA é <em>medida direta</em> de insegurança alimentar. Os fatores socioeconômicos e demográficos são <em>fatores associados</em> que estratificam a prevalência de IA — mostram quem está mais exposto, mas não constituem nova medida de IA. A aquisição domiciliar (POF) é <em>indicador complementar</em> que descreve o que o domicílio adquire, sem medir percepção de insegurança alimentar nem consumo individual.</p>
 
       <h3>O que é a EBIA</h3>
       <p>A Escala Brasileira de Insegurança Alimentar (EBIA) é um instrumento de autorrelato. Segundo o dicionário do IBGE, a PNADC (2023–2024) e a PNAD 2013 aplicam 14 itens (os 6 últimos, apenas em domicílios com moradores menores de 18 anos; sem menores, a escala usa 8 itens). Ela capta a dimensão de <strong>acesso alimentar</strong> — se o domicílio teve dificuldade de obter comida em quantidade ou qualidade suficiente. Não mede consumo efetivo, estado nutricional nem disponibilidade calórica.</p>
@@ -1435,20 +1435,20 @@ html, body { height:100%; overflow:hidden; background:var(--fao-ocean); }
 
       <h3>Fontes e comparabilidade</h3>
       <div class="nota-fonte"><span class="dot" style="background:#6b8ebc"></span><strong>PNAD 2004, 2009, 2013</strong> — EBIA (2013: 14 itens; 2004 e 2009 a confirmar na documentação). Metodologia antiga, amostral, com microdados reponderados. <em>Não diretamente comparável com PNADC.</em></div>
-      <div class="nota-fonte"><span class="dot" style="background:var(--pof)"></span><strong>POF 2017–2018</strong> — EBIA incluída na Pesquisa de Orçamentos Familiares. Módulo aplicado a uma subamostra. Serve como referência de transição entre as séries.</div>
+      <div class="nota-fonte"><span class="dot" style="background:var(--pof)"></span><strong>POF 2017–2018</strong> — EBIA incluída na Pesquisa de Orçamentos Familiares. Módulo aplicado a uma subamostra. Aparece lado a lado com a PNAD e a PNADC, sem interpretar a diferença como variação.</div>
       <div class="nota-fonte"><span class="dot" style="background:var(--vigisan)"></span><strong>VIGISAN 2021</strong> — Inquérito nacional da Rede PENSSAN. Não é IBGE. Representatividade nacional por domicílios. Ponto de comparação externo à série oficial; não integra a série contínua.</div>
-      <div class="nota-fonte"><span class="dot" style="background:var(--ia)"></span><strong>PNADC 2023, 2024</strong> — EBIA com 14 itens (8 em domicílios sem menores de 18 anos), T4. Metodologia atual do IBGE. Série comparável entre si. Os filtros interseccionais usam apenas esses anos.</div>
+      <div class="nota-fonte"><span class="dot" style="background:var(--ia)"></span><strong>PNADC 2023, 2024</strong> — EBIA com 14 itens (8 em domicílios sem menores de 18 anos), T4. Metodologia atual do IBGE. Série comparável entre si. Os filtros usam esses anos (instrução também tem PNAD 2009 e 2013).</div>
       <ul>
-        <li>Comparar <strong>tendência</strong> (direção do movimento) entre períodos é razoável com cautela.</li>
-        <li>Comparar <strong>nível absoluto</strong> entre PNAD e PNADC é inadequado — instrumentos diferentes produzem prevalências sistematicamente diferentes.</li>
+        <li>A variação pode ser lida entre <strong>PNADC 2023 e 2024</strong> (mesmo instrumento). Entre PNAD 2004, 2009 e 2013 a comparação é descritiva, com ressalvas e sem teste formal de mudança.</li>
+        <li>Entre PNAD, POF e PNADC os valores aparecem <strong>lado a lado</strong>, sem interpretar a diferença como variação: pesquisas, desenhos e contextos distintos.</li>
         <li>Os segmentos tracejados no gráfico indicam descontinuidade ou mudança de fonte.</li>
       </ul>
 
-      <h3>Consumo alimentar (aquisição domiciliar)</h3>
-      <p>O módulo "Consumo POF" mostra kg/per capita/ano de 17 grupos alimentares, também pela POF. Os valores são de aquisição domiciliar declarada, não de consumo individual.</p>
+      <h3>Aquisição domiciliar de alimentos</h3>
+      <p>A aba "Aquisição domiciliar" mostra kg/per capita/ano de 17 grupos alimentares, também pela POF. Os valores são de aquisição domiciliar declarada, não de consumo individual.</p>
 
       <h3>Filtros interseccionais e limites estatísticos</h3>
-      <p>Os filtros (Sexo, Cor/Raça, Instrução, Renda, Tam. domicílio, Presença de criança/idoso, Situação do domicílio) usam <strong>microdados PNADC 2023 e 2024</strong>. Cruzamentos de dois filtros exigem n ≥ 30 observações por célula — células abaixo desse limiar são sinalizadas com aviso de instabilidade e devem ser interpretadas com grande cautela.</p>
+      <p>Os filtros (Sexo, Cor/Raça, Instrução, Renda, Tam. domicílio, Presença de criança/idoso, Situação do domicílio) usam <strong>microdados PNADC 2023 e 2024</strong> (instrução também PNAD 2009 e 2013). Sexo, cor/raça e instrução são os da <strong>pessoa de referência</strong> do domicílio (o responsável), não os dos demais moradores. Cruzamentos de dois filtros exigem n ≥ 30 observações por célula — células abaixo desse limiar são sinalizadas com aviso de instabilidade e devem ser interpretadas com grande cautela.</p>
       <p>Valores próximos a 0% ou 100% em subgrupos pequenos podem refletir variância amostral elevada, não necessariamente a realidade populacional.</p>
 
       <h3>Cautelas gerais de interpretação</h3>
@@ -1475,7 +1475,7 @@ html, body { height:100%; overflow:hidden; background:var(--fao-ocean); }
   <div id="drawer-header">
     <div>
       <h2>② Fatores socioeconômicos e demográficos</h2>
-      <p>Estratifique a insegurança alimentar por fator socioeconômico ou demográfico · PNADC 2023–2024</p>
+      <p>Estratifique a insegurança alimentar por fator socioeconômico ou demográfico · PNADC 2023–2024 · sexo, cor/raça e instrução: da pessoa de referência</p>
     </div>
     <button id="btn-fechar-drawer" onclick="fecharDrawer()" aria-label="Fechar painel de filtros">✕</button>
   </div>
@@ -1494,15 +1494,15 @@ html, body { height:100%; overflow:hidden; background:var(--fao-ocean); }
 
 <!-- MODAL: FAMÍLIAS DE MARCADORES -->
 <div id="familias-overlay" onclick="fecharFamilias()">
-  <div id="familias-modal" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-label="Famílias de marcadores">
-    <h2>Famílias de marcadores — estrutura analítica do painel</h2>
+  <div id="familias-modal" onclick="event.stopPropagation()" role="dialog" aria-modal="true" aria-label="Famílias de indicadores">
+    <h2>Famílias de indicadores — estrutura analítica do painel</h2>
     <div class="familias-grid">
       <div class="fam-card fam-acesso">
         <div class="fam-num"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.6 11.2h16.8a8.4 8.4 0 0 1-16.8 0Z"/><path d="M8.6 20h6.8"/><path d="M12 7.4c0-1.1-1.1-1.5-1.1-2.6"/></svg></div>
         <div>
           <strong>Acesso e percepção</strong>
-          <p>EBIA — medida direta de dificuldade de acesso alimentar no domicílio (PNAD 2004–2013 · POF 2018 · PNADC 2023–2024 · VIGISAN 2021).</p>
-          <em>Não mede: consumo efetivo, estado nutricional, qualidade da dieta.</em>
+          <p>EBIA — medida direta de dificuldade de acesso alimentar no domicílio (PNAD 2004–2013 · POF 2017–2018 · PNADC 2023–2024 · VIGISAN 2021).</p>
+          <em>Não mede: consumo efetivo, estado nutricional, qualidade global da dieta.</em>
         </div>
       </div>
       <div class="fam-card fam-desig">
@@ -1516,18 +1516,18 @@ html, body { height:100%; overflow:hidden; background:var(--fao-ocean); }
       <div class="fam-card fam-consumo">
         <div class="fam-num"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.4 9h15.2l-1.3 9.4a2 2 0 0 1-2 1.6H7.7a2 2 0 0 1-2-1.6L4.4 9Z"/><path d="M9 9a3 3 0 0 1 6 0"/><path d="M10 12.8v3.4M14 12.8v3.4"/></svg></div>
         <div>
-          <strong>Consumo alimentar</strong>
-          <p>Marcador complementar — aquisição domiciliar de 17 grupos alimentares em kg/per capita/ano (POF 2002/2008/2018).</p>
-          <em>Não mede percepção de insegurança alimentar; qualifica o padrão alimentar domiciliar.</em>
+          <strong>Aquisição domiciliar</strong>
+          <p>Indicador complementar — aquisição domiciliar de 17 grupos alimentares em kg/per capita/ano (POF 2002/2008/2018).</p>
+          <em>Não mede percepção de insegurança alimentar; descreve o que o domicílio adquire.</em>
         </div>
       </div>
       
       <div class="fam-card fam-engel">
         <div class="fam-num"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/><path d="M12 4v8h8"/></svg></div>
         <div>
-          <strong>Orçamento familiar (Lei de Engel)</strong>
-          <p>Marcador complementar — comprometimento do orçamento familiar com alimentação por faixa de rendimento, Brasil e Rio de Janeiro (POF 2008-2009 e 2017-2018).</p>
-          <em>Não mede insegurança alimentar; revela a estrutura econômica que a produz.</em>
+          <strong>Orçamento familiar (Coeficiente de Engel)</strong>
+          <p>Indicador complementar — comprometimento do orçamento familiar com alimentação por faixa de rendimento, Brasil e Rio de Janeiro (POF 2008-2009 e 2017-2018).</p>
+          <em>Não mede insegurança alimentar.</em>
         </div>
       </div>
       
@@ -88532,7 +88532,7 @@ function applyStateFromHash(){
   if(!location.hash || location.hash.length<2) return false;
   const p=new URLSearchParams(location.hash.slice(1));
   _suppressURL=true;
-  const modo=p.get('m')||'ebia';
+  const modo0=p.get('m')||'ebia'; const modo=['ebia','filtros','pof','engel'].includes(modo0)?modo0:'ebia';
   S.nova4 = modo==='nova4';
   S.grupoAlim = modo==='pof'
     ? (p.get('g') != null ? p.get('g') : (GRUPOS_ALIM?.lista?.[0]?.cod ?? null))
@@ -88632,15 +88632,15 @@ function setModo(modo){
 const FAMILIA_DESC = {
   ebia: {
     tag:'① Acesso e percepção', cls:'fa1',
-    txt:'EBIA — medida direta de dificuldade de acesso alimentar no domicílio (PNAD 2004–2013 · POF 2018 · PNADC 2023–2024). <em>Não mede: consumo efetivo, estado nutricional ou qualidade da dieta.</em>',
+    txt:'EBIA — medida direta de dificuldade de acesso alimentar no domicílio (PNAD 2004–2013 · POF 2017–2018 · PNADC 2023–2024). <em>Não mede: consumo efetivo, estado nutricional ou qualidade global da dieta.</em>',
   },
   filtros: {
     tag:'② Fatores socioeconômicos', cls:'fa2',
     txt:'Distribuição da insegurança alimentar segundo renda, escolaridade, sexo, cor/raça, composição domiciliar e localização (PNADC 2023–2024). Fator associado — revela quem está mais exposto. <em>Não é medida direta de IA; complementa a EBIA, não a substitui.</em>',
   },
   pof: {
-    tag:'③ Consumo alimentar', cls:'fa3',
-    txt:'Marcador complementar — aquisição domiciliar de 17 grupos alimentares em kg/per capita/ano (POF 2002/2008/2018). <em>Não mede percepção de insegurança alimentar; qualifica o padrão alimentar domiciliar.</em>',
+    tag:'③ Aquisição domiciliar', cls:'fa3',
+    txt:'Indicador complementar — aquisição domiciliar de 17 grupos alimentares em kg/per capita/ano (POF 2002/2008/2018). <em>Não mede percepção de insegurança alimentar; descreve o que o domicílio adquire.</em>',
   },
   nova4: {tag:'', cls:'fa4', txt:''},
 };
@@ -88648,9 +88648,9 @@ const FAMILIA_DESC = {
 const MODO_INTRO = {
   ebia:    '<strong>Insegurança alimentar (EBIA):</strong> % de domicílios com dificuldade de acesso a alimentos em quantidade ou qualidade suficiente. Clique em uma UF no mapa para comparar com o Brasil.',
   filtros: '<strong>Fatores socioeconômicos e demográficos:</strong> como a insegurança alimentar se distribui por renda, cor/raça, instrução, sexo e composição domiciliar. Use <em>② Fatores socioecon.</em> para escolher um recorte.',
-  pof:     '<strong>Consumo alimentar (POF):</strong> quantidade adquirida por domicílio em kg/per capita/ano — 17 grupos de alimentos (2002/2008/2018). Não mede insegurança alimentar; qualifica o padrão da dieta.',
+  pof:     '<strong>Aquisição domiciliar (POF):</strong> quantidade adquirida por domicílio em kg/per capita/ano — 17 grupos de alimentos (2002/2008/2018). Não mede insegurança alimentar; descreve o que o domicílio adquire.',
   nova4: '',
-  engel:   '<strong>Orçamento familiar (Lei de Engel):</strong> comprometimento da despesa/renda com alimentação por faixa de rendimento, Brasil vs Rio de Janeiro (POF 2008/2017-2018). Quanto menor a renda, maior a proporção do orçamento dedicada à alimentação.',
+  engel:   '<strong>Orçamento familiar (Coeficiente de Engel):</strong> comprometimento da despesa/renda com alimentação por faixa de rendimento, Brasil vs Rio de Janeiro (POF 2008/2017-2018). Quanto menor a renda, maior a proporção do orçamento dedicada à alimentação.',
   regressao: '',
 };
 
@@ -88668,7 +88668,7 @@ function fecharFamilias(){
   document.getElementById('familias-overlay')?.classList.remove('vis');
 }
 
-// ── Família ⑤ — Lei de Engel ───────────────────────────────────────────
+// ── Família ⑤ — Coeficiente de Engel ───────────────────────────────────────────
 function buildEngelChart(){
   const metrica = S.engelMetrica || 'engel_desp';
   const labelMap = {engel_desp:'% da despesa corrente', engel_renda:'% da renda declarada', pct_fora:'% alimentação fora do domicílio'};
@@ -88928,7 +88928,7 @@ function getNacIa(ano){
 function updateKPIs(){
   const ano = getAno();
   const d = NACIONAL[String(ano)];
-  const prev = {2024:2023,2023:2018,2018:2013,2013:2009,2009:2004}[ano];
+  const prev = {2024:2023,2013:2009,2009:2004}[ano];  // v40: sem PNADC x POF nem POF x PNAD (Quadro 4.2.2)
   const dp = prev ? NACIONAL[String(prev)] : null;
 
   // Rotulo + tom dos tres primeiros cards. Precisa ser chamada em TODOS os
@@ -89014,7 +89014,7 @@ function updateKPIs(){
 
   setKpiCards([
     ['Inseg. alimentar total', 'ia'],
-    ['Inseg. grave (fome)',    'iag'],
+    ['Inseg. grave',    'iag'],
     ['Segurança alimentar',    'sa'],
   ]);
   document.getElementById('k-ia').textContent    = fmt(d?.ia);
@@ -89036,19 +89036,17 @@ function updateKPIs(){
     document.getElementById('k-sa-sub').innerHTML  = arrow(d?.sa, dp?.sa, true);
   }
 
-  // Trend card: comparação com 2013 (melhor ano histórico)
+  // Trend card: PNAD 2013 lado a lado, SEM diferenca. Quadro 4.2.2 da dissertacao:
+  // PNAD x PNADC nao e sustentada para tendencia; ver o proprio sub-rotulo.
   const d2013 = NACIONAL['2013'];
-  if(d && d2013){
-    const diff = d.ia - d2013.ia;
-    const color = diff <= 0 ? 'var(--sa)' : 'var(--ia)';
+  if(d2013){
     document.getElementById('k-trend').innerHTML =
-      `<span style="color:${color}">${diff<=0?'▼':'▲'} ${Math.abs(diff).toFixed(1).replace('.', ',')}pp</span>`;
-    document.getElementById('k-trend-lbl').textContent = `vs mínimo histórico (2013)`;
-    document.getElementById('k-trend-sub').innerHTML =
-      `2013: <strong>${d2013.ia.toFixed(1).replace('.', ',')}%</strong> IA`;
+      `<span style="color:var(--muted)">${d2013.ia.toFixed(1).replace('.', ',')}%</span>`;
+    document.getElementById('k-trend-lbl').textContent = 'PNAD 2013, para referência';
+    document.getElementById('k-trend-sub').textContent = 'instrumento diferente: lado a lado, não é variação';
   } else {
     document.getElementById('k-trend').textContent = '—';
-    document.getElementById('k-trend-lbl').textContent = 'vs 2013';
+    document.getElementById('k-trend-lbl').textContent = 'PNAD 2013';
     document.getElementById('k-trend-sub').textContent = '';
   }
 }
@@ -89172,27 +89170,27 @@ function buildLineTraces(){
 
   const traces = [];
 
-  // ── Consumo alimentar (POF grupos) ────────────────────────────────────
+  // ── Aquisição domiciliar (POF grupos) ────────────────────────────────────
   if(S.grupoAlim !== null){
     const g    = GRUPOS_ALIM?.grupos_br?.[S.grupoAlim];
     const anos = [2002, 2008, 2018];
     const vals = anos.map(a => g?.anos?.[String(a)] ?? null);
     // Eixo esquerdo (y): consumo em kg per capita
     traces.push({
-      x:anos, y:vals, mode:'lines+markers', name:'Consumo — Brasil',
+      x:anos, y:vals, mode:'lines+markers', name:'Aquisição — Brasil',
       yaxis:'y',
       line:{color:C.L_pof, width:3.5}, marker:mkr(10,C.L_pof),
-      hovertemplate:'%{y:.1f} kg/per capita<br>%{x}<extra>Consumo Brasil</extra>',
+      hovertemplate:'%{y:.1f} kg/per capita<br>%{x}<extra>Aquisição Brasil</extra>',
     });
     if(S.ufSel){
       const vuf  = anos.map(a => getValGrupo(S.ufSel, S.grupoAlim, a));
       const nome = UF_META[S.ufSel]?.nome || S.ufSel;
       const cor  = S.ufSel === 'RJ' ? C.rj : C.L_uf;
       traces.push({
-        x:anos, y:vuf, mode:'lines+markers', name:'Consumo — '+nome,
+        x:anos, y:vuf, mode:'lines+markers', name:'Aquisição — '+nome,
         yaxis:'y',
         line:{color:cor, width:2.5, dash:'dash'}, marker:mkr(8,cor),
-        hovertemplate:'%{y:.1f} kg/per capita<br>%{x}<extra>Consumo '+nome+'</extra>',
+        hovertemplate:'%{y:.1f} kg/per capita<br>%{x}<extra>Aquisição '+nome+'</extra>',
       });
     }
     // Eixo direito (y2): IA (EBIA) — anos PNAD cobrem o período POF + POF 2018
@@ -89384,7 +89382,7 @@ const LINE_LAYOUT_BASE = {
 // Anotações fixas para o gráfico EBIA (apenas quando não está em modo POF/NOVA4)
 const LINHA_ANNOTS_EBIA = [
   { x:2013, yref:'paper', y:1.0, xanchor:'center', yanchor:'bottom',
-    text:'mín. histórico', showarrow:false,
+    text:'menor da PNAD', showarrow:false,
     font:{size:9.5, color:C.sa}, bgcolor:'rgba(255,255,255,.82)', borderpad:2 },
   { x:2018, yref:'paper', y:1.0, xanchor:'center', yanchor:'bottom',
     text:'POF', showarrow:false,
@@ -89448,13 +89446,13 @@ function updateLine(){
   let tit;
   if(S.grupoAlim !== null){
     const nome = GRUPOS_ALIM?.grupos_br?.[S.grupoAlim]?.nome || '';
-    tit = (nome.length>34 ? nome.substring(0,34)+'…' : nome) + ' + IA (EBIA) — série histórica';
+    tit = (nome.length>34 ? nome.substring(0,34)+'…' : nome) + ' + IA (EBIA) — por inquérito';
   } else if(S.nova4){
     tit = 'NOVA 4 × EBIA — série histórica';
   } else {
     tit = S.ufSel
       ? `Prevalência de IA — Brasil vs ${UF_META[S.ufSel]?.nome||S.ufSel}`
-      : 'Prevalência de IA — série histórica Brasil (EBIA · 2004–2024)';
+      : 'Prevalência de IA — Brasil, por inquérito (EBIA · 2004–2024)';
   }
   document.getElementById('linha-title').textContent = tit;
   renderLegendaLinha();
@@ -89597,7 +89595,7 @@ function renderEstado(){
   const el = document.getElementById('estado-detail');
   const ini = document.getElementById('estado-inicial');
   if(!S.ufSel){
-    // Familia (3) — Consumo alimentar. Sem este branch o painel voltava ao texto
+    // Familia (3) — Aquisição domiciliar. Sem este branch o painel voltava ao texto
     // de introducao mesmo com o mapa ja colorido pelo grupo alimentar ativo.
     if(S.grupoAlim !== null){
       const g     = GRUPOS_ALIM?.grupos_br?.[S.grupoAlim];
@@ -89665,7 +89663,7 @@ function renderEstado(){
         el.innerHTML =
           '<div class="ed-nome" style="color:var(--ia)">Brasil · '+a+'</div>'
           + vr('Insegurança alimentar total', d.ia.toFixed(1).replace('.', ',')+'%', 'var(--ia)')
-          + vr('Insegurança grave (fome)', d.ia_grav.toFixed(1).replace('.', ',')+'%', 'var(--iag)')
+          + vr('Insegurança grave', d.ia_grav.toFixed(1).replace('.', ',')+'%', 'var(--iag)')
           + vr('Segurança alimentar', sa.toFixed(1).replace('.', ',')+'%', 'var(--sa)')
           + '<hr style="margin:7px 0;border:none;border-top:1px solid var(--border)">'
           + (hi?vr('Maior IA', UF_META[hi.u].nome+' ('+hi.ia.toFixed(1).replace('.', ',')+'%)','var(--ia)'):'')
@@ -90007,8 +90005,8 @@ function buildFiltros(){
   // ── Consumo Alimentar (POF 2002-2018) ────────────────────────────────
   if(GRUPOS_ALIM?.lista?.length){
     html += `<div class="fg-fam">
-      <div class="fg-sec">${svgIc(ICONES_SECAO.familia3)}<span>Consumo alimentar</span></div>
-      <small>Marcador complementar — aquisição domiciliar em kg per capita/ano.
+      <div class="fg-sec">${svgIc(ICONES_SECAO.familia3)}<span>Aquisição domiciliar</span></div>
+      <small>Indicador complementar — aquisição domiciliar em kg per capita/ano.
       A variação ao lado de cada grupo é de 2002 a 2018 (POF).</small>
     </div>`;
     html += `<div class="ga-grid">`;
@@ -90132,7 +90130,7 @@ function updateTopbarTag(){
   const txt = document.getElementById('filter-tag-txt');
   if(S.grupoAlim !== null){
     const nome = GRUPOS_ALIM?.grupos_br?.[S.grupoAlim]?.nome || S.grupoAlim;
-    txt.textContent = 'Consumo: ' + (nome.length > 28 ? nome.substring(0,28)+'…' : nome);
+    txt.textContent = 'Aquisição: ' + (nome.length > 28 ? nome.substring(0,28)+'…' : nome);
     el.classList.add('vis');
   } else if(S.filtro!==null && S.catIdx!==null && S.filtro2!==null && S.cat2Idx!==null){
     const lbl1 = FILTROS[S.filtro].label + ': ' + FILTROS[S.filtro].cats[S.catIdx].label;

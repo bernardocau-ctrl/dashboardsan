@@ -1,7 +1,7 @@
 # Painel de Insegurança Alimentar no Brasil
 
 Produto técnico da dissertação de mestrado em Segurança Alimentar e Nutricional
-(PPGSAN/UNIRIO) de Bernardo Castanho Santos Caú.
+(PPGSAN/UNIRIO) de Bernardo Castanho.
 
 Painel interativo com quatro famílias de indicadores: acesso e percepção (EBIA),
 fatores socioeconômicos e demográficos, aquisição domiciliar por grupos
