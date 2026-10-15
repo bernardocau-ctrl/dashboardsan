@@ -1277,6 +1277,61 @@ html, body { height:100%; overflow:hidden; background:var(--fao-ocean); }
 /* dentro do circulo colorido do modal, o icone e branco */
 .fam-num .ic{ width:13px; height:13px; color:#fff; }
 
+
+/* ════════ v41 — abas Desigualdades e Lacunas; painel central sem sobrepor o menu ════════ */
+@media (min-width: 961px){
+  #extra-row{ left:232px; right:18px; transform:none; width:auto; }
+}
+#mode-tabs .tab-modo.desig, #mode-tabs .tab-modo.lacunas{
+  color:#5a6472; border-left:3px solid transparent; border-bottom:1px solid rgba(28,45,64,.06);
+}
+#mode-tabs .tab-modo.desig.ativo, #mode-tabs .tab-modo.lacunas.ativo{
+  background:#F3E7D8; color:#7C332C; border-left-color:var(--fao-accent);
+}
+.v41-panel{ height:auto !important; }
+.v41-ctrl{ display:flex; gap:6px; align-items:center; flex-wrap:wrap; }
+.v41-ctrl select{ font:inherit; font-size:.76rem; padding:3px 6px; border-radius:8px;
+  border:1.5px solid var(--border-strong); background:#fff; color:var(--text); max-width:300px; }
+.v41-btn{ padding:3px 9px; border-radius:10px; border:1.5px solid var(--border-strong);
+  background:transparent; font-size:.72rem; font-weight:600; cursor:pointer; color:var(--text); }
+.v41-btn.ativo{ background:var(--ia); border-color:var(--ia); color:#fff; }
+.v41-btn:disabled{ opacity:.4; cursor:not-allowed; }
+.v41-corpo{ padding:10px 16px 14px; font-size:.8rem; line-height:1.5; color:var(--text); }
+.v41-corpo h3{ font-size:.8rem; font-weight:700; margin:16px 0 6px; color:var(--text); }
+.v41-corpo h3:first-child{ margin-top:4px; }
+.v41-nota{ font-size:.72rem; color:var(--text-soft); line-height:1.5; margin-top:8px; }
+.v41-status{ display:inline-block; font-size:.68rem; font-weight:700; padding:1px 8px; border-radius:9px;
+  background:var(--surface-3); color:var(--text); margin-right:6px; }
+.v41-rolagem{ overflow-x:auto; }
+table.v41-tab{ width:100%; border-collapse:collapse; font-size:.74rem; }
+table.v41-tab th{ text-align:left; font-weight:700; color:var(--text); background:var(--surface-2);
+  padding:5px 7px; border-bottom:1px solid var(--border-strong); vertical-align:bottom; }
+table.v41-tab td{ padding:5px 7px; border-bottom:1px solid var(--border); vertical-align:top; color:var(--text); }
+table.v41-tab td.num{ text-align:right; white-space:nowrap; font-variant-numeric:tabular-nums; }
+table.v41-linha{ border-collapse:separate; border-spacing:2px; font-size:.66rem; min-width:860px; }
+table.v41-linha th{ font-weight:600; color:var(--text-soft); text-align:center; padding:2px; }
+table.v41-linha th.rot{ text-align:left; white-space:nowrap; padding-right:8px; color:var(--text); }
+table.v41-linha td{ height:34px; text-align:center; vertical-align:middle; border-radius:4px; padding:2px;
+  line-height:1.2; color:var(--text); }
+/* Os cartões de KPI (centralizados, fixos) cobriam o topo do painel do estado desde a v39;
+   com a linha de IC95% ficaram mais altos. O painel do estado desce para baixo deles. */
+@media (min-width:1181px){
+  #filtros-wrap{ top:172px; max-height:calc(100vh - 172px - 275px); }
+}
+@media (min-width:1181px) and (max-height:940px){
+  #filtros-wrap{ max-height:calc(100vh - 604px); min-height:0; }
+}
+td.lc-obs{ background:var(--ia-1); font-weight:700; }
+td.lc-pof{ background:var(--nova-1); font-weight:700; }
+td.lc-branco{ background:#E3E6EA; }
+td.lc-naoex{ background:#fff; border:1.5px dashed rgba(28,45,64,.28); color:var(--text-soft) !important; }
+td.lc-ok{ background:#E2EFE9; }
+td.lc-ext{ background:#ECE8F3; }
+.v41-legenda{ display:flex; flex-wrap:wrap; gap:6px 14px; margin-top:6px; font-size:.7rem; color:var(--text-soft); }
+.v41-legenda i{ display:inline-block; width:14px; height:11px; border-radius:3px; margin-right:5px; vertical-align:-1px; }
+.v41-ic{ color:var(--text-soft); font-weight:500; }
+details.v41-det{ margin-top:8px; }
+details.v41-det summary{ cursor:pointer; font-size:.74rem; font-weight:600; color:var(--sel); }
 </style>
 </head>
 <body>
@@ -1294,6 +1349,8 @@ html, body { height:100%; overflow:hidden; background:var(--fao-ocean); }
       <button class="tab-modo pof" id="tab-pof" onclick="setModo('pof')" aria-pressed="false" title="Aquisição domiciliar de grupos alimentares — POF 2002/2008/2018"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.4 9h15.2l-1.3 9.4a2 2 0 0 1-2 1.6H7.7a2 2 0 0 1-2-1.6L4.4 9Z"/><path d="M9 9a3 3 0 0 1 6 0"/><path d="M10 12.8v3.4M14 12.8v3.4"/></svg><span>Aquisição domiciliar</span></button>
       
       <button class="tab-modo engel" id="tab-engel" onclick="setModo('engel')" aria-pressed="false" title="Coeficiente de Engel — comprometimento orçamentário com alimentação por faixa de renda (POF 2008/2017-2018), Brasil vs Rio de Janeiro"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/><path d="M12 4v8h8"/></svg><span>Orçamento familiar</span></button>
+      <button class="tab-modo desig" id="tab-desig" onclick="setModo('desig')" aria-pressed="false" title="Desigualdades no Brasil: prevalência por marcador social com IC95%, diferença absoluta e razão entre grupos (PNAD 2004–2013 e PNADC 2023–2024)"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 20V12M12 20V5M19 20v-9"/><path d="M3 20h18"/></svg><span>Desigualdades</span></button>
+      <button class="tab-modo lacunas" id="tab-lacunas" onclick="setModo('lacunas')" aria-pressed="false" title="Lacunas e comparabilidade: anos com EBIA nos inquéritos, comparações sustentadas e achados sobre a cadeia de informação"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4M8 14h2M14 14h2M8 17h2"/></svg><span>Lacunas e comparabilidade</span></button>
       
     </nav>
     <div style="display:flex;align-items:center;gap:8px">
@@ -1403,6 +1460,56 @@ html, body { height:100%; overflow:hidden; background:var(--fao-ocean); }
       <div style="font-size:.72rem;color:var(--text-faint);padding:8px 14px 4px;line-height:1.5">Fonte: IBGE, POF 2008-2009 e 2017-2018. SIDRA tabelas 1594, 1619, 1783, 1799, 6715, 6972, 6974. Na faixa de menor rendimento (até R$1.908/mês), a despesa corrente média (R$1.448,92) é maior que o rendimento declarado (R$1.236,27). No Rio de Janeiro, o coeficiente de Engel nessa faixa é menor que o do Brasil (17,8% contra 22,8% da despesa); o painel descreve a diferença e não testa a explicação para ela.</div>
     </div>
     
+  
+    <!-- v41: aba Desigualdades -->
+    <div id="panel-desig" class="panel v41-panel" style="display:none">
+      <div class="panel-title">
+        <span>Desigualdades na insegurança alimentar — Brasil, com IC95%</span>
+        <div class="v41-ctrl">
+          <label for="desig-marc" style="font-size:.72rem;color:var(--text-soft)">Marcador</label>
+          <select id="desig-marc" onchange="setDesig('desigMarc', this.value)"></select>
+          <button class="v41-btn" data-g="desf" data-v="ia" onclick="setDesig('desigDesf','ia')">Qualquer grau</button>
+          <button class="v41-btn" data-g="desf" data-v="grave" onclick="setDesig('desigDesf','grave')">Grave</button>
+        </div>
+      </div>
+      <div class="v41-corpo">
+        <h3 id="desig-tit-prev">Prevalência por grupo</h3>
+        <div id="desig-status-prev" class="v41-nota" style="margin-top:0"></div>
+        <div class="chart-wrap" style="height:330px"><div id="div-desig-prev" style="width:100%;height:100%"></div></div>
+        <div id="desig-bloco-contr">
+          <h3>A conclusão depende da escala: diferença absoluta e razão entre grupos</h3>
+          <div class="v41-ctrl" style="margin-bottom:4px">
+            <button class="v41-btn" data-g="esc" data-v="dif" onclick="setDesig('desigEscala','dif')">Diferença absoluta (p.p.)</button>
+            <button class="v41-btn" data-g="esc" data-v="raz" onclick="setDesig('desigEscala','raz')">Razão de prevalência</button>
+          </div>
+          <div class="chart-wrap" style="height:260px"><div id="div-desig-contr" style="width:100%;height:100%"></div></div>
+          <div id="desig-teste"></div>
+        </div>
+        <div id="desig-sem-contr" class="v41-nota" style="display:none"></div>
+        <details class="v41-det"><summary>Tabela com os valores</summary><div class="v41-rolagem" id="desig-tabela"></div></details>
+        <div class="v41-nota" id="desig-nota"></div>
+      </div>
+    </div>
+
+    <!-- v41: aba Lacunas e comparabilidade -->
+    <div id="panel-lacunas" class="panel v41-panel" style="display:none">
+      <div class="panel-title">
+        <span>Lacunas e comparabilidade da EBIA nos inquéritos, 2004–2024</span>
+      </div>
+      <div class="v41-corpo">
+        <h3>Em que anos há observação da EBIA</h3>
+        <div class="v41-rolagem" id="lac-linha"></div>
+        <div class="v41-legenda" id="lac-legenda"></div>
+        <p class="v41-nota" id="lac-leitura"></p>
+        <h3>O que pode ser comparado</h3>
+        <div class="v41-rolagem" id="lac-q422"></div>
+        <details class="v41-det"><summary>Os inquéritos: instrumento, respondente e amostra</summary><div class="v41-rolagem" id="lac-q421"></div></details>
+        <h3>Dez achados sobre a cadeia de informação</h3>
+        <div class="v41-rolagem" id="lac-q541"></div>
+        <p class="v41-nota">Fonte: Quadros 4.2.1, 4.2.2, 5.1.1 e 5.4.1 da dissertação (versão de 13/10/2026) e varredura dos arquivos de microdados da PNADC do 4º trimestre (IBGE). A coluna “Seção” remete à dissertação.</p>
+      </div>
+    </div>
+
   </section>
 
   <!-- SEÇÃO: RANKING DOS ESTADOS -->
@@ -1426,7 +1533,7 @@ html, body { height:100%; overflow:hidden; background:var(--fao-ocean); }
   <details id="nota-metodo">
     <summary>ⓘ Notas metodológicas</summary>
     <div>
-      <p>Este painel organiza indicadores de IAN em quatro famílias: <strong>① acesso e percepção</strong> (EBIA — <em>medida direta</em>), <strong>② fatores socioeconômicos e demográficos</strong> (<em>fatores associados</em> — estratificações da prevalência de IA), <strong>③ aquisição domiciliar</strong> (<em>indicador complementar</em> — grupos alimentares, POF) e <strong>④ orçamento familiar</strong> (<em>indicador complementar</em> — Coeficiente de Engel por faixa de renda). Nenhum indicador isolado esgota o fenômeno — a leitura deve articular essas famílias. As cautelas abaixo são obrigatórias em qualquer combinação. <strong>Estatuto (12/10/2026):</strong> as prevalências são estimativas descritivas dos inquéritos do IBGE; a regressão logística preliminar e a participação de ultraprocessados na aquisição (classificador não validado) foram <em>retiradas</em> desta versão; resultados do Estudo 2 (consumo individual) não estão neste painel. Texto alinhado à dissertação v21 em 15/10/2026.</p>
+      <p>Este painel organiza indicadores de IAN em quatro famílias: <strong>① acesso e percepção</strong> (EBIA — <em>medida direta</em>), <strong>② fatores socioeconômicos e demográficos</strong> (<em>fatores associados</em> — estratificações da prevalência de IA), <strong>③ aquisição domiciliar</strong> (<em>indicador complementar</em> — grupos alimentares, POF) e <strong>④ orçamento familiar</strong> (<em>indicador complementar</em> — Coeficiente de Engel por faixa de renda). Nenhum indicador isolado esgota o fenômeno — a leitura deve articular essas famílias. Duas abas reúnem resultados nacionais da dissertação: <strong>Desigualdades</strong> (prevalência por marcador social com IC95%, diferença absoluta e razão entre grupos) e <strong>Lacunas e comparabilidade</strong> (anos com EBIA, comparações sustentadas e achados sobre a cadeia de informação). As cautelas abaixo são obrigatórias em qualquer combinação. <strong>Estatuto (12/10/2026):</strong> as prevalências são estimativas descritivas dos inquéritos do IBGE; a regressão logística preliminar e a participação de ultraprocessados na aquisição (classificador não validado) foram <em>retiradas</em> desta versão; resultados do Estudo 2 (consumo individual) não estão neste painel. Texto alinhado à dissertação v21 em 15/10/2026; abas Desigualdades e Lacunas e IC95% nacionais acrescentados na mesma data.</p>
       <p><strong>Distinção metodológica fundamental:</strong> apenas a EBIA é <em>medida direta</em> de insegurança alimentar. Os fatores socioeconômicos e demográficos são <em>fatores associados</em> que estratificam a prevalência de IA — mostram quem está mais exposto, mas não constituem nova medida de IA. A aquisição domiciliar (POF) é <em>indicador complementar</em> que descreve o que o domicílio adquire, sem medir percepção de insegurança alimentar nem consumo individual.</p>
 
       <h3>O que é a EBIA</h3>
@@ -1441,7 +1548,7 @@ html, body { height:100%; overflow:hidden; background:var(--fao-ocean); }
       <ul>
         <li>A variação pode ser lida entre <strong>PNADC 2023 e 2024</strong> (mesmo instrumento). Entre PNAD 2004, 2009 e 2013 a comparação é descritiva, com ressalvas e sem teste formal de mudança.</li>
         <li>Entre PNAD, POF e PNADC os valores aparecem <strong>lado a lado</strong>, sem interpretar a diferença como variação: pesquisas, desenhos e contextos distintos.</li>
-        <li>Os segmentos tracejados no gráfico indicam descontinuidade ou mudança de fonte.</li>
+        <li>No gráfico da prevalência, os inquéritos aparecem sem linha entre si: PNAD, POF e PNADC não formam série contínua.</li>
       </ul>
 
       <h3>Aquisição domiciliar de alimentos</h3>
@@ -1454,7 +1561,7 @@ html, body { height:100%; overflow:hidden; background:var(--fao-ocean); }
       <h3>Cautelas gerais de interpretação</h3>
       <ul>
         <li>Nenhum indicador isolado esgota a avaliação da IAN. Este painel reúne dimensões complementares — acesso alimentar, aquisição domiciliar e orçamento familiar — e deve ser lido em conjunto.</li>
-        <li>As estimativas por UF têm intervalos de confiança não exibidos no painel. Diferenças pequenas entre estados podem não ser estatisticamente significativas.</li>
+        <li>As estimativas por UF têm intervalos de confiança não exibidos no painel; as nacionais, nos cartões e na aba Desigualdades, trazem IC95%. Diferenças pequenas entre estados podem não ser estatisticamente significativas.</li>
         <li>O painel usa dados de aquisição domiciliar (POF), não de consumo individual. Perdas, desperdício e compartilhamento fora do domicílio não são capturados.</li>
       </ul>
     </div>
@@ -88561,9 +88668,261 @@ function copiarLink(){
 }
 
 // ── Modo de visualização ──────────────────────────────────────────────
+
+// ════════ v41: abas Desigualdades e Lacunas (dados: gerar_dados_v41.py) ════════
+// Todos os numeros vem do pipeline do Estudo 1 e foram conferidos contra as tabelas
+// da dissertacao v21. Cores: paleta categorica validada (dataviz, modo claro), em
+// ordem fixa; a cor segue a entidade (grupo ou ano), nunca a posicao.
+const V41 = {"gerado":"15/10/2026 por gerar_dados_v41.py a partir das saídas do pipeline do Estudo 1","nacional_ic":{"2023":{"ia":[27.6,27.2,28.0],"grave":[4.1,3.9,4.2],"n":173676},"2024":{"ia":[24.2,23.8,24.5],"grave":[3.2,3.1,3.3],"n":174724},"2004":{"n":112665,"ia":[34.9,34.2,35.6],"grave":[6.9,6.6,7.3]},"2009":{"n":121163,"ia":[30.2,29.6,30.8],"grave":[5.0,4.8,5.2]},"2013":{"n":116543,"ia":[22.6,22.1,23.1],"grave":[3.2,3.1,3.4]},"2018":{"n":57920,"ia":[36.7,35.9,37.5],"grave":[4.6,4.3,4.8]}},"marcadores":[{"id":"sexo","label":"Sexo da pessoa de referência","cats":["Homem","Mulher"]},{"id":"raca","label":"Cor ou raça da pessoa de referência","cats":["Branca","Parda","Preta"]},{"id":"instr","label":"Instrução da pessoa de referência","cats":["Sem instrução","Fund. incompleto","Fund. completo","Médio incompleto","Médio completo","Superior incompleto","Superior completo"]},{"id":"renda","label":"Rendimento domiciliar per capita","cats":["Até 1/4 SM","1/4 a 1/2 SM","1/2 a 1 SM","1 a 2 SM","Mais de 2 SM"]},{"id":"ocup","label":"Posição na ocupação da pessoa de referência","cats":["Trabalhador doméstico","Privado sem carteira","Outros","Conta própria","Privado com carteira","Setor público","Empregador"]},{"id":"regiao","label":"Grande Região","cats":["Norte","Nordeste","Centro-Oeste","Sudeste","Sul"]},{"id":"sit","label":"Situação do domicílio","cats":["Urbana","Rural"]},{"id":"cap","label":"Localização","cats":["Capital","Interior/RM"]},{"id":"mor","label":"Número de moradores","cats":["Até 3","4 a 6","7 ou mais"]},{"id":"cri","label":"Criança menor de 5 anos no domicílio","cats":["Sem criança < 5","Com criança < 5"]},{"id":"ido","label":"Idoso de 60 anos ou mais no domicílio","cats":["Sem idoso","Com idoso"]}],"prev":{"sexo":{"Homem":{"2023":{"ia":[23.2,22.7,23.7],"grave":[3.5,3.3,3.7],"n":82792},"2024":{"ia":[20.1,19.7,20.6],"grave":[2.8,2.7,3.0],"n":83101},"2004":{"n":81392,"ia":[33.2,32.4,33.9],"grave":[6.2,5.8,6.5]},"2009":{"n":79121,"ia":[28.1,27.4,28.7],"grave":[4.4,4.1,4.6]},"2013":{"n":71325,"ia":[20.9,20.3,21.4],"grave":[2.8,2.7,3.0]}},"Mulher":{"2023":{"ia":[31.7,31.1,32.2],"grave":[4.6,4.4,4.9],"n":90884},"2024":{"ia":[27.9,27.4,28.4],"grave":[3.6,3.4,3.7],"n":91623},"2004":{"n":31273,"ia":[39.7,38.8,40.5],"grave":[9.1,8.6,9.5]},"2009":{"n":42042,"ia":[34.4,33.6,35.1],"grave":[6.2,5.9,6.5]},"2013":{"n":45218,"ia":[25.4,24.8,26.0],"grave":[3.9,3.7,4.1]}}},"raca":{"Branca":{"2023":{"ia":[19.0,18.5,19.5],"grave":[2.3,2.1,2.4],"n":67967},"2024":{"ia":[16.6,16.1,17.0],"grave":[1.9,1.7,2.0],"n":67991},"2004":{"n":55495,"ia":[24.7,24.0,25.3],"grave":[3.8,3.5,4.0]},"2009":{"n":55299,"ia":[21.4,20.8,22.0],"grave":[2.6,2.4,2.8]},"2013":{"n":50372,"ia":[14.4,14.0,14.9],"grave":[1.7,1.6,1.8]}},"Preta":{"2023":{"ia":[35.2,34.2,36.2],"grave":[5.6,5.2,6.1],"n":19665},"2024":{"ia":[31.1,30.1,32.0],"grave":[4.4,4.1,4.8],"n":20103},"2004":{"n":8403,"ia":[47.1,45.5,48.7],"grave":[11.4,10.5,12.3]},"2009":{"n":10675,"ia":[40.4,39.1,41.6],"grave":[8.1,7.5,8.8]},"2013":{"n":11674,"ia":[30.7,29.6,31.9],"grave":[5.2,4.7,5.8]}},"Parda":{"2023":{"ia":[33.6,33.1,34.2],"grave":[5.3,5.1,5.6],"n":83804},"2024":{"ia":[29.3,28.8,29.8],"grave":[4.1,3.9,4.3],"n":84619},"2004":{"n":48040,"ia":[46.9,45.9,47.9],"grave":[10.6,9.9,11.2]},"2009":{"n":54340,"ia":[38.8,38.0,39.7],"grave":[7.2,6.9,7.6]},"2013":{"n":53400,"ia":[29.6,28.9,30.3],"grave":[4.4,4.2,4.7]}},"Amarela":{"2023":{"ia":[21.0,17.7,24.3],"grave":[3.6,2.2,5.0],"n":1164},"2024":{"ia":[15.5,12.4,18.6],"grave":[1.9,0.7,3.2],"n":959}},"Indígena":{"2023":{"ia":[38.3,34.1,42.4],"grave":[10.4,7.6,13.1],"n":1057},"2024":{"ia":[35.6,31.5,39.8],"grave":[8.9,6.7,11.2],"n":1032}},"Ignorada":{"2023":{"ia":[5.3,-3.7,14.4],"grave":[0.7,-0.8,2.2],"n":19},"2024":{"ia":[25.2,-2.8,53.2],"grave":[16.8,-11.6,45.3],"n":20}}},"instr":{"Sem instrução":{"2023":{"ia":[38.4,37.2,39.6],"grave":[9.3,8.6,10.0],"n":14105},"2024":{"ia":[33.7,32.5,35.0],"grave":[7.1,6.4,7.7],"n":12549}},"Fund. incompleto":{"2023":{"ia":[36.3,35.6,36.9],"grave":[6.8,6.5,7.1],"n":57121},"2024":{"ia":[32.6,32.0,33.2],"grave":[5.6,5.3,5.9],"n":55996}},"Fund. completo":{"2023":{"ia":[31.2,30.1,32.4],"grave":[4.7,4.2,5.2],"n":13383},"2024":{"ia":[28.0,26.9,29.1],"grave":[3.6,3.2,4.0],"n":13151}},"Médio incompleto":{"2023":{"ia":[34.9,33.5,36.2],"grave":[4.7,4.1,5.3],"n":9028},"2024":{"ia":[31.0,29.6,32.4],"grave":[4.1,3.5,4.6],"n":9026}},"Médio completo":{"2023":{"ia":[26.6,26.0,27.2],"grave":[2.9,2.6,3.1],"n":46319},"2024":{"ia":[22.9,22.3,23.5],"grave":[2.2,2.0,2.4],"n":48825}},"Superior incompleto":{"2023":{"ia":[20.2,18.8,21.7],"grave":[2.0,1.5,2.5],"n":6036},"2024":{"ia":[19.6,18.3,21.0],"grave":[1.8,1.4,2.3],"n":6036}},"Superior completo":{"2023":{"ia":[11.3,10.8,11.9],"grave":[0.6,0.5,0.7],"n":27684},"2024":{"ia":[9.9,9.4,10.4],"grave":[0.5,0.4,0.6],"n":29141}}},"ocup":{"Privado com carteira":{"2023":{"ia":[19.3,18.6,20.0],"grave":[1.6,1.4,1.9],"n":27373},"2024":{"ia":[16.6,16.0,17.3],"grave":[1.3,1.1,1.4],"n":28786}},"Trabalhador doméstico":{"2023":{"ia":[42.2,40.6,43.7],"grave":[6.1,5.4,6.8],"n":7713},"2024":{"ia":[37.7,36.2,39.3],"grave":[5.2,4.5,5.8],"n":7397}},"Privado sem carteira":{"2023":{"ia":[34.1,32.8,35.3],"grave":[5.0,4.4,5.5],"n":10993},"2024":{"ia":[29.4,28.2,30.6],"grave":[4.2,3.7,4.6],"n":11739}},"Setor público":{"2023":{"ia":[16.0,15.2,16.9],"grave":[1.1,0.9,1.3],"n":13763},"2024":{"ia":[14.2,13.4,15.0],"grave":[0.9,0.7,1.1],"n":14286}},"Empregador":{"2023":{"ia":[7.7,6.7,8.8],"grave":[0.4,0.2,0.6],"n":4797},"2024":{"ia":[7.3,6.3,8.3],"grave":[0.6,0.3,0.9],"n":4845}},"Conta própria":{"2023":{"ia":[26.8,26.1,27.6],"grave":[3.6,3.3,3.9],"n":30833},"2024":{"ia":[23.6,22.9,24.3],"grave":[2.9,2.6,3.1],"n":31131}},"Outros":{"2023":{"ia":[33.3,32.7,33.9],"grave":[6.1,5.8,6.3],"n":78204},"2024":{"ia":[29.5,29.0,30.1],"grave":[4.7,4.5,5.0],"n":76540}}},"sit":{"Urbana":{"2023":{"ia":[26.6,26.2,27.1],"grave":[3.9,3.7,4.1],"n":128970},"2024":{"ia":[23.2,22.8,23.7],"grave":[3.0,2.9,3.2],"n":129583}},"Rural":{"2023":{"ia":[34.4,33.5,35.3],"grave":[5.5,5.1,5.8],"n":44706},"2024":{"ia":[31.3,30.5,32.2],"grave":[4.6,4.2,4.9],"n":45141}}},"regiao":{"Sul":{"2023":{"ia":[16.5,15.8,17.3],"grave":[2.0,1.8,2.2],"n":30633},"2024":{"ia":[13.6,12.9,14.2],"grave":[1.7,1.5,1.9],"n":31368}},"Sudeste":{"2023":{"ia":[23.0,22.3,23.7],"grave":[2.9,2.7,3.2],"n":47854},"2024":{"ia":[19.7,19.0,20.3],"grave":[2.3,2.1,2.5],"n":47742}},"Centro-Oeste":{"2023":{"ia":[24.4,23.3,25.6],"grave":[3.6,3.2,4.1],"n":17538},"2024":{"ia":[20.5,19.4,21.5],"grave":[2.8,2.5,3.1],"n":17422}},"Nordeste":{"2023":{"ia":[38.9,38.1,39.7],"grave":[6.3,6.0,6.6],"n":56287},"2024":{"ia":[34.8,34.0,35.6],"grave":[4.8,4.5,5.1],"n":56957}},"Norte":{"2023":{"ia":[39.9,38.5,41.3],"grave":[7.7,7.1,8.4],"n":21364},"2024":{"ia":[37.6,36.2,39.0],"grave":[6.3,5.7,6.9],"n":21235}}},"mor":{"Até 3":{"2023":{"ia":[25.5,25.0,25.9],"grave":[4.1,3.9,4.3],"n":128610},"2024":{"ia":[22.7,22.3,23.1],"grave":[3.3,3.1,3.4],"n":131058}},"4 a 6":{"2023":{"ia":[32.7,32.0,33.5],"grave":[3.9,3.6,4.1],"n":42718},"2024":{"ia":[27.6,27.0,28.3],"grave":[2.7,2.5,3.0],"n":41596}},"7 ou mais":{"2023":{"ia":[46.4,43.5,49.2],"grave":[9.1,7.7,10.6],"n":2348},"2024":{"ia":[46.3,43.2,49.4],"grave":[8.7,7.1,10.3],"n":2070}}},"cri":{"Sem criança < 5":{"2023":{"ia":[26.0,25.6,26.4],"grave":[4.1,3.9,4.2],"n":149962},"2024":{"ia":[23.0,22.6,23.4],"grave":[3.2,3.1,3.4],"n":151676}},"Com criança < 5":{"2023":{"ia":[36.5,35.5,37.5],"grave":[4.2,3.8,4.5],"n":23714},"2024":{"ia":[31.1,30.2,32.0],"grave":[3.0,2.7,3.3],"n":23048}}},"ido":{"Sem idoso":{"2023":{"ia":[29.5,29.0,30.0],"grave":[4.3,4.1,4.5],"n":108424},"2024":{"ia":[25.3,24.8,25.7],"grave":[3.4,3.2,3.5],"n":108779}},"Com idoso":{"2023":{"ia":[23.7,23.1,24.2],"grave":[3.6,3.4,3.8],"n":65252},"2024":{"ia":[21.8,21.3,22.3],"grave":[2.9,2.7,3.1],"n":65945}}},"cap":{"Interior/RM":{"2023":{"ia":[28.4,27.9,28.9],"grave":[4.2,4.0,4.3],"n":132325},"2024":{"ia":[24.6,24.1,25.0],"grave":[3.2,3.0,3.3],"n":132806}},"Capital":{"2023":{"ia":[25.1,24.3,26.0],"grave":[3.9,3.6,4.2],"n":41351},"2024":{"ia":[22.8,22.0,23.6],"grave":[3.3,3.0,3.5],"n":41918}}},"renda":{"1 a 2 SM":{"2023":{"ia":[19.1,18.5,19.6],"grave":null,"n":null},"2024":{"ia":[18.5,18.0,19.0],"grave":null,"n":null}},"1/2 a 1 SM":{"2023":{"ia":[33.5,32.8,34.1],"grave":null,"n":null},"2024":{"ia":[31.9,31.2,32.6],"grave":null,"n":null}},"1/4 a 1/2 SM":{"2023":{"ia":[49.7,48.8,50.7],"grave":null,"n":null},"2024":{"ia":[47.6,46.6,48.6],"grave":null,"n":null}},"Até 1/4 SM":{"2023":{"ia":[56.7,55.5,57.9],"grave":null,"n":null},"2024":{"ia":[50.4,49.1,51.7],"grave":null,"n":null}},"Mais de 2 SM":{"2023":{"ia":[7.4,6.9,7.8],"grave":null,"n":null},"2024":{"ia":[7.4,6.9,7.8],"grave":null,"n":null}}}},"contr":{"sexo":{"Mulher":{"2023":{"ia":{"dif":[8.49,7.9,9.08],"raz":[1.37,1.34,1.4]},"grave":{"dif":[1.15,0.9,1.4],"raz":[1.33,1.25,1.41]}},"2024":{"ia":{"dif":[7.81,7.27,8.36],"raz":[1.39,1.36,1.42]},"grave":{"dif":[0.74,0.52,0.96],"raz":[1.26,1.18,1.35]}},"2004":{"ia":{"dif":[6.51,5.7,7.32],"raz":[1.2,1.17,1.22]},"grave":{"dif":[2.89,2.46,3.32],"raz":[1.47,1.38,1.56]}},"2009":{"ia":{"dif":[6.3,5.55,7.05],"raz":[1.22,1.2,1.25]},"grave":{"dif":[1.83,1.5,2.17],"raz":[1.42,1.33,1.51]}},"2013":{"ia":{"dif":[4.5,3.85,5.14],"raz":[1.22,1.18,1.25]},"grave":{"dif":[1.09,0.85,1.34],"raz":[1.39,1.29,1.49]}}}},"raca":{"Preta":{"2023":{"ia":{"dif":[16.15,15.08,17.23],"raz":[1.85,1.78,1.92]},"grave":{"dif":[3.34,2.89,3.8],"raz":[2.46,2.22,2.72]}},"2024":{"ia":{"dif":[14.51,13.48,15.54],"raz":[1.88,1.8,1.95]},"grave":{"dif":[2.56,2.17,2.96],"raz":[2.36,2.11,2.64]}},"2004":{"ia":{"dif":[22.46,20.84,24.08],"raz":[1.91,1.84,1.99]},"grave":{"dif":[7.66,6.78,8.53],"raz":[3.04,2.78,3.33]}},"2009":{"ia":{"dif":[18.98,17.68,20.29],"raz":[1.89,1.82,1.96]},"grave":{"dif":[5.55,4.88,6.22],"raz":[3.14,2.84,3.48]}},"2013":{"ia":{"dif":[16.29,15.1,17.47],"raz":[2.13,2.03,2.23]},"grave":{"dif":[3.54,2.99,4.09],"raz":[3.07,2.7,3.49]}}},"Parda":{"2023":{"ia":{"dif":[14.6,13.94,15.26],"raz":[1.77,1.72,1.82]},"grave":{"dif":[3.03,2.76,3.3],"raz":[2.32,2.15,2.51]}},"2024":{"ia":{"dif":[12.74,12.12,13.36],"raz":[1.77,1.72,1.82]},"grave":{"dif":[2.17,1.94,2.4],"raz":[2.15,1.98,2.34]}},"2004":{"ia":{"dif":[22.28,21.29,23.26],"raz":[1.9,1.85,1.96]},"grave":{"dif":[6.8,6.21,7.4],"raz":[2.81,2.63,3.0]}},"2009":{"ia":{"dif":[17.43,16.6,18.27],"raz":[1.82,1.76,1.87]},"grave":{"dif":[4.66,4.31,5.01],"raz":[2.8,2.61,3.0]}},"2013":{"ia":{"dif":[15.15,14.45,15.85],"raz":[2.05,1.98,2.12]},"grave":{"dif":[2.71,2.44,2.97],"raz":[2.58,2.37,2.82]}}}},"instr":{"Sem instrução":{"2023":{"ia":{"dif":[27.1,25.77,28.43],"raz":[3.39,3.2,3.6]},"grave":{"dif":[8.67,7.96,9.39],"raz":[15.15,12.49,18.37]}},"2024":{"ia":{"dif":[23.83,22.52,25.15],"raz":[3.41,3.21,3.63]},"grave":{"dif":[6.54,5.87,7.21],"raz":[13.44,10.7,16.88]}}},"Fund. incompleto":{"2023":{"ia":{"dif":[24.94,24.07,25.8],"raz":[3.2,3.04,3.38]},"grave":{"dif":[6.19,5.86,6.51],"raz":[11.09,9.22,13.33]}},"2024":{"ia":{"dif":[22.72,21.95,23.49],"raz":[3.3,3.13,3.47]},"grave":{"dif":[5.06,4.76,5.36],"raz":[10.63,8.61,13.13]}}},"Fund. completo":{"2023":{"ia":{"dif":[19.92,18.67,21.18],"raz":[2.76,2.6,2.93]},"grave":{"dif":[4.05,3.53,4.57],"raz":[7.61,6.18,9.37]}},"2024":{"ia":{"dif":[18.13,16.95,19.31],"raz":[2.83,2.67,3.01]},"grave":{"dif":[3.1,2.66,3.53],"raz":[6.89,5.44,8.72]}}},"Médio incompleto":{"2023":{"ia":{"dif":[23.52,22.07,24.98],"raz":[3.08,2.89,3.27]},"grave":{"dif":[4.09,3.52,4.67],"raz":[7.68,6.19,9.52]}},"2024":{"ia":{"dif":[21.13,19.7,22.57],"raz":[3.14,2.94,3.35]},"grave":{"dif":[3.53,2.98,4.08],"raz":[7.72,6.03,9.89]}}},"Médio completo":{"2023":{"ia":{"dif":[15.26,14.46,16.07],"raz":[2.35,2.23,2.48]},"grave":{"dif":[2.25,2.01,2.49],"raz":[4.67,3.85,5.66]}},"2024":{"ia":{"dif":[13.01,12.3,13.72],"raz":[2.32,2.2,2.44]},"grave":{"dif":[1.68,1.47,1.9],"raz":[4.2,3.37,5.24]}}},"Superior incompleto":{"2023":{"ia":{"dif":[8.92,7.43,10.41],"raz":[1.79,1.64,1.94]},"grave":{"dif":[1.42,0.92,1.91],"raz":[3.31,2.46,4.46]}},"2024":{"ia":{"dif":[9.75,8.33,11.17],"raz":[1.99,1.83,2.16]},"grave":{"dif":[1.32,0.9,1.75],"raz":[3.52,2.6,4.75]}}}}},"renda_ext":{"fA":{"dif_2023_pp":{"v":[49.3,48.03,50.58],"p":0.0},"dif_2024_pp":{"v":[43.08,41.72,44.44],"p":0.0},"variacao_dif_2024_2023_pp":{"v":[-6.22,-8.03,-4.41],"p":1.52001519918069e-11},"razao_2023":{"v":[7.69,7.24,8.18],"p":0.0},"razao_2024":{"v":[6.86,6.45,7.29],"p":0.0},"razao_das_razoes_2024_2023":{"v":[0.891,0.82,0.968],"p":0.00656865261702248}},"fB":{"dif_2023_pp":{"v":[49.3,48.03,50.58],"p":0.0},"dif_2024_pp":{"v":[43.44,42.13,44.76],"p":0.0},"variacao_dif_2024_2023_pp":{"v":[-5.86,-7.62,-4.1],"p":7.7566072473552e-11},"razao_2023":{"v":[7.69,7.24,8.18],"p":0.0},"razao_2024":{"v":[7.39,6.92,7.89],"p":0.0},"razao_das_razoes_2024_2023":{"v":[0.96,0.881,1.047],"p":0.360054270257003}}},"inter":{"sexo":{"ia":{"mult":0.303597462574634,"adit":0.0908410388096196},"grave":{"mult":0.254409897671766,"adit":0.0123119982029039}},"raca":{"ia":{"mult":0.808597537291358,"adit":4.95091133089978e-05},"grave":{"mult":0.400598645659388,"adit":2.14522105077586e-06}},"instr":{"ia":{"mult":0.177412783241832,"adit":1.25203716679868e-05},"grave":{"mult":0.734491495320275,"adit":8.71370400287525e-09}}},"mudanca":{"Brasil":{"ia":[-3.44,-3.94,-2.93],"mg":[-1.66,-1.95,-1.37],"grave":[-0.88,-1.07,-0.7]},"Sexo: Homem":{"ia":[-3.08,-3.69,-2.48],"grave":[-0.67,-0.9,-0.43]},"Sexo: Mulher":{"ia":[-3.76,-4.42,-3.09],"grave":[-1.08,-1.34,-0.83]},"Raça/cor: Branca":{"ia":[-2.47,-3.08,-1.86],"grave":[-0.41,-0.61,-0.2]},"Raça/cor: Preta":{"ia":[-4.11,-5.44,-2.77],"grave":[-1.18,-1.74,-0.63]},"Raça/cor: Parda":{"ia":[-4.33,-5.04,-3.62],"grave":[-1.27,-1.56,-0.97]},"Instrução: Sem instrução":{"ia":[-4.71,-6.36,-3.06],"grave":[-2.22,-3.16,-1.29]},"Instrução: Fund. incompleto":{"ia":[-3.66,-4.53,-2.79],"grave":[-1.21,-1.62,-0.8]},"Instrução: Fund. completo":{"ia":[-3.23,-4.74,-1.73],"grave":[-1.04,-1.69,-0.39]},"Instrução: Médio incompleto":{"ia":[-3.84,-5.71,-1.96],"grave":[-0.65,-1.42,0.12]},"Instrução: Médio completo":{"ia":[-3.7,-4.51,-2.89],"grave":[-0.66,-0.94,-0.37]},"Instrução: Superior incompleto":{"ia":[-0.61,-2.55,1.33],"grave":[-0.18,-0.82,0.45]},"Instrução: Superior completo":{"ia":[-1.44,-2.15,-0.74],"grave":[-0.09,-0.24,0.06]}},"varredura":{"2016":{"registros":570556,"preenchidos":0,"em_branco":570556},"2017":{"registros":561288,"preenchidos":0,"em_branco":561288},"2018":{"registros":554211,"preenchidos":0,"em_branco":554211},"2019":{"registros":542802,"preenchidos":0,"em_branco":542802},"2021":{"registros":461795,"preenchidos":0,"em_branco":461795},"2023":{"registros":473206,"preenchidos":473206,"em_branco":0},"2024":{"registros":469334,"preenchidos":469334,"em_branco":0}},"q421":[["Inquérito","Anos","EBIA","Respondente","Amostra e peso","Uso"],["PNAD tradicional (reponderada)","2004, 2009, 2013","2013: 14 itens (V2103 a V2134), classificação recalculada pelo IBGE com a escala de 2009; período de referência de 2013 e itens e período de 2004 e 2009 sem verificação documental¹","2013: pessoa moradora do domicílio (V2101); 2004 e 2009 sem verificação documental¹","Domicílios; peso, estrato e unidade primária de amostragem (dicionários de 2004, 2009 e 2013), usados com o prefixo da UF","Estudo 1"],["POF","2017-2018","14 itens; classificação oficial (Apêndice D); três meses","Informante da unidade de consumo (em geral, a pessoa de referência)","Conglomerados em dois estágios; estrato, unidade primária de amostragem e peso final da POF (Apêndice D)","Estudo 1 (prevalência) e Estudo 2"],["PNADC, 4º trimestre","2023, 2024","14 itens, três meses, classificação oficial (dicionário do IBGE); módulo presente no 4º trimestre de 2023 e de 2024","Sem documentação nesta dissertação¹","Peso calibrado; Estrato, UPA e 200 pesos replicados; peso sem calibração e outra variável de ponderação disponíveis (Apêndice D)","Estudo 1"],["VIGISAN (Rede PENSSAN)","2021, 2022","EBIA própria da Rede PENSSAN (número de itens e respondente sem verificação documental)","Sem documentação nesta dissertação¹","Amostra própria da Rede PENSSAN","Contexto externo; não compõe série"]],"q422":[["Comparação","Classe","Fundamento","Uso nesta dissertação"],["PNADC 2023 × 2024","Sustentada","Mesmo instrumento (14 itens, três meses), mesma classificação oficial e mesmo desenho; rotação de 17,6% dos domicílios considerada na variância","Variação da prevalência e das desigualdades (5.1.3 a 5.1.5)"],["PNAD 2004 × 2009 × 2013","Descritiva, com ressalvas específicas","Mesma família de pesquisa e classificação recalculada pelo IBGE com a escala de 2009; totais nacionais coincidem com as publicações; valores por grupo não reconciliados com publicações; itens e período de 2004 e 2009 sem verificação documental","Tabelas 5.1, 5.4, 5.6 e 5.8 e Quadros 5.1.3 e 5.1.4; sem teste formal de mudança entre anos"],["PNAD 2013 × POF 2017-2018","Dependente de harmonização","Pesquisas distintas (domiciliar e de orçamentos), com amostra, período, informante e contexto diferentes, mesmo com 14 itens; sem estudo de equivalência","Lado a lado, sem interpretar a diferença como variação"],["POF 2017-2018 × PNADC 2023","Não sustentada para tendência","Pesquisas, desenhos e contextos distintos e EBIA em branco nos arquivos PNADC T4 de 2016 a 2019 e de 2021 examinados","Lado a lado, sem interpretar a diferença como variação"],["PNAD 2004 ou 2009 × PNADC 2023 ou 2024","Não sustentada para tendência","Quase duas décadas, instrumento, desenho e contexto distintos","Contexto histórico, sem série contínua"],["VIGISAN × inquéritos do IBGE","Não sustentada","Instrumento, amostra e período próprios; número de itens não verificado","Contexto externo, em tabela separada"]],"q511":[["Ano (T4)","Situação dos campos da EBIA"],["2014","Arquivo não examinado (ausente do repositório local)"],["2015","Arquivo não examinado (ausente do repositório local)"],["2016","Em branco em todos os 570.556 registros"],["2017","Em branco em todos os 561.288 registros"],["2018","Em branco em todos os 554.211 registros"],["2019","Em branco em todos os 542.802 registros"],["2020","Arquivo não examinado (ausente do repositório local)"],["2021","Em branco em todos os 461.795 registros"],["2022","Arquivo não examinado (ausente do repositório local)"],["2023","Preenchidos em todos os 473.206 registros"],["2024","Preenchidos em todos os 469.334 registros"]],"q541":[["Achado","Onde aparece","O que condiciona na leitura","Situação"],["[Fonte] EBIA em branco nos arquivos PNADC T4 de 2016 a 2019 e de 2021 (de 570.556 a 461.795 registros); arquivos de 2014, 2015, 2020 e 2022 não examinados","Quadro 5.1.1; 4.2","Sem observação da EBIA por inquérito do IBGE entre a POF 2017-2018 e a PNADC de 2023 nos arquivos examinados; não se afirma ausência de coleta","Documentado; quatro arquivos não examinados (limitação)"],["[Fonte] Mudança de instrumento, desenho e contexto entre PNAD, POF e PNADC","Quadro 4.2.1; 5.1.1","Comparações entre inquéritos são séries com quebras assinaladas, sem teste formal de diferença","Documentado; itens e respondente da PNAD 2004 e 2009 e respondente da PNADC sem verificação documental (limitação)"],["[Fonte] VIGISAN com instrumento e amostra próprios (número de itens e respondente não verificados)","4.2; 5.1.1","Tratado como contexto externo, em tabela separada, sem compor série","Documentado"],["[Fonte] Faixas de renda de 2024: o SIDRA 9558 usa salário mínimo de R$ 1.320 e a variável de faixa dos microdados, R$ 1.412; a variável de faixa dos microdados e o SIDRA diferem por definição, não por erro","5.1.3; 5.1.4","Reconstruídas a partir do rendimento domiciliar per capita habitual, as faixas com R$ 1.320 reproduzem as contagens do SIDRA em até 0,04% e as prevalências em até 0,03 p.p.; a razão entre extremos diminui com R$ 1.320 e não com o salário mínimo de cada ano","Resolvido quanto à origem; conclusão relativa restrita (Quadros 5.1.5 e 5.1.6)"],["[Processamento] PNAD reponderada de 2004 a 2013 processada a partir dos microdados","5.1.3; Tabelas 5.6 e 5.8","Totais nacionais coincidem com as publicações (34,9%; 30,2%; 22,6%); valores por sexo e raça/cor não reconciliados com publicações; IC95% calculados (Quadros 5.1.3 e 5.1.4)","Parcialmente resolvido: totais nacionais conferidos; valores por sexo e raça/cor não reconciliados com publicações do IBGE (limitação)"],["[Fonte] Sinal \"-\" na tabela 2393 do SIDRA: 3.018 células (nenhuma no Brasil; 1,1% a 2,3% por região; 8,2% a 10,1% por UF e ano)","4.7","Convenção do IBGE (zero absoluto) não confirmada nas notas da tabela; o processamento omitia essas linhas","Documentado; convenção não conferida nas notas da própria tabela (limitação)"],["[Fonte] Módulo de consumo individual da POF sem domínio planejado por Unidade da Federação","4.4; 6.6","O Estudo 2 se apresenta para o Brasil e, como análise secundária, para as Grandes Regiões; UF e Rio de Janeiro ficam fora da Onda 1","Documentado"],["[Processamento] Classificação NOVA da aquisição com defeitos lógicos corrigidos; valores divergem dos publicados (10,7% para 15,2% contra 12,6% e 18,4%)","5.3.3; Apêndice B","Composição NOVA da aquisição mantida no apêndice como exercício metodológico não validado; não integra os resultados nem o painel","Resolvido por delimitação (apêndice); validação, se desejada, é trabalho futuro"],["[Processamento] Pesos replicados da PNADC usados apenas em sensibilidade","4.4","Variância principal por Taylor; erro-padrão por réplicas entre 0,91 e 1,13 vezes o de Taylor (mediana 0,99) em 20 estimativas; fator de escala não verificado em documento do IBGE","Documentado; especificação oficial do estimador por réplicas não verificada (limitação)"],["[Fonte e processamento] Desenho empilhado 2023-2024: 17,6% dos domicílios de 2024 também estão em 2023; chave comum não prova identidade do domicílio","4.5; 5.1.4","Dependência considerada no nível da UPA, não do domicílio","Documentado"]]};
+const V41_COR = ['#2563A8', '#8B2E3A', '#B4833B'];
+const V41_ANO_COR = {'2023': '#2563A8', '2024': '#8B2E3A'};
+const V41_FONT = {family:'Inter, sans-serif', size:12, color:'#1B2A38'};
+const V41_EST = {
+  prev: '<span class="v41-status">Principal, descritiva</span>',
+  pnad: '<span class="v41-status">Intervalos de 2004 a 2013: complementar retrospectiva</span>',
+  mud: '<span class="v41-status">Planejada, não pré-registrada</span>',
+  expl: '<span class="v41-status">Exploratória</span>',
+};
+S.desigMarc = 'sexo'; S.desigDesf = 'ia'; S.desigEscala = 'dif';
+
+function v41f(v, nd=1){ return v == null ? '—' : Number(v).toFixed(nd).replace('.', ','); }
+function v41esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;'); }
+function v41p(p){ return p < 0.001 ? 'p < 0,001' : 'p = ' + v41f(p, 3); }
+function v41ic(t, nd=1){ return t ? v41f(t[0], nd) + ' (' + v41f(t[1], nd) + ' a ' + v41f(t[2], nd) + ')' : '—'; }
+
+function setDesig(k, v){ S[k] = v; buildDesig(); }
+
+function v41Layout(extra){
+  return Object.assign({
+    margin:{t:14, r:16, l:60, b:44}, font:V41_FONT,
+    paper_bgcolor:'transparent', plot_bgcolor:'transparent',
+    legend:{orientation:'h', y:1.12, x:0},
+    hoverlabel:{bgcolor:'#fff', bordercolor:'rgba(28,45,64,.2)', font:{color:'#1B2A38', size:12}},
+  }, extra);
+}
+
+// Série no tempo (PNAD 2004-2013 | PNADC 2023-2024): uma linha por entidade, com a
+// quebra entre os inquéritos marcada e SEM segmento ligando 2013 a 2023.
+function v41Tempo(div, series, ysuf, logy){
+  const wrap = document.getElementById(div).parentElement;
+  if(wrap) wrap.style.height = (div === 'div-desig-prev' ? 330 : 260) + 'px';
+  const anos = [...new Set(series.flatMap(sr => sr.pts.map(p => +p.ano)))].sort((a,b)=>a-b);
+  const traces = series.map(sr => {
+    const xs=[], ys=[], up=[], dn=[], cd=[];
+    anos.forEach((a, k) => {
+      if(k > 0 && anos[k-1] < 2018 && a > 2018){ xs.push(2018); ys.push(null); up.push(null); dn.push(null); cd.push(['','','']); }
+      const p = sr.pts.find(q => +q.ano === a);
+      xs.push(a);
+      if(p){ ys.push(p.v[0]); up.push(p.v[2]-p.v[0]); dn.push(p.v[0]-p.v[1]); cd.push([v41f(p.v[1], p.nd), v41f(p.v[2], p.nd), p.n ? 'n = ' + p.n.toLocaleString('pt-BR') + ' domicílios' : '']); }
+      else { ys.push(null); up.push(null); dn.push(null); cd.push(['','','']); }
+    });
+    return {x:xs, y:ys, name:sr.nome, type:'scatter', mode:'lines+markers', connectgaps:false,
+      line:{color:sr.cor, width:2}, marker:{size:9, color:sr.cor, line:{color:'#fff', width:2}},
+      error_y:{type:'data', array:up, arrayminus:dn, color:sr.cor, thickness:1.5, width:4},
+      customdata:cd,
+      hovertemplate:'<b>'+v41esc(sr.nome)+'</b> · %{x}<br>%{y:.'+(series[0].pts[0]?.nd||1)+'f}'+ysuf+' (IC95% %{customdata[0]} a %{customdata[1]})<br>%{customdata[2]}<extra></extra>'};
+  });
+  const layout = v41Layout({
+    xaxis:{tickvals:anos, ticktext:anos.map(String), range:[anos[0]-1, anos[anos.length-1]+1], showgrid:false, zeroline:false},
+    yaxis:{ticksuffix:ysuf, rangemode:logy ? undefined : 'tozero', type:logy ? 'log' : 'linear', gridcolor:'rgba(22,28,36,0.09)', zeroline:false},
+    shapes:[{type:'line', x0:2018, x1:2018, yref:'paper', y0:0, y1:1, line:{color:'rgba(28,45,64,.35)', width:1, dash:'dot'}}],
+    annotations:[{x:2018, yref:'paper', y:1, text:'PNAD → PNADC:<br>sem série contínua', showarrow:false,
+      font:{size:10, color:'#51606E'}, bgcolor:'rgba(255,255,255,.85)', yanchor:'top'}],
+  });
+  if(wrap) layout.height = parseInt(wrap.style.height, 10);
+  if(logy) layout.shapes.push({type:'line', xref:'paper', x0:0, x1:1, y0:1, y1:1, line:{color:'rgba(28,45,64,.45)', width:1}});
+  Plotly.react(div, traces, layout, CFG);
+}
+
+// Pontos por categoria (2023 e 2024 lado a lado), categoria no eixo vertical.
+function v41Pontos(div, cats, anos, getv, xsuf, logx, nd, xtit){
+  const wrap = document.getElementById(div).parentElement;
+  if(wrap) wrap.style.height = Math.max(150, 46 * cats.length + 90) + 'px';
+  const traces = anos.map((a, j) => {
+    const off = anos.length > 1 ? (j === 0 ? 0.17 : -0.17) : 0;
+    const ys=[], xs=[], up=[], dn=[], cd=[];
+    cats.forEach((c, i) => {
+      const p = getv(c, a);
+      if(!p || !p.v) return;
+      ys.push(cats.length - 1 - i + off); xs.push(p.v[0]); up.push(p.v[2]-p.v[0]); dn.push(p.v[0]-p.v[1]);
+      cd.push([c, v41f(p.v[1], nd), v41f(p.v[2], nd), p.n ? 'n = ' + p.n.toLocaleString('pt-BR') + ' domicílios' : '']);
+    });
+    return {x:xs, y:ys, name:a, type:'scatter', mode:'markers',
+      marker:{size:9, color:V41_ANO_COR[a] || V41_COR[j], line:{color:'#fff', width:2}},
+      error_x:{type:'data', array:up, arrayminus:dn, color:V41_ANO_COR[a] || V41_COR[j], thickness:1.5, width:4},
+      customdata:cd,
+      hovertemplate:'<b>%{customdata[0]}</b> · '+a+'<br>%{x:.'+nd+'f}'+xsuf+' (IC95% %{customdata[1]} a %{customdata[2]})<br>%{customdata[3]}<extra></extra>'};
+  });
+  const layout = v41Layout({
+    margin:{t:14, r:16, l:190, b: xtit ? 56 : 40},
+    yaxis:{tickvals:cats.map((_, i) => cats.length - 1 - i), ticktext:cats.map(c => c + '   '), range:[-0.6, cats.length - 0.4], showgrid:false, zeroline:false},
+    xaxis:{ticksuffix:xsuf, type:logx ? 'log' : 'linear', rangemode:logx ? undefined : 'tozero', gridcolor:'rgba(22,28,36,0.09)', zeroline:!logx, zerolinecolor:'rgba(28,45,64,.45)',
+      title: xtit ? {text:xtit, font:{size:11, color:'#51606E'}} : undefined},
+    shapes: logx ? [{type:'line', yref:'paper', y0:0, y1:1, x0:1, x1:1, line:{color:'rgba(28,45,64,.45)', width:1}}] : [],
+  });
+  if(wrap) layout.height = parseInt(wrap.style.height, 10);
+  Plotly.react(div, traces, layout, CFG);
+}
+
+function buildDesig(){
+  const sel = document.getElementById('desig-marc');
+  if(sel && !sel.options.length){
+    V41.marcadores.forEach(m => { const o = document.createElement('option'); o.value = m.id; o.textContent = m.label; sel.appendChild(o); });
+  }
+  const m = V41.marcadores.find(x => x.id === S.desigMarc) || V41.marcadores[0];
+  if(sel) sel.value = m.id;
+  // Renda: as faixas do SIDRA 9558 so trazem qualquer grau com intervalo no pipeline.
+  const soIa = m.id === 'renda';
+  if(soIa) S.desigDesf = 'ia';
+  const desf = S.desigDesf;
+  document.querySelectorAll('.v41-btn[data-g="desf"]').forEach(b => {
+    b.classList.toggle('ativo', b.dataset.v === desf);
+    b.disabled = soIa && b.dataset.v === 'grave';
+    b.title = b.disabled ? 'Para a renda, o painel traz só qualquer grau (faixas do SIDRA 9558)' : '';
+  });
+  document.querySelectorAll('.v41-btn[data-g="esc"]').forEach(b => b.classList.toggle('ativo', b.dataset.v === S.desigEscala));
+  const nomeDesf = desf === 'ia' ? 'qualquer grau de insegurança alimentar' : 'insegurança alimentar grave';
+
+  // ── 1. prevalência por grupo ──
+  const P = V41.prev[m.id] || {};
+  const anos = [...new Set(m.cats.flatMap(c => Object.keys(P[c] || {})))].sort();
+  document.getElementById('desig-tit-prev').textContent = 'Prevalência de ' + nomeDesf + ' por grupo (%), com IC95%';
+  const temPnad = anos.some(a => +a < 2018);
+  document.getElementById('desig-status-prev').innerHTML = V41_EST.prev + (temPnad ? V41_EST.pnad : '');
+  if(anos.length > 2){
+    v41Tempo('div-desig-prev', m.cats.map((c, i) => ({nome:c, cor:V41_COR[i], pts:anos.filter(a => P[c]?.[a]?.[desf]).map(a => ({ano:a, v:P[c][a][desf], n:P[c][a].n, nd:1}))})), '%', false);
+  } else {
+    v41Pontos('div-desig-prev', m.cats, anos, (c, a) => P[c]?.[a]?.[desf] ? {v:P[c][a][desf], n:P[c][a].n} : null, '%', false, 1);
+  }
+
+  // ── 2. contrastes nas duas escalas ──
+  const esc = S.desigEscala, ehRaz = esc === 'raz';
+  const suf = ehRaz ? '' : ' p.p.';
+  let temContr = true, testeHtml = '';
+  if(m.id === 'renda'){
+    const R = V41.renda_ext.fA;
+    const v = a => R[(ehRaz ? 'razao_' : 'dif_') + a + (ehRaz ? '' : '_pp')];
+    v41Pontos('div-desig-contr', ['Até ¼ SM'], ['2023','2024'], (c, a) => v(a) ? {v:v(a).v} : null, suf, ehRaz, 2,
+      (ehRaz ? 'Razão' : 'Diferença (p.p.)') + ' em relação a mais de 2 SM');
+    const B = V41.renda_ext.fB;
+    testeHtml = '<h3>Mudança entre 2023 e 2024</h3>' + V41_EST.expl +
+      '<table class="v41-tab" style="margin-top:6px"><tr><th>Escala</th><th>Faixas do SIDRA (salário mínimo de R$ 1.320 nos dois anos)</th><th>Faixas do salário mínimo de cada ano (R$ 1.320 e R$ 1.412)</th></tr>' +
+      '<tr><td>Variação da diferença absoluta (p.p.)</td><td class="num">' + v41ic(R.variacao_dif_2024_2023_pp.v, 1) + ', ' + v41p(R.variacao_dif_2024_2023_pp.p) + '</td><td class="num">' + v41ic(B.variacao_dif_2024_2023_pp.v, 1) + ', ' + v41p(B.variacao_dif_2024_2023_pp.p) + '</td></tr>' +
+      '<tr><td>Razão das razões (2024/2023)</td><td class="num">' + v41ic(R.razao_das_razoes_2024_2023.v, 3) + ', ' + v41p(R.razao_das_razoes_2024_2023.p) + '</td><td class="num">' + v41ic(B.razao_das_razoes_2024_2023.v, 3) + ', ' + v41p(B.razao_das_razoes_2024_2023.p) + '</td></tr></table>' +
+      '<p class="v41-nota">A diferença absoluta entre as faixas extremas diminuiu nas duas definições. Na escala relativa, a conclusão depende da definição das faixas de 2024: com as faixas do SIDRA, a razão diminuiu; com o salário mínimo de cada ano, não houve mudança detectável.</p>';
+  } else if(V41.contr[m.id]){
+    const C = V41.contr[m.id];
+    const ref = {sexo:'Homem', raca:'Branca', instr:'Superior completo'}[m.id];
+    const cats = m.cats.filter(c => C[c]);
+    const anosC = [...new Set(cats.flatMap(c => Object.keys(C[c])))].sort();
+    if(anosC.length > 2){
+      v41Tempo('div-desig-contr', cats.map(c => ({nome:c + ' em relação a ' + ref, cor:V41_COR[m.cats.indexOf(c)],
+        pts:anosC.filter(a => C[c][a]?.[desf]).map(a => ({ano:a, v:C[c][a][desf][esc], nd:ehRaz ? 2 : 1}))})), suf, ehRaz);
+    } else {
+      v41Pontos('div-desig-contr', cats.map(c => c), anosC, (c, a) => C[c]?.[a]?.[desf] ? {v:C[c][a][desf][esc]} : null, suf, ehRaz, ehRaz ? 2 : 1,
+        (ehRaz ? 'Razão' : 'Diferença (p.p.)') + ' em relação a ' + ref);
+    }
+    const I = V41.inter[m.id]?.[desf];
+    if(I){
+      const ler = p => p < 0.05 ? 'mudança detectada' : 'sem mudança detectável';
+      testeHtml = '<h3>A desigualdade mudou entre 2023 e 2024?</h3>' + (m.id === 'instr' ? V41_EST.expl : V41_EST.mud) +
+        '<table class="v41-tab" style="margin-top:6px"><tr><th>Escala</th><th>Teste da interação ano × ' + v41esc(m.label.toLowerCase()) + '</th><th>Leitura (5%)</th></tr>' +
+        '<tr><td>Absoluta (diferença, p.p.)</td><td class="num">' + v41p(I.adit) + '</td><td>' + ler(I.adit) + '</td></tr>' +
+        '<tr><td>Relativa (razão)</td><td class="num">' + v41p(I.mult) + '</td><td>' + ler(I.mult) + '</td></tr></table>' +
+        '<p class="v41-nota">Desenho empilhado 2023-2024 da PNADC, com as UPA compartilhadas entre os anos. ' +
+        (temPnad ? 'Os contrastes de 2004 a 2013 (PNAD) são exploratórios e não têm teste formal de mudança entre anos.' : '') + '</p>';
+    }
+  } else {
+    temContr = false;
+  }
+  document.getElementById('desig-bloco-contr').style.display = temContr ? '' : 'none';
+  const sem = document.getElementById('desig-sem-contr');
+  sem.style.display = temContr ? 'none' : '';
+  sem.innerHTML = 'Para este marcador, a dissertação apresenta as prevalências, sem contrastes com intervalo de confiança nem teste de mudança entre 2023 e 2024.';
+  document.getElementById('desig-teste').innerHTML = testeHtml;
+
+  // ── 3. tabela com os valores ──
+  let tb = '<table class="v41-tab"><tr><th>Grupo</th>' + anos.map(a => '<th class="num">' + (a === '2018' ? '2017-18' : a) + '</th>').join('') + '</tr>';
+  m.cats.forEach(c => {
+    tb += '<tr><td>' + v41esc(c) + '</td>' + anos.map(a => {
+      const p = P[c]?.[a];
+      return '<td class="num">' + (p && p[desf] ? v41ic(p[desf]) + (p.n ? '<br><span class="v41-ic">n = ' + p.n.toLocaleString('pt-BR') + '</span>' : '') : '—') + '</td>';
+    }).join('') + '</tr>';
+  });
+  document.getElementById('desig-tabela').innerHTML = tb + '</table>';
+
+  // ── 4. nota de fonte ──
+  const pessoa = ['sexo','raca','instr','ocup'].includes(m.id) ? ' O marcador é o da pessoa de referência do domicílio.' : '';
+  const renda = m.id === 'renda' ? ' Rendimento domiciliar per capita em faixas do SIDRA 9558 (salário mínimo de R$ 1.320 nos dois anos).' : '';
+  const pnad = temPnad ? ' PNAD 2004, 2009 e 2013: microdados reponderados, com o plano amostral de cada edição; os totais nacionais coincidem com os publicados, mas os valores por sexo e raça/cor não foram reconciliados com publicações do IBGE. PNAD e PNADC usam instrumentos e desenhos diferentes: os valores ficam lado a lado, sem série contínua.' : '';
+  document.getElementById('desig-nota').innerHTML = 'Fonte: microdados da PNADC, 4º trimestre de 2023 e 2024 (peso calibrado, estrato e UPA; IC95% por linearização de Taylor).' + pnad + pessoa + renda + ' Domicílios; prevalências com o desenho amostral; associações descritivas, não causais.';
+}
+
+function v41Tabela(linhas, larguras){
+  const [cab, ...corpo] = linhas;
+  return '<table class="v41-tab"><tr>' + cab.map((c, i) => '<th' + (larguras ? ' style="width:' + larguras[i] + '"' : '') + '>' + v41esc(c) + '</th>').join('') + '</tr>' +
+    corpo.map(l => '<tr>' + l.map(c => '<td>' + v41esc(c) + '</td>').join('') + '</tr>').join('') + '</table>';
+}
+
+function buildLacunas(){
+  const el = document.getElementById('lac-linha');
+  if(el.dataset.ok) return;
+  const anos = []; for(let a = 2004; a <= 2024; a++) anos.push(a);
+  const ic = V41.nacional_ic;
+  const pct = a => ic[a] ? v41f(ic[a].ia[0]) + '%' : '';
+  const tit = a => ic[a] ? 'Qualquer grau: ' + v41f(ic[a].ia[0]) + '% (IC95% ' + v41f(ic[a].ia[1]) + ' a ' + v41f(ic[a].ia[2]) + ')' : '';
+  // linha 1: inquéritos do IBGE com EBIA
+  const ibge = {2004:['PNAD','lc-obs'], 2009:['PNAD','lc-obs'], 2013:['PNAD','lc-obs'], 2023:['PNADC','lc-obs'], 2024:['PNADC','lc-obs']};
+  let l1 = '';
+  for(let i = 0; i < anos.length; i++){
+    const a = anos[i];
+    if(a === 2017){ l1 += '<td class="lc-pof" colspan="2" title="' + v41esc(tit('2018')) + '">POF 2017-18<br>' + pct('2018') + '</td>'; i++; continue; }
+    const c = ibge[a];
+    l1 += c ? '<td class="' + c[1] + '" title="' + v41esc(tit(String(a))) + '">' + c[0] + '<br>' + pct(String(a)) + '</td>' : '<td></td>';
+  }
+  // linha 2: arquivos PNADC T4 (Quadro 5.1.1 + varredura)
+  const q511 = {}; V41.q511.slice(1).forEach(l => q511[l[0]] = l[1]);
+  let l2 = '';
+  anos.forEach(a => {
+    const t = q511[String(a)];
+    if(!t){ l2 += '<td></td>'; return; }
+    const cls = /branco/i.test(t) ? 'lc-branco' : /não examinado/i.test(t) ? 'lc-naoex' : 'lc-ok';
+    const rot = cls === 'lc-branco' ? 'em branco' : cls === 'lc-naoex' ? 'não examinado' : 'preen&shy;chido';
+    l2 += '<td class="' + cls + '" title="' + v41esc(a + ': ' + t) + '">' + rot + '</td>';
+  });
+  // linha 3: contexto externo
+  let l3 = '';
+  anos.forEach(a => {
+    if(a === 2021) l3 += '<td class="lc-ext" title="VIGISAN I (Rede PENSSAN): instrumento e amostra próprios; não compõe série com o IBGE">VIGISAN&nbsp;I<br>' + v41f(VIGISAN.ia) + '%</td>';
+    else if(a === 2022) l3 += '<td class="lc-ext" title="VIGISAN II (Rede PENSSAN): instrumento e amostra próprios; não compõe série com o IBGE">VIGISAN&nbsp;II</td>';
+    else l3 += '<td></td>';
+  });
+  el.innerHTML = '<table class="v41-linha"><tr><th class="rot"></th>' + anos.map(a => '<th>' + a + '</th>').join('') + '</tr>' +
+    '<tr><th class="rot">Inquéritos do IBGE com EBIA</th>' + l1 + '</tr>' +
+    '<tr><th class="rot">Campos da EBIA na PNADC (4º tri.)</th>' + l2 + '</tr>' +
+    '<tr><th class="rot">Contexto externo (Rede PENSSAN)</th>' + l3 + '</tr></table>';
+  el.dataset.ok = '1';
+  document.getElementById('lac-legenda').innerHTML =
+    '<span><i style="background:var(--ia-1)"></i>EBIA observada (PNAD, PNADC)</span>' +
+    '<span><i style="background:var(--nova-1)"></i>EBIA observada (POF)</span>' +
+    '<span><i style="background:#E2EFE9"></i>campos preenchidos</span>' +
+    '<span><i style="background:#E3E6EA"></i>arquivo examinado, EBIA em branco</span>' +
+    '<span><i style="background:#fff;border:1.5px dashed rgba(28,45,64,.28)"></i>arquivo não examinado</span>' +
+    '<span><i style="background:#ECE8F3"></i>fora do IBGE, só contexto</span>' +
+    '<span>célula vazia: nenhum registro nesta dissertação</span>';
+  // leitura: o que o achado 1 do Quadro 5.4.1 condiciona
+  const a1 = V41.q541[1];
+  document.getElementById('lac-leitura').innerHTML = '<strong>Leitura.</strong> ' + v41esc(a1[2]).replace(/\.?$/, '.') +
+    ' O quadro descreve os arquivos; a divulgação de resultados da EBIA em cada ano não foi verificada em fonte oficial.';
+  document.getElementById('lac-q422').innerHTML = v41Tabela(V41.q422, ['20%','16%','40%','24%']);
+  document.getElementById('lac-q421').innerHTML = v41Tabela(V41.q421);
+  const q541 = V41.q541.map((l, i) => i === 0 ? ['Achado', 'Seção', 'O que condiciona na leitura', 'Situação'] : l);
+  document.getElementById('lac-q541').innerHTML = v41Tabela(q541, ['32%','10%','34%','24%']);
+}
+
 function setModo(modo){
   // Atualizar aparência das tabs (inclui as famílias ⑤ e ⑥)
-  ['ebia','filtros','pof','nova4','engel','regressao'].forEach(m => {
+  ['ebia','filtros','pof','nova4','engel','regressao','desig','lacunas'].forEach(m => {
     const t = document.getElementById('tab-'+m);
     if(!t) return;
     t.classList.toggle('ativo', m === modo);
@@ -88571,7 +88930,7 @@ function setModo(modo){
   });
 
   // Famílias ⑤ (Engel) e ⑥ (Regressão): não são dados por UF — painel próprio
-  if(modo === 'engel' || modo === 'regressao'){
+  if(modo === 'engel' || modo === 'regressao' || modo === 'desig' || modo === 'lacunas'){
     document.getElementById('kpi-row').style.display = 'none';
     document.getElementById('main-row').style.display = 'none';
     document.getElementById('line-row').style.display = 'none';
@@ -88583,10 +88942,16 @@ function setModo(modo){
     const _mtb2 = document.getElementById('map-titlebar'); if(_mtb2) _mtb2.style.display = 'none';
     const _mfz2 = document.getElementById('mapa-fonte'); if(_mfz2) _mfz2.style.display = 'none';
     document.getElementById('panel-engel').style.display = (modo === 'engel') ? '' : 'none';
+    document.getElementById('panel-desig').style.display = (modo === 'desig') ? '' : 'none';
+    document.getElementById('panel-lacunas').style.display = (modo === 'lacunas') ? '' : 'none';
+    // v41: o chip de recorte (ex.: grupo da aquisicao) nao vale nas abas sem mapa
+    const _ft = document.getElementById('filter-tag'); if(_ft) _ft.classList.remove('vis');
     const _pr = document.getElementById('panel-regressao'); if(_pr) _pr.style.display = 'none';
     const txt = document.getElementById('intro-bar-txt');
     if(txt) txt.innerHTML = MODO_INTRO[modo] || '';
     if(modo === 'engel') buildEngelChart();
+    if(modo === 'desig') buildDesig();
+    if(modo === 'lacunas') buildLacunas();
     
     return;
   }
@@ -88652,6 +89017,8 @@ const MODO_INTRO = {
   nova4: '',
   engel:   '<strong>Orçamento familiar (Coeficiente de Engel):</strong> comprometimento da despesa/renda com alimentação por faixa de rendimento, Brasil vs Rio de Janeiro (POF 2008/2017-2018). Quanto menor a renda, maior a proporção do orçamento dedicada à alimentação.',
   regressao: '',
+  desig:   '<strong>Desigualdades (Brasil):</strong> prevalência por marcador social com IC95% e a diferença entre grupos em duas escalas, absoluta (pontos percentuais) e relativa (razão). A conclusão sobre a mudança da desigualdade depende da escala.',
+  lacunas: '<strong>Lacunas e comparabilidade:</strong> em que anos há EBIA nos inquéritos do IBGE, quais comparações entre inquéritos são sustentadas e os dez achados sobre a cadeia de informação documentados na dissertação.',
 };
 
 function atualizarModoDesc(){
@@ -89034,6 +89401,18 @@ function updateKPIs(){
     document.getElementById('k-ia-sub').innerHTML  = arrow(d?.ia, dp?.ia);
     document.getElementById('k-iag-sub').innerHTML = arrow(d?.ia_grav, dp?.ia_grav);
     document.getElementById('k-sa-sub').innerHTML  = arrow(d?.sa, dp?.sa, true);
+    // v41: IC95% do ano (pipeline do Estudo 1). SA = 100 - IA, com os limites trocados.
+    const icA = V41.nacional_ic[String(ano)];
+    if(icA){
+      const f1 = v => v.toFixed(1).replace('.', ',');
+      const pos = (id, t) => { const el = document.getElementById(id); if(el) el.innerHTML += (el.innerHTML ? '<br>' : '') + '<span class="v41-ic">' + t + '</span>'; };
+      pos('k-ia-sub',  'IC95% ' + f1(icA.ia[1]) + '–' + f1(icA.ia[2]));
+      pos('k-iag-sub', 'IC95% ' + f1(icA.grave[1]) + '–' + f1(icA.grave[2]));
+      pos('k-sa-sub',  'IC95% ' + f1(100 - icA.ia[2]) + '–' + f1(100 - icA.ia[1]));
+      const mud = V41.mudanca['Brasil']?.ia;
+      const sub = document.getElementById('k-ia-sub');
+      if(sub) sub.title = (String(ano) === '2024' && mud) ? 'Variação 2023→2024: ' + f1(mud[0]) + ' p.p. (IC95% ' + f1(mud[1]) + ' a ' + f1(mud[2]) + ')' : '';
+    }
   }
 
   // Trend card: PNAD 2013 lado a lado, SEM diferenca. Quadro 4.2.2 da dissertacao:
@@ -89043,7 +89422,7 @@ function updateKPIs(){
     document.getElementById('k-trend').innerHTML =
       `<span style="color:var(--muted)">${d2013.ia.toFixed(1).replace('.', ',')}%</span>`;
     document.getElementById('k-trend-lbl').textContent = 'PNAD 2013, para referência';
-    document.getElementById('k-trend-sub').textContent = 'instrumento diferente: lado a lado, não é variação';
+    document.getElementById('k-trend-sub').textContent = 'outro inquérito: não é variação';
   } else {
     document.getElementById('k-trend').textContent = '—';
     document.getElementById('k-trend-lbl').textContent = 'PNAD 2013';
@@ -89161,7 +89540,7 @@ function buildLineTraces(){
   const iapof = NACIONAL['2018']?.ia;  const iagpof = NACIONAL['2018']?.ia_grav;
 
   // Conectores (gap tracejado — mesma cor da série, opacidade reduzida para indicar descontinuidade)
-  const conn = (x1,y1,x2,y2,clr) => ({
+  const conn = (x1,y1,x2,y2,clr) => ({ visible:false,
     x:[x1,x2], y:[y1,y2], mode:'lines', showlegend:false, hoverinfo:'none',
     line:{color:clr, width:2.5, dash:'dot'}, opacity:.38,
   });
