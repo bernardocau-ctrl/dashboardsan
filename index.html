@@ -1332,6 +1332,32 @@ td.lc-ext{ background:#ECE8F3; }
 .v41-ic{ color:var(--text-soft); font-weight:500; }
 details.v41-det{ margin-top:8px; }
 details.v41-det summary{ cursor:pointer; font-size:.74rem; font-weight:600; color:var(--sel); }
+
+/* ════════ v42 — contraste ≥ 4,5:1 e texto ≥ 11 px nos pontos medidos; ajustes de leitura ════════ */
+:root{ --text-faint:#5B6672; }
+.pill-ano{ color:#4E5968; }
+.pill-ano.pof{ color:#8a5f20; }
+.ga-delta{ font-size:11px !important; color:#4E5968 !important; }
+.ga-item.ativo .ga-delta{ color:rgba(255,255,255,.9) !important; }
+#mapa-fonte{ color:#4E5968 !important; font-size:11px !important; }
+.fonte-badge{ font-size:11px !important; }
+#nota-metodo summary{ color:#3F4954; }
+#filtro-resumo-bar.sem-filtro{ display:none !important; }
+#intro-bar{ display:flex !important; flex-direction:column; max-height:26vh; overflow:hidden; }
+#intro-bar-txt{ overflow-y:auto; min-height:0; flex:1 1 auto; }
+#btn-sobre-painel{ flex-shrink:0; }
+#uf-select{ font:inherit; font-size:.76rem; padding:3px 6px; border-radius:8px; max-width:150px;
+  border:1.5px solid rgba(28,45,64,.18); background:#fff; color:#1B2A38; margin-left:auto; margin-right:6px; }
+.v42-bloco{ margin-top:7px; padding-top:6px; border-top:1px solid var(--border); }
+.v42-val{ font-weight:600 !important; color:#1B2A38 !important; }
+.v42-mini{ font-size:11px; color:#4E5968; line-height:1.4; margin-top:3px; }
+.v42-sub{ font-size:11.5px; font-weight:700; color:#1B2A38; margin-bottom:3px; }
+table.v42-rj{ width:100%; border-collapse:collapse; font-size:11px; }
+table.v42-rj th{ text-align:right; font-weight:600; color:#4E5968; padding:2px 3px; }
+table.v42-rj th:first-child{ text-align:left; }
+table.v42-rj td{ text-align:right; padding:2px 3px; border-top:1px solid var(--border); color:#1B2A38; white-space:nowrap; }
+table.v42-rj td:first-child{ text-align:left; }
+table.v41-linha{ font-size:11px; }
 </style>
 </head>
 <body>
@@ -1345,11 +1371,11 @@ details.v41-det summary{ cursor:pointer; font-size:.74rem; font-weight:600; colo
     </div>
     <nav id="mode-tabs" aria-label="Família de indicadores">
       <button class="tab-modo ativo" id="tab-ebia" onclick="setModo('ebia')" aria-pressed="true" title="EBIA — medida direta de acesso/percepção alimentar"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.6 11.2h16.8a8.4 8.4 0 0 1-16.8 0Z"/><path d="M8.6 20h6.8"/><path d="M12 7.4c0-1.1-1.1-1.5-1.1-2.6"/></svg><span>Acesso e percepção</span></button>
-      <button class="tab-modo" id="tab-filtros" onclick="setModo('filtros')" aria-pressed="false" title="Fatores socioeconômicos e demográficos — estratificação da IA por renda, cor/raça, instrução, sexo, composição domiciliar"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9.2" cy="8.8" r="3"/><path d="M3.6 19a5.6 5.6 0 0 1 11.2 0"/><path d="M16.2 6.2a3 3 0 0 1 0 5.4"/><path d="M17.6 14.1A5.6 5.6 0 0 1 20.4 19"/></svg><span>Fatores socioecon.</span></button>
+      <button class="tab-modo" id="tab-filtros" onclick="setModo('filtros'); if(S.filtro===null) abrirDrawer();" aria-pressed="false" title="Fatores socioeconômicos e demográficos — estratificação da IA por renda, cor/raça, instrução, sexo, composição domiciliar"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="9.2" cy="8.8" r="3"/><path d="M3.6 19a5.6 5.6 0 0 1 11.2 0"/><path d="M16.2 6.2a3 3 0 0 1 0 5.4"/><path d="M17.6 14.1A5.6 5.6 0 0 1 20.4 19"/></svg><span>Desigualdades por UF</span></button>
+      <button class="tab-modo desig" id="tab-desig" onclick="setModo('desig')" aria-pressed="false" title="Desigualdades no Brasil: prevalência por marcador social com IC95%, diferença absoluta e razão entre grupos (PNAD 2004–2013 e PNADC 2023–2024)"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 20V12M12 20V5M19 20v-9"/><path d="M3 20h18"/></svg><span>Desigualdades no Brasil</span></button>
       <button class="tab-modo pof" id="tab-pof" onclick="setModo('pof')" aria-pressed="false" title="Aquisição domiciliar de grupos alimentares — POF 2002/2008/2018"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.4 9h15.2l-1.3 9.4a2 2 0 0 1-2 1.6H7.7a2 2 0 0 1-2-1.6L4.4 9Z"/><path d="M9 9a3 3 0 0 1 6 0"/><path d="M10 12.8v3.4M14 12.8v3.4"/></svg><span>Aquisição domiciliar</span></button>
       
       <button class="tab-modo engel" id="tab-engel" onclick="setModo('engel')" aria-pressed="false" title="Coeficiente de Engel — comprometimento orçamentário com alimentação por faixa de renda (POF 2008/2017-2018), Brasil vs Rio de Janeiro"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/><path d="M12 4v8h8"/></svg><span>Orçamento familiar</span></button>
-      <button class="tab-modo desig" id="tab-desig" onclick="setModo('desig')" aria-pressed="false" title="Desigualdades no Brasil: prevalência por marcador social com IC95%, diferença absoluta e razão entre grupos (PNAD 2004–2013 e PNADC 2023–2024)"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 20V12M12 20V5M19 20v-9"/><path d="M3 20h18"/></svg><span>Desigualdades</span></button>
       <button class="tab-modo lacunas" id="tab-lacunas" onclick="setModo('lacunas')" aria-pressed="false" title="Lacunas e comparabilidade: anos com EBIA nos inquéritos, comparações sustentadas e achados sobre a cadeia de informação"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4M8 14h2M14 14h2M8 17h2"/></svg><span>Lacunas e comparabilidade</span></button>
       
     </nav>
@@ -1422,9 +1448,10 @@ details.v41-det summary{ cursor:pointer; font-size:.74rem; font-weight:600; colo
     <aside id="filtros-wrap" aria-label="Dados do estado selecionado">
       <div class="panel-title" style="flex-shrink:0">
         <h2>Estado selecionado</h2>
+        <select id="uf-select" aria-label="Escolher a UF" onchange="escolherUF(this.value)"></select>
         <button id="btn-cta-drawer" class="btn-filtro-cta" onclick="abrirDrawer()" title="Filtrar o mapa por fator socioeconômico ou demográfico">
           <svg width="12" height="12" viewBox="0 0 12 12" fill="none" style="flex-shrink:0"><path d="M1 3h10M3 6h6M5 9h2" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></svg>
-          Filtrar por desigualdade
+          Filtros
         </button>
       </div>
       <div id="sintese-bloco" aria-live="polite"></div>
@@ -1533,7 +1560,10 @@ details.v41-det summary{ cursor:pointer; font-size:.74rem; font-weight:600; colo
   <details id="nota-metodo">
     <summary>ⓘ Notas metodológicas</summary>
     <div>
-      <p>Este painel organiza indicadores de IAN em quatro famílias: <strong>① acesso e percepção</strong> (EBIA — <em>medida direta</em>), <strong>② fatores socioeconômicos e demográficos</strong> (<em>fatores associados</em> — estratificações da prevalência de IA), <strong>③ aquisição domiciliar</strong> (<em>indicador complementar</em> — grupos alimentares, POF) e <strong>④ orçamento familiar</strong> (<em>indicador complementar</em> — Coeficiente de Engel por faixa de renda). Nenhum indicador isolado esgota o fenômeno — a leitura deve articular essas famílias. Duas abas reúnem resultados nacionais da dissertação: <strong>Desigualdades</strong> (prevalência por marcador social com IC95%, diferença absoluta e razão entre grupos) e <strong>Lacunas e comparabilidade</strong> (anos com EBIA, comparações sustentadas e achados sobre a cadeia de informação). As cautelas abaixo são obrigatórias em qualquer combinação. <strong>Estatuto (12/10/2026):</strong> as prevalências são estimativas descritivas dos inquéritos do IBGE; a regressão logística preliminar e a participação de ultraprocessados na aquisição (classificador não validado) foram <em>retiradas</em> desta versão; resultados do Estudo 2 (consumo individual) não estão neste painel. Texto alinhado à dissertação v21 em 15/10/2026; abas Desigualdades e Lacunas e IC95% nacionais acrescentados na mesma data.</p>
+      <h3>Como o painel se organiza</h3>
+      <p>Este painel organiza indicadores de IAN em quatro famílias: <strong>① acesso e percepção</strong> (EBIA — <em>medida direta</em>), <strong>② fatores socioeconômicos e demográficos</strong> (<em>fatores associados</em> — estratificações da prevalência de IA), <strong>③ aquisição domiciliar</strong> (<em>indicador complementar</em> — grupos alimentares, POF) e <strong>④ orçamento familiar</strong> (<em>indicador complementar</em> — Coeficiente de Engel por faixa de renda). Nenhum indicador isolado esgota o fenômeno — a leitura deve articular essas famílias. A família ② aparece em duas abas: <strong>Desigualdades por UF</strong> (mapa) e <strong>Desigualdades no Brasil</strong>; a aba (prevalência por marcador social com IC95%, diferença absoluta e razão entre grupos) reúne resultados nacionais da dissertação. <strong>Lacunas e comparabilidade</strong> mostra os anos com EBIA, as comparações sustentadas e os achados sobre a cadeia de informação. As cautelas abaixo são obrigatórias em qualquer combinação.</p>
+      <h3>O que o painel não mostra</h3>
+      <p>A regressão logística preliminar, a participação de ultraprocessados na aquisição (classificador não validado) e os resultados do Estudo 2 (consumo individual). As prevalências são estimativas descritivas dos inquéritos do IBGE; as associações não são causais.</p>
       <p><strong>Distinção metodológica fundamental:</strong> apenas a EBIA é <em>medida direta</em> de insegurança alimentar. Os fatores socioeconômicos e demográficos são <em>fatores associados</em> que estratificam a prevalência de IA — mostram quem está mais exposto, mas não constituem nova medida de IA. A aquisição domiciliar (POF) é <em>indicador complementar</em> que descreve o que o domicílio adquire, sem medir percepção de insegurança alimentar nem consumo individual.</p>
 
       <h3>O que é a EBIA</h3>
@@ -1561,7 +1591,7 @@ details.v41-det summary{ cursor:pointer; font-size:.74rem; font-weight:600; colo
       <h3>Cautelas gerais de interpretação</h3>
       <ul>
         <li>Nenhum indicador isolado esgota a avaliação da IAN. Este painel reúne dimensões complementares — acesso alimentar, aquisição domiciliar e orçamento familiar — e deve ser lido em conjunto.</li>
-        <li>As estimativas por UF têm intervalos de confiança não exibidos no painel; as nacionais, nos cartões e na aba Desigualdades, trazem IC95%. Diferenças pequenas entre estados podem não ser estatisticamente significativas.</li>
+        <li>As estimativas por UF trazem IC95% no painel do estado e no ranking em 2023 e 2024, sem recorte; nos recortes por UF e nos anos da PNAD, o intervalo não é exibido. As nacionais trazem IC95% nos cartões e na aba Desigualdades no Brasil. Diferenças pequenas entre estados podem não ser estatisticamente significativas.</li>
         <li>O painel usa dados de aquisição domiciliar (POF), não de consumo individual. Perdas, desperdício e compartilhamento fora do domicílio não são capturados.</li>
       </ul>
     </div>
@@ -1578,7 +1608,7 @@ details.v41-det summary{ cursor:pointer; font-size:.74rem; font-weight:600; colo
 <div id="drawer-overlay" onclick="fecharDrawer()"></div>
 
 <!-- DRAWER DE FILTROS DE DESIGUALDADE SOCIAL -->
-<div id="filtro-drawer" role="dialog" aria-modal="true" aria-label="Filtros de desigualdades sociais">
+<div id="filtro-drawer" role="dialog" aria-modal="true" aria-label="Filtros">
   <div id="drawer-header">
     <div>
       <h2>② Fatores socioeconômicos e demográficos</h2>
@@ -88626,9 +88656,13 @@ function warnData(){
 let _suppressURL=false;
 function syncURL(){
   if(_suppressURL) return;
-  const modo = S.nova4?'nova4':(S.grupoAlim!==null?'pof':(S.filtro!==null?'filtros':'ebia'));
+  const modo = ['engel','desig','lacunas'].includes(S.modoAtual) ? S.modoAtual
+    : (S.nova4?'nova4':(S.grupoAlim!==null?'pof':(S.filtro!==null?'filtros':'ebia')));
   const p=new URLSearchParams();
-  p.set('m',modo); p.set('ano',getAno());
+  p.set('m',modo);
+  if(modo==='desig'){ p.set('dm',S.desigMarc); p.set('dd',S.desigDesf); p.set('de',S.desigEscala); history.replaceState(null,'','#'+p.toString()); return; }
+  if(modo==='engel'||modo==='lacunas'){ history.replaceState(null,'','#'+p.toString()); return; }
+  p.set('ano',getAno());
   if(S.ufSel) p.set('uf',S.ufSel);
   if(S.filtro!==null){ p.set('f',S.filtro); if(S.catIdx!=null) p.set('c',S.catIdx); }
   if(S.filtro2!==null){ p.set('f2',S.filtro2); if(S.cat2Idx!=null) p.set('c2',S.cat2Idx); }
@@ -88639,7 +88673,11 @@ function applyStateFromHash(){
   if(!location.hash || location.hash.length<2) return false;
   const p=new URLSearchParams(location.hash.slice(1));
   _suppressURL=true;
-  const modo0=p.get('m')||'ebia'; const modo=['ebia','filtros','pof','engel'].includes(modo0)?modo0:'ebia';
+  const modo0=p.get('m')||'ebia'; const modo=['ebia','filtros','pof','engel','desig','lacunas'].includes(modo0)?modo0:'ebia';
+  if(['engel','desig','lacunas'].includes(modo)){
+    if(p.get('dm')) S.desigMarc=p.get('dm'); if(p.get('dd')) S.desigDesf=p.get('dd'); if(p.get('de')) S.desigEscala=p.get('de');
+    _suppressURL=false; setModo(modo); return true;
+  }
   S.nova4 = modo==='nova4';
   S.grupoAlim = modo==='pof'
     ? (p.get('g') != null ? p.get('g') : (GRUPOS_ALIM?.lista?.[0]?.cod ?? null))
@@ -88690,7 +88728,7 @@ function v41esc(t){ return String(t).replace(/&/g,'&amp;').replace(/</g,'&lt;').
 function v41p(p){ return p < 0.001 ? 'p < 0,001' : 'p = ' + v41f(p, 3); }
 function v41ic(t, nd=1){ return t ? v41f(t[0], nd) + ' (' + v41f(t[1], nd) + ' a ' + v41f(t[2], nd) + ')' : '—'; }
 
-function setDesig(k, v){ S[k] = v; buildDesig(); }
+function setDesig(k, v){ S[k] = v; buildDesig(); syncURL(); }
 
 function v41Layout(extra){
   return Object.assign({
@@ -88920,7 +88958,76 @@ function buildLacunas(){
   document.getElementById('lac-q541').innerHTML = v41Tabela(q541, ['32%','10%','34%','24%']);
 }
 
+
+// ════════ v42: IC por UF, mudança 2023→2024 (Holm), RJ capital × interior, domicílios (mil) ════════
+// Dados: gerar_dados_v42.py (saídas existentes do pipeline + SIDRA 9552), conferidos contra a v21.
+const V42 = {"uf_ic":{"RO":{"2023":{"ia":[20.2,17.3,23.2],"grave":[2.9,1.6,4.2],"n":2998,"cv":7.4},"2024":{"ia":[18.5,15.5,21.4],"grave":[1.9,1.3,2.4],"n":2831,"cv":8.2}},"AC":{"2023":{"ia":[30.6,27.9,33.2],"grave":[5.8,4.5,7.1],"n":3102,"cv":4.5},"2024":{"ia":[23.5,20.9,26.0],"grave":[5.9,4.9,7.0],"n":3132,"cv":5.5}},"AM":{"2023":{"ia":[42.6,39.1,46.1],"grave":[9.1,7.7,10.5],"n":4052,"cv":4.2},"2024":{"ia":[38.9,35.3,42.6],"grave":[7.2,5.8,8.7],"n":4087,"cv":4.7}},"RR":{"2023":{"ia":[36.4,31.4,41.5],"grave":[6.7,5.0,8.3],"n":1789,"cv":7.0},"2024":{"ia":[43.6,39.5,47.7],"grave":[6.7,4.9,8.4],"n":1822,"cv":4.8}},"PA":{"2023":{"ia":[47.8,45.5,50.1],"grave":[9.6,8.5,10.7],"n":5488,"cv":2.5},"2024":{"ia":[44.6,42.4,46.9],"grave":[7.0,5.9,8.0],"n":5413,"cv":2.5}},"AP":{"2023":{"ia":[30.7,26.1,35.4],"grave":[8.4,6.3,10.5],"n":1294,"cv":7.7},"2024":{"ia":[32.5,27.5,37.5],"grave":[9.3,6.7,11.8],"n":1325,"cv":7.8}},"TO":{"2023":{"ia":[28.9,26.0,31.8],"grave":[2.6,1.9,3.3],"n":2641,"cv":5.1},"2024":{"ia":[29.6,26.7,32.5],"grave":[4.3,3.1,5.4],"n":2625,"cv":5.1}},"MA":{"2023":{"ia":[43.8,42.0,45.6],"grave":[8.2,7.4,9.0],"n":9941,"cv":2.1},"2024":{"ia":[35.2,33.5,36.8],"grave":[5.2,4.5,5.9],"n":10130,"cv":2.4}},"PI":{"2023":{"ia":[41.9,39.2,44.5],"grave":[5.4,4.4,6.3],"n":3770,"cv":3.2},"2024":{"ia":[39.3,36.5,42.1],"grave":[4.0,3.3,4.7],"n":3991,"cv":3.6}},"CE":{"2023":{"ia":[35.1,33.3,37.0],"grave":[6.3,5.6,7.0],"n":8132,"cv":2.6},"2024":{"ia":[30.5,29.0,32.0],"grave":[4.5,3.9,5.0],"n":8266,"cv":2.5}},"RN":{"2023":{"ia":[33.7,30.6,36.8],"grave":[4.9,3.8,6.1],"n":3496,"cv":4.6},"2024":{"ia":[29.4,26.4,32.5],"grave":[3.9,3.0,4.8],"n":3548,"cv":5.3}},"PB":{"2023":{"ia":[36.0,33.4,38.6],"grave":[6.0,5.0,6.9],"n":4668,"cv":3.7},"2024":{"ia":[32.4,30.2,34.5],"grave":[3.9,3.2,4.6],"n":4727,"cv":3.4}},"PE":{"2023":{"ia":[37.5,35.5,39.5],"grave":[6.5,5.7,7.3],"n":7286,"cv":2.7},"2024":{"ia":[35.3,33.4,37.3],"grave":[4.9,4.2,5.7],"n":7324,"cv":2.8}},"AL":{"2023":{"ia":[36.4,34.5,38.4],"grave":[5.7,5.0,6.4],"n":6958,"cv":2.7},"2024":{"ia":[35.0,33.2,36.8],"grave":[5.0,4.3,5.6],"n":6999,"cv":2.6}},"SE":{"2023":{"ia":[49.3,46.6,52.1],"grave":[5.6,4.6,6.6],"n":3314,"cv":2.8},"2024":{"ia":[35.0,32.1,37.8],"grave":[4.0,3.2,4.9],"n":3402,"cv":4.1}},"BA":{"2023":{"ia":[40.2,38.1,42.3],"grave":[6.1,5.4,6.8],"n":8722,"cv":2.6},"2024":{"ia":[37.8,35.9,39.7],"grave":[5.4,4.7,6.1],"n":8570,"cv":2.6}},"MG":{"2023":{"ia":[21.7,20.5,22.8],"grave":[2.8,2.4,3.2],"n":13480,"cv":2.8},"2024":{"ia":[19.5,18.4,20.6],"grave":[2.2,1.8,2.5],"n":13566,"cv":2.9}},"ES":{"2023":{"ia":[20.8,18.9,22.7],"grave":[2.2,1.7,2.7],"n":6417,"cv":4.6},"2024":{"ia":[13.5,12.1,15.0],"grave":[1.5,1.1,1.8],"n":6219,"cv":5.5}},"RJ":{"2023":{"ia":[23.8,22.6,25.0],"grave":[3.1,2.7,3.5],"n":13730,"cv":2.6},"2024":{"ia":[22.3,21.2,23.4],"grave":[2.5,2.2,2.9],"n":13494,"cv":2.6}},"SP":{"2023":{"ia":[23.5,22.3,24.7],"grave":[3.0,2.6,3.4],"n":14227,"cv":2.7},"2024":{"ia":[19.3,18.2,20.3],"grave":[2.4,2.0,2.7],"n":14463,"cv":2.8}},"PR":{"2023":{"ia":[17.9,16.5,19.2],"grave":[2.2,1.8,2.6],"n":9440,"cv":3.9},"2024":{"ia":[15.3,14.2,16.4],"grave":[1.9,1.5,2.2],"n":9703,"cv":3.7}},"SC":{"2023":{"ia":[11.3,10.3,12.2],"grave":[1.5,1.2,1.8],"n":11115,"cv":4.5},"2024":{"ia":[9.4,8.5,10.2],"grave":[1.4,1.1,1.7],"n":11399,"cv":4.6}},"RS":{"2023":{"ia":[18.8,17.4,20.1],"grave":[2.2,1.8,2.5],"n":10078,"cv":3.6},"2024":{"ia":[14.8,13.6,16.0],"grave":[1.8,1.4,2.1],"n":10266,"cv":4.2}},"MS":{"2023":{"ia":[21.7,19.4,24.0],"grave":[2.6,1.9,3.3],"n":3809,"cv":5.5},"2024":{"ia":[18.5,16.4,20.5],"grave":[2.4,1.8,3.0],"n":3786,"cv":5.6}},"MT":{"2023":{"ia":[27.2,24.8,29.6],"grave":[3.9,3.0,4.9],"n":4543,"cv":4.5},"2024":{"ia":[22.1,19.7,24.5],"grave":[2.8,2.2,3.4],"n":4516,"cv":5.5}},"GO":{"2023":{"ia":[24.4,22.5,26.4],"grave":[3.7,3.0,4.4],"n":5954,"cv":4.0},"2024":{"ia":[17.9,16.2,19.6],"grave":[2.4,1.9,2.9],"n":6047,"cv":4.9}},"DF":{"2023":{"ia":[23.5,21.1,26.0],"grave":[4.0,3.1,5.0],"n":3232,"cv":5.3},"2024":{"ia":[27.0,24.6,29.3],"grave":[4.2,3.3,5.1],"n":3073,"cv":4.4}}},"uf_mud":{"RO":{"dif":[-1.767381,-5.246432,1.71167],"p":0.3182,"p_holm":0.9546},"AC":{"dif":[-7.102694,-10.091559,-4.113828],"p":0.0,"p_holm":0.0001},"AM":{"dif":[-3.676867,-7.913785,0.560051],"p":0.0888,"p_holm":0.5588},"RR":{"dif":[7.168773,1.349674,12.987873],"p":0.0161,"p_holm":0.2379},"PA":{"dif":[-3.15209,-5.991283,-0.312897],"p":0.0296,"p_holm":0.2962},"AP":{"dif":[1.740208,-4.837792,8.318208],"p":0.6013,"p_holm":1.0},"TO":{"dif":[0.720835,-3.030922,4.472592],"p":0.7054,"p_holm":1.0},"MA":{"dif":[-8.615043,-10.944841,-6.285246],"p":0.0,"p_holm":0.0},"PI":{"dif":[-2.538529,-6.034405,0.957347],"p":0.1541,"p_holm":0.7707},"CE":{"dif":[-4.664599,-6.875679,-2.453519],"p":0.0,"p_holm":0.0008},"RN":{"dif":[-4.269738,-7.813698,-0.725779],"p":0.0184,"p_holm":0.2379},"PB":{"dif":[-3.582259,-6.515102,-0.649416],"p":0.0168,"p_holm":0.2379},"PE":{"dif":[-2.164515,-4.587091,0.25806],"p":0.0798,"p_holm":0.5588},"AL":{"dif":[-1.463741,-3.676565,0.749084],"p":0.1944,"p_holm":0.7777},"SE":{"dif":[-14.365113,-17.820545,-10.909682],"p":0.0,"p_holm":0.0},"BA":{"dif":[-2.447821,-4.915359,0.019718],"p":0.0519,"p_holm":0.4491},"MG":{"dif":[-2.150975,-3.580967,-0.720984],"p":0.0032,"p_holm":0.0516},"ES":{"dif":[-7.287122,-9.530433,-5.043812],"p":0.0,"p_holm":0.0},"RJ":{"dif":[-1.518601,-3.036524,-0.000677],"p":0.0499,"p_holm":0.4491},"SP":{"dif":[-4.233755,-5.613802,-2.853708],"p":0.0,"p_holm":0.0},"PR":{"dif":[-2.634638,-4.259942,-1.009334],"p":0.0015,"p_holm":0.0273},"SC":{"dif":[-1.870603,-3.062087,-0.67912],"p":0.0021,"p_holm":0.036},"RS":{"dif":[-3.947902,-5.47874,-2.417063],"p":0.0,"p_holm":0.0},"MS":{"dif":[-3.252072,-5.93981,-0.564334],"p":0.0179,"p_holm":0.2379},"MT":{"dif":[-5.056576,-7.795559,-2.317593],"p":0.0003,"p_holm":0.0061},"GO":{"dif":[-6.513235,-8.895527,-4.130944],"p":0.0,"p_holm":0.0},"DF":{"dif":[3.444253,0.650316,6.238189],"p":0.0159,"p_holm":0.2379}},"rj":{"Estado":{"2023":{"ia":[23.8,22.6,25.0],"ia_cv":2.6,"grave":[3.1,2.7,3.5],"grave_cv":6.5,"n":13730},"2024":{"ia":[22.3,21.2,23.4],"ia_cv":2.6,"grave":[2.5,2.2,2.9],"grave_cv":6.6,"n":13494}},"Interior e RM":{"2023":{"ia":[27.6,25.9,29.2],"ia_cv":3.1,"grave":[3.7,3.1,4.3],"grave_cv":7.9,"n":8850},"2024":{"ia":[24.9,23.4,26.3],"ia_cv":3.0,"grave":[2.5,2.1,2.9],"grave_cv":8.2,"n":8767}},"Capital":{"2023":{"ia":[18.2,16.6,19.8],"ia_cv":4.6,"grave":[2.2,1.7,2.7],"grave_cv":11.0,"n":4880},"2024":{"ia":[18.5,16.7,20.2],"ia_cv":4.9,"grave":[2.5,2.0,3.1],"grave_cv":11.0,"n":4727}}},"mil":{"AC":{"2023":{"ia":84,"grave":16,"total":275},"2024":{"ia":67,"grave":17,"total":285}},"AL":{"2023":{"ia":404,"grave":63,"total":1109},"2024":{"ia":391,"grave":56,"total":1118}},"AP":{"2023":{"ia":72,"grave":20,"total":234},"2024":{"ia":78,"grave":22,"total":240}},"AM":{"2023":{"ia":513,"grave":109,"total":1204},"2024":{"ia":493,"grave":91,"total":1265}},"BA":{"2023":{"ia":2189,"grave":334,"total":5441},"2024":{"ia":2115,"grave":304,"total":5598}},"BR":{"2023":{"ia":21153,"grave":3139,"total":76656},"2024":{"ia":18912,"grave":2515,"total":78281}},"CE":{"2023":{"ia":1138,"grave":203,"total":3237},"2024":{"ia":1019,"grave":149,"total":3343}},"DF":{"2023":{"ia":254,"grave":44,"total":1079},"2024":{"ia":290,"grave":45,"total":1075}},"ES":{"2023":{"ia":312,"grave":33,"total":1499},"2024":{"ia":208,"grave":22,"total":1534}},"GO":{"2023":{"ia":668,"grave":102,"total":2733},"2024":{"ia":496,"grave":65,"total":2770}},"MA":{"2023":{"ia":987,"grave":184,"total":2254},"2024":{"ia":803,"grave":118,"total":2281}},"MT":{"2023":{"ia":358,"grave":52,"total":1316},"2024":{"ia":300,"grave":38,"total":1357}},"MS":{"2023":{"ia":224,"grave":27,"total":1033},"2024":{"ia":190,"grave":25,"total":1030}},"MG":{"2023":{"ia":1701,"grave":220,"total":7850},"2024":{"ia":1574,"grave":177,"total":8066}},"PR":{"2023":{"ia":775,"grave":95,"total":4332},"2024":{"ia":668,"grave":83,"total":4378}},"PB":{"2023":{"ia":534,"grave":89,"total":1485},"2024":{"ia":481,"grave":58,"total":1485}},"PA":{"2023":{"ia":1270,"grave":255,"total":2658},"2024":{"ia":1217,"grave":191,"total":2726}},"PE":{"2023":{"ia":1311,"grave":228,"total":3495},"2024":{"ia":1250,"grave":175,"total":3537}},"PI":{"2023":{"ia":478,"grave":61,"total":1142},"2024":{"ia":454,"grave":46,"total":1155}},"RN":{"2023":{"ia":415,"grave":61,"total":1231},"2024":{"ia":371,"grave":49,"total":1261}},"RS":{"2023":{"ia":818,"grave":95,"total":4363},"2024":{"ia":655,"grave":80,"total":4424}},"RJ":{"2023":{"ia":1570,"grave":204,"total":6589},"2024":{"ia":1504,"grave":171,"total":6741}},"RO":{"2023":{"ia":134,"grave":19,"total":664},"2024":{"ia":119,"grave":12,"total":646}},"RR":{"2023":{"ia":67,"grave":12,"total":183},"2024":{"ia":86,"grave":13,"total":198}},"SC":{"2023":{"ia":329,"grave":45,"total":2926},"2024":{"ia":285,"grave":42,"total":3033}},"SE":{"2023":{"ia":409,"grave":47,"total":829},"2024":{"ia":297,"grave":34,"total":850}},"SP":{"2023":{"ia":3982,"grave":508,"total":16953},"2024":{"ia":3337,"grave":409,"total":17334}},"TO":{"2023":{"ia":156,"grave":14,"total":540},"2024":{"ia":163,"grave":23,"total":550}}},"gerado":"15/10/2026 por gerar_dados_v42.py (saídas do pipeline do Estudo 1 e SIDRA 9552)"};
+function v42f(v, nd=1){ return v == null ? '—' : Number(v).toFixed(nd).replace('.', ','); }
+function v42p(p){ return p < 0.001 ? '< 0,001' : v42f(p, 3); }
+function v42Linha(lbl, val){ return '<div class="ed-row"><span class="ed-lbl">' + lbl + '</span><span class="ed-val v42-val">' + val + '</span></div>'; }
+function v42Mil(n){ return n >= 1000 ? v42f(n / 1000, 1) + ' milhões' : n.toLocaleString('pt-BR') + ' mil'; }
+function v42MilBR(ano){
+  const m = V42.mil.BR?.[String(ano)];
+  return m ? '<div class="ed-row"><span class="ed-lbl">Domicílios em IA</span><span class="ed-val v42-val">' + v42Mil(m.ia) + '</span></div>' : '';
+}
+function v42BlocoUF(uf, ano){
+  const a = String(ano), ic = V42.uf_ic[uf]?.[a];
+  if(!ic) return '';
+  let h = '<div class="v42-bloco">';
+  h += v42Linha('IC95% da IA total', v42f(ic.ia[1]) + '–' + v42f(ic.ia[2]) + '%');
+  h += v42Linha('IC95% da IA grave', v42f(ic.grave[1]) + '–' + v42f(ic.grave[2]) + '%');
+  const m = V42.mil[uf]?.[a];
+  if(m) h += v42Linha('Domicílios em IA', v42Mil(m.ia));
+  const md = V42.uf_mud[uf];
+  if(a === '2024' && md){
+    h += v42Linha('Variação 2023→2024', (md.dif[0] > 0 ? '+' : '') + v42f(md.dif[0]) + ' p.p. (' + v42f(md.dif[1]) + ' a ' + v42f(md.dif[2]) + ')');
+    h += '<div class="v42-mini">p ajustado (Holm, 27 UFs) = ' + v42p(md.p_holm) +
+      (md.p_holm < 0.05 ? '' : '. A mudança não se distingue de zero após a correção.') + ' Análise exploratória.</div>';
+  }
+  h += '<div class="v42-mini">n = ' + ic.n.toLocaleString('pt-BR') + ' domicílios · PNADC, 4º trimestre</div></div>';
+  if(uf === 'RJ' && V42.rj['Capital']?.[a]){
+    h += '<div class="v42-bloco"><div class="v42-sub">Domínios amostrais do estado</div>' +
+      '<table class="v42-rj"><tr><th></th><th>IA total (IC95%)</th><th>CV</th><th>IA grave (IC95%)</th><th>CV</th></tr>';
+    ['Estado', 'Capital', 'Interior e RM'].forEach(dom => {
+      const v = V42.rj[dom][a];
+      h += '<tr><td>' + dom + '</td><td>' + v42f(v.ia[0]) + ' (' + v42f(v.ia[1]) + '–' + v42f(v.ia[2]) + ')</td><td>' + v42f(v.ia_cv) + '%</td>' +
+        '<td>' + v42f(v.grave[0]) + ' (' + v42f(v.grave[1]) + '–' + v42f(v.grave[2]) + ')</td><td>' + v42f(v.grave_cv) + '%</td></tr>';
+    });
+    h += '</table><div class="v42-mini">A grave na capital tem CV de cerca de 11%: estimativa menos precisa. Municípios e subáreas não são estimáveis com estes dados.</div></div>';
+  }
+  return h;
+}
+function v42SyncUFSelect(){
+  const sel = document.getElementById('uf-select');
+  if(!sel) return;
+  if(!sel.options.length){
+    const o0 = document.createElement('option'); o0.value = ''; o0.textContent = 'Brasil'; sel.appendChild(o0);
+    Object.keys(UF_META).sort((x, y) => UF_META[x].nome.localeCompare(UF_META[y].nome, 'pt-BR')).forEach(u => {
+      const o = document.createElement('option'); o.value = u; o.textContent = UF_META[u].nome; sel.appendChild(o);
+    });
+  }
+  sel.value = S.ufSel || '';
+}
+function escolherUF(v){
+  S.ufSel = v || null;
+  updateMap(); updateLine(); updateBar(); renderEstado(); buildSintese();
+  syncURL();
+}
+// Ranking: barras de IC95% só quando os valores por UF têm intervalo (2023/2024, sem recorte).
+function v42BarIC(){
+  const gd = document.getElementById('div-barras');
+  if(!gd || !gd.data) return;
+  const {locs} = buildBarData();
+  const a = String(getAno());
+  const temIC = S.grupoAlim === null && !S.nova4 && S.filtro === null && locs.every(u => V42.uf_ic[u]?.[a]);
+  if(!temIC){ Plotly.restyle(gd, {'error_x.visible': false}); return; }
+  const up = locs.map(u => V42.uf_ic[u][a].ia[2] - V42.uf_ic[u][a].ia[0]);
+  const dn = locs.map(u => V42.uf_ic[u][a].ia[0] - V42.uf_ic[u][a].ia[1]);
+  Plotly.restyle(gd, {error_x: [{type:'data', array:up, arrayminus:dn, visible:true, color:'rgba(27,42,56,.55)', thickness:1.2, width:3}]});
+}
+
 function setModo(modo){
+  S.modoAtual = modo;
   // Atualizar aparência das tabs (inclui as famílias ⑤ e ⑥)
   ['ebia','filtros','pof','nova4','engel','regressao','desig','lacunas'].forEach(m => {
     const t = document.getElementById('tab-'+m);
@@ -88952,6 +89059,7 @@ function setModo(modo){
     if(modo === 'engel') buildEngelChart();
     if(modo === 'desig') buildDesig();
     if(modo === 'lacunas') buildLacunas();
+    syncURL();
     
     return;
   }
@@ -89112,7 +89220,7 @@ function buildSintese(){
     <span class="sintese-destaque">${sinal}${Math.abs(diff).toFixed(1).replace('.', ',')} p.p. ${dirUF}</span>
     da média nacional (${fmt(iaBR)}).`;
 
-  if(pos > 0) html += ` Ocupa a <strong>${pos}ª posição</strong> no ranking entre ${total} UFs.`;
+  // v42: a posição no ranking saiu — as estimativas por UF têm IC que se sobrepõem.
 
   // Acrescenta comparação com filtro ativo
   if(S.filtro !== null && S.catIdx !== null){
@@ -89572,6 +89680,9 @@ function buildLineTraces(){
         hovertemplate:'%{y:.1f} kg/per capita<br>%{x}<extra>Aquisição '+nome+'</extra>',
       });
     }
+    // v42: a % de IA em segundo eixo sugeria relação entre aquisição e EBIA que a
+    // dissertação diz exigir cruzamento por domicílio (Quadro 6.1.1, P5). Só aquisição.
+    return traces;
     // Eixo direito (y2): IA (EBIA) — anos PNAD cobrem o período POF + POF 2018
     const anosEbia = [2004, 2009, 2013, 2018];
     const iaBrVals  = anosEbia.map(a => NACIONAL[String(a)]?.ia ?? null);
@@ -89786,13 +89897,7 @@ function buildLineLayout(){
         title:{text:'kg per capita/ano (POF)', font:{size:10.5, color:C.L_pof}},
         color:C.L_pof, tickfont:{size:11.5, color:'#18202A'},
       },
-      yaxis2: {
-        fixedrange:true, ticksuffix:'%',
-        overlaying:'y', side:'right', rangemode:'tozero', zeroline:false,
-        title:{text:'% domicílios c/ IA (EBIA)', font:{size:10.5, color:C.L_ia}},
-        color:C.L_ia, tickfont:{size:11.5, color:'#18202A'}, showgrid:false,
-      },
-      margin:{t:36, b:34, l:44, r:64, autoexpand:false},
+      margin:{t:36, b:34, l:68, r:16, autoexpand:false},
     });
   }
   if(S.nova4){
@@ -89825,7 +89930,7 @@ function updateLine(){
   let tit;
   if(S.grupoAlim !== null){
     const nome = GRUPOS_ALIM?.grupos_br?.[S.grupoAlim]?.nome || '';
-    tit = (nome.length>34 ? nome.substring(0,34)+'…' : nome) + ' + IA (EBIA) — por inquérito';
+    tit = (nome.length>34 ? nome.substring(0,34)+'…' : nome) + ' — kg per capita/ano (POF)';
   } else if(S.nova4){
     tit = 'NOVA 4 × EBIA — série histórica';
   } else {
@@ -89834,6 +89939,7 @@ function updateLine(){
       : 'Prevalência de IA — Brasil, por inquérito (EBIA · 2004–2024)';
   }
   document.getElementById('linha-title').textContent = tit;
+  const _lf = document.getElementById('linha-fonte'); if(_lf) _lf.style.display = S.grupoAlim !== null ? 'none' : '';
   renderLegendaLinha();
 }
 
@@ -89893,10 +89999,10 @@ function initBar(){
     type:'bar', orientation:'h', x, y,
     marker:{color:colors, opacity:0.85},
     hovertext:htext,
-    hovertemplate:'%{x:.1f}%%{hovertext}<extra>%{y}</extra>',
+    hovertemplate:'%{x:.1f}'+(S.grupoAlim !== null ? ' kg' : '%')+'%{hovertext}<extra>%{y}</extra>',
     customdata:locs,
   };
-  const br = S.nova4 ? null : (NACIONAL[String(getAno())]?.ia ?? null);
+  const br = (S.nova4 || S.grupoAlim !== null) ? null : (NACIONAL[String(getAno())]?.ia ?? null);
   const shapes = br != null ? [{
     type:'line', x0:br, x1:br, y0:-0.5, y1:Object.keys(UF_META).length-0.5,
     line:{color:'rgba(30,35,51,0.3)',width:1.5,dash:'dash'},
@@ -89910,7 +90016,7 @@ function initBar(){
   const layout = {
     paper_bgcolor:'transparent', plot_bgcolor:'transparent',
     margin:{t:4,b:20,l:100,r:14},
-    xaxis:{fixedrange:true, tickfont:{size:9.5, color:'#4E5968'}, ticksuffix:'%',
+    xaxis:{fixedrange:true, tickfont:{size:9.5, color:'#4E5968'}, ticksuffix:(S.grupoAlim !== null ? ' kg' : '%'),
            gridcolor:'rgba(22,28,36,0.09)', rangemode:'tozero'},
     yaxis:{fixedrange:true, tickfont:{size:9.5, color:'#18202A'}, automargin:true},
     shapes, annotations,
@@ -89919,6 +90025,7 @@ function initBar(){
     bargap:0.25,
   };
   Plotly.newPlot('div-barras',[trace],layout,CFG);
+  v42BarIC();
   document.getElementById('div-barras').on('plotly_click', d=>{
     const uf = d.points[0]?.customdata;
     if(uf) selUF(uf);
@@ -89927,7 +90034,7 @@ function initBar(){
 
 function updateBar(){
   const {x,y,locs,colors,htext} = buildBarData();
-  const br = (!S.nova4) ? (NACIONAL[String(getAno())]?.ia ?? null) : null;
+  const br = (!S.nova4 && S.grupoAlim === null) ? (NACIONAL[String(getAno())]?.ia ?? null) : null;
   const shapes = br != null ? [{
     type:'line', x0:br, x1:br, y0:-0.5, y1:y.length-0.5,
     line:{color:'rgba(30,35,51,0.3)',width:1.5,dash:'dash'},
@@ -89941,11 +90048,11 @@ function updateBar(){
     [{type:'bar',orientation:'h',x,y,
       marker:{color:colors,opacity:0.85},
       hovertext:htext,
-      hovertemplate:'%{x:.1f}%%{hovertext}<extra>%{y}</extra>',
+      hovertemplate:'%{x:.1f}'+(S.grupoAlim !== null ? ' kg' : '%')+'%{hovertext}<extra>%{y}</extra>',
       customdata:locs}],
     {paper_bgcolor:'transparent',plot_bgcolor:'transparent',
      margin:{t:4,b:20,l:100,r:14},
-     xaxis:{fixedrange:true,tickfont:{size:9.5,color:'#4E5968'},ticksuffix:'%',
+     xaxis:{fixedrange:true,tickfont:{size:9.5,color:'#4E5968'},ticksuffix:(S.grupoAlim !== null ? ' kg' : '%'),
             gridcolor:'rgba(22,28,36,0.09)',rangemode:'tozero'},
      yaxis:{fixedrange:true,tickfont:{size:9.5,color:'#18202A'},automargin:true},
      shapes, annotations, hovermode:'closest', showlegend:false, bargap:0.25},
@@ -89960,9 +90067,10 @@ function updateBar(){
   } else if(S.filtro!==null && S.catIdx!==null){
     lbl = `Ranking de IA por UF — ${S.ano} · ${FILTROS[S.filtro].label}: ${FILTROS[S.filtro].cats[S.catIdx].label}`;
   } else {
-    lbl = `Ranking de IA por UF — ${S.ano}`;
+    lbl = `IA por UF, com IC95% — ${S.ano}`;
   }
   document.getElementById('barras-title').textContent = lbl;
+  v42BarIC();
   document.getElementById('barras-ano').textContent = getAno();
 }
 
@@ -89971,6 +90079,7 @@ function syncEstadoPad(){ }
 
 // ── Estado selecionado ────────────────────────────────────────────────
 function renderEstado(){
+  v42SyncUFSelect();
   const el = document.getElementById('estado-detail');
   const ini = document.getElementById('estado-inicial');
   if(!S.ufSel){
@@ -90044,6 +90153,7 @@ function renderEstado(){
           + vr('Insegurança alimentar total', d.ia.toFixed(1).replace('.', ',')+'%', 'var(--ia)')
           + vr('Insegurança grave', d.ia_grav.toFixed(1).replace('.', ',')+'%', 'var(--iag)')
           + vr('Segurança alimentar', sa.toFixed(1).replace('.', ',')+'%', 'var(--sa)')
+          + v42MilBR(a)
           + '<hr style="margin:7px 0;border:none;border-top:1px solid var(--border)">'
           + (hi?vr('Maior IA', UF_META[hi.u].nome+' ('+hi.ia.toFixed(1).replace('.', ',')+'%)','var(--ia)'):'')
           + (lo?vr('Menor IA', UF_META[lo.u].nome+' ('+lo.ia.toFixed(1).replace('.', ',')+'%)','var(--sa)'):'')
@@ -90150,6 +90260,7 @@ function renderEstado(){
   el.innerHTML = `
     <div class="ed-nome" style="color:var(--${cor})">${meta.nome}</div>
     ${d ? row('IA Total', d.ia) + row('IA Grave', d.ia_grav,'iag') + row('SA', d.sa,'') : '<div style="color:var(--muted);font-size:.75rem">Sem dado para este ano</div>'}
+    ${v42BlocoUF(uf, ano)}
     ${dRJ && !isRJ ? `<hr style="margin:4px 0;border:none;border-top:1px solid var(--border)">
       ${row('RJ — IA', dRJ.ia,'rj')}` : ''}
     ${dBR ? `<hr style="margin:4px 0;border:none;border-top:1px solid var(--border)">
@@ -90167,6 +90278,7 @@ function selUF(uf){
   updateLine();
   updateBar();
   renderEstado();
+  buildSintese();
 }
 
 // ── Controles de ano ──────────────────────────────────────────────────
@@ -90328,7 +90440,8 @@ function buildFiltros(){
     {label:'Composição domiciliar', ic:'domicilio',  fids:['crianca5','idoso60']},
   ];
   let html = '';
-  grupos.forEach(g => {
+  // v42: na aba de aquisição a gaveta mostra só os grupos de alimentos; nas demais, só os marcadores.
+  if(S.grupoAlim === null) grupos.forEach(g => {
     html += `<div class="fg-sec">${svgIc(ICONES_SECAO[g.ic])}<span>${g.label}</span></div>`;
     html += `<div class="fi-grid">`;
     g.fids.forEach(fid => {
@@ -90382,7 +90495,7 @@ function buildFiltros(){
   }
 
   // ── Consumo Alimentar (POF 2002-2018) ────────────────────────────────
-  if(GRUPOS_ALIM?.lista?.length){
+  if(S.grupoAlim !== null && GRUPOS_ALIM?.lista?.length){
     html += `<div class="fg-fam">
       <div class="fg-sec">${svgIc(ICONES_SECAO.familia3)}<span>Aquisição domiciliar</span></div>
       <small>Indicador complementar — aquisição domiciliar em kg per capita/ano.
@@ -90552,6 +90665,18 @@ function abrirDrawer(){
   document.getElementById('filtro-drawer')?.classList.add('aberto');
   document.getElementById('drawer-overlay')?.classList.add('vis');
   buildFiltros();
+  // v42: cabeçalho da gaveta acompanha a aba (marcadores sociais ou grupos de alimentos)
+  const _h2 = document.querySelector('#drawer-header h2'), _pp = document.querySelector('#drawer-header p');
+  const _nota = document.getElementById('drawer-nota');
+  if(_h2 && !_h2.dataset.orig){ _h2.dataset.orig = _h2.innerHTML; _pp.dataset.orig = _pp.innerHTML; }
+  if(S.grupoAlim !== null){
+    _h2.textContent = '③ Aquisição domiciliar';
+    _pp.textContent = 'Escolha o grupo de alimentos · POF 2002-2003, 2008-2009 e 2017-2018';
+    if(_nota) _nota.style.display = 'none';
+  } else if(_h2){
+    _h2.innerHTML = _h2.dataset.orig; _pp.innerHTML = _pp.dataset.orig;
+    if(_nota) _nota.style.display = '';
+  }
   // Sem filtro ativo o aviso fica VAZIO (e `:empty{display:none}` o esconde):
   // o texto que ficava aqui repetia, quase palavra por palavra, o subtitulo do
   // cabecalho do drawer. O aviso so tem o que dizer depois de escolher o filtro.
