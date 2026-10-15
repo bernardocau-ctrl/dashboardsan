@@ -1381,6 +1381,35 @@ table.v41-linha{ font-size:11px; }
 .v43-leitura{ font-size:12px; line-height:1.5; color:#1B2A38; background:var(--surface-2);
   border-left:3px solid var(--sel); border-radius:4px; padding:7px 10px; margin:6px 0 4px; }
 .v43-leitura:empty{ display:none; }
+
+/* ════════ v46 — botão e janela "Como citar" ════════ */
+.v46-hlogo{ display:flex; align-items:center; gap:12px; justify-content:flex-end; }
+#btn-citar{ display:inline-flex; align-items:center; gap:6px; padding:5px 11px; border-radius:16px;
+  border:1.5px solid #1F6FB2; background:#fff; color:#1F6FB2; font:inherit; font-size:12px; font-weight:700;
+  cursor:pointer; white-space:nowrap; }
+#btn-citar:hover, #btn-citar:focus-visible{ background:#1F6FB2; color:#fff; }
+.v46-fundo{ position:fixed; inset:0; z-index:2000; background:rgba(20,30,42,.45);
+  display:flex; align-items:center; justify-content:center; padding:16px; }
+.v46-fundo[hidden]{ display:none; }
+.v46-janela{ background:#fff; border-radius:12px; box-shadow:0 18px 60px rgba(20,30,42,.35);
+  width:min(620px, 100%); padding:18px 20px 16px; color:#1B2A38; font-size:13.5px; line-height:1.5; }
+.v46-topo{ display:flex; align-items:center; justify-content:space-between; margin-bottom:10px; }
+.v46-topo h2{ margin:0; font-size:16px; font-weight:700; }
+.v46-fechar{ border:none; background:transparent; font-size:16px; cursor:pointer; color:#4E5968; padding:4px 6px; border-radius:6px; }
+.v46-fechar:hover{ background:#EEF2F5; }
+.v46-abas{ display:flex; gap:6px; margin-bottom:10px; }
+.v46-abas button{ padding:4px 12px; border-radius:12px; border:1.5px solid rgba(28,45,64,.18); background:#fff;
+  font:inherit; font-size:12px; font-weight:700; cursor:pointer; color:#1B2A38; }
+.v46-abas button[aria-selected="true"]{ background:#1B2A38; border-color:#1B2A38; color:#fff; }
+.v46-texto{ background:#F4F7F9; border:1px solid rgba(28,45,64,.1); border-radius:8px; padding:12px 14px;
+  user-select:all; word-break:break-word; }
+.v46-acoes{ display:flex; align-items:center; gap:12px; margin-top:12px; }
+.v46-copiar{ padding:8px 16px; border-radius:8px; border:none; background:#1F6FB2; color:#fff;
+  font:inherit; font-size:13px; font-weight:700; cursor:pointer; }
+.v46-copiar:hover{ background:#185a91; }
+.v46-aviso{ font-size:12.5px; font-weight:600; color:#1E6B4F; }
+.v46-nota{ margin:12px 0 0; font-size:11.5px; color:#4E5968; }
+.v46-nota a{ color:#1F6FB2; }
 </style>
 </head>
 <body>
@@ -1408,7 +1437,7 @@ table.v41-linha{ font-size:11px; }
       <button id="btn-link" class="btn-ajuda" onclick="copiarLink()" aria-label="Copiar link desta visão" title="Copiar link compartilhável desta visão" style="width:auto;padding:0 9px;height:22px;font-size:.72rem">🔗 link</button>
       <button class="btn-ajuda" onclick="abrirModal()" aria-label="Nota metodológica completa" title="Nota metodológica" style="width:22px;height:22px;font-size:.78rem">?</button>
     </div>
-    <span class="h-logo">PPGSAN/UNIRIO<br>Bernardo Castanho · 2026</span>
+    <div class="h-logo v46-hlogo"><button id="btn-citar" type="button" onclick="abrirCitar()" aria-haspopup="dialog" title="Como citar este painel"><svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 7h4v4c0 3-1.5 5-4 6M14 7h4v4c0 3-1.5 5-4 6"/></svg><span>Como citar</span></button><span>PPGSAN/UNIRIO<br>Bernardo Castanho · 2026</span></div>
   </header>
 
   <!-- BARRA DE INTRO (substitui familia-desc + modo-intro) -->
@@ -89214,6 +89243,84 @@ function v43FraseAquisicao(uf){
   return t + cuidado;
 }
 
+
+// ════════ v46: "Como citar" ════════
+const CITAR = {
+  doi: '10.5281/zenodo.23405765',
+  titulo: 'Painel de Insegurança Alimentar no Brasil',
+  ano: '2026',
+};
+let citarFormato = 'abnt', citarFoco = null;
+function citarAcesso(){
+  const m = ['jan.','fev.','mar.','abr.','maio','jun.','jul.','ago.','set.','out.','nov.','dez.'];
+  const d = new Date();
+  return d.getDate() + ' ' + m[d.getMonth()] + ' ' + d.getFullYear();
+}
+function citarConteudo(fmt){
+  const url = 'https://doi.org/' + CITAR.doi;
+  if(fmt === 'apa'){
+    return {
+      html: 'Castanho, B. (' + CITAR.ano + '). <i>' + CITAR.titulo + '</i> [Software]. Zenodo. ' + url,
+      texto: 'Castanho, B. (' + CITAR.ano + '). ' + CITAR.titulo + ' [Software]. Zenodo. ' + url,
+    };
+  }
+  const resto = '. [S. l.]: Zenodo, ' + CITAR.ano + '. DOI: ' + CITAR.doi + '. Disponível em: ' + url + '. Acesso em: ' + citarAcesso() + '.';
+  return {
+    html: 'CASTANHO, Bernardo. <b>' + CITAR.titulo + '</b>' + resto,
+    texto: 'CASTANHO, Bernardo. ' + CITAR.titulo + resto,
+  };
+}
+function formatoCitar(fmt){
+  citarFormato = fmt;
+  ['abnt','apa'].forEach(f => document.getElementById('citar-aba-' + f).setAttribute('aria-selected', f === fmt ? 'true' : 'false'));
+  document.getElementById('citar-texto').innerHTML = citarConteudo(fmt).html;
+  document.getElementById('citar-aviso').textContent = '';
+}
+function abrirCitar(){
+  citarFoco = document.activeElement;
+  document.getElementById('citar-fundo').hidden = false;
+  formatoCitar(citarFormato);
+  document.getElementById('citar-copiar').focus();
+}
+function fecharCitar(){
+  document.getElementById('citar-fundo').hidden = true;
+  if(citarFoco && citarFoco.focus) citarFoco.focus();
+}
+async function copiarCitacao(){
+  const c = citarConteudo(citarFormato);
+  const aviso = document.getElementById('citar-aviso');
+  try {
+    if(window.ClipboardItem && navigator.clipboard?.write){
+      await navigator.clipboard.write([new ClipboardItem({
+        'text/plain': new Blob([c.texto], {type:'text/plain'}),
+        'text/html': new Blob([c.html], {type:'text/html'}),
+      })]);
+    } else {
+      await navigator.clipboard.writeText(c.texto);
+    }
+    aviso.textContent = '✓ Citação copiada';
+  } catch(e){
+    // sem permissão de área de transferência (ex.: arquivo aberto localmente): seleciona o texto
+    const ta = document.createElement('textarea');
+    ta.value = c.texto; ta.style.position = 'fixed'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    let ok = false; try { ok = document.execCommand('copy'); } catch(_){}
+    ta.remove();
+    aviso.textContent = ok ? '✓ Citação copiada' : 'Não foi possível copiar: selecione o texto acima e use Ctrl+C.';
+  }
+}
+document.addEventListener('keydown', ev => {
+  const f = document.getElementById('citar-fundo');
+  if(!f || f.hidden) return;
+  if(ev.key === 'Escape'){ ev.stopPropagation(); fecharCitar(); }
+  if(ev.key === 'Tab'){   // foco preso na janela
+    const it = [...f.querySelectorAll('button, a, [tabindex="0"]')];
+    const i0 = it.indexOf(document.activeElement);
+    if(ev.shiftKey && i0 <= 0){ ev.preventDefault(); it[it.length - 1].focus(); }
+    else if(!ev.shiftKey && i0 === it.length - 1){ ev.preventDefault(); it[0].focus(); }
+  }
+}, true);
+
 function setModo(modo){
   S.modoAtual = modo;
   // Atualizar aparência das tabs (inclui as famílias ⑤ e ⑥)
@@ -91148,5 +91255,28 @@ window.addEventListener('DOMContentLoaded',()=>{
   window.addEventListener('hashchange', ()=>{ if(!_suppressURL) applyStateFromHash(); });
 });
 </script>
+
+  <!-- v46: janela "Como citar" -->
+  <div id="citar-fundo" class="v46-fundo" hidden onclick="if(event.target===this) fecharCitar()">
+    <div id="citar-janela" class="v46-janela" role="dialog" aria-modal="true" aria-labelledby="citar-titulo">
+      <div class="v46-topo">
+        <h2 id="citar-titulo">Como citar este painel</h2>
+        <button type="button" class="v46-fechar" onclick="fecharCitar()" aria-label="Fechar">✕</button>
+      </div>
+      <div class="v46-abas" role="tablist" aria-label="Formato da citação">
+        <button type="button" role="tab" id="citar-aba-abnt" aria-selected="true" onclick="formatoCitar('abnt')">ABNT</button>
+        <button type="button" role="tab" id="citar-aba-apa" aria-selected="false" onclick="formatoCitar('apa')">APA</button>
+      </div>
+      <div id="citar-texto" class="v46-texto" tabindex="0"></div>
+      <div class="v46-acoes">
+        <button type="button" id="citar-copiar" class="v46-copiar" onclick="copiarCitacao()">Copiar citação</button>
+        <span id="citar-aviso" class="v46-aviso" aria-live="polite"></span>
+      </div>
+      <p class="v46-nota">O DOI acima reúne todas as versões e leva sempre à mais recente. Versão exibida:
+        <strong>v46</strong>. A versão descrita na dissertação é a v45, de 15/10/2026
+        (<a href="https://doi.org/10.5281/zenodo.23405766" target="_blank" rel="noopener">doi.org/10.5281/zenodo.23405766</a>).
+        Licença CC BY 4.0: pode ser reutilizado e adaptado, desde que citado.</p>
+    </div>
+  </div>
 </body>
 </html>

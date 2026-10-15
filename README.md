@@ -17,6 +17,10 @@ comparações sustentadas e os achados sobre a cadeia de informação. Para 2023
 2024, as estimativas por UF trazem IC95% e a mudança entre os anos, com p
 ajustado (Holm).
 
+**Como citar:** Castanho, Bernardo. *Painel de Insegurança Alimentar no Brasil*.
+Zenodo, 2026. https://doi.org/10.5281/zenodo.23405765 (todas as versões; a v45,
+descrita na dissertação, é https://doi.org/10.5281/zenodo.23405766).
+
 **Fontes:** PNAD 2004/2009/2013 · POF 2002/2008/2017-2018 · PNAD Contínua
 2023/2024 (IBGE) · VIGISAN 2021 (Rede PENSSAN).
 
@@ -27,6 +31,7 @@ internet, sem instalar nada.
 
 ## Histórico
 
+- v46 (15/10/2026): botão "Como citar" (ABNT e APA, com cópia automática).
 - v45 (15/10/2026): fonte do coeficiente de Engel corrigida (POF 2017-2018);
   versão congelada para a banca.
 - v44 (15/10/2026): gráfico do coeficiente de Engel redesenhado, com frase de
