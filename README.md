@@ -31,6 +31,8 @@ internet, sem instalar nada.
 
 ## Histórico
 
+- v48 (15/10/2026): layout para celular e telas estreitas; janela única "Sobre o
+  painel"; guia rápido na primeira visita; siglas explicadas; ajustes na aquisição.
 - v47 (15/10/2026): dados de cada visão em CSV; mapa em % ou em mil domicílios
   (2023 e 2024); IC na dica do mapa; Quadro 6.1.1 na aba Lacunas.
 - v46 (15/10/2026): botão "Como citar" (ABNT e APA, com cópia automática).

@@ -1417,6 +1417,81 @@ table.v41-linha{ font-size:11px; }
 .v47-medida button{ border:none; background:#fff; color:#1B2A38; font:inherit; font-size:11.5px; font-weight:600; padding:3px 10px; cursor:pointer; }
 .v47-medida button[aria-pressed="true"]{ background:#1B2A38; color:#fff; }
 .v47-mil-grad{ background:linear-gradient(90deg, #F8E7E4, #C9707A, #6B1F2A) !important; }
+
+/* ════════ v48 — janela Sobre, guia rápido ════════ */
+#header .btn-ajuda[onclick="abrirModal()"]{ display:none; }     /* "?" duplicava "Sobre o painel" */
+#nota-metodo > div{ display:none !important; }                  /* conteúdo movido para a janela Sobre */
+.v48-sobre{ width:min(780px, 100%); max-height:88vh; display:flex; flex-direction:column; }
+.v48-corpo{ overflow-y:auto; padding-right:6px; font-size:13px; line-height:1.55; }
+.v48-corpo h3{ font-size:13.5px; font-weight:700; margin:14px 0 6px; color:#1B2A38; text-transform:none; letter-spacing:0; }
+.v48-corpo p, .v48-corpo li{ color:#1B2A38; }
+.v48-corpo .familias-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(220px, 1fr)); gap:10px; }
+.v48-glossario{ background:#F4F7F9; border-radius:8px; padding:9px 12px; font-size:12.5px; margin-bottom:4px; }
+.v48-rodape{ display:flex; gap:16px; flex-wrap:wrap; border-top:1px solid rgba(28,45,64,.1); margin-top:10px; padding-top:10px; }
+.v48-link{ border:none; background:transparent; color:#1F6FB2; font:inherit; font-size:12.5px; font-weight:600; cursor:pointer; padding:2px 0; text-decoration:underline; }
+.v48-anel{ position:fixed; z-index:1900; border:3px solid #1F6FB2; border-radius:12px; pointer-events:none;
+  box-shadow:0 0 0 4px rgba(31,111,178,.18); transition:all .2s; }
+.v48-anel[hidden], .v48-guia[hidden]{ display:none; }
+.v48-guia{ position:fixed; z-index:1950; width:320px; background:#fff; border-radius:12px; padding:14px 16px 12px;
+  box-shadow:0 14px 44px rgba(20,30,42,.32); color:#1B2A38; font-size:13px; line-height:1.5; }
+.v48-guia h3{ margin:2px 0 6px; font-size:15px; }
+.v48-guia p{ margin:0 0 10px; }
+.v48-guia-passo{ font-size:11px; font-weight:700; color:#4E5968; text-transform:uppercase; letter-spacing:.05em; }
+.v48-guia-acoes{ display:flex; justify-content:space-between; align-items:center; }
+#v48-menu{ display:none; }
+
+/* ════════ v48 — celular, tablet e telas estreitas (até 1180 px): coluna rolável; o computador não muda ════════ */
+@media (max-width: 1180px){
+  html, body{ height:auto !important; overflow-y:auto !important; overflow-x:hidden !important; }
+  #app{ display:flex !important; flex-direction:column; height:auto !important; }
+  #header{ position:relative !important; display:flex !important; flex-wrap:wrap; align-items:center; gap:8px;
+    height:auto !important; padding:10px 12px !important; z-index:600; order:0; }
+  #header > div:first-child{ flex:1 1 auto; min-width:0; font-size:13px !important; }
+  .v46-hlogo > span{ display:none; }
+  #btn-citar{ padding:4px 9px; font-size:11.5px; }
+  #v48-menu{ order:2; display:flex; align-items:center; gap:8px; width:100%; padding:9px 12px; border-radius:8px;
+    border:1.5px solid rgba(28,45,64,.18); background:#fff; font:inherit; font-size:13px; font-weight:700;
+    color:#7C332C; text-transform:uppercase; letter-spacing:.04em; cursor:pointer; }
+  #v48-menu-rotulo{ flex:1; text-align:left; }
+  #mode-tabs{ display:none !important; }
+  #mode-tabs.v48-aberto{ display:flex !important; position:absolute !important; top:100% !important; left:12px !important;
+    right:12px !important; width:auto !important; flex-direction:column; z-index:700; }
+  #header > div:first-child{ order:0; }
+  .v46-hlogo{ order:1; }
+  #header > div:has(#ano-pills){ order:3; position:static !important; width:100% !important; height:auto !important;
+    display:flex !important; flex-wrap:wrap; gap:6px; padding:0 !important; background:transparent !important;
+    border:none !important; box-shadow:none !important; justify-content:flex-start; }
+  #header > div:has(#ano-pills) > *{ margin:0 !important; }
+  #ano-pills{ position:static !important; width:100% !important; padding:0 !important; border:none !important;
+    box-shadow:none !important; background:transparent !important; }
+  #ano-pills::before{ display:none !important; }
+  #ano-pills:not([style*="none"]){ display:flex !important; flex-wrap:wrap; gap:3px; }
+  #ano-pills .pill-ano{ flex:1 1 0; min-width:0; padding:6px 0; }
+  #mapa-fonte{ display:none !important; }
+  #map-titlebar{ position:static !important; transform:none !important; max-width:none !important; height:auto !important;
+    white-space:normal !important; flex-wrap:wrap; padding:10px 12px 4px !important; font-size:12.5px !important; }
+  #kpi-row{ position:static !important; transform:none !important; grid-template-columns:repeat(auto-fit, minmax(165px, 1fr)); gap:8px !important; padding:4px 12px !important; width:auto !important; order:1; }
+  #kpi-row .kpi{ min-width:0 !important; width:auto !important; }
+  #kpi-row .kpi-sub{ white-space:normal !important; }
+  #kpi-row:not([style*="none"]){ display:grid !important; }
+  #main-row{ position:static !important; height:auto !important; order:2; }
+  #main-row:not([style*="none"]){ display:block !important; }
+  #main-row > section.panel{ position:relative !important; inset:auto !important; height:58vh !important; min-height:320px; }
+  #leg-mapa{ position:absolute !important; left:8px !important; bottom:8px !important; top:auto !important;
+    transform:scale(.85); transform-origin:bottom left; }
+  #filtros-wrap{ position:static !important; width:auto !important; max-height:none !important; margin:8px 12px !important; }
+  #extra-row{ position:static !important; transform:none !important; left:auto !important; right:auto !important;
+    width:auto !important; max-height:none !important; padding:0 8px !important; order:2; }
+  #line-row:not([style*="none"]){ display:flex !important; }
+  #line-row{ position:static !important; width:auto !important; height:320px !important;
+    margin:8px 12px !important; order:3; }
+  #intro-bar{ position:static !important; width:auto !important; max-height:none !important; margin:8px 12px !important; order:4; }
+  #nota-metodo{ position:static !important; margin:4px 12px 16px !important; order:5; }
+  #filtro-drawer{ width:100vw !important; max-width:100vw !important; }
+  #btn-abrir-drawer{ display:none !important; }   /* botão flutuante antigo duplicava "Filtros" */
+  .v48-guia{ left:12px !important; right:12px !important; width:auto; bottom:12px; top:auto !important; }
+  .v46-janela{ padding:14px; }
+}
 </style>
 </head>
 <body>
@@ -1645,7 +1720,7 @@ table.v41-linha{ font-size:11px; }
       </ul>
 
       <h3>Aquisição domiciliar de alimentos</h3>
-      <p>A aba "Aquisição domiciliar" mostra kg/per capita/ano de 17 grupos alimentares, também pela POF. Os valores são de aquisição domiciliar declarada, não de consumo individual.</p>
+      <p>A aba "Aquisição domiciliar" mostra kg/per capita/ano de 17 grupos alimentares, também pela POF. Os valores são de aquisição domiciliar declarada, não de consumo individual. São números publicados pelo IBGE (SIDRA 2393) sem intervalo de confiança: diferenças pequenas entre UFs ou entre anos podem não ser estatisticamente significativas.</p>
 
       <h3>Filtros interseccionais e limites estatísticos</h3>
       <p>Os filtros (Sexo, Cor/Raça, Instrução, Renda, Tam. domicílio, Presença de criança/idoso, Situação do domicílio) usam <strong>microdados PNADC 2023 e 2024</strong> (instrução também PNAD 2009 e 2013). Sexo, cor/raça e instrução são os da <strong>pessoa de referência</strong> do domicílio (o responsável), não os dos demais moradores. Cruzamentos de dois filtros exigem n ≥ 30 observações por célula — células abaixo desse limiar são sinalizadas com aviso de instabilidade e devem ser interpretadas com grande cautela.</p>
@@ -1688,7 +1763,7 @@ table.v41-linha{ font-size:11px; }
       <button id="btn-aplicar-filtro" onclick="fecharDrawer()">✓ Fechar e ver mapa</button>
       <button id="btn-drawer-limpar" onclick="limparFiltro()">✕ Limpar</button>
     </div>
-    <p id="drawer-nota">Cruzamentos de 2 fatores exigem <strong>n ≥ 30</strong> por célula — estimativas instáveis são sinalizadas no mapa. <button onclick="abrirModal();fecharDrawer()">Nota metodológica completa</button></p>
+    <p id="drawer-nota">Cruzamentos de 2 fatores exigem <strong>n ≥ 30</strong> por célula — estimativas instáveis são sinalizadas no mapa. <button onclick="abrirSobre('limites');fecharDrawer()">Nota metodológica completa</button></p>
   </div>
 </div>
 
@@ -89230,7 +89305,7 @@ function v43FraseAquisicao(uf){
   if(!g) return '';
   const a = S.anoGrupo, nome = (g.nome || '').toLowerCase();
   const br = g.anos?.[String(a)], br02 = g.anos?.['2002'], br18 = g.anos?.['2018'];
-  const cuidado = ' É o que o domicílio compra para consumir em casa: não inclui a alimentação fora do domicílio e não equivale ao que cada pessoa come.';
+  const cuidado = ' É o que o domicílio compra para consumir em casa: não inclui a alimentação fora do domicílio e não equivale ao que cada pessoa come. Os valores (SIDRA 2393) são publicados sem intervalo de confiança.';
   if(!uf){
     if(br02 == null || br18 == null) return '';
     const d = (br18 - br02) / br02 * 100;
@@ -89410,7 +89485,7 @@ function v47CSVVisao(){
     const L = [['BR','Brasil'].concat([2002,2008,2018].map(a => v47n(g?.anos?.[String(a)], 3)))]
       .concat(ufs.map(u => [u, UF_META[u].nome].concat([2002,2008,2018].map(a => v47n(getValGrupo(u, S.grupoAlim, a), 3)))));
     return {nome:'aquisicao_' + (g?.nome || S.grupoAlim).toLowerCase().replace(/[^a-z0-9]+/g, '_'),
-      titulo:'Aquisição domiciliar per capita anual (kg) — ' + (g?.nome || '') + ' — POF 2002-2003, 2008-2009 e 2017-2018 (SIDRA 2393)',
+      titulo:'Aquisição domiciliar per capita anual (kg) — ' + (g?.nome || '') + ' — POF 2002-2003, 2008-2009 e 2017-2018 (SIDRA 2393; publicados sem intervalo de confiança)',
       csv: v47tabela(['uf','nome','kg_2002_2003','kg_2008_2009','kg_2017_2018'], L)};
   }
   const a = String(S.ano);
@@ -89450,6 +89525,163 @@ function baixarCSV(){
   const b = document.getElementById('btn-csv');
   if(b){ const t = b.textContent; b.textContent = '✓ baixado'; setTimeout(() => b.textContent = t, 1500); }
 }
+
+
+// ════════ v48: janela Sobre, guia rápido, celular ════════
+// ── janela Sobre: o conteúdo das notas e das famílias é MOVIDO para cá (não copiado) ──
+// a URL como chegou (o painel grava o estado no # logo ao abrir): link compartilhado não mostra o guia
+const V48_HASH_INICIAL = location.hash;
+let sobreFoco = null, sobreMontada = false;
+function v48MontarSobre(){
+  if(sobreMontada) return;
+  const notas = document.querySelector('#nota-metodo > div');
+  if(!notas) return;
+  const secoes = {}; let atual = null;
+  [...notas.childNodes].forEach(n => {
+    if(n.nodeType === 1 && n.tagName === 'H3'){ atual = n.textContent.trim(); secoes[atual] = []; }
+    if(atual) secoes[atual].push(n);
+  });
+  const poe = (destino, prefixos) => prefixos.forEach(pf => {
+    const k = Object.keys(secoes).find(t => t.toLowerCase().startsWith(pf));
+    if(k) secoes[k].forEach(n => document.getElementById(destino).appendChild(n));
+  });
+  poe('sobre-ler', ['como o painel se organiza']);
+  const grade = document.querySelector('#familias-modal .familias-grid');
+  if(grade){
+    const t = document.createElement('h3'); t.textContent = 'As famílias de indicadores';
+    document.getElementById('sobre-ler').append(t, grade);
+  }
+  poe('sobre-fontes', ['o que é a ebia', 'fontes e comparabilidade', 'aquisição domiciliar']);
+  poe('sobre-limites', ['o que o painel não mostra', 'filtros interseccionais', 'cautelas gerais']);
+  sobreMontada = true;
+}
+function abaSobre(aba){
+  ['ler', 'fontes', 'limites'].forEach(a => {
+    document.getElementById('sobre-' + a).hidden = a !== aba;
+    document.querySelector('#sobre-janela [data-aba="' + a + '"]').setAttribute('aria-selected', a === aba ? 'true' : 'false');
+  });
+  document.querySelector('#sobre-janela .v48-corpo').scrollTop = 0;
+}
+function abrirSobre(aba){
+  v48MontarSobre();
+  sobreFoco = document.activeElement;
+  document.getElementById('sobre-fundo').hidden = false;
+  abaSobre(aba || 'ler');
+  document.querySelector('#sobre-janela .v46-fechar').focus();
+}
+function fecharSobre(){
+  document.getElementById('sobre-fundo').hidden = true;
+  if(sobreFoco && sobreFoco.focus) sobreFoco.focus();
+}
+document.addEventListener('keydown', ev => {
+  const f = document.getElementById('sobre-fundo');
+  if(!f || f.hidden) return;
+  if(ev.key === 'Escape'){ ev.stopPropagation(); fecharSobre(); }
+  if(ev.key === 'Tab'){
+    const it = [...f.querySelectorAll('button, a')].filter(e => e.offsetParent);
+    const i0 = it.indexOf(document.activeElement);
+    if(ev.shiftKey && i0 <= 0){ ev.preventDefault(); it[it.length - 1].focus(); }
+    else if(!ev.shiftKey && i0 === it.length - 1){ ev.preventDefault(); it[0].focus(); }
+  }
+}, true);
+
+// ── guia rápido (primeira visita) ──
+const V48_GUIA = [
+  {alvo:'#mode-tabs', titulo:'Escolha o que ver',
+   texto:'Cada aba reúne um conjunto de indicadores. Comece por Insegurança alimentar (EBIA), a medida direta; as outras mostram desigualdades, aquisição de alimentos, orçamento e as lacunas dos dados.'},
+  {alvo:'#div-mapa', titulo:'Clique num estado',
+   texto:'O painel à direita mostra os números da UF escolhida e os compara com o Brasil, com intervalo de confiança em 2023 e 2024. Também dá para escolher a UF na lista do painel.'},
+  {alvo:'#btn-cta-drawer', titulo:'Use os filtros',
+   texto:'Em Filtros, veja a insegurança alimentar por sexo, cor ou raça e instrução da pessoa de referência, renda e composição do domicílio, estado por estado.'},
+];
+const V48_CHAVE = 'painelIA_guia_visto_v1';
+let guiaPasso = 0;
+function v48GuiaVisto(){ try { return localStorage.getItem(V48_CHAVE) === '1'; } catch(e){ return false; } }
+function v48GuiaMostra(){
+  const p = V48_GUIA[guiaPasso];
+  const alvo = document.querySelector(p.alvo);
+  const c = document.getElementById('guia-cartao'), anel = document.getElementById('guia-anel');
+  document.getElementById('guia-passo').textContent = (guiaPasso + 1) + ' de ' + V48_GUIA.length;
+  document.getElementById('guia-titulo').textContent = p.titulo;
+  document.getElementById('guia-texto').textContent = p.texto;
+  document.getElementById('guia-prox').textContent = guiaPasso === V48_GUIA.length - 1 ? 'Começar' : 'Próximo';
+  c.hidden = false;
+  if(!alvo || !alvo.getBoundingClientRect().width){ anel.hidden = true; return; }
+  if(window.matchMedia('(max-width: 1180px)').matches) alvo.scrollIntoView({block:'center'});
+  const r = alvo.getBoundingClientRect();
+  const grande = r.width > 600 && r.height > 300;          // o mapa: anel discreto no centro
+  const rr = grande ? {left:r.left + r.width / 2 - 120, top:r.top + r.height / 2 - 90, width:240, height:180} : r;
+  Object.assign(anel.style, {left:(rr.left - 6) + 'px', top:(rr.top - 6) + 'px', width:(rr.width + 12) + 'px', height:(rr.height + 12) + 'px'});
+  anel.hidden = false;
+  if(window.matchMedia('(max-width: 1180px)').matches){ c.style.left = ''; c.style.top = ''; return; }
+  const W = window.innerWidth, H = window.innerHeight, cw = 320, ch = c.offsetHeight || 180;
+  let x = rr.left + rr.width + 18, y = rr.top;
+  if(x + cw > W - 12){ x = Math.max(12, rr.left - cw - 18); }
+  if(x < 12 || (x + cw > rr.left && x < rr.left + rr.width)){ x = Math.min(W - cw - 12, Math.max(12, rr.left)); y = rr.top + rr.height + 14; }
+  y = Math.min(Math.max(12, y), H - ch - 12);
+  c.style.left = x + 'px'; c.style.top = y + 'px';
+}
+function v48Guia(forcar){
+  if(!forcar && v48GuiaVisto()) return;
+  guiaPasso = 0; v48GuiaMostra();
+}
+function v48GuiaProx(){ if(guiaPasso < V48_GUIA.length - 1){ guiaPasso++; v48GuiaMostra(); } else v48GuiaFim(); }
+function v48GuiaFim(){
+  document.getElementById('guia-cartao').hidden = true;
+  document.getElementById('guia-anel').hidden = true;
+  try { localStorage.setItem(V48_CHAVE, '1'); } catch(e){}
+}
+window.addEventListener('resize', () => { if(!document.getElementById('guia-cartao').hidden) v48GuiaMostra(); });
+
+// ── celular: menu recolhível e título do mapa no fluxo da página ──
+const V48_MQ = window.matchMedia('(max-width: 1180px)');
+let v48Orig = null;
+function v48Layout(){
+  const tb = document.getElementById('map-titlebar'), mr = document.getElementById('main-row');
+  if(!tb || !mr) return;
+  if(!v48Orig) v48Orig = {pai: tb.parentNode, prox: tb.nextSibling};
+  if(V48_MQ.matches){ if(tb.parentNode !== mr) mr.insertBefore(tb, mr.firstChild); }
+  else if(tb.parentNode !== v48Orig.pai){ v48Orig.pai.insertBefore(tb, v48Orig.prox); }
+  document.getElementById('mode-tabs')?.classList.remove('v48-aberto');
+  setTimeout(() => ['div-mapa', 'div-linha', 'div-barras'].forEach(id => {
+    const g = document.getElementById(id); if(g && g.data) try { Plotly.Plots.resize(g); } catch(e){}
+  }), 60);
+}
+function v48MenuRotulo(){
+  const at = document.querySelector('#mode-tabs .tab-modo.ativo span');
+  const r = document.getElementById('v48-menu-rotulo');
+  if(r) r.textContent = at ? at.textContent : 'Menu';
+}
+function v48Menu(){
+  const nav = document.getElementById('mode-tabs');
+  const aberto = nav.classList.toggle('v48-aberto');
+  document.getElementById('v48-menu').setAttribute('aria-expanded', aberto ? 'true' : 'false');
+}
+function v48Inicia(){
+  // entradas antigas passam a abrir a janela única
+  abrirFamilias = function(){ abrirSobre('ler'); };
+  abrirModal = function(){ abrirSobre('fontes'); };
+  const sm = document.querySelector('#nota-metodo > summary');
+  if(sm) sm.addEventListener('click', ev => { ev.preventDefault(); abrirSobre('fontes'); });
+  // botão de menu do celular
+  const hd = document.getElementById('header'), nav = document.getElementById('mode-tabs');
+  if(hd && nav && !document.getElementById('v48-menu')){
+    const b = document.createElement('button');
+    b.id = 'v48-menu'; b.type = 'button'; b.setAttribute('aria-expanded', 'false'); b.setAttribute('aria-controls', 'mode-tabs');
+    b.innerHTML = '<span aria-hidden="true">☰</span> <span id="v48-menu-rotulo">Menu</span> <span aria-hidden="true">▾</span>';
+    b.onclick = v48Menu;
+    hd.appendChild(b);   // no fim: inserir no meio desloca o :nth-child que posiciona a barra de rodapé
+    nav.addEventListener('click', ev => {
+      if(ev.target.closest('.tab-modo')){ nav.classList.remove('v48-aberto'); b.setAttribute('aria-expanded', 'false'); setTimeout(v48MenuRotulo, 0); }
+    });
+  }
+  v48MenuRotulo();
+  v48Layout();
+  V48_MQ.addEventListener ? V48_MQ.addEventListener('change', v48Layout) : V48_MQ.addListener(v48Layout);
+  if(!V48_HASH_INICIAL) setTimeout(() => v48Guia(false), 900);
+}
+if(document.readyState === 'complete') setTimeout(v48Inicia, 0);
+else window.addEventListener('load', () => setTimeout(v48Inicia, 0));
 
 function setModo(modo){
   S.modoAtual = modo;
@@ -89544,7 +89776,7 @@ const FAMILIA_DESC = {
 };
 
 const MODO_INTRO = {
-  ebia:    '<strong>Insegurança alimentar (EBIA):</strong> % de domicílios com dificuldade de acesso a alimentos em quantidade ou qualidade suficiente. Clique em uma UF no mapa para comparar com o Brasil.',
+  ebia:    '<strong>Insegurança alimentar (IA), medida pela EBIA:</strong> % de domicílios com dificuldade de acesso a alimentos em quantidade ou qualidade suficiente. Clique em uma UF no mapa para comparar com o Brasil.',
   filtros: '<strong>Fatores socioeconômicos e demográficos:</strong> como a insegurança alimentar se distribui por renda, cor/raça, instrução, sexo e composição domiciliar. Use <em>② Fatores socioecon.</em> para escolher um recorte.',
   pof:     '<strong>Aquisição domiciliar (POF):</strong> quantidade adquirida por domicílio em kg/per capita/ano — 17 grupos de alimentos (2002/2008/2018). Não mede insegurança alimentar; descreve o que o domicílio adquire.',
   nova4: '',
@@ -90068,7 +90300,7 @@ function updateMap(){
     const lbl = FILTROS[S.filtro]?.cats?.[S.catIdx]?.label || '';
     titulo = 'Prevalência de IA por UF — ' + S.ano + ' · ' + FILTROS[S.filtro]?.label + ': ' + lbl;
   } else {
-    titulo = v47MilAtivo() ? 'Domicílios em IA por UF (mil) — ' + S.ano : 'Prevalência de IA por UF — ' + S.ano;
+    titulo = v47MilAtivo() ? 'Domicílios em insegurança alimentar (IA) por UF, em mil — ' + S.ano : 'Prevalência de insegurança alimentar (IA) por UF — ' + S.ano;
   }
   document.getElementById('mapa-title').textContent = titulo;
   const swEl = document.getElementById('leg-swatches');
@@ -90364,7 +90596,6 @@ function buildLineLayout(){
       yaxis: {
         fixedrange:true, ticksuffix:' kg',
         gridcolor:'rgba(192,138,62,0.15)', rangemode:'tozero', zeroline:false,
-        title:{text:'kg per capita/ano (POF)', font:{size:10.5, color:C.L_pof}},
         color:C.L_pof, tickfont:{size:11.5, color:'#18202A'},
       },
       margin:{t:36, b:34, l:68, r:16, autoexpand:false},
@@ -91095,7 +91326,7 @@ function updateTopbarTag(){
   if(S.grupoAlim !== null){
     const nome = GRUPOS_ALIM?.grupos_br?.[S.grupoAlim]?.nome || S.grupoAlim;
     txt.textContent = 'Aquisição: ' + (nome.length > 28 ? nome.substring(0,28)+'…' : nome);
-    el.classList.add('vis');
+    el.classList.remove('vis');   // v48: o grupo já está no título; o chip só repetia
   } else if(S.filtro!==null && S.catIdx!==null && S.filtro2!==null && S.cat2Idx!==null){
     const lbl1 = FILTROS[S.filtro].label + ': ' + FILTROS[S.filtro].cats[S.catIdx].label;
     const lbl2 = FILTROS[S.filtro2].label + ': ' + FILTROS[S.filtro2].cats[S.cat2Idx].label;
@@ -91416,6 +91647,47 @@ window.addEventListener('DOMContentLoaded',()=>{
         <strong>v46</strong>. A versão descrita na dissertação é a v45, de 15/10/2026
         (<a href="https://doi.org/10.5281/zenodo.23405766" target="_blank" rel="noopener">doi.org/10.5281/zenodo.23405766</a>).
         Licença CC BY 4.0: pode ser reutilizado e adaptado, desde que citado.</p>
+    </div>
+  </div>
+
+  <!-- v48: janela única "Sobre o painel" -->
+  <div id="sobre-fundo" class="v46-fundo" hidden onclick="if(event.target===this) fecharSobre()">
+    <div id="sobre-janela" class="v46-janela v48-sobre" role="dialog" aria-modal="true" aria-labelledby="sobre-titulo">
+      <div class="v46-topo">
+        <h2 id="sobre-titulo">Sobre o painel</h2>
+        <button type="button" class="v46-fechar" onclick="fecharSobre()" aria-label="Fechar">✕</button>
+      </div>
+      <div class="v46-abas" role="tablist" aria-label="Seções">
+        <button type="button" role="tab" data-aba="ler" onclick="abaSobre('ler')">Como ler</button>
+        <button type="button" role="tab" data-aba="fontes" onclick="abaSobre('fontes')">Fontes e comparabilidade</button>
+        <button type="button" role="tab" data-aba="limites" onclick="abaSobre('limites')">Limites e cautelas</button>
+      </div>
+      <div class="v48-corpo">
+        <div id="sobre-ler" class="v48-aba" role="tabpanel">
+          <div class="v48-glossario"><strong>Siglas.</strong> <b>IA</b>: insegurança alimentar · <b>SA</b>: segurança alimentar ·
+            <b>EBIA</b>: Escala Brasileira de Insegurança Alimentar · <b>IAN</b>: insegurança alimentar e nutricional ·
+            <b>IC95%</b>: intervalo de confiança de 95% · <b>p.p.</b>: pontos percentuais · <b>UF</b>: Unidade da Federação ·
+            <b>PNAD</b>, <b>PNADC</b> e <b>POF</b>: pesquisas do IBGE (Nacional por Amostra de Domicílios, a Contínua, e de Orçamentos Familiares).</div>
+        </div>
+        <div id="sobre-fontes" class="v48-aba" role="tabpanel" hidden></div>
+        <div id="sobre-limites" class="v48-aba" role="tabpanel" hidden></div>
+      </div>
+      <div class="v48-rodape">
+        <button type="button" class="v48-link" onclick="fecharSobre(); v48Guia(true)">Ver o guia rápido</button>
+        <button type="button" class="v48-link" onclick="fecharSobre(); abrirCitar()">Como citar este painel</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- v48: guia rápido -->
+  <div id="guia-anel" class="v48-anel" hidden></div>
+  <div id="guia-cartao" class="v48-guia" role="dialog" aria-live="polite" aria-labelledby="guia-titulo" hidden>
+    <div class="v48-guia-passo" id="guia-passo"></div>
+    <h3 id="guia-titulo"></h3>
+    <p id="guia-texto"></p>
+    <div class="v48-guia-acoes">
+      <button type="button" class="v48-link" onclick="v48GuiaFim()">Pular guia</button>
+      <button type="button" class="v46-copiar" id="guia-prox" onclick="v48GuiaProx()">Próximo</button>
     </div>
   </div>
 </body>
