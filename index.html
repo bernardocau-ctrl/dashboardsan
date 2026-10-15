@@ -1492,6 +1492,22 @@ table.v41-linha{ font-size:11px; }
   .v48-guia{ left:12px !important; right:12px !important; width:auto; bottom:12px; top:auto !important; }
   .v46-janela{ padding:14px; }
 }
+
+/* ════════ v49 — botões de exportação por gráfico ════════ */
+.v49-exp{ display:inline-flex; gap:0; border:1.5px solid rgba(28,45,64,.18); border-radius:10px; overflow:hidden;
+  vertical-align:middle; margin-left:8px; flex-shrink:0; text-transform:none; letter-spacing:0; font-family:'Inter',sans-serif; }
+.v49-exp button{ border:none; background:#fff; color:#1F6FB2; font:inherit; font-size:11px; font-weight:700;
+  padding:3px 8px; cursor:pointer; white-space:nowrap; }
+.v49-exp button + button{ border-left:1px solid rgba(28,45,64,.15); }
+.v49-exp button:hover, .v49-exp button:focus-visible{ background:#1F6FB2; color:#fff; }
+.v49-exp button:disabled{ opacity:.6; cursor:wait; }
+.v49-linha{ display:flex; justify-content:flex-end; margin:2px 0 -2px; }
+@media (max-width: 1180px){
+  /* título da série em linha própria; etiquetas e botões embaixo */
+  #line-row .panel-title{ flex-wrap:wrap !important; }
+  #line-row .panel-title > span:first-child{ flex:1 1 100% !important; }
+  #line-row .panel-title > div{ width:100%; justify-content:space-between; }
+}
 </style>
 </head>
 <body>
@@ -89410,7 +89426,7 @@ document.addEventListener('keydown', ev => {
 
 // ════════ v47: % ou mil domicílios no mapa; dica com IC; CSV da visão; Quadro 6.1.1 ════════
 const V47 = {"q611":[["Subpergunta","O indicador e os dados autorizam","Exigem outros dados, escalas ou métodos","Seções"],["P1 Comparabilidade e trajetória","Descrever a prevalência de cada inquérito; comparar 2023 e 2024 e, com ressalva, as edições da PNAD de 2004, 2009 e 2013","Tratar 2013, a POF 2017-2018 e 2023 como série contínua: mudam instrumento, desenho e contexto, e a EBIA está em branco nos arquivos PNADC T4 de 2016 a 2019 e de 2021 examinados","5.1.1; 6.2.1"],["P2 Distribuição e escala","Descrever diferenças entre grupos de renda, raça/cor, sexo e instrução em escala absoluta e relativa, e testar sua mudança entre 2023 e 2024, em análise exploratória","Explicar as diferenças (mecanismos), examinar a sobreposição entre marcadores e atribuir a mudança a políticas","5.1.3; 5.1.4; 6.2.2; 6.2.3"],["P3 Território","Contrastar a capital e o restante do estado do Rio de Janeiro nos domínios amostrais, com n, IC95% e coeficiente de variação","Inferir para municípios, favelas ou subáreas do estado; estimar com precisão a insegurança grave na capital","5.1.5; 6.2.4"],["P4 Dimensão individual (Ondas 1 e 2)","Descrever associações ajustadas entre os níveis de EBIA e a energia relatada, a fibra e a participação de arroz e feijão e de hortaliças na energia, com intervalos de confiança, na Onda 1 e em 2B; sem diferença detectável na densidade energética dos alimentos sólidos;","Inferir causa ou mediação; caracterizar a qualidade global da dieta; afirmar consumo absoluto dos grupos (os indicadores são frações da energia)","5.2; 6.3.1"],["P5 Dimensão do orçamento","Descrever a aquisição domiciliar, a despesa e o coeficiente de Engel (a composição NOVA da aquisição fica no apêndice, não validada)","Relacionar esses dados aos níveis da EBIA (cruzamento em nível de domicílio) e inferir consumo individual ou privação alimentar","5.3; 6.3.2; 6.3.3"],["P6 Informação","Documentar lacunas, quebras e divergências (dez achados) e expressá-las como metadado","Demonstrar que o painel é compreensível ou altera decisões (avaliação com usuários e apreciação ética)","5.4; 6.4"]],"fonte":"DISSERTACAO_REVISADA_v22_20261015_ACEITA.docx"};
-const V47_VERSAO = 'v47';
+const V47_VERSAO = 'v49';
 const V47_ESCALA_MIL = [[0, '#F8E7E4'], [0.5, '#C9707A'], [1, '#6B1F2A']];   // um só tom, claro -> escuro
 S.mapaMil = false;
 function v47MilAtivo(){
@@ -89682,6 +89698,285 @@ function v48Inicia(){
 }
 if(document.readyState === 'complete') setTimeout(v48Inicia, 0);
 else window.addEventListener('load', () => setTimeout(v48Inicia, 0));
+
+
+// ════════ v49: exportar cada gráfico em PNG (alta resolução, com citação) e CSV ════════
+const V49_DOI = '10.5281/zenodo.23405765';
+const V49_CIT = 'Castanho, Bernardo. Painel de Insegurança Alimentar no Brasil. Zenodo, 2026. https://doi.org/' + V49_DOI;
+function v49slug(t){
+  return String(t).normalize('NFD').replace(/[̀-ͯ]/g, '').toLowerCase()
+    .replace(/%/g, 'pct').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 120).replace(/-[^-]*$/, m => m.length > 1 && String(t).length > 120 ? '' : m);
+}
+function v49Nome(titulo, ext){ return 'Castanho2026_PainelIA_' + v49slug(titulo) + '.' + ext; }
+function v49Hoje(){ return new Date().toLocaleDateString('pt-BR'); }
+function v49Txt(id){ const e = document.getElementById(id); return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; }
+const V49_FONTE_EBIA = 'IBGE: PNAD 2004, 2009 e 2013 (microdados reponderados), POF 2017-2018 e PNADC 4º tri. 2023 e 2024 (SIDRA 9552 e microdados); VIGISAN 2021 (Rede PENSSAN), só como contexto';
+
+// ── o que cada gráfico exporta: título, recorte, fonte e tabela ──
+function v49Spec(id){
+  const a = String(getAno());
+  const ufNome = S.ufSel ? (UF_META[S.ufSel]?.nome || S.ufSel) : null;
+  const recorte = () => {
+    const p = [];
+    if(S.filtro !== null && S.catIdx !== null) p.push(FILTROS[S.filtro].label + ': ' + FILTROS[S.filtro].cats[S.catIdx].label);
+    if(S.filtro2 !== null && S.cat2Idx !== null) p.push(FILTROS[S.filtro2].label + ': ' + FILTROS[S.filtro2].cats[S.cat2Idx].label);
+    return p.join(' × ');
+  };
+  if(id === 'div-linha'){
+    if(S.grupoAlim !== null){
+      const g = GRUPOS_ALIM.grupos_br[S.grupoAlim];
+      const L = [2002, 2008, 2018].map(y => ['Brasil', V43_POF[y], v47n(g?.anos?.[String(y)], 3)]);
+      if(S.ufSel) [2002, 2008, 2018].forEach(y => L.push([ufNome, V43_POF[y], v47n(getValGrupo(S.ufSel, S.grupoAlim, y), 3)]));
+      return {titulo: v49Txt('linha-title') + (ufNome ? ' — Brasil e ' + ufNome : ''), sub: 'Aquisição domiciliar per capita anual (kg)',
+        fonte: 'IBGE, POF 2002-2003, 2008-2009 e 2017-2018 (SIDRA 2393; publicados sem intervalo de confiança)',
+        cab: ['local', 'pof', 'kg_per_capita_ano'], linhas: L};
+    }
+    const anos = ['2004', '2009', '2013', '2018', '2023', '2024'];
+    const L = anos.map(y => { const d = NACIONAL[y], ic = V41.nacional_ic[y];
+      return ['Brasil', y === '2018' ? '2017-2018' : y, v47n(d?.ia), ic ? v47n(ic.ia[1]) : '', ic ? v47n(ic.ia[2]) : '', v47n(d?.ia_grav), ic ? v47n(ic.grave[1]) : '', ic ? v47n(ic.grave[2]) : '', v47FonteAno(y)]; });
+    L.push(['Brasil (VIGISAN, contexto externo)', '2021', v47n(VIGISAN.ia), '', '', v47n(VIGISAN.ia_grav), '', '', 'Rede PENSSAN, VIGISAN I 2021 (não comparável com o IBGE)']);
+    if(S.ufSel) ['2004', '2009', '2013', '2023', '2024'].forEach(y => { const d = getEbia(S.ufSel, y), ic = V42.uf_ic[S.ufSel]?.[y];
+      if(d) L.push([ufNome, y, v47n(d.ia), ic ? v47n(ic.ia[1]) : '', ic ? v47n(ic.ia[2]) : '', v47n(d.ia_grav), ic ? v47n(ic.grave[1]) : '', ic ? v47n(ic.grave[2]) : '', v47FonteAno(y)]); });
+    return {titulo: ufNome ? 'Prevalência de insegurança alimentar (IA) — Brasil vs ' + ufNome : 'Prevalência de insegurança alimentar (IA) no Brasil, por inquérito',
+      sub: 'Qualquer grau e grave (% dos domicílios). PNAD, POF e PNADC ficam lado a lado, sem série contínua.',
+      fonte: V49_FONTE_EBIA, cab: ['local', 'ano', 'ia_pct', 'ia_ic95_inf', 'ia_ic95_sup', 'ia_grave_pct', 'grave_ic95_inf', 'grave_ic95_sup', 'fonte'], linhas: L};
+  }
+  if(id === 'div-barras'){
+    const {x, locs} = buildBarData();
+    const temIC = S.grupoAlim === null && !S.nova4 && S.filtro === null && !v47MilAtivo() && locs.every(u => V42.uf_ic[u]?.[a]);
+    const und = S.grupoAlim !== null ? 'kg_per_capita_ano' : (v47MilAtivo() ? 'domicilios_ia_mil' : 'ia_pct');
+    const L = locs.map((u, i) => [i + 1, u, UF_META[u].nome, typeof x[i] === 'number' ? (v47MilAtivo() ? x[i] : v47n(x[i], S.grupoAlim !== null ? 3 : 1)) : '',
+      temIC ? v47n(V42.uf_ic[u][a].ia[1]) : '', temIC ? v47n(V42.uf_ic[u][a].ia[2]) : '']);
+    const rc = recorte();
+    return {titulo: v49Txt('barras-title'), sub: (rc ? 'Recorte: ' + rc + '. ' : '') + (temIC ? 'Barras: IC95%. ' : 'Sem intervalo de confiança nesta visão. ') + 'Ordem não indica diferença significativa entre UFs vizinhas.',
+      fonte: S.grupoAlim !== null ? 'IBGE, POF (SIDRA 2393)' : (v47MilAtivo() ? 'IBGE, PNADC (SIDRA 9552)' : v47FonteAno(a)),
+      cab: ['ordem', 'uf', 'nome', und, 'ic95_inf', 'ic95_sup'], linhas: L};
+  }
+  if(id === 'div-mapa'){
+    const v = v47CSVVisao();
+    const rc = recorte();
+    const fonte = S.grupoAlim !== null ? 'IBGE, POF (SIDRA 2393; publicados sem intervalo de confiança)'
+      : v47MilAtivo() ? 'IBGE, PNADC 4º tri. ' + a + ' (SIDRA 9552)'
+      : rc ? 'IBGE, microdados da PNADC 4º tri. ' + a + ' (sexo, cor/raça e instrução da pessoa de referência)' : v47FonteAno(a);
+    return {titulo: v49Txt('mapa-title'), sub: (rc ? 'Recorte: ' + rc + '. ' : '') + 'Por Unidade da Federação. Os números estão no CSV.', fonte: fonte, csvPronto: v.csv};
+  }
+  if(id === 'div-engel'){
+    const m = S.engelMetrica || 'engel_desp';
+    const rot = {engel_desp: '% da despesa corrente', engel_renda: '% do rendimento declarado', pct_fora: '% da despesa com alimentação feita fora do domicílio'}[m];
+    return {titulo: 'Coeficiente de Engel por faixa de rendimento — Brasil e Rio de Janeiro', sub: 'Medida: ' + rot + '. POF 2017-2018.',
+      fonte: 'IBGE, POF 2017-2018 (SIDRA 6715, 6972, 6974 e 6977)',
+      cab: ['faixa_rendimento', 'brasil', 'rio_de_janeiro', 'medida'], linhas: ENGEL_BR.map((d, i) => [d.faixa, v47n(d[m]), v47n(ENGEL_RJ[i]?.[m]), rot])};
+  }
+  if(id === 'div-desig-prev' || id === 'div-desig-contr'){
+    const mk = V41.marcadores.find(q => q.id === S.desigMarc) || V41.marcadores[0];
+    const desf = mk.id === 'renda' ? 'ia' : S.desigDesf, nomeD = desf === 'ia' ? 'qualquer grau' : 'grave';
+    if(id === 'div-desig-prev'){
+      const P = V41.prev[mk.id] || {}, L = [];
+      mk.cats.forEach(c => Object.keys(P[c] || {}).sort().forEach(y => { const v = P[c][y][desf]; if(v) L.push([c, y, v47n(v[0]), v47n(v[1]), v47n(v[2]), P[c][y].n || '', v47FonteAno(y)]); }));
+      return {titulo: 'Insegurança alimentar (' + nomeD + ') por ' + mk.label.toLowerCase(), sub: 'Brasil, % dos domicílios, com IC95%.',
+        fonte: V49_FONTE_EBIA, cab: ['categoria', 'ano', 'prevalencia_pct', 'ic95_inf', 'ic95_sup', 'n_domicilios', 'fonte'], linhas: L};
+    }
+    const esc = S.desigEscala, nomeE = esc === 'raz' ? 'razão de prevalência' : 'diferença absoluta (p.p.)', L = [];
+    if(mk.id === 'renda'){
+      ['fA', 'fB'].forEach(vr => ['2023', '2024'].forEach(y => { const k = (esc === 'raz' ? 'razao_' : 'dif_') + y + (esc === 'raz' ? '' : '_pp'), r = V41.renda_ext[vr][k];
+        if(r) L.push(['Até ¼ SM', 'Mais de 2 SM', y, vr === 'fA' ? 'faixas do SIDRA (SM de R$ 1.320)' : 'SM de cada ano', v47n(r.v[0], 2), v47n(r.v[1], 2), v47n(r.v[2], 2)]); }));
+    } else {
+      const C = V41.contr[mk.id] || {}, ref = {sexo: 'Homem', raca: 'Branca', instr: 'Superior completo'}[mk.id] || '';
+      Object.keys(C).forEach(c => Object.keys(C[c]).sort().forEach(y => { const v = C[c][y][desf]; if(v) L.push([c, ref, y, '', v47n(v[esc][0], 2), v47n(v[esc][1], 2), v47n(v[esc][2], 2)]); }));
+    }
+    return {titulo: 'Desigualdade na insegurança alimentar (' + nomeD + ') por ' + mk.label.toLowerCase() + ' — ' + nomeE,
+      sub: 'Brasil, com IC95%.', fonte: V49_FONTE_EBIA, cab: ['grupo', 'referencia', 'ano', 'definicao', esc === 'raz' ? 'razao_prevalencia' : 'diferenca_pp', 'ic95_inf', 'ic95_sup'], linhas: L};
+  }
+  return null;
+}
+
+// ── CSV ──
+function v49CSV(id){
+  const sp = v49Spec(id); if(!sp) return;
+  const cab = [sp.titulo, sp.sub, 'Fonte: ' + sp.fonte, 'Como citar: ' + V49_CIT + ' · ' + V47_VERSAO + ' · CC BY 4.0 · exportado em ' + v49Hoje(),
+    'Decimais com vírgula; separador ponto e vírgula. Estimativas descritivas; associações não são causais.', ''].map(v47cel).join('\r\n');
+  const corpo = sp.csvPronto || v47tabela(sp.cab, sp.linhas);
+  v49Baixa(new Blob(['﻿' + cab + '\r\n' + corpo + '\r\n'], {type: 'text/csv;charset=utf-8'}), v49Nome(sp.titulo, 'csv'));
+}
+function v49Baixa(blob, nome){
+  const el = document.createElement('a');
+  el.href = URL.createObjectURL(blob); el.download = nome;
+  document.body.appendChild(el); el.click(); el.remove();
+  setTimeout(() => URL.revokeObjectURL(el.href), 3000);
+}
+
+// ── legenda para o PNG (a do painel é HTML, fora do gráfico) ──
+function v49Legenda(id, gd){
+  const itens = [];
+  if(id === 'div-mapa'){
+    if(isEbiaMapMode() && !v47MilAtivo()){
+      const dec = t => { const ta = document.createElement('textarea'); ta.innerHTML = t; return ta.value; };   // &lt; &ge; etc.
+      EBIA_BANDS.forEach(bd => itens.push({tipo:'faixa', cor:bd.color, texto:dec(bd.label)}));
+    } else {
+      const zmin = computeZmin(), zmax = computeZmax(), und = S.grupoAlim !== null ? ' kg' : (v47MilAtivo() ? ' mil domicílios' : '%');
+      itens.push({tipo:'grad', escala:activeScale(), texto:zmin.toLocaleString('pt-BR') + ' a ' + zmax.toLocaleString('pt-BR') + und});
+    }
+    itens.push({tipo:'contorno', cor:'#9A6A2F', texto:'Rio de Janeiro'});
+    if(S.ufSel) itens.push({tipo:'contorno', cor:'#2F5D8A', texto:(UF_META[S.ufSel]?.nome || S.ufSel) + ' (selecionada)'});
+    return itens;
+  }
+  if(gd.layout && gd.layout.showlegend !== false && id !== 'div-linha') return itens;   // o Plotly já desenha
+  const vistos = new Set();
+  (gd.data || []).forEach(t => {
+    if(!t.name || t.showlegend === false || t.visible === false || vistos.has(t.name)) return;
+    vistos.add(t.name);
+    const linha = String(t.mode || '').includes('lines');
+    itens.push({tipo: linha ? 'linha' : 'ponto', cor:(t.line && t.line.color) || (t.marker && t.marker.color) || '#666',
+      dash:(t.line && t.line.dash) || 'solid', simbolo:(t.marker && t.marker.symbol) || 'circle', texto:t.name});
+  });
+  return itens;
+}
+function v49DesenhaLegenda(ctx, itens, x0, y0, larg, ESC){
+  const h = 18 * ESC; let x = x0, y = y0;
+  ctx.font = (12.5 * ESC) + 'px Inter, Arial, sans-serif'; ctx.textBaseline = 'middle';
+  itens.forEach(it => {
+    const sw = 26 * ESC, w = sw + 6 * ESC + ctx.measureText(it.texto).width + 18 * ESC;
+    if(x + w > x0 + larg){ x = x0; y += h + 4 * ESC; }
+    const cy = y + h / 2;
+    ctx.save();
+    if(it.tipo === 'linha'){
+      ctx.strokeStyle = it.cor; ctx.lineWidth = 3 * ESC;
+      ctx.setLineDash(it.dash === 'dash' ? [6 * ESC, 4 * ESC] : it.dash === 'dot' ? [2 * ESC, 3 * ESC] : []);
+      ctx.beginPath(); ctx.moveTo(x, cy); ctx.lineTo(x + sw, cy); ctx.stroke();
+    } else if(it.tipo === 'ponto'){
+      ctx.fillStyle = it.cor; const r = 5.5 * ESC, cx = x + sw / 2;
+      ctx.beginPath();
+      if(String(it.simbolo).startsWith('square')) ctx.rect(cx - r, cy - r, 2 * r, 2 * r);
+      else if(String(it.simbolo).startsWith('diamond')){ ctx.moveTo(cx, cy - r * 1.3); ctx.lineTo(cx + r * 1.3, cy); ctx.lineTo(cx, cy + r * 1.3); ctx.lineTo(cx - r * 1.3, cy); ctx.closePath(); }
+      else ctx.arc(cx, cy, r, 0, 2 * Math.PI);
+      ctx.fill();
+    } else if(it.tipo === 'faixa'){
+      ctx.fillStyle = it.cor; ctx.fillRect(x, cy - 7 * ESC, sw, 14 * ESC);
+      ctx.strokeStyle = 'rgba(28,45,64,.25)'; ctx.lineWidth = ESC; ctx.strokeRect(x, cy - 7 * ESC, sw, 14 * ESC);
+    } else if(it.tipo === 'contorno'){
+      ctx.strokeStyle = it.cor; ctx.lineWidth = 3 * ESC; ctx.strokeRect(x + 2 * ESC, cy - 6 * ESC, sw - 4 * ESC, 12 * ESC);
+    } else if(it.tipo === 'grad'){
+      const g = ctx.createLinearGradient(x, 0, x + sw * 3, 0);
+      it.escala.forEach(([p, c]) => g.addColorStop(p, c));
+      ctx.fillStyle = g; ctx.fillRect(x, cy - 7 * ESC, sw * 3, 14 * ESC);
+      x += sw * 2;
+    }
+    ctx.restore();
+    ctx.fillStyle = '#1B2A38'; ctx.fillText(it.texto, x + sw + 6 * ESC, cy);
+    x += w;
+  });
+  ctx.textBaseline = 'top';
+  return y + h - y0;
+}
+
+// ── PNG com moldura de citação e metadados iTXt ──
+const V49_CRC = (() => { const t = new Uint32Array(256); for(let n = 0; n < 256; n++){ let c = n; for(let k = 0; k < 8; k++) c = c & 1 ? 0xEDB88320 ^ (c >>> 1) : c >>> 1; t[n] = c >>> 0; } return t; })();
+function v49crc(bytes){ let c = 0xFFFFFFFF; for(let i = 0; i < bytes.length; i++) c = V49_CRC[(c ^ bytes[i]) & 255] ^ (c >>> 8); return (c ^ 0xFFFFFFFF) >>> 0; }
+function v49Chunk(tipo, dados){
+  const out = new Uint8Array(12 + dados.length), dv = new DataView(out.buffer);
+  dv.setUint32(0, dados.length);
+  for(let i = 0; i < 4; i++) out[4 + i] = tipo.charCodeAt(i);
+  out.set(dados, 8);
+  dv.setUint32(8 + dados.length, v49crc(out.subarray(4, 8 + dados.length)));
+  return out;
+}
+function v49iTXt(chave, texto){
+  const enc = new TextEncoder(), k = enc.encode(chave), t = enc.encode(texto);
+  const d = new Uint8Array(k.length + 5 + t.length);   // chave\0 flag(0) método(0) idioma\0 tradução\0 texto
+  d.set(k, 0); d.set(t, k.length + 5);
+  return v49Chunk('iTXt', d);
+}
+async function v49ComMetadados(blob, meta){
+  const b = new Uint8Array(await blob.arrayBuffer());
+  const fimIHDR = 8 + 12 + new DataView(b.buffer).getUint32(8);   // assinatura + bloco IHDR
+  const extras = Object.entries(meta).map(([k, v]) => v49iTXt(k, v));
+  const tam = extras.reduce((s, c) => s + c.length, 0);
+  const out = new Uint8Array(b.length + tam);
+  out.set(b.subarray(0, fimIHDR), 0);
+  let p = fimIHDR; extras.forEach(c => { out.set(c, p); p += c.length; });
+  out.set(b.subarray(fimIHDR), p);
+  return new Blob([out], {type: 'image/png'});
+}
+function v49Quebra(ctx, texto, larg){
+  const pal = String(texto).split(' '), linhas = []; let l = '';
+  pal.forEach(w => { const t = l ? l + ' ' + w : w; if(ctx.measureText(t).width > larg && l){ linhas.push(l); l = w; } else l = t; });
+  if(l) linhas.push(l);
+  return linhas;
+}
+async function v49PNG(id, botao){
+  const gd = document.getElementById(id), sp = v49Spec(id);
+  if(!gd || !gd.data || !sp) return;
+  const rot = botao ? botao.textContent : '';
+  if(botao){ botao.textContent = '…'; botao.disabled = true; }
+  try {
+    const W = 1200, H = Math.round(Math.min(Math.max(W * gd.clientHeight / Math.max(gd.clientWidth, 1), 480), 980)), ESC = 3;
+    const url = await Plotly.toImage(gd, {format: 'png', width: W, height: H, scale: ESC});
+    const img = await new Promise((ok, erro) => { const i = new Image(); i.onload = () => ok(i); i.onerror = erro; i.src = url; });
+    const cv = document.createElement('canvas'), ctx = cv.getContext('2d');
+    const M = 28 * ESC, largTxt = W * ESC - 2 * M;
+    ctx.font = '700 ' + (20 * ESC) + 'px Inter, Arial, sans-serif';
+    const lt = v49Quebra(ctx, sp.titulo, largTxt);
+    ctx.font = (13 * ESC) + 'px Inter, Arial, sans-serif';
+    const ls = v49Quebra(ctx, sp.sub, largTxt);
+    ctx.font = (11.5 * ESC) + 'px Inter, Arial, sans-serif';
+    const lf = v49Quebra(ctx, 'Fonte: ' + sp.fonte + '.', largTxt).concat(v49Quebra(ctx, 'Como citar: ' + V49_CIT + ' · ' + V47_VERSAO + ' · CC BY 4.0 · baixado em ' + v49Hoje() + '.', largTxt));
+    const itensLeg = v49Legenda(id, gd);
+    const cvt = document.createElement('canvas').getContext('2d');
+    const altLeg = itensLeg.length ? v49DesenhaLegenda(cvt, itensLeg, M, 0, largTxt, ESC) + 10 * ESC : 0;
+    const topo = M + lt.length * 26 * ESC + ls.length * 18 * ESC + 8 * ESC + altLeg, rodape = 14 * ESC + lf.length * 16 * ESC + M * 0.7;
+    cv.width = W * ESC; cv.height = topo + img.height + rodape;
+    ctx.fillStyle = '#ffffff'; ctx.fillRect(0, 0, cv.width, cv.height);
+    let y = M;
+    ctx.fillStyle = '#1B2A38'; ctx.textBaseline = 'top';
+    ctx.font = '700 ' + (20 * ESC) + 'px Inter, Arial, sans-serif'; lt.forEach(l => { ctx.fillText(l, M, y); y += 26 * ESC; });
+    ctx.fillStyle = '#4E5968'; ctx.font = (13 * ESC) + 'px Inter, Arial, sans-serif'; ls.forEach(l => { ctx.fillText(l, M, y); y += 18 * ESC; });
+    if(itensLeg.length) v49DesenhaLegenda(ctx, itensLeg, M, y + 4 * ESC, largTxt, ESC);
+    ctx.drawImage(img, 0, topo);
+    y = topo + img.height + 8 * ESC;
+    ctx.strokeStyle = 'rgba(28,45,64,.25)'; ctx.lineWidth = ESC; ctx.beginPath(); ctx.moveTo(M, y); ctx.lineTo(cv.width - M, y); ctx.stroke();
+    y += 6 * ESC;
+    ctx.fillStyle = '#4E5968'; ctx.font = (11.5 * ESC) + 'px Inter, Arial, sans-serif'; lf.forEach(l => { ctx.fillText(l, M, y); y += 16 * ESC; });
+    const bruto = await new Promise(ok => cv.toBlob(ok, 'image/png'));
+    const blob = await v49ComMetadados(bruto, {
+      'Title': sp.titulo, 'Author': 'Castanho, Bernardo', 'Description': sp.sub + ' Fonte: ' + sp.fonte + '.',
+      'Source': 'https://doi.org/' + V49_DOI, 'Copyright': 'CC BY 4.0 — ' + V49_CIT,
+      'Creation Time': new Date().toISOString(), 'Software': 'Painel de Insegurança Alimentar no Brasil ' + V47_VERSAO,
+    });
+    v49Baixa(blob, v49Nome(sp.titulo, 'png'));
+  } catch(e){
+    console.error('exportação PNG', e);
+  } finally {
+    if(botao){ botao.textContent = rot; botao.disabled = false; }
+  }
+}
+
+// ── botões ──
+function v49Barra(id){
+  const d = document.createElement('span');
+  d.className = 'v49-exp'; d.setAttribute('role', 'group'); d.setAttribute('aria-label', 'Baixar este gráfico');
+  d.innerHTML = '<button type="button" title="Baixar este gráfico em PNG de alta resolução, com fonte e citação" aria-label="Baixar gráfico em PNG">⬇ PNG</button>'
+              + '<button type="button" title="Baixar os dados deste gráfico em CSV" aria-label="Baixar dados do gráfico em CSV">⬇ CSV</button>';
+  const [bp, bc] = d.querySelectorAll('button');
+  bp.onclick = ev => { ev.stopPropagation(); v49PNG(id, bp); };
+  bc.onclick = ev => { ev.stopPropagation(); v49CSV(id); };
+  return d;
+}
+function v49Inicia(){
+  const poe = (id, onde, antes) => {
+    const alvo = document.querySelector(onde); if(!alvo || alvo.querySelector('.v49-exp[data-g="' + id + '"]')) return;
+    const b = v49Barra(id); b.dataset.g = id;
+    if(antes){ const linha = document.createElement('div'); linha.className = 'v49-linha'; linha.appendChild(b); alvo.parentNode.insertBefore(linha, alvo); }
+    else alvo.appendChild(b);
+  };
+  poe('div-mapa', '#map-titlebar');
+  poe('div-linha', '#line-row .panel-title > div');
+  poe('div-barras', '#panel-barras .panel-title');
+  poe('div-engel', '#panel-engel .panel-title > div');
+  poe('div-desig-prev', '#div-desig-prev', true);
+  poe('div-desig-contr', '#div-desig-contr', true);
+}
+if(document.readyState === 'complete') setTimeout(v49Inicia, 0);
+else window.addEventListener('load', () => setTimeout(v49Inicia, 0));
 
 function setModo(modo){
   S.modoAtual = modo;

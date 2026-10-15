@@ -31,6 +31,8 @@ internet, sem instalar nada.
 
 ## Histórico
 
+- v49 (15/10/2026): cada gráfico exporta PNG em alta resolução (com legenda,
+  fonte, citação e metadados no arquivo) e CSV, conforme o recorte na tela.
 - v48 (15/10/2026): layout para celular e telas estreitas; janela única "Sobre o
   painel"; guia rápido na primeira visita; siglas explicadas; ajustes na aquisição.
 - v47 (15/10/2026): dados de cada visão em CSV; mapa em % ou em mil domicílios
