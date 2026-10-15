@@ -1410,6 +1410,13 @@ table.v41-linha{ font-size:11px; }
 .v46-aviso{ font-size:12.5px; font-weight:600; color:#1E6B4F; }
 .v46-nota{ margin:12px 0 0; font-size:11.5px; color:#4E5968; }
 .v46-nota a{ color:#1F6FB2; }
+
+/* ════════ v47 — unidade do mapa ════════ */
+.v47-medida{ display:inline-flex; gap:0; margin-left:12px; border:1.5px solid rgba(28,45,64,.2); border-radius:12px; overflow:hidden;
+  vertical-align:middle; text-transform:none; letter-spacing:0; font-family:'Inter',sans-serif; }
+.v47-medida button{ border:none; background:#fff; color:#1B2A38; font:inherit; font-size:11.5px; font-weight:600; padding:3px 10px; cursor:pointer; }
+.v47-medida button[aria-pressed="true"]{ background:#1B2A38; color:#fff; }
+.v47-mil-grad{ background:linear-gradient(90deg, #F8E7E4, #C9707A, #6B1F2A) !important; }
 </style>
 </head>
 <body>
@@ -1434,6 +1441,7 @@ table.v41-linha{ font-size:11px; }
       <div id="ano-pills" aria-label="Selecionar ano"></div>
       <div style="width:1px;height:28px;background:var(--border);margin:0 2px"></div>
       <span id="filter-tag" aria-live="polite"><span id="filter-tag-txt"></span><span id="filter-tag-x" onclick="limparFiltro()" title="Remover filtro" role="button" aria-label="Remover filtro ativo">×</span></span>
+      <button id="btn-csv" class="btn-ajuda" type="button" onclick="baixarCSV()" aria-label="Baixar os dados desta visão em CSV" title="Baixar os números desta visão (CSV para Excel)" style="width:auto;padding:0 9px;height:22px;font-size:.72rem">⬇ dados (CSV)</button>
       <button id="btn-link" class="btn-ajuda" onclick="copiarLink()" aria-label="Copiar link desta visão" title="Copiar link compartilhável desta visão" style="width:auto;padding:0 9px;height:22px;font-size:.72rem">🔗 link</button>
       <button class="btn-ajuda" onclick="abrirModal()" aria-label="Nota metodológica completa" title="Nota metodológica" style="width:22px;height:22px;font-size:.78rem">?</button>
     </div>
@@ -1484,7 +1492,7 @@ table.v41-linha{ font-size:11px; }
     <section class="panel" aria-label="Mapa coroplético por UF">
       <div class="panel-title">
         <span id="mapa-title">% Insegurança Alimentar por UF</span>
-        <span id="mapa-ano" style="font-size:.85rem;color:var(--ia);font-weight:700"></span>
+        <span id="mapa-ano" style="font-size:.85rem;color:var(--ia);font-weight:700"></span><span id="v47-medida" class="v47-medida" role="group" aria-label="Unidade do mapa" style="display:none"><button type="button" data-m="pct" onclick="setMedidaMapa(false)" aria-pressed="true">%</button><button type="button" data-m="mil" onclick="setMedidaMapa(true)" aria-pressed="false" title="Número de domicílios em insegurança alimentar (SIDRA 9552)">mil domicílios</button></span>
       </div>
       <div class="panel-fonte" id="mapa-fonte">Fonte: PNADC T4 2023/2024 — IBGE</div>
       <div class="chart-wrap"><div id="div-mapa" style="width:100%;height:100%"></div></div>
@@ -1584,9 +1592,11 @@ table.v41-linha{ font-size:11px; }
         <h3>O que pode ser comparado</h3>
         <div class="v41-rolagem" id="lac-q422"></div>
         <details class="v41-det"><summary>Os inquéritos: instrumento, respondente e amostra</summary><div class="v41-rolagem" id="lac-q421"></div></details>
+        <h3>O que os dados autorizam e o que exige outros dados</h3>
+        <div class="v41-rolagem" id="lac-q611"></div>
         <h3>Dez achados sobre a cadeia de informação</h3>
         <div class="v41-rolagem" id="lac-q541"></div>
-        <p class="v41-nota">Fonte: Quadros 4.2.1, 4.2.2, 5.1.1 e 5.4.1 da dissertação (versão de 13/10/2026) e varredura dos arquivos de microdados da PNADC do 4º trimestre (IBGE). A coluna “Seção” remete à dissertação.</p>
+        <p class="v41-nota">Fonte: Quadros 4.2.1, 4.2.2, 5.1.1, 5.4.1 e 6.1.1 da dissertação (versão de 13/10/2026) e varredura dos arquivos de microdados da PNADC do 4º trimestre (IBGE). A coluna “Seção” remete à dissertação.</p>
       </div>
     </div>
 
@@ -89008,6 +89018,7 @@ function buildLacunas(){
     ' O quadro descreve os arquivos; a divulgação de resultados da EBIA em cada ano não foi verificada em fonte oficial.';
   document.getElementById('lac-q422').innerHTML = v41Tabela(V41.q422, ['20%','16%','40%','24%']);
   document.getElementById('lac-q421').innerHTML = v41Tabela(V41.q421);
+  document.getElementById('lac-q611').innerHTML = v41Tabela(V47.q611, ['20%','36%','32%','12%']);
   const q541 = V41.q541.map((l, i) => i === 0 ? ['Achado', 'Seção', 'O que condiciona na leitura', 'Situação'] : l);
   document.getElementById('lac-q541').innerHTML = v41Tabela(q541, ['32%','10%','34%','24%']);
 }
@@ -89073,7 +89084,7 @@ function v42BarIC(){
   if(!gd || !gd.data) return;
   const {locs} = buildBarData();
   const a = String(getAno());
-  const temIC = S.grupoAlim === null && !S.nova4 && S.filtro === null && locs.every(u => V42.uf_ic[u]?.[a]);
+  const temIC = S.grupoAlim === null && !S.nova4 && S.filtro === null && !v47MilAtivo() && locs.every(u => V42.uf_ic[u]?.[a]);
   if(!temIC){ Plotly.restyle(gd, {'error_x.visible': false}); return; }
   const up = locs.map(u => V42.uf_ic[u][a].ia[2] - V42.uf_ic[u][a].ia[0]);
   const dn = locs.map(u => V42.uf_ic[u][a].ia[0] - V42.uf_ic[u][a].ia[1]);
@@ -89320,6 +89331,125 @@ document.addEventListener('keydown', ev => {
     else if(!ev.shiftKey && i0 === it.length - 1){ ev.preventDefault(); it[0].focus(); }
   }
 }, true);
+
+
+// ════════ v47: % ou mil domicílios no mapa; dica com IC; CSV da visão; Quadro 6.1.1 ════════
+const V47 = {"q611":[["Subpergunta","O indicador e os dados autorizam","Exigem outros dados, escalas ou métodos","Seções"],["P1 Comparabilidade e trajetória","Descrever a prevalência de cada inquérito; comparar 2023 e 2024 e, com ressalva, as edições da PNAD de 2004, 2009 e 2013","Tratar 2013, a POF 2017-2018 e 2023 como série contínua: mudam instrumento, desenho e contexto, e a EBIA está em branco nos arquivos PNADC T4 de 2016 a 2019 e de 2021 examinados","5.1.1; 6.2.1"],["P2 Distribuição e escala","Descrever diferenças entre grupos de renda, raça/cor, sexo e instrução em escala absoluta e relativa, e testar sua mudança entre 2023 e 2024, em análise exploratória","Explicar as diferenças (mecanismos), examinar a sobreposição entre marcadores e atribuir a mudança a políticas","5.1.3; 5.1.4; 6.2.2; 6.2.3"],["P3 Território","Contrastar a capital e o restante do estado do Rio de Janeiro nos domínios amostrais, com n, IC95% e coeficiente de variação","Inferir para municípios, favelas ou subáreas do estado; estimar com precisão a insegurança grave na capital","5.1.5; 6.2.4"],["P4 Dimensão individual (Ondas 1 e 2)","Descrever associações ajustadas entre os níveis de EBIA e a energia relatada, a fibra e a participação de arroz e feijão e de hortaliças na energia, com intervalos de confiança, na Onda 1 e em 2B; sem diferença detectável na densidade energética dos alimentos sólidos;","Inferir causa ou mediação; caracterizar a qualidade global da dieta; afirmar consumo absoluto dos grupos (os indicadores são frações da energia)","5.2; 6.3.1"],["P5 Dimensão do orçamento","Descrever a aquisição domiciliar, a despesa e o coeficiente de Engel (a composição NOVA da aquisição fica no apêndice, não validada)","Relacionar esses dados aos níveis da EBIA (cruzamento em nível de domicílio) e inferir consumo individual ou privação alimentar","5.3; 6.3.2; 6.3.3"],["P6 Informação","Documentar lacunas, quebras e divergências (dez achados) e expressá-las como metadado","Demonstrar que o painel é compreensível ou altera decisões (avaliação com usuários e apreciação ética)","5.4; 6.4"]],"fonte":"DISSERTACAO_REVISADA_v22_20261015_ACEITA.docx"};
+const V47_VERSAO = 'v47';
+const V47_ESCALA_MIL = [[0, '#F8E7E4'], [0.5, '#C9707A'], [1, '#6B1F2A']];   // um só tom, claro -> escuro
+S.mapaMil = false;
+function v47MilAtivo(){
+  return !!S.mapaMil && isEbiaMapMode() && S.filtro === null && ['2023','2024'].includes(String(S.ano));
+}
+function v47Unid(){ return S.grupoAlim !== null ? ' kg' : (v47MilAtivo() ? ' mil' : '%'); }
+function setMedidaMapa(mil){ S.mapaMil = mil; updateMap(); updateBar(); }
+function v47SyncMedida(){
+  const el = document.getElementById('v47-medida');
+  if(!el) return;
+  const pode = isEbiaMapMode() && S.filtro === null && ['2023','2024'].includes(String(S.ano));
+  el.style.display = pode ? 'inline-flex' : 'none';
+  el.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', (b.dataset.m === 'mil') === v47MilAtivo() ? 'true' : 'false'));
+}
+function v47Dica(uf, v, unit){
+  if(v == null) return 'Sem dado';
+  const a = String(getAno());
+  if(v47MilAtivo()){
+    const p = EBIA_UF[uf]?.[a]?.ia;
+    return v.toLocaleString('pt-BR') + ' <small>mil domicílios em IA</small>' + (p != null ? '<br><small>' + p.toFixed(1).replace('.', ',') + '% dos domicílios · SIDRA 9552</small>' : '');
+  }
+  let t = v.toFixed(1).replace('.', ',') + ' <small>' + unit + '</small>';
+  const ic = V42.uf_ic[uf]?.[a];
+  if(ic && isEbiaMapMode() && S.filtro === null){
+    t += '<br><small>IC95% ' + ic.ia[1].toFixed(1).replace('.', ',') + '–' + ic.ia[2].toFixed(1).replace('.', ',') + '%</small>';
+  }
+  return t;
+}
+
+// ── CSV da visão atual ──
+function v47n(v, nd){ return v == null || v === '' ? '' : (typeof v === 'number' ? v.toFixed(nd == null ? 1 : nd).replace('.', ',') : String(v)); }
+function v47cel(x){ const t = String(x == null ? '' : x); return /[;"\n]/.test(t) ? '"' + t.replace(/"/g, '""') + '"' : t; }
+function v47tabela(cab, linhas){ return [cab].concat(linhas).map(l => l.map(v47cel).join(';')).join('\r\n'); }
+function v47FonteAno(a){
+  return {'2004':'PNAD 2004 (microdados reponderados)','2009':'PNAD 2009 (microdados reponderados)','2013':'PNAD 2013',
+          '2018':'POF 2017-2018','2023':'PNADC 4º tri. 2023 (SIDRA 9552 e microdados)','2024':'PNADC 4º tri. 2024 (SIDRA 9552 e microdados)'}[a] || '';
+}
+function v47CSVVisao(){
+  const modo = S.modoAtual || 'ebia';
+  const ufs = Object.keys(UF_META).sort((x, y) => UF_META[x].nome.localeCompare(UF_META[y].nome, 'pt-BR'));
+  if(modo === 'engel'){
+    return {nome:'engel_pof2017_2018', titulo:'Coeficiente de Engel por faixa de rendimento, Brasil e Rio de Janeiro, POF 2017-2018 (SIDRA 6715, 6972, 6974 e 6977)',
+      csv: v47tabela(['faixa_rendimento','local','alim_domicilio_rs','alim_fora_rs','alim_total_rs','despesa_corrente_rs','rendimento_rs','engel_despesa_pct','engel_renda_pct','alim_fora_pct'],
+        ENGEL_BR.map(d => [d.faixa,'Brasil',v47n(d.alim_dom,2),v47n(d.alim_fora,2),v47n(d.alim_total,2),v47n(d.despesa,2),v47n(d.renda,2),v47n(d.engel_desp),v47n(d.engel_renda),v47n(d.pct_fora)])
+        .concat(ENGEL_RJ.map(d => [d.faixa,'Rio de Janeiro','','','','','',v47n(d.engel_desp),v47n(d.engel_renda),v47n(d.pct_fora)])))};
+  }
+  if(modo === 'desig'){
+    const m = V41.marcadores.find(x => x.id === S.desigMarc) || V41.marcadores[0];
+    const P = V41.prev[m.id] || {}, L = [];
+    m.cats.forEach(c => Object.keys(P[c] || {}).sort().forEach(a => ['ia','grave'].forEach(d => {
+      const v = P[c][a][d]; if(v) L.push(['prevalencia', m.label, c, '', a, d === 'ia' ? 'qualquer grau' : 'grave', v47n(v[0]), v47n(v[1]), v47n(v[2]), P[c][a].n || '', v47FonteAno(a)]);
+    })));
+    const C = V41.contr[m.id] || {};
+    Object.keys(C).forEach(c => Object.keys(C[c]).sort().forEach(a => ['ia','grave'].forEach(d => {
+      const v = C[c][a][d]; if(!v) return;
+      const ref = {sexo:'Homem', raca:'Branca', instr:'Superior completo'}[m.id] || '';
+      L.push(['diferenca_pp', m.label, c, ref, a, d === 'ia' ? 'qualquer grau' : 'grave', v47n(v.dif[0],2), v47n(v.dif[1],2), v47n(v.dif[2],2), '', v47FonteAno(a)]);
+      L.push(['razao', m.label, c, ref, a, d === 'ia' ? 'qualquer grau' : 'grave', v47n(v.raz[0],2), v47n(v.raz[1],2), v47n(v.raz[2],2), '', v47FonteAno(a)]);
+    })));
+    return {nome:'desigualdades_' + m.id, titulo:'Desigualdades na insegurança alimentar, Brasil — ' + m.label + ' (IC95%)',
+      csv: v47tabela(['medida','marcador','categoria','referencia','ano','desfecho','estimativa','ic95_inf','ic95_sup','n_domicilios','fonte'], L)};
+  }
+  if(modo === 'lacunas'){
+    const sec = (t, q) => t + '\r\n' + v47tabela(q[0], q.slice(1));
+    return {nome:'lacunas_comparabilidade', titulo:'Lacunas e comparabilidade (Quadros 4.2.1, 4.2.2, 5.1.1, 5.4.1 e 6.1.1 da dissertação)',
+      csv: [sec('Quadro 4.2.2 — Comparações entre inquéritos', V41.q422), sec('Quadro 4.2.1 — Inquéritos', V41.q421),
+            sec('Quadro 5.1.1 — Campos da EBIA na PNADC, 4º trimestre', V41.q511), sec('Quadro 5.4.1 — Achados da cadeia de informação', V41.q541),
+            sec('Quadro 6.1.1 — O que os dados autorizam', V47.q611)].join('\r\n\r\n')};
+  }
+  if(S.grupoAlim !== null){
+    const g = GRUPOS_ALIM.grupos_br[S.grupoAlim];
+    const L = [['BR','Brasil'].concat([2002,2008,2018].map(a => v47n(g?.anos?.[String(a)], 3)))]
+      .concat(ufs.map(u => [u, UF_META[u].nome].concat([2002,2008,2018].map(a => v47n(getValGrupo(u, S.grupoAlim, a), 3)))));
+    return {nome:'aquisicao_' + (g?.nome || S.grupoAlim).toLowerCase().replace(/[^a-z0-9]+/g, '_'),
+      titulo:'Aquisição domiciliar per capita anual (kg) — ' + (g?.nome || '') + ' — POF 2002-2003, 2008-2009 e 2017-2018 (SIDRA 2393)',
+      csv: v47tabela(['uf','nome','kg_2002_2003','kg_2008_2009','kg_2017_2018'], L)};
+  }
+  const a = String(S.ano);
+  if(S.filtro !== null && S.catIdx !== null){
+    const f1 = FILTROS[S.filtro], c1 = f1.cats[S.catIdx];
+    const cruz = S.filtro2 !== null && S.cat2Idx !== null;
+    const f2 = cruz ? FILTROS[S.filtro2] : null, c2 = cruz ? f2.cats[S.cat2Idx] : null;
+    const L = ufs.map(u => {
+      const o = cruz ? getCruzObj(u, S.ano) : c1.data[u]?.[a];
+      return [u, UF_META[u].nome, a, f1.label, c1.label, cruz ? f2.label : '', cruz ? c2.label : '', v47n(o?.ia), v47n(o?.ia_grav), v47n(o?.sa), o?.n ?? ''];
+    });
+    return {nome:'recorte_uf_' + a, titulo:'Insegurança alimentar por UF com recorte — ' + a + ' — microdados PNADC (pessoa de referência para sexo, cor/raça e instrução); sem IC',
+      csv: v47tabela(['uf','nome','ano','recorte_1','categoria_1','recorte_2','categoria_2','ia_pct','ia_grave_pct','sa_pct','n_domicilios_amostra'], L)};
+  }
+  const N = NACIONAL[a], icN = V41.nacional_ic[a], mN = V42.mil.BR?.[a];
+  const linha = (cod, nome, d, ic, mil, md, n) => [cod, nome, a, v47n(d?.ia), v47n(d?.ia_leve), v47n(d?.ia_mod), v47n(d?.ia_grav), v47n(d?.sa),
+    ic ? v47n(ic.ia[1]) : '', ic ? v47n(ic.ia[2]) : '', ic ? v47n(ic.grave[1]) : '', ic ? v47n(ic.grave[2]) : '', n ?? '',
+    mil ? mil.ia : '', mil ? mil.total : '', md ? v47n(md.dif[0]) : '', md ? v47n(md.dif[1]) : '', md ? v47n(md.dif[2]) : '', md ? v47n(md.p_holm, 3) : '', v47FonteAno(a)];
+  const L = [linha('BR', 'Brasil', N, icN, mN, null, icN?.n)]
+    .concat(ufs.map(u => { const ic = V42.uf_ic[u]?.[a]; return linha(u, UF_META[u].nome, EBIA_UF[u]?.[a], ic, V42.mil[u]?.[a], a === '2024' ? V42.uf_mud[u] : null, ic?.n); }));
+  return {nome:'ebia_uf_' + a, titulo:'Insegurança alimentar (EBIA) por UF — ' + a + ' — ' + v47FonteAno(a) + '. IC95% por UF só em 2023 e 2024; variação 2023-2024 com p ajustado (Holm, 27 UFs)',
+    csv: v47tabela(['uf','nome','ano','ia_pct','ia_leve_pct','ia_moderada_pct','ia_grave_pct','sa_pct','ia_ic95_inf','ia_ic95_sup','grave_ic95_inf','grave_ic95_sup',
+                    'n_domicilios_amostra','domicilios_ia_mil','domicilios_total_mil','variacao_2023_2024_pp','variacao_ic95_inf','variacao_ic95_sup','p_holm','fonte'], L)};
+}
+function baixarCSV(){
+  const v = v47CSVVisao();
+  const hoje = new Date().toLocaleDateString('pt-BR');
+  const cab = [v.titulo,
+    'Painel de Insegurança Alimentar no Brasil, ' + V47_VERSAO + ' · Castanho, Bernardo · https://doi.org/10.5281/zenodo.23405765 · CC BY 4.0 · exportado em ' + hoje,
+    'Decimais com vírgula; separador ponto e vírgula. Estimativas descritivas; associações não são causais.', ''].map(v47cel).join('\r\n');
+  const blob = new Blob(['﻿' + cab + '\r\n' + v.csv + '\r\n'], {type:'text/csv;charset=utf-8'});
+  const a = document.createElement('a');
+  a.href = URL.createObjectURL(blob);
+  a.download = 'painel_ia_' + v.nome + '.csv';
+  document.body.appendChild(a); a.click(); a.remove();
+  setTimeout(() => URL.revokeObjectURL(a.href), 2000);
+  const b = document.getElementById('btn-csv');
+  if(b){ const t = b.textContent; b.textContent = '✓ baixado'; setTimeout(() => b.textContent = t, 1500); }
+}
 
 function setModo(modo){
   S.modoAtual = modo;
@@ -89665,6 +89795,7 @@ function getValGrupo(uf, cod, ano){
 }
 
 function computeZmax(){
+  if(v47MilAtivo()){ const v = UFS.map(u => getIaUF(u, getAno())).filter(x => x != null); return Math.ceil(Math.max(...v) * 1.04); }
   if(S.grupoAlim !== null){
     const vals = UFS.map(u => getValGrupo(u, S.grupoAlim, S.anoGrupo)).filter(v => v !== null && v > 0);
     return vals.length ? Math.ceil(Math.max(...vals) * 1.08) : 100;
@@ -89673,6 +89804,7 @@ function computeZmax(){
 }
 
 function computeZmin(){
+  if(v47MilAtivo()) return 0;
   // Para grupos alimentares: mínimo real dos dados (kg)
   if(S.grupoAlim !== null){
     const vals = UFS.map(u => getValGrupo(u, S.grupoAlim, S.anoGrupo)).filter(v => v !== null && v > 0);
@@ -89713,6 +89845,7 @@ function getCruzObj(uf, ano){
 
 function getIaUF(uf, ano){
   const a = String(ano);
+  if(v47MilAtivo()) return V42.mil[uf]?.[a]?.ia ?? null;
   if(S.grupoAlim !== null) return getValGrupo(uf, S.grupoAlim, S.anoGrupo);
   if(S.nova4) return NOVA4_UF[uf]?.[a] ?? null;
   if(S.filtro !== null && S.filtro2 !== null && S.catIdx !== null && S.cat2Idx !== null)
@@ -89875,6 +90008,7 @@ function mapWidths(){ return UFS.map(u => u===S.ufSel||u==='RJ' ? 2.2 : 0.7); }
 function isEbiaMapMode(){ return S.grupoAlim === null && !S.nova4; }
 function activeScale(){
   if(S.grupoAlim !== null) return C.grupoScale;
+  if(v47MilAtivo()) return V47_ESCALA_MIL;
   return S.nova4 ? C.novaScale : ebiaBandScale();
 }
 
@@ -89934,12 +90068,18 @@ function updateMap(){
     const lbl = FILTROS[S.filtro]?.cats?.[S.catIdx]?.label || '';
     titulo = 'Prevalência de IA por UF — ' + S.ano + ' · ' + FILTROS[S.filtro]?.label + ': ' + lbl;
   } else {
-    titulo = 'Prevalência de IA por UF — ' + S.ano;
+    titulo = v47MilAtivo() ? 'Domicílios em IA por UF (mil) — ' + S.ano : 'Prevalência de IA por UF — ' + S.ano;
   }
   document.getElementById('mapa-title').textContent = titulo;
   const swEl = document.getElementById('leg-swatches');
   const contEl = document.getElementById('leg-cont');
-  if(isEbiaMapMode()){
+  v47SyncMedida();
+  if(v47MilAtivo()){
+    swEl.style.display = 'none'; contEl.style.display = 'flex';
+    document.getElementById('leg-grad').className = 'leg-grad v47-mil-grad';
+    document.getElementById('leg-min').textContent = '0';
+    document.getElementById('leg-max').textContent = zmax.toLocaleString('pt-BR') + ' mil';
+  } else if(isEbiaMapMode()){
     swEl.style.display = 'flex'; contEl.style.display = 'none';
     if(!swEl.dataset.built){
       swEl.innerHTML = EBIA_BANDS.map(b => '<span class="leg-band"><i style="background:'+b.color+'"></i><span>'+b.label+'</span></span>').join('');
@@ -90329,10 +90469,10 @@ function initBar(){
     type:'bar', orientation:'h', x, y,
     marker:{color:colors, opacity:0.85},
     hovertext:htext,
-    hovertemplate:'%{x:.1f}'+(S.grupoAlim !== null ? ' kg' : '%')+'%{hovertext}<extra>%{y}</extra>',
+    hovertemplate:'%{x:.1f}'+v47Unid()+'%{hovertext}<extra>%{y}</extra>',
     customdata:locs,
   };
-  const br = (S.nova4 || S.grupoAlim !== null) ? null : (NACIONAL[String(getAno())]?.ia ?? null);
+  const br = (S.nova4 || S.grupoAlim !== null || v47MilAtivo()) ? null : (NACIONAL[String(getAno())]?.ia ?? null);
   const shapes = br != null ? [{
     type:'line', x0:br, x1:br, y0:-0.5, y1:Object.keys(UF_META).length-0.5,
     line:{color:'rgba(30,35,51,0.3)',width:1.5,dash:'dash'},
@@ -90346,7 +90486,7 @@ function initBar(){
   const layout = {
     paper_bgcolor:'transparent', plot_bgcolor:'transparent',
     margin:{t:4,b:20,l:100,r:14},
-    xaxis:{fixedrange:true, tickfont:{size:9.5, color:'#4E5968'}, ticksuffix:(S.grupoAlim !== null ? ' kg' : '%'),
+    xaxis:{fixedrange:true, tickfont:{size:9.5, color:'#4E5968'}, ticksuffix:v47Unid(),
            gridcolor:'rgba(22,28,36,0.09)', rangemode:'tozero'},
     yaxis:{fixedrange:true, tickfont:{size:9.5, color:'#18202A'}, automargin:true},
     shapes, annotations,
@@ -90364,7 +90504,7 @@ function initBar(){
 
 function updateBar(){
   const {x,y,locs,colors,htext} = buildBarData();
-  const br = (!S.nova4 && S.grupoAlim === null) ? (NACIONAL[String(getAno())]?.ia ?? null) : null;
+  const br = (!S.nova4 && S.grupoAlim === null && !v47MilAtivo()) ? (NACIONAL[String(getAno())]?.ia ?? null) : null;
   const shapes = br != null ? [{
     type:'line', x0:br, x1:br, y0:-0.5, y1:y.length-0.5,
     line:{color:'rgba(30,35,51,0.3)',width:1.5,dash:'dash'},
@@ -90378,11 +90518,11 @@ function updateBar(){
     [{type:'bar',orientation:'h',x,y,
       marker:{color:colors,opacity:0.85},
       hovertext:htext,
-      hovertemplate:'%{x:.1f}'+(S.grupoAlim !== null ? ' kg' : '%')+'%{hovertext}<extra>%{y}</extra>',
+      hovertemplate:'%{x:.1f}'+v47Unid()+'%{hovertext}<extra>%{y}</extra>',
       customdata:locs}],
     {paper_bgcolor:'transparent',plot_bgcolor:'transparent',
      margin:{t:4,b:20,l:100,r:14},
-     xaxis:{fixedrange:true,tickfont:{size:9.5,color:'#4E5968'},ticksuffix:(S.grupoAlim !== null ? ' kg' : '%'),
+     xaxis:{fixedrange:true,tickfont:{size:9.5,color:'#4E5968'},ticksuffix:v47Unid(),
             gridcolor:'rgba(22,28,36,0.09)',rangemode:'tozero'},
      yaxis:{fixedrange:true,tickfont:{size:9.5,color:'#18202A'},automargin:true},
      shapes, annotations, hovermode:'closest', showlegend:false, bargap:0.25},
@@ -90397,7 +90537,7 @@ function updateBar(){
   } else if(S.filtro!==null && S.catIdx!==null){
     lbl = `Ranking de IA por UF — ${S.ano} · ${FILTROS[S.filtro].label}: ${FILTROS[S.filtro].cats[S.catIdx].label}`;
   } else {
-    lbl = `IA por UF, com IC95% — ${S.ano}`;
+    lbl = v47MilAtivo() ? `Domicílios em IA por UF (mil) — ${S.ano}` : `IA por UF, com IC95% — ${S.ano}`;
   }
   document.getElementById('barras-title').textContent = lbl;
   v42BarIC();
@@ -90979,7 +91119,7 @@ function showTip(uf, ev){
   const niv = nivelInstavel(nAt);
   const cav = niv===2 ? `<br><span style="color:#b8860b">⚠ amostra pequena (n=${nAt}) — instável</span>`
             : niv===1 ? `<br><span style="color:#b8860b">· cautela (n=${nAt})</span>` : '';
-  el.innerHTML = `<strong>${UF_META[uf]?.nome||uf}</strong>${v!=null?v.toFixed(1).replace('.', ',')+' <small>'+unit+'</small>':'Sem dado'}${cav}`;
+  el.innerHTML = `<strong>${UF_META[uf]?.nome||uf}</strong>${v47Dica(uf, v, unit)}${cav}`;
   el.classList.add('vis');
   if(ev) moveTip(ev.clientX||ev.pageX, ev.clientY||ev.pageY);
 }

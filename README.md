@@ -31,6 +31,8 @@ internet, sem instalar nada.
 
 ## Histórico
 
+- v47 (15/10/2026): dados de cada visão em CSV; mapa em % ou em mil domicílios
+  (2023 e 2024); IC na dica do mapa; Quadro 6.1.1 na aba Lacunas.
 - v46 (15/10/2026): botão "Como citar" (ABNT e APA, com cópia automática).
 - v45 (15/10/2026): fonte do coeficiente de Engel corrigida (POF 2017-2018);
   versão congelada para a banca.
