@@ -89426,7 +89426,7 @@ document.addEventListener('keydown', ev => {
 
 // ════════ v47: % ou mil domicílios no mapa; dica com IC; CSV da visão; Quadro 6.1.1 ════════
 const V47 = {"q611":[["Subpergunta","O indicador e os dados autorizam","Exigem outros dados, escalas ou métodos","Seções"],["P1 Comparabilidade e trajetória","Descrever a prevalência de cada inquérito; comparar 2023 e 2024 e, com ressalva, as edições da PNAD de 2004, 2009 e 2013","Tratar 2013, a POF 2017-2018 e 2023 como série contínua: mudam instrumento, desenho e contexto, e a EBIA está em branco nos arquivos PNADC T4 de 2016 a 2019 e de 2021 examinados","5.1.1; 6.2.1"],["P2 Distribuição e escala","Descrever diferenças entre grupos de renda, raça/cor, sexo e instrução em escala absoluta e relativa, e testar sua mudança entre 2023 e 2024, em análise exploratória","Explicar as diferenças (mecanismos), examinar a sobreposição entre marcadores e atribuir a mudança a políticas","5.1.3; 5.1.4; 6.2.2; 6.2.3"],["P3 Território","Contrastar a capital e o restante do estado do Rio de Janeiro nos domínios amostrais, com n, IC95% e coeficiente de variação","Inferir para municípios, favelas ou subáreas do estado; estimar com precisão a insegurança grave na capital","5.1.5; 6.2.4"],["P4 Dimensão individual (Ondas 1 e 2)","Descrever associações ajustadas entre os níveis de EBIA e a energia relatada, a fibra e a participação de arroz e feijão e de hortaliças na energia, com intervalos de confiança, na Onda 1 e em 2B; sem diferença detectável na densidade energética dos alimentos sólidos;","Inferir causa ou mediação; caracterizar a qualidade global da dieta; afirmar consumo absoluto dos grupos (os indicadores são frações da energia)","5.2; 6.3.1"],["P5 Dimensão do orçamento","Descrever a aquisição domiciliar, a despesa e o coeficiente de Engel (a composição NOVA da aquisição fica no apêndice, não validada)","Relacionar esses dados aos níveis da EBIA (cruzamento em nível de domicílio) e inferir consumo individual ou privação alimentar","5.3; 6.3.2; 6.3.3"],["P6 Informação","Documentar lacunas, quebras e divergências (dez achados) e expressá-las como metadado","Demonstrar que o painel é compreensível ou altera decisões (avaliação com usuários e apreciação ética)","5.4; 6.4"]],"fonte":"DISSERTACAO_REVISADA_v22_20261015_ACEITA.docx"};
-const V47_VERSAO = 'v49';
+const V47_VERSAO = 'v50';
 const V47_ESCALA_MIL = [[0, '#F8E7E4'], [0.5, '#C9707A'], [1, '#6B1F2A']];   // um só tom, claro -> escuro
 S.mapaMil = false;
 function v47MilAtivo(){
@@ -89530,7 +89530,7 @@ function baixarCSV(){
   const v = v47CSVVisao();
   const hoje = new Date().toLocaleDateString('pt-BR');
   const cab = [v.titulo,
-    'Painel de Insegurança Alimentar no Brasil, ' + V47_VERSAO + ' · Castanho, Bernardo · https://doi.org/10.5281/zenodo.23405765 · CC BY 4.0 · exportado em ' + hoje,
+    'Fonte: Castanho (2026), Painel de Insegurança Alimentar no Brasil.', v50Referencia('exportado'),
     'Decimais com vírgula; separador ponto e vírgula. Estimativas descritivas; associações não são causais.', ''].map(v47cel).join('\r\n');
   const blob = new Blob(['﻿' + cab + '\r\n' + v.csv + '\r\n'], {type:'text/csv;charset=utf-8'});
   const a = document.createElement('a');
@@ -89708,9 +89708,12 @@ function v49slug(t){
     .replace(/%/g, 'pct').replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, '').slice(0, 120).replace(/-[^-]*$/, m => m.length > 1 && String(t).length > 120 ? '' : m);
 }
 function v49Nome(titulo, ext){ return 'Castanho2026_PainelIA_' + v49slug(titulo) + '.' + ext; }
+// v50: crédito no formato de fonte de figura (autor-data) + referência ABNT
+function v50Fonte(dados){ return 'Fonte: Castanho (2026), Painel de Insegurança Alimentar no Brasil. Dados: ' + String(dados).replace(/\.$/, '') + '.'; }
+function v50Referencia(acao){ return 'Referência: CASTANHO, Bernardo. Painel de Insegurança Alimentar no Brasil. [S. l.]: Zenodo, 2026. DOI: ' + V49_DOI + '. Licença CC BY 4.0. Versão ' + V47_VERSAO + ', ' + acao + ' em ' + v49Hoje() + '.'; }
 function v49Hoje(){ return new Date().toLocaleDateString('pt-BR'); }
 function v49Txt(id){ const e = document.getElementById(id); return e ? e.textContent.replace(/\s+/g, ' ').trim() : ''; }
-const V49_FONTE_EBIA = 'IBGE: PNAD 2004, 2009 e 2013 (microdados reponderados), POF 2017-2018 e PNADC 4º tri. 2023 e 2024 (SIDRA 9552 e microdados); VIGISAN 2021 (Rede PENSSAN), só como contexto';
+const V49_FONTE_EBIA = 'IBGE, PNAD 2004, 2009 e 2013 (microdados reponderados), POF 2017-2018 e PNADC 4º tri. 2023 e 2024 (SIDRA 9552 e microdados); Rede PENSSAN, VIGISAN 2021, só como contexto';
 
 // ── o que cada gráfico exporta: título, recorte, fonte e tabela ──
 function v49Spec(id){
@@ -89793,7 +89796,7 @@ function v49Spec(id){
 // ── CSV ──
 function v49CSV(id){
   const sp = v49Spec(id); if(!sp) return;
-  const cab = [sp.titulo, sp.sub, 'Fonte: ' + sp.fonte, 'Como citar: ' + V49_CIT + ' · ' + V47_VERSAO + ' · CC BY 4.0 · exportado em ' + v49Hoje(),
+  const cab = [sp.titulo, sp.sub, v50Fonte(sp.fonte), v50Referencia('exportado'),
     'Decimais com vírgula; separador ponto e vírgula. Estimativas descritivas; associações não são causais.', ''].map(v47cel).join('\r\n');
   const corpo = sp.csvPronto || v47tabela(sp.cab, sp.linhas);
   v49Baixa(new Blob(['﻿' + cab + '\r\n' + corpo + '\r\n'], {type: 'text/csv;charset=utf-8'}), v49Nome(sp.titulo, 'csv'));
@@ -89919,7 +89922,7 @@ async function v49PNG(id, botao){
     ctx.font = (13 * ESC) + 'px Inter, Arial, sans-serif';
     const ls = v49Quebra(ctx, sp.sub, largTxt);
     ctx.font = (11.5 * ESC) + 'px Inter, Arial, sans-serif';
-    const lf = v49Quebra(ctx, 'Fonte: ' + sp.fonte + '.', largTxt).concat(v49Quebra(ctx, 'Como citar: ' + V49_CIT + ' · ' + V47_VERSAO + ' · CC BY 4.0 · baixado em ' + v49Hoje() + '.', largTxt));
+    const lf = v49Quebra(ctx, v50Fonte(sp.fonte), largTxt).concat(v49Quebra(ctx, v50Referencia('baixado'), largTxt));
     const itensLeg = v49Legenda(id, gd);
     const cvt = document.createElement('canvas').getContext('2d');
     const altLeg = itensLeg.length ? v49DesenhaLegenda(cvt, itensLeg, M, 0, largTxt, ESC) + 10 * ESC : 0;

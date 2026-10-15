@@ -31,6 +31,8 @@ internet, sem instalar nada.
 
 ## Histórico
 
+- v50 (15/10/2026): figuras e CSV exportados trazem o crédito pronto (Fonte: Castanho
+  (2026) e referência ABNT). Versão descrita na dissertação e depositada no Zenodo.
 - v49 (15/10/2026): cada gráfico exporta PNG em alta resolução (com legenda,
   fonte, citação e metadados no arquivo) e CSV, conforme o recorte na tela.
 - v48 (15/10/2026): layout para celular e telas estreitas; janela única "Sobre o
