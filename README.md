@@ -3,13 +3,13 @@
 Produto técnico da dissertação de mestrado em Segurança Alimentar e Nutricional
 (PPGSAN/UNIRIO) de Bernardo Castanho.
 
-Painel interativo com quatro famílias de indicadores: acesso e percepção (EBIA),
+Painel interativo com quatro famílias de indicadores: experiência de acesso aos alimentos (EBIA),
 fatores socioeconômicos e demográficos, aquisição domiciliar por grupos
 alimentares (POF) e orçamento familiar (coeficiente de Engel). Descreve
 prevalências e metadados dos inquéritos do IBGE; não inclui regressão, a
 participação de ultraprocessados na aquisição nem resultados do Estudo 2.
 
-As desigualdades aparecem em duas abas: **Desigualdades por UF** (mapa com
+As desigualdades aparecem em duas abas: **Filtrar** (mapa por UF com
 recortes) e **Desigualdades no Brasil** (prevalência por marcador social com IC95%,
 diferença absoluta e razão entre grupos, teste de mudança 2023-2024). A aba
 **Lacunas e comparabilidade** mostra os anos com EBIA nos inquéritos, as
@@ -27,6 +27,9 @@ internet, sem instalar nada.
 
 ## Histórico
 
+- v43 (15/10/2026): anos abaixo do menu; aba Desigualdades no Brasil
+  redesenhada; frases de leitura na aquisição e nas desigualdades; nomes
+  alinhados à dissertação (experiência de acesso; Filtrar).
 - v42 (15/10/2026): IC95% e mudança 2023-2024 por UF; Rio de Janeiro por domínio
   amostral; domicílios em número absoluto; link guarda todas as abas; ajustes de
   contraste e leitura.
