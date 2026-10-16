@@ -1282,10 +1282,10 @@ html, body { height:100%; overflow:hidden; background:var(--fao-ocean); }
 @media (min-width: 961px){
   #extra-row{ left:232px; right:18px; transform:none; width:auto; }
 }
-#mode-tabs .tab-modo.desig, #mode-tabs .tab-modo.lacunas{
+#mode-tabs .tab-modo.desig, #mode-tabs .tab-modo.lacunas, #mode-tabs .tab-modo.consumo{
   color:#5a6472; border-left:3px solid transparent; border-bottom:1px solid rgba(28,45,64,.06);
 }
-#mode-tabs .tab-modo.desig.ativo, #mode-tabs .tab-modo.lacunas.ativo{
+#mode-tabs .tab-modo.desig.ativo, #mode-tabs .tab-modo.lacunas.ativo, #mode-tabs .tab-modo.consumo.ativo{
   background:#F3E7D8; color:#7C332C; border-left-color:var(--fao-accent);
 }
 .v41-panel{ height:auto !important; }
@@ -1508,6 +1508,37 @@ table.v41-linha{ font-size:11px; }
   #line-row .panel-title > span:first-child{ flex:1 1 100% !important; }
   #line-row .panel-title > div{ width:100%; justify-content:space-between; }
 }
+
+/* ════════ v52 — aba Consumo individual (Estudo 2) ════════ */
+.e2-intro{ margin:0 0 6px; }
+.e2-graficos{ display:grid; grid-template-columns:minmax(0,3fr) minmax(0,2fr); gap:18px; }
+@media (max-width:1180px){ .e2-graficos{ grid-template-columns:1fr; }
+  #panel-consumo .panel-title{ flex-wrap:wrap; gap:6px; }
+  #panel-consumo .panel-title > span{ flex:1 1 100%; }
+  #panel-consumo .v41-ctrl{ width:100%; }
+  #panel-consumo .v41-ctrl select{ flex:1; max-width:none; } }
+table.e2-tab tr.e2-linha{ cursor:pointer; }
+table.e2-tab tr.e2-linha:hover td{ background:#F2F6FA; }
+table.e2-tab tr.e2-linha.sel td{ background:#E3EEF8; font-weight:600; }
+table.e2-tab tr.e2-linha:focus-visible{ outline:2px solid #1F6FB2; outline-offset:-2px; }
+.e2-leitura{ background:var(--surface-2); border-left:3px solid #1F6FB2; padding:7px 10px; border-radius:6px; margin:8px 0 4px; }
+.e2-cautela{ margin-top:4px; }
+ul.e2-lim{ margin:4px 0 0 18px; padding:0; }
+ul.e2-lim li{ margin:2px 0; }
+.fam-e2{ border-color:#2A9D8F; }
+.fam-e2 .fam-num{ background:#2A9D8F; }
+
+/* ════════ v53 — mapa da variação 2023→2024 ════════ */
+.v53-var-grad{ background:linear-gradient(90deg, #0B3C6B, #6FA3D3 48%, #F4F4F2 50%, #F2A57A 52%, #8C2F0B) !important; width:110px !important; }
+#leg-cont{ flex-wrap:wrap; max-width:100%; }
+#leg-cont.v53-var{ flex-basis:100%; min-width:0; }
+#v53-leg-ns{ white-space:normal; }
+@media (min-width:1181px){
+  #mapa-title{ overflow:hidden; text-overflow:ellipsis; white-space:nowrap; min-width:0; flex:0 1 auto; }
+  #map-titlebar > *:not(#mapa-title){ flex-shrink:0; }
+}
+#v53-leg-ns{ display:none; align-items:center; gap:5px; flex-basis:100%; font-size:.7rem; line-height:1.3; }
+#v53-leg-ns i{ display:inline-block; width:14px; height:10px; border-radius:2px; background:#D3D8DE; border:1px solid rgba(28,45,64,.18); }
 </style>
 </head>
 <body>
@@ -1521,10 +1552,11 @@ table.v41-linha{ font-size:11px; }
     </div>
     <nav id="mode-tabs" aria-label="Família de indicadores">
       <button class="tab-modo ativo" id="tab-ebia" onclick="setModo('ebia')" aria-pressed="true" title="EBIA — medida direta da experiência de acesso aos alimentos"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M3.6 11.2h16.8a8.4 8.4 0 0 1-16.8 0Z"/><path d="M8.6 20h6.8"/><path d="M12 7.4c0-1.1-1.1-1.5-1.1-2.6"/></svg><span>Insegurança alimentar (EBIA)</span></button>
-      <button class="tab-modo desig" id="tab-desig" onclick="setModo('desig')" aria-pressed="false" title="Desigualdades no Brasil: prevalência por marcador social com IC95%, diferença absoluta e razão entre grupos (PNAD 2004–2013 e PNADC 2023–2024)"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 20V12M12 20V5M19 20v-9"/><path d="M3 20h18"/></svg><span>Desigualdades no Brasil</span></button>
       <button class="tab-modo pof" id="tab-pof" onclick="setModo('pof')" aria-pressed="false" title="Aquisição domiciliar de grupos alimentares — POF 2002/2008/2018"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.4 9h15.2l-1.3 9.4a2 2 0 0 1-2 1.6H7.7a2 2 0 0 1-2-1.6L4.4 9Z"/><path d="M9 9a3 3 0 0 1 6 0"/><path d="M10 12.8v3.4M14 12.8v3.4"/></svg><span>Aquisição domiciliar</span></button>
+      <button class="tab-modo desig" id="tab-desig" onclick="setModo('desig')" aria-pressed="false" title="Desigualdades no Brasil: prevalência por marcador social com IC95%, diferença absoluta e razão entre grupos (PNAD 2004–2013 e PNADC 2023–2024)"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 20V12M12 20V5M19 20v-9"/><path d="M3 20h18"/></svg><span>Desigualdades no Brasil</span></button>
       
       <button class="tab-modo engel" id="tab-engel" onclick="setModo('engel')" aria-pressed="false" title="Coeficiente de Engel — comprometimento orçamentário com alimentação por faixa de renda (POF 2017-2018), Brasil e Rio de Janeiro"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/><path d="M12 4v8h8"/></svg><span>Orçamento familiar</span></button>
+      <button class="tab-modo consumo" id="tab-consumo" onclick="setModo('consumo')" aria-pressed="false" title="Consumo individual: alimentação relatada segundo o nível de insegurança alimentar do domicílio (Estudo 2, POF 2017-2018)"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 3v18M4.5 3v4.5a2.5 2.5 0 0 0 5 0V3"/><path d="M17 21V3c-2 0-3.5 2.4-3.5 6s1.5 5 3.5 5"/></svg><span>Consumo individual</span></button>
       <button class="tab-modo lacunas" id="tab-lacunas" onclick="setModo('lacunas')" aria-pressed="false" title="Lacunas e comparabilidade: anos com EBIA nos inquéritos, comparações sustentadas e achados sobre a cadeia de informação"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4M8 14h2M14 14h2M8 17h2"/></svg><span>Lacunas e comparabilidade</span></button>
       
     </nav>
@@ -1583,13 +1615,13 @@ table.v41-linha{ font-size:11px; }
     <section class="panel" aria-label="Mapa coroplético por UF">
       <div class="panel-title">
         <span id="mapa-title">% Insegurança Alimentar por UF</span>
-        <span id="mapa-ano" style="font-size:.85rem;color:var(--ia);font-weight:700"></span><span id="v47-medida" class="v47-medida" role="group" aria-label="Unidade do mapa" style="display:none"><button type="button" data-m="pct" onclick="setMedidaMapa(false)" aria-pressed="true">%</button><button type="button" data-m="mil" onclick="setMedidaMapa(true)" aria-pressed="false" title="Número de domicílios em insegurança alimentar (SIDRA 9552)">mil domicílios</button></span>
+        <span id="mapa-ano" style="font-size:.85rem;color:var(--ia);font-weight:700"></span><span id="v47-medida" class="v47-medida" role="group" aria-label="Unidade do mapa" style="display:none"><button type="button" data-m="pct" onclick="setMedidaMapa(false)" aria-pressed="true">%</button><button type="button" data-m="mil" onclick="setMedidaMapa(true)" aria-pressed="false" title="Número de domicílios em insegurança alimentar (SIDRA 9552)">mil domicílios</button><button type="button" data-m="var" onclick="v53SetVar()" aria-pressed="false" title="Variação da prevalência entre 2023 e 2024, em pontos percentuais; cor só onde a mudança é detectável após a correção de Holm (27 UFs)">variação</button></span>
       </div>
       <div class="panel-fonte" id="mapa-fonte">Fonte: PNADC T4 2023/2024 — IBGE</div>
       <div class="chart-wrap"><div id="div-mapa" style="width:100%;height:100%"></div></div>
       <div id="leg-mapa">
         <div id="leg-swatches" aria-label="Faixas de prevalencia de IA"></div>
-        <div id="leg-cont" style="display:none;align-items:center;gap:7px"><span id="leg-min">0%</span><div class="leg-grad" id="leg-grad"></div><span id="leg-max">60%+</span></div>
+        <div id="leg-cont" style="display:none;align-items:center;gap:7px"><span id="leg-min">0%</span><div class="leg-grad" id="leg-grad"></div><span id="leg-max">60%+</span><span id="v53-leg-ns"><i></i>azul: queda; laranja: aumento; cinza: sem mudança detectável (Holm)</span></div>
         <span style="margin-left:14px;color:var(--rj);font-weight:600">■ RJ</span>
         <span id="leg-sel-lbl" style="margin-left:10px;color:var(--sel);font-weight:600;display:none">■ Selecionado</span>
         <span id="leg-instavel" style="margin-left:10px;color:#b8860b;font-weight:600;display:none" title="Estimativas com amostra pequena (n<50) — interpretar com cautela">⚠ amostra pequena</span>
@@ -1670,6 +1702,44 @@ table.v41-linha{ font-size:11px; }
       </div>
     </div>
 
+    <!-- v52: aba Consumo individual (Estudo 2) -->
+    <div id="panel-consumo" class="panel v41-panel" style="display:none">
+      <div class="panel-title">
+        <span>Consumo individual segundo a insegurança alimentar do domicílio — Brasil, POF 2017-2018</span>
+        <div class="v41-ctrl">
+          <label for="e2-ind" style="font-size:.72rem;color:var(--text-soft)">Indicador</label>
+          <select id="e2-ind" onchange="setE2(this.value)"></select>
+        </div>
+      </div>
+      <div class="v41-corpo">
+        <p class="v41-nota e2-intro" id="e2-intro"></p>
+        <div id="e2-status"></div>
+        <div class="e2-graficos">
+          <div>
+            <h3 id="e2-tit-dif">Diferença ajustada em relação à segurança alimentar</h3>
+            <div class="chart-wrap" style="height:230px"><div id="div-e2-dif" style="width:100%;height:100%"></div></div>
+          </div>
+          <div id="e2-bloco-mod">
+            <h3>Nível grave: antes e depois do ajuste</h3>
+            <div class="chart-wrap" style="height:230px"><div id="div-e2-mod" style="width:100%;height:100%"></div></div>
+          </div>
+        </div>
+        <div class="e2-leitura v41-nota" id="e2-leitura"></div>
+        <h3 id="e2-tit-tab">Todos os indicadores do conjunto</h3>
+        <div class="v41-rolagem" id="e2-tabela"></div>
+        <h3>Como ler e o que estes resultados não dizem</h3>
+        <ul class="v41-nota e2-lim">
+          <li><strong>Associação, não causa.</strong> O ajuste por covariáveis medidas não elimina o confundimento e não identifica mecanismo nem mediação.</li>
+          <li>A EBIA é do domicílio e a alimentação é de cada morador: a diferença descreve médias dos moradores, e quem responde a EBIA nem sempre é a pessoa de referência.</li>
+          <li>Um ou dois dias de registro não equivalem ao consumo habitual, e a energia relatada está sujeita a sub-relato, possivelmente seletivo por grupo de alimento.</li>
+          <li>Somente Brasil: o módulo de consumo da POF não tem amostra planejada por UF, e o Rio de Janeiro fica fora desta análise.</li>
+          <li>Pessoas de 10 anos ou mais, de cor ou raça branca, preta ou parda; as demais categorias não entram nos modelos.</li>
+          <li>Não aparecem aqui, como na dissertação: a participação de ultraprocessados segundo a insegurança alimentar (componente 2A, ainda não aberta), as análises secundárias por dicotomia da EBIA e por Grandes Regiões, as interações exploratórias e as sensibilidades.</li>
+        </ul>
+        <p class="v41-nota" id="e2-fonte"></p>
+      </div>
+    </div>
+
     <!-- v41: aba Lacunas e comparabilidade -->
     <div id="panel-lacunas" class="panel v41-panel" style="display:none">
       <div class="panel-title">
@@ -1715,9 +1785,9 @@ table.v41-linha{ font-size:11px; }
     <summary>ⓘ Notas metodológicas</summary>
     <div>
       <h3>Como o painel se organiza</h3>
-      <p>Este painel organiza indicadores de IAN em quatro famílias: <strong>① experiência de acesso</strong> (EBIA — <em>medida direta</em>), <strong>② fatores socioeconômicos e demográficos</strong> (<em>fatores associados</em> — estratificações da prevalência de IA), <strong>③ aquisição domiciliar</strong> (<em>indicador complementar</em> — grupos alimentares, POF) e <strong>④ orçamento familiar</strong> (<em>indicador complementar</em> — Coeficiente de Engel por faixa de renda). Nenhum indicador isolado esgota o fenômeno — a leitura deve articular essas famílias. A família ② aparece no botão <strong>Filtros</strong>, no painel do estado (mapa por UF, com recortes), e na aba <strong>Desigualdades no Brasil</strong> (prevalência por marcador social com IC95%, diferença absoluta e razão entre grupos), que reúne resultados nacionais da dissertação. <strong>Lacunas e comparabilidade</strong> mostra os anos com EBIA, as comparações sustentadas e os achados sobre a cadeia de informação. As cautelas abaixo são obrigatórias em qualquer combinação.</p>
+      <p>Este painel organiza indicadores de IAN em quatro famílias: <strong>① experiência de acesso</strong> (EBIA — <em>medida direta</em>), <strong>② fatores socioeconômicos e demográficos</strong> (<em>fatores associados</em> — estratificações da prevalência de IA), <strong>③ aquisição domiciliar</strong> (<em>indicador complementar</em> — grupos alimentares, POF) e <strong>④ orçamento familiar</strong> (<em>indicador complementar</em> — Coeficiente de Engel por faixa de renda). Nenhum indicador isolado esgota o fenômeno — a leitura deve articular essas famílias. A família ② aparece no botão <strong>Filtros</strong>, no painel do estado (mapa por UF, com recortes), e na aba <strong>Desigualdades no Brasil</strong> (prevalência por marcador social com IC95%, diferença absoluta e razão entre grupos), que reúne resultados nacionais da dissertação. <strong>Consumo individual</strong> traz o Estudo 2: a alimentação relatada por cada morador segundo o nível de insegurança alimentar do domicílio (POF 2017-2018, Brasil, associações ajustadas). Em 2024, o seletor do mapa mostra também a <strong>variação de 2023 para 2024</strong> por UF, colorida só onde a mudança é detectável após a correção de Holm. <strong>Lacunas e comparabilidade</strong> mostra os anos com EBIA, as comparações sustentadas e os achados sobre a cadeia de informação. As cautelas abaixo são obrigatórias em qualquer combinação.</p>
       <h3>O que o painel não mostra</h3>
-      <p>A regressão logística preliminar, a participação de ultraprocessados na aquisição (classificador não validado) e os resultados do Estudo 2 (consumo individual). As prevalências são estimativas descritivas dos inquéritos do IBGE; as associações não são causais.</p>
+      <p>A regressão logística preliminar, a participação de ultraprocessados na aquisição (classificador não validado) e, do Estudo 2, a participação de ultraprocessados no consumo segundo a insegurança alimentar (componente ainda não aberta), as análises por dicotomia da EBIA e por Grandes Regiões, as interações e as sensibilidades. As prevalências são estimativas descritivas dos inquéritos do IBGE; as associações não são causais.</p>
       <p><strong>Distinção metodológica fundamental:</strong> apenas a EBIA é <em>medida direta</em> de insegurança alimentar. Os fatores socioeconômicos e demográficos são <em>fatores associados</em> que estratificam a prevalência de IA — mostram quem está mais exposto, mas não constituem nova medida de IA. A aquisição domiciliar (POF) é <em>indicador complementar</em> que descreve o que o domicílio adquire, sem medir insegurança alimentar nem consumo individual.</p>
 
       <h3>O que é a EBIA</h3>
@@ -1819,6 +1889,14 @@ table.v41-linha{ font-size:11px; }
           <strong>Orçamento familiar (Coeficiente de Engel)</strong>
           <p>Indicador complementar — comprometimento do orçamento familiar com alimentação por faixa de rendimento, Brasil e Rio de Janeiro (POF 2017-2018).</p>
           <em>Não mede insegurança alimentar.</em>
+        </div>
+      </div>
+      <div class="fam-card fam-e2">
+        <div class="fam-num"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 3v18M4.5 3v4.5a2.5 2.5 0 0 0 5 0V3"/><path d="M17 21V3c-2 0-3.5 2.4-3.5 6s1.5 5 3.5 5"/></svg></div>
+        <div>
+          <strong>Consumo individual (Estudo 2)</strong>
+          <p>Alimentação relatada por cada morador de 10 anos ou mais segundo o nível de insegurança alimentar do domicílio: energia, densidade energética, fibra, micronutrientes e cinco grupos alimentares (POF 2017-2018, Brasil, diferenças ajustadas).</p>
+          <em>Associação, não causa; não mede o consumo habitual.</em>
         </div>
       </div>
       
@@ -88810,13 +88888,15 @@ function warnData(){
 let _suppressURL=false;
 function syncURL(){
   if(_suppressURL) return;
-  const modo = ['engel','desig','lacunas'].includes(S.modoAtual) ? S.modoAtual
+  const modo = ['engel','desig','lacunas','consumo'].includes(S.modoAtual) ? S.modoAtual
     : (S.nova4?'nova4':(S.grupoAlim!==null?'pof':(S.filtro!==null?'filtros':'ebia')));
   const p=new URLSearchParams();
   p.set('m',modo);
   if(modo==='desig'){ p.set('dm',S.desigMarc); p.set('dd',S.desigDesf); p.set('de',S.desigEscala); history.replaceState(null,'','#'+p.toString()); return; }
+  if(modo==='consumo'){ p.set('ci',S.e2Ind); history.replaceState(null,'','#'+p.toString()); return; }
   if(modo==='engel'||modo==='lacunas'){ history.replaceState(null,'','#'+p.toString()); return; }
   p.set('ano',getAno());
+  if(v53VarAtivo()) p.set('med','var');
   if(S.ufSel) p.set('uf',S.ufSel);
   if(S.filtro!==null){ p.set('f',S.filtro); if(S.catIdx!=null) p.set('c',S.catIdx); }
   if(S.filtro2!==null){ p.set('f2',S.filtro2); if(S.cat2Idx!=null) p.set('c2',S.cat2Idx); }
@@ -88827,12 +88907,14 @@ function applyStateFromHash(){
   if(!location.hash || location.hash.length<2) return false;
   const p=new URLSearchParams(location.hash.slice(1));
   _suppressURL=true;
-  const modo0=p.get('m')||'ebia'; const modo=['ebia','filtros','pof','engel','desig','lacunas'].includes(modo0)?modo0:'ebia';
-  if(['engel','desig','lacunas'].includes(modo)){
+  const modo0=p.get('m')||'ebia'; const modo=['ebia','filtros','pof','engel','desig','lacunas','consumo'].includes(modo0)?modo0:'ebia';
+  if(['engel','desig','lacunas','consumo'].includes(modo)){
+    if(p.get('ci') && V52.indicadores.some(i => i.id === p.get('ci'))) S.e2Ind=p.get('ci');
     if(p.get('dm')) S.desigMarc=p.get('dm'); if(p.get('dd')) S.desigDesf=p.get('dd'); if(p.get('de')) S.desigEscala=p.get('de');
     _suppressURL=false; setModo(modo); return true;
   }
   S.nova4 = modo==='nova4';
+  S.mapaVar = p.get('med') === 'var';
   S.grupoAlim = modo==='pof'
     ? (p.get('g') != null ? p.get('g') : (GRUPOS_ALIM?.lista?.[0]?.cod ?? null))
     : null;
@@ -89175,6 +89257,11 @@ function v42BarIC(){
   if(!gd || !gd.data) return;
   const {locs} = buildBarData();
   const a = String(getAno());
+  if(v53VarAtivo()){
+    const M = locs.map(u => V42.uf_mud[u]);
+    Plotly.restyle(gd, {error_x: [{type:'data', array:M.map(m => m.dif[2] - m.dif[0]), arrayminus:M.map(m => m.dif[0] - m.dif[1]), visible:true, color:'rgba(27,42,56,.55)', thickness:1.2, width:3}]});
+    return;
+  }
   const temIC = S.grupoAlim === null && !S.nova4 && S.filtro === null && !v47MilAtivo() && locs.every(u => V42.uf_ic[u]?.[a]);
   if(!temIC){ Plotly.restyle(gd, {'error_x.visible': false}); return; }
   const up = locs.map(u => V42.uf_ic[u][a].ia[2] - V42.uf_ic[u][a].ia[0]);
@@ -89426,22 +89513,27 @@ document.addEventListener('keydown', ev => {
 
 // ════════ v47: % ou mil domicílios no mapa; dica com IC; CSV da visão; Quadro 6.1.1 ════════
 const V47 = {"q611":[["Subpergunta","O indicador e os dados autorizam","Exigem outros dados, escalas ou métodos","Seções"],["P1 Comparabilidade e trajetória","Descrever a prevalência de cada inquérito; comparar 2023 e 2024 e, com ressalva, as edições da PNAD de 2004, 2009 e 2013","Tratar 2013, a POF 2017-2018 e 2023 como série contínua: mudam instrumento, desenho e contexto, e a EBIA está em branco nos arquivos PNADC T4 de 2016 a 2019 e de 2021 examinados","5.1.1; 6.2.1"],["P2 Distribuição e escala","Descrever diferenças entre grupos de renda, raça/cor, sexo e instrução em escala absoluta e relativa, e testar sua mudança entre 2023 e 2024, em análise exploratória","Explicar as diferenças (mecanismos), examinar a sobreposição entre marcadores e atribuir a mudança a políticas","5.1.3; 5.1.4; 6.2.2; 6.2.3"],["P3 Território","Contrastar a capital e o restante do estado do Rio de Janeiro nos domínios amostrais, com n, IC95% e coeficiente de variação","Inferir para municípios, favelas ou subáreas do estado; estimar com precisão a insegurança grave na capital","5.1.5; 6.2.4"],["P4 Dimensão individual (Ondas 1 e 2)","Descrever associações ajustadas entre os níveis de EBIA e a energia relatada, a fibra e a participação de arroz e feijão e de hortaliças na energia, com intervalos de confiança, na Onda 1 e em 2B; sem diferença detectável na densidade energética dos alimentos sólidos;","Inferir causa ou mediação; caracterizar a qualidade global da dieta; afirmar consumo absoluto dos grupos (os indicadores são frações da energia)","5.2; 6.3.1"],["P5 Dimensão do orçamento","Descrever a aquisição domiciliar, a despesa e o coeficiente de Engel (a composição NOVA da aquisição fica no apêndice, não validada)","Relacionar esses dados aos níveis da EBIA (cruzamento em nível de domicílio) e inferir consumo individual ou privação alimentar","5.3; 6.3.2; 6.3.3"],["P6 Informação","Documentar lacunas, quebras e divergências (dez achados) e expressá-las como metadado","Demonstrar que o painel é compreensível ou altera decisões (avaliação com usuários e apreciação ética)","5.4; 6.4"]],"fonte":"DISSERTACAO_REVISADA_v22_20261015_ACEITA.docx"};
-const V47_VERSAO = 'v50';
+const V47_VERSAO = 'v53';
 const V47_ESCALA_MIL = [[0, '#F8E7E4'], [0.5, '#C9707A'], [1, '#6B1F2A']];   // um só tom, claro -> escuro
 S.mapaMil = false;
 function v47MilAtivo(){
   return !!S.mapaMil && isEbiaMapMode() && S.filtro === null && ['2023','2024'].includes(String(S.ano));
 }
-function v47Unid(){ return S.grupoAlim !== null ? ' kg' : (v47MilAtivo() ? ' mil' : '%'); }
-function setMedidaMapa(mil){ S.mapaMil = mil; updateMap(); updateBar(); }
+function v47Unid(){ return S.grupoAlim !== null ? ' kg' : (v53VarAtivo() ? ' p.p.' : v47MilAtivo() ? ' mil' : '%'); }
+function setMedidaMapa(mil){ S.mapaMil = mil; S.mapaVar = false; updateMap(); updateBar(); }
 function v47SyncMedida(){
   const el = document.getElementById('v47-medida');
   if(!el) return;
   const pode = isEbiaMapMode() && S.filtro === null && ['2023','2024'].includes(String(S.ano));
   el.style.display = pode ? 'inline-flex' : 'none';
-  el.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', (b.dataset.m === 'mil') === v47MilAtivo() ? 'true' : 'false'));
+  const atual = v53VarAtivo() ? 'var' : v47MilAtivo() ? 'mil' : 'pct';
+  el.querySelectorAll('button').forEach(b => {
+    b.setAttribute('aria-pressed', b.dataset.m === atual ? 'true' : 'false');
+    if(b.dataset.m === 'var') b.style.display = String(S.ano) === '2024' ? '' : 'none';
+  });
 }
 function v47Dica(uf, v, unit){
+  if(v53VarAtivo()) return v53Dica(uf);
   if(v == null) return 'Sem dado';
   const a = String(getAno());
   if(v47MilAtivo()){
@@ -89488,6 +89580,16 @@ function v47CSVVisao(){
     })));
     return {nome:'desigualdades_' + m.id, titulo:'Desigualdades na insegurança alimentar, Brasil — ' + m.label + ' (IC95%)',
       csv: v47tabela(['medida','marcador','categoria','referencia','ano','desfecho','estimativa','ic95_inf','ic95_sup','n_domicilios','fonte'], L)};
+  }
+  if(modo === 'consumo'){
+    const L = [];
+    V52.indicadores.forEach(i => {
+      const sc = i.conjunto === 'secundario';
+      V52_NIV.forEach(([k, r]) => L.push([V52_CONJ[i.conjunto].rot, i.nome, v52Unid(i), r, v47n(i.dif[k][0], i.nd), v47n(i.dif[k][1], i.nd), v47n(i.dif[k][2], i.nd), v47n(i.media_sa, i.nd),
+        v52p(sc ? i.p_global : i.p_global_holm), v52p(sc ? i.p_tend : i.p_tend_holm), sc ? 'sem correção' : 'Holm', i.modelos_grave ? v47n(i.modelos_grave.M0, i.nd) : '', i.n, 'Tabela ' + i.tabela]));
+    });
+    return {nome:'consumo_individual_estudo2', titulo:'Consumo individual segundo a insegurança alimentar do domicílio, Brasil, POF 2017-2018 — diferença ajustada (M2) em relação à segurança alimentar (Estudo 2; osf.io/m2gz6)',
+      csv: v47tabela(['conjunto','indicador','unidade','nivel_ebia','diferenca_M2','ic95_inf','ic95_sup','media_ajustada_seguranca','p_global','p_tendencia','correcao','diferenca_bruta_grave_M0','n_pessoas','tabela_dissertacao'], L)};
   }
   if(modo === 'lacunas'){
     const sec = (t, q) => t + '\r\n' + v47tabela(q[0], q.slice(1));
@@ -89604,7 +89706,7 @@ document.addEventListener('keydown', ev => {
 // ── guia rápido (primeira visita) ──
 const V48_GUIA = [
   {alvo:'#mode-tabs', titulo:'Escolha o que ver',
-   texto:'Cada aba reúne um conjunto de indicadores. Comece por Insegurança alimentar (EBIA), a medida direta; as outras mostram desigualdades, aquisição de alimentos, orçamento e as lacunas dos dados.'},
+   texto:'Cada aba reúne um conjunto de indicadores. Comece por Insegurança alimentar (EBIA), a medida direta; as outras mostram aquisição de alimentos, desigualdades, orçamento, consumo individual e as lacunas dos dados.'},
   {alvo:'#div-mapa', titulo:'Clique num estado',
    texto:'O painel à direita mostra os números da UF escolhida e os compara com o Brasil, com intervalo de confiança em 2023 e 2024. Também dá para escolher a UF na lista do painel.'},
   {alvo:'#btn-cta-drawer', titulo:'Use os filtros',
@@ -89717,6 +89819,17 @@ const V49_FONTE_EBIA = 'IBGE, PNAD 2004, 2009 e 2013 (microdados reponderados), 
 
 // ── o que cada gráfico exporta: título, recorte, fonte e tabela ──
 function v49Spec(id){
+  if(v53VarAtivo() && (id === 'div-mapa' || id === 'div-barras')){
+    const ufs = id === 'div-barras' ? buildBarData().locs : Object.keys(UF_META).sort((x, y) => UF_META[x].nome.localeCompare(UF_META[y].nome, 'pt-BR'));
+    const B = V41.mudanca.Brasil.ia;
+    const L = [['BR', 'Brasil', v47n(NACIONAL['2023']?.ia), v47n(NACIONAL['2024']?.ia), v47n(B[0], 2), v47n(B[1], 2), v47n(B[2], 2), '', '', '']]
+      .concat(ufs.map(u => { const m = V42.uf_mud[u]; return [u, UF_META[u].nome, v47n(EBIA_UF[u]?.['2023']?.ia), v47n(EBIA_UF[u]?.['2024']?.ia),
+        v47n(m.dif[0], 2), v47n(m.dif[1], 2), v47n(m.dif[2], 2), v47n(m.p, 4), v47n(m.p_holm, 4), v53Sig(u) ? 'sim' : 'não']; }));
+    return {titulo: id === 'div-mapa' ? v49Txt('mapa-title') : v49Txt('barras-title'),
+      sub: 'Pontos percentuais, com IC95%. Cor só nas UFs com p ajustado (Holm, 27 UFs) < 0,05; em cinza, sem mudança detectável.',
+      fonte: 'IBGE, microdados da PNADC 4º tri. 2023 e 2024 (peso calibrado, estrato e UPA)',
+      cab: ['uf', 'nome', 'ia_2023_pct', 'ia_2024_pct', 'variacao_pp', 'ic95_inf', 'ic95_sup', 'p', 'p_holm_27_ufs', 'mudanca_detectada'], linhas: L};
+  }
   const a = String(getAno());
   const ufNome = S.ufSel ? (UF_META[S.ufSel]?.nome || S.ufSel) : null;
   const recorte = () => {
@@ -89790,6 +89903,19 @@ function v49Spec(id){
     return {titulo: 'Desigualdade na insegurança alimentar (' + nomeD + ') por ' + mk.label.toLowerCase() + ' — ' + nomeE,
       sub: 'Brasil, com IC95%.', fonte: V49_FONTE_EBIA, cab: ['grupo', 'referencia', 'ano', 'definicao', esc === 'raz' ? 'razao_prevalencia' : 'diferenca_pp', 'ic95_inf', 'ic95_sup'], linhas: L};
   }
+  if(id === 'div-e2-dif' || id === 'div-e2-mod'){
+    const it = v52Ind(), un = v52Unid(it), nd = it.nd;
+    const fonte = 'IBGE, POF 2017-2018, módulo de consumo alimentar pessoal (microdados); análise registrada (osf.io/m2gz6); dissertação, Tabelas 5.21 a 5.24';
+    if(id === 'div-e2-dif') return {titulo: v52Curto(it) + ' segundo o nível de insegurança alimentar do domicílio — diferença ajustada (M2)',
+      sub: 'Brasil, pessoas de 10 anos ou mais. Diferença em relação à segurança alimentar (média ajustada ' + v52f(it.media_sa, nd) + '), em ' + un + ', com IC95%. Ponto cheio: IC exclui zero. Associação, não causa.',
+      fonte: fonte, cab: ['indicador', 'nivel_ebia', 'diferenca_M2', 'ic95_inf', 'ic95_sup', 'unidade', 'media_ajustada_seguranca', 'p_global', 'p_tendencia', 'correcao', 'n_pessoas'],
+      linhas: V52_NIV.map(([k, r]) => [it.nome, r, v47n(it.dif[k][0], nd), v47n(it.dif[k][1], nd), v47n(it.dif[k][2], nd), un, v47n(it.media_sa, nd),
+        v52p(it.conjunto === 'secundario' ? it.p_global : it.p_global_holm), v52p(it.conjunto === 'secundario' ? it.p_tend : it.p_tend_holm), it.conjunto === 'secundario' ? 'sem correção' : 'Holm', it.n])};
+    return {titulo: v52Curto(it) + ' — diferença do nível grave de insegurança alimentar segundo o modelo',
+      sub: 'Brasil. Diferença em relação à segurança alimentar, em ' + un + ', sem ajuste (M0) e nos modelos M1 a M3. A mudança com o ajuste não demonstra explicação.',
+      fonte: fonte, cab: ['indicador', 'modelo', 'diferenca_grave', 'unidade'],
+      linhas: V52_MOD.filter(([m]) => it.modelos_grave && it.modelos_grave[m] != null).map(([m, r]) => [it.nome, r, v47n(it.modelos_grave[m], nd), un])};
+  }
   return null;
 }
 
@@ -89811,6 +89937,14 @@ function v49Baixa(blob, nome){
 // ── legenda para o PNG (a do painel é HTML, fora do gráfico) ──
 function v49Legenda(id, gd){
   const itens = [];
+  if(id === 'div-mapa' && v53VarAtivo()){
+    const L = v53L();
+    itens.push({tipo:'grad', escala:[[0, '#0B3C6B'], [0.4999, '#A9C9E8'], [0.5, '#F4F4F2'], [0.5001, '#F6C3A5'], [1, '#8C2F0B']], texto:v53pp(-L) + ' a ' + v53pp(L) + ' p.p. (queda em azul)'});
+    itens.push({tipo:'faixa', cor:V53_NS, texto:'sem mudança detectável (Holm, 27 UFs)'});
+    itens.push({tipo:'contorno', cor:'#9A6A2F', texto:'Rio de Janeiro'});
+    if(S.ufSel) itens.push({tipo:'contorno', cor:'#2F5D8A', texto:(UF_META[S.ufSel]?.nome || S.ufSel) + ' (selecionada)'});
+    return itens;
+  }
   if(id === 'div-mapa'){
     if(isEbiaMapMode() && !v47MilAtivo()){
       const dec = t => { const ta = document.createElement('textarea'); ta.innerHTML = t; return ta.value; };   // &lt; &ge; etc.
@@ -89977,14 +90111,208 @@ function v49Inicia(){
   poe('div-engel', '#panel-engel .panel-title > div');
   poe('div-desig-prev', '#div-desig-prev', true);
   poe('div-desig-contr', '#div-desig-contr', true);
+  poe('div-e2-dif', '#div-e2-dif', true);
+  poe('div-e2-mod', '#div-e2-mod', true);
 }
 if(document.readyState === 'complete') setTimeout(v49Inicia, 0);
 else window.addEventListener('load', () => setTimeout(v49Inicia, 0));
 
+
+// ════════ v52: aba Consumo individual — Estudo 2 (dados: gerar_dados_v52.py) ════════
+// Valores já arredondados como nas Tabelas 5.21 a 5.24 da dissertação e conferidos
+// célula a célula pelo gerador. Uma só cor (#1F6FB2): o nível de IA está no eixo.
+const V52 = {"indicadores":[{"id":"energia_kcal_dia","conjunto":"principal","tabela":"5.21","nd":0,"n":45634,"media_sa":1771.0,"dif":{"leve":[-47.0,-80.0,-13.0],"moderada":[-38.0,-86.0,9.0],"grave":[-208.0,-265.0,-150.0]},"p_global":0.0,"p_tend":0.0,"holm":true,"p_global_holm":0.0,"p_tend_holm":0.0,"modelos_grave":{"M0":-225.0,"M1":-278.0,"M2":-208.0,"M3":-204.0},"nome":"Energia relatada (kcal/dia)"},{"id":"dens_energ_solidos_kcal_g","conjunto":"principal","tabela":"5.21","nd":3,"n":45625,"media_sa":1.747,"dif":{"leve":[0.015,-0.008,0.039],"moderada":[-0.004,-0.032,0.024],"grave":[0.011,-0.025,0.048]},"p_global":0.511,"p_tend":0.544,"holm":true,"p_global_holm":0.511,"p_tend_holm":0.544,"modelos_grave":{"M0":0.013,"M1":-0.021,"M2":0.011,"M3":0.013},"nome":"Densidade energética dos alimentos sólidos (kcal/g)"},{"id":"fibra_g_1000kcal","conjunto":"principal","tabela":"5.21","nd":2,"n":45634,"media_sa":12.76,"dif":{"leve":[0.15,-0.16,0.46],"moderada":[0.67,0.17,1.17],"grave":[0.51,-0.06,1.09]},"p_global":0.036,"p_tend":0.006,"holm":true,"p_global_holm":0.072,"p_tend_holm":0.011,"modelos_grave":{"M0":1.38,"M1":1.46,"M2":0.51,"M3":0.45},"nome":"Fibra (g/1.000 kcal)"},{"id":"fibra_g_dia","conjunto":"secundario","tabela":"5.22","nd":2,"n":45634,"media_sa":22.14,"dif":{"leve":[-0.48,-1.13,0.17],"moderada":[0.12,-0.84,1.08],"grave":[-2.3,-3.35,-1.25]},"p_global":0.0,"p_tend":0.005,"holm":false,"nome":"Fibra (g/dia)"},{"id":"calcio_1000kcal","conjunto":"secundario","tabela":"5.22","nd":1,"n":45634,"media_sa":257.5,"dif":{"leve":[-9.2,-16.2,-2.2],"moderada":[-10.0,-18.2,-1.8],"grave":[-17.3,-26.0,-8.6]},"p_global":0.0,"p_tend":0.0,"holm":false,"nome":"Cálcio (mg/1.000 kcal)"},{"id":"ferro_1000kcal","conjunto":"secundario","tabela":"5.22","nd":2,"n":45634,"media_sa":6.3,"dif":{"leve":[0.08,0.0,0.16],"moderada":[0.06,-0.07,0.19],"grave":[0.15,-0.06,0.37]},"p_global":0.156,"p_tend":0.057,"holm":false,"nome":"Ferro (mg/1.000 kcal)"},{"id":"potassio_1000kcal","conjunto":"secundario","tabela":"5.22","nd":1,"n":45634,"media_sa":1287.0,"dif":{"leve":[-15.8,-31.3,-0.3],"moderada":[2.4,-21.3,26.1],"grave":[-25.6,-52.2,1.1]},"p_global":0.073,"p_tend":0.127,"holm":false,"nome":"Potássio (mg/1.000 kcal)"},{"id":"magnesio_1000kcal","conjunto":"secundario","tabela":"5.22","nd":1,"n":45634,"media_sa":153.5,"dif":{"leve":[1.6,-0.7,3.9],"moderada":[4.0,0.2,7.7],"grave":[6.1,1.7,10.6]},"p_global":0.02,"p_tend":0.002,"holm":false,"nome":"Magnésio (mg/1.000 kcal)"},{"id":"vitc_1000kcal","conjunto":"secundario","tabela":"5.22","nd":1,"n":45634,"media_sa":70.0,"dif":{"leve":[-2.1,-6.6,2.3],"moderada":[-8.4,-15.1,-1.6],"grave":[-18.5,-24.7,-12.4]},"p_global":0.0,"p_tend":0.0,"holm":false,"nome":"Vitamina C (mg/1.000 kcal)"},{"id":"folato_1000kcal","conjunto":"secundario","tabela":"5.22","nd":1,"n":45634,"media_sa":235.0,"dif":{"leve":[4.2,0.0,8.4],"moderada":[11.4,4.2,18.7],"grave":[8.5,-0.1,17.2]},"p_global":0.006,"p_tend":0.0,"holm":false,"nome":"Folato (µg/1.000 kcal)"},{"id":"sodio_1000kcal","conjunto":"secundario","tabela":"5.22","nd":1,"n":45634,"media_sa":1443.8,"dif":{"leve":[20.1,-1.6,41.7],"moderada":[6.6,-20.4,33.5],"grave":[26.8,-5.7,59.4]},"p_global":0.192,"p_tend":0.082,"holm":false,"nome":"Sódio (mg/1.000 kcal)"},{"id":"grp_arroz_feijao_pct_energia","conjunto":"grupo","tabela":"5.23","nd":2,"n":45634,"media_sa":18.22,"dif":{"leve":[0.88,0.23,1.54],"moderada":[1.22,0.13,2.3],"grave":[2.46,1.1,3.82]},"p_global":0.0,"p_tend":0.0,"holm":true,"p_global_holm":0.002,"p_tend_holm":0.0,"modelos_grave":{"M0":5.61,"M2":2.46},"nome":"Arroz e feijão"},{"id":"grp_hortalicas_pct_energia","conjunto":"grupo","tabela":"5.23","nd":2,"n":45634,"media_sa":1.22,"dif":{"leve":[-0.06,-0.15,0.04],"moderada":[-0.06,-0.22,0.1],"grave":[-0.26,-0.4,-0.13]},"p_global":0.002,"p_tend":0.006,"holm":true,"p_global_holm":0.01,"p_tend_holm":0.024,"modelos_grave":{"M0":-0.75,"M2":-0.26},"nome":"Hortaliças"},{"id":"grp_frutas_pct_energia","conjunto":"grupo","tabela":"5.23","nd":2,"n":45634,"media_sa":3.12,"dif":{"leve":[-0.35,-0.57,-0.13],"moderada":[0.15,-0.27,0.56],"grave":[-0.3,-0.87,0.27]},"p_global":0.007,"p_tend":0.315,"holm":true,"p_global_holm":0.021,"p_tend_holm":0.629,"modelos_grave":{"M0":-0.63,"M2":-0.3},"nome":"Frutas"},{"id":"grp_leguminosas_pct_energia","conjunto":"grupo","tabela":"5.23","nd":2,"n":45634,"media_sa":8.72,"dif":{"leve":[0.37,-0.05,0.78],"moderada":[0.82,0.17,1.48],"grave":[-0.01,-0.8,0.78]},"p_global":0.043,"p_tend":0.087,"holm":true,"p_global_holm":0.086,"p_tend_holm":0.262,"modelos_grave":{"M0":1.49,"M2":-0.01},"nome":"Leguminosas"},{"id":"grp_nozes_sementes_pct_energia","conjunto":"grupo","tabela":"5.23","nd":2,"n":45634,"media_sa":0.1,"dif":{"leve":[0.01,-0.03,0.05],"moderada":[0.0,-0.03,0.03],"grave":[0.02,-0.04,0.07]},"p_global":0.855,"p_tend":0.55,"holm":true,"p_global_holm":0.855,"p_tend_holm":0.629,"modelos_grave":{"M0":-0.06,"M2":0.02},"nome":"Nozes e sementes"}],"fonte":"ESTUDO2_EXECUCAO_20261012/saidas (tabela2, tabela_o2_grupos, holm_*); conferido com DISSERTACAO_REVISADA_v23_20261015_ACEITA.docx","gerado":"2026-10-15"};
+const V52_CONJ = {
+  principal: {rot:'Principais (Onda 1)', status:'<span class="v41-status">Principal, pré-especificada e registrada</span><span class="v41-status">Holm em família de três</span>', tab:'5.21'},
+  secundario: {rot:'Secundários (Onda 1)', status:'<span class="v41-status">Secundária</span><span class="v41-status">Sem correção para múltiplos testes: leitura descritiva</span>', tab:'5.22'},
+  grupo: {rot:'Grupos alimentares, % da energia (2B)', status:'<span class="v41-status">Secundária (componente 2B)</span><span class="v41-status">Holm em família de cinco</span>', tab:'5.23'},
+};
+const V52_NIV = [['leve','Leve'], ['moderada','Moderada'], ['grave','Grave']];
+const V52_MOD = [['M0','Bruto (M0)'], ['M1','M1'], ['M2','M2 (principal)'], ['M3','M3']];
+const V52_CAUTELA = {
+  energia_kcal_dia: 'Energia relatada: sujeita a sub-relato e, sozinha, não descreve a qualidade da alimentação.',
+  dens_energ_solidos_kcal_g: 'Calorias por grama dos alimentos sólidos, sem bebidas, leite, bebidas lácteas, sopas e caldos.',
+  fibra_g_1000kcal: 'O padrão não é monotônico, e o resultado do nível grave não se manteve nas análises de sensibilidade.',
+  sodio_1000kcal: 'Registros alimentares não captam todo o sal adicionado no preparo e à mesa.',
+};
+const V52_CAUTELA_CONJ = {
+  secundario: 'Nutrientes segundo a tabela de composição usada pelo IBGE na POF.',
+  grupo: 'Participação na energia total: depende da energia total e dos demais grupos e não indica consumo absoluto. Os grupos não somam 100%; arroz e feijão e leguminosas compartilham quatro itens de feijão, e leguminosas exclui o subgrupo substituto da carne.',
+};
+S.e2Ind = 'energia_kcal_dia';
+
+function v52f(v, nd, sinal){
+  if(v == null) return '—';
+  const a = Math.abs(v).toFixed(nd).split('.');
+  const t = a[0].replace(/\B(?=(\d{3})+(?!\d))/g, '.') + (a[1] ? ',' + a[1] : '');
+  if(Number(v) === 0) return t;
+  return v < 0 ? '−' + t : (sinal ? '+' + t : t);
+}
+function v52p(p){ return p < 0.001 ? '< 0,001' : v52f(p, 3); }
+function v52Ind(){ return V52.indicadores.find(i => i.id === S.e2Ind) || V52.indicadores[0]; }
+function v52Unid(it){
+  if(it.conjunto === 'grupo') return 'pontos percentuais da energia';
+  const m = it.nome.match(/\(([^)]*)\)\s*$/); return m ? m[1] : '';
+}
+function v52Curto(it){ return it.nome.replace(/\s*\([^)]*\)\s*$/, ''); }
+function v52ic(t, nd){ return v52f(t[0], nd, true) + ' (' + v52f(t[1], nd, true) + ' a ' + v52f(t[2], nd, true) + ')'; }
+function v52pCel(it, q){
+  const b = q === 'g' ? it.p_global : it.p_tend, h = q === 'g' ? it.p_global_holm : it.p_tend_holm;
+  if(it.conjunto === 'principal') return v52p(h);
+  if(it.conjunto === 'grupo') return v52p(b) + ' (' + v52p(h) + ')';
+  return v52p(b);
+}
+function setE2(id){ S.e2Ind = id; buildConsumo(); }
+
+function buildConsumo(){
+  const sel = document.getElementById('e2-ind');
+  if(sel && !sel.options.length){
+    Object.keys(V52_CONJ).forEach(c => {
+      const g = document.createElement('optgroup'); g.label = V52_CONJ[c].rot;
+      V52.indicadores.filter(i => i.conjunto === c).forEach(i => { const o = document.createElement('option'); o.value = i.id; o.textContent = i.conjunto === 'grupo' ? i.nome + ' (% da energia)' : i.nome; g.appendChild(o); });
+      sel.appendChild(g);
+    });
+  }
+  const it = v52Ind(); S.e2Ind = it.id;
+  if(sel) sel.value = it.id;
+  const nd = it.nd, un = v52Unid(it), cj = V52_CONJ[it.conjunto];
+  const nTxt = it.n.toLocaleString('pt-BR');
+  document.getElementById('e2-intro').innerHTML =
+    'Estudo 2 da dissertação: alimentação relatada por cada morador de 10 anos ou mais (módulo de consumo alimentar pessoal da POF, um ou dois dias de registro), segundo o nível de insegurança alimentar do domicílio medido pela EBIA na mesma pesquisa. ' +
+    'Plano registrado no OSF antes da análise (<a href="https://osf.io/m2gz6" target="_blank" rel="noopener">osf.io/m2gz6</a>). ' +
+    'As diferenças são em relação aos moradores de domicílios em segurança alimentar, ajustadas por idade, sexo, cor ou raça, região, situação do domicílio, número de dias de registro, renda (quintos) e escolaridade (modelo M2).';
+  document.getElementById('e2-status').innerHTML = cj.status;
+
+  // ── 1. diferença ajustada por nível, com IC95% ──
+  document.getElementById('e2-tit-dif').textContent = v52Curto(it) + ': diferença ajustada (M2) em relação à segurança alimentar';
+  const ys = V52_NIV.map((_, k) => V52_NIV.length - 1 - k);
+  const exclui = V52_NIV.map(([k]) => it.dif[k][1] > 0 || it.dif[k][2] < 0);
+  const tr = {
+    x: V52_NIV.map(([k]) => it.dif[k][0]), y: ys, type:'scatter', mode:'markers', name:'Diferença ajustada (M2)', showlegend:false,
+    marker:{size:11, color: exclui.map(e => e ? '#1F6FB2' : '#fff'), line:{color:'#1F6FB2', width:2}},
+    error_x:{type:'data', symmetric:false, array:V52_NIV.map(([k]) => it.dif[k][2] - it.dif[k][0]), arrayminus:V52_NIV.map(([k]) => it.dif[k][0] - it.dif[k][1]), color:'#1F6FB2', thickness:2, width:5},
+    customdata: V52_NIV.map(([k, r]) => [r, v52ic(it.dif[k], nd), un]),
+    hovertemplate:'<b>%{customdata[0]}</b><br>%{customdata[1]} %{customdata[2]}<extra></extra>',
+  };
+  const lim = Math.max(...V52_NIV.flatMap(([k]) => [Math.abs(it.dif[k][1]), Math.abs(it.dif[k][2])])) * 1.12;
+  Plotly.react('div-e2-dif', [tr], v41Layout({
+    margin:{t:10, r:16, l:86, b:46}, height:230,
+    yaxis:{tickvals:ys, ticktext:V52_NIV.map(([, r]) => r + '   '), range:[-0.6, V52_NIV.length - 0.4], showgrid:false, zeroline:false},
+    xaxis:{range:[-lim, lim], zeroline:true, zerolinecolor:'rgba(28,45,64,.55)', zerolinewidth:1.5, gridcolor:'rgba(22,28,36,0.09)', tickformat:',.' + nd + 'f',
+      title:{text:'Diferença (' + un + ')', font:{size:11, color:'#51606E'}}},
+  }), CFG);
+
+  // ── 2. nível grave segundo o modelo (Tabela 5.24) ──
+  const blocoMod = document.getElementById('e2-bloco-mod');
+  if(it.modelos_grave){
+    blocoMod.style.display = '';
+    const ms = V52_MOD.filter(([m]) => it.modelos_grave[m] != null);
+    const vs = ms.map(([m]) => it.modelos_grave[m]);
+    Plotly.react('div-e2-mod', [{
+      x: ms.map(([, r]) => r), y: vs, type:'bar', name:'Diferença do nível grave', showlegend:false,
+      marker:{color: ms.map(([m]) => m === 'M2' ? '#1F6FB2' : '#A9C6E3')},
+      text: vs.map(v => v52f(v, nd, true)), textposition:'outside', cliponaxis:false, textfont:{size:12, color:'#1B2A38'},
+      customdata: ms.map(([m]) => ({M0:'sem ajuste', M1:'idade, sexo, cor ou raça, região, situação do domicílio e dias de registro', M2:'M1 + renda e escolaridade', M3:'M2 + número de moradores, menor de 18 anos e idoso'})[m]),
+      hovertemplate:'<b>%{x}</b>: %{text} ' + un + '<br>%{customdata}<extra></extra>',
+    }], v41Layout({
+      margin:{t:22, r:12, l:56, b:40}, height:230, bargap:0.45,
+      yaxis:{zeroline:true, zerolinecolor:'rgba(28,45,64,.55)', gridcolor:'rgba(22,28,36,0.09)', tickformat:',.' + nd + 'f', rangemode:'tozero',
+        range:[Math.min(0, ...vs) * 1.45, Math.max(0, ...vs) * 1.35 || Math.abs(Math.min(...vs)) * 0.15]},
+      xaxis:{showgrid:false},
+    }), CFG);
+  } else {
+    blocoMod.style.display = 'none';
+  }
+
+  // ── 3. leitura gerada a partir dos dados ──
+  const comZero = V52_NIV.filter((_, k) => exclui[k]).map(([, r]) => r.toLowerCase());
+  const corr = it.conjunto === 'secundario' ? 'sem correção' : 'ajustado por Holm';
+  const pG = it.conjunto === 'secundario' ? it.p_global : it.p_global_holm, pT = it.conjunto === 'secundario' ? it.p_tend : it.p_tend_holm;
+  document.getElementById('e2-leitura').innerHTML =
+    '<strong>Leitura.</strong> Média ajustada na segurança alimentar: ' + v52f(it.media_sa, nd) + ' ' + (it.conjunto === 'grupo' ? '% da energia' : un) + ' (n = ' + nTxt + ' pessoas). ' +
+    'Ponto cheio: o IC95% exclui o zero; ponto vazado: inclui o zero (sem diferença detectável). ' +
+    (comZero.length ? 'Aqui, o intervalo exclui o zero no' + (comZero.length > 1 ? 's níveis ' : ' nível ') + comZero.join(', ').replace(/, ([^,]*)$/, ' e $1') + '. ' : 'Aqui, todos os intervalos incluem o zero. ') +
+    'Teste global, p ' + v52p(pG) + '; tendência entre os níveis, p ' + v52p(pT) + ' (' + corr + ').' +
+    (it.modelos_grave ? ' À direita, a diferença do nível grave sem ajuste e em cada modelo: a mudança com o ajuste descreve quanto da diferença bruta permanece e não demonstra que alguma covariável a explique.' : '') +
+    [V52_CAUTELA[it.id], V52_CAUTELA_CONJ[it.conjunto]].filter(Boolean).map(t => '<div class="e2-cautela">' + t + '</div>').join('');
+
+  // ── 4. tabela do conjunto (como na dissertação) ──
+  const ph = it.conjunto === 'principal' ? 'p (Holm)' : it.conjunto === 'grupo' ? 'p (Holm)' : 'p';
+  document.getElementById('e2-tit-tab').textContent = cj.rot + ': todos os indicadores (Tabela ' + cj.tab + ' da dissertação)';
+  let tb = '<table class="v41-tab e2-tab"><tr><th>Indicador' + (it.conjunto === 'grupo' ? ' (% da energia)' : '') + '</th><th class="num">Segurança alimentar<br>(média ajustada)</th>' +
+    V52_NIV.map(([, r]) => '<th class="num">' + r + ': diferença (IC95%)</th>').join('') + '<th class="num">Teste global, ' + ph + '</th><th class="num">Tendência, ' + ph + '</th></tr>';
+  V52.indicadores.filter(i => i.conjunto === it.conjunto).forEach(i => {
+    tb += '<tr class="e2-linha' + (i.id === it.id ? ' sel' : '') + '" tabindex="0" data-id="' + i.id + '" title="Mostrar no gráfico"><td>' + v41esc(i.nome) + '</td><td class="num">' + v52f(i.media_sa, i.nd) + '</td>' +
+      V52_NIV.map(([k]) => '<td class="num">' + v52ic(i.dif[k], i.nd) + '</td>').join('') +
+      '<td class="num">' + v52pCel(i, 'g') + '</td><td class="num">' + v52pCel(i, 't') + '</td></tr>';
+  });
+  const tab = document.getElementById('e2-tabela');
+  tab.innerHTML = tb + '</table>';
+  tab.querySelectorAll('tr.e2-linha').forEach(tr => {
+    tr.onclick = () => setE2(tr.dataset.id);
+    tr.onkeydown = ev => { if(ev.key === 'Enter' || ev.key === ' '){ ev.preventDefault(); setE2(tr.dataset.id); } };
+  });
+  document.getElementById('e2-fonte').innerHTML = 'Fonte: Castanho (2026), dissertação, Tabelas 5.21 a 5.24, a partir dos microdados da POF 2017-2018 (IBGE), módulo de consumo alimentar pessoal; modelo linear com o desenho amostral (peso do arquivo de consumo, estrato e UPA), IC95% com os graus de liberdade do desenho. ' +
+    'M1 ajusta por idade, sexo, cor ou raça, região, situação do domicílio e dias de registro; M2 acrescenta renda e escolaridade; M3 acrescenta número de moradores e presença de menor de 18 anos e de idoso. Para os grupos alimentares foram estimados só o bruto e o M2, conforme o plano.';
+  syncURL();
+}
+
+
+// ════════ v53: mapa da variação 2023→2024 (dados: V42.uf_mud, V41.mudanca) ════════
+const V53_NS = '#D3D8DE';                       // UF sem mudança detectável após Holm
+const V53_COR = {queda:'#1F6FB2', aumento:'#E0622B'};
+S.mapaVar = false;
+function v53VarAtivo(){ return !!S.mapaVar && isEbiaMapMode() && S.filtro === null && String(S.ano) === '2024'; }
+function v53Sig(uf){ const m = V42.uf_mud[uf]; return !!m && m.p_holm < 0.05; }
+function v53L(){ return Math.ceil(Math.max(...UFS.map(u => Math.abs(V42.uf_mud[u]?.dif[0] ?? 0)))); }
+// Domínio [-L-G, L]: a faixa [-L-G, -L) é o cinza das UFs sem mudança detectável; o resto é divergente e simétrico.
+function v53G(){ return v53L() * 0.12; }
+function v53Escala(){
+  const L = v53L(), G = v53G(), p = v => (v + L + G) / (2 * L + G), e = 1e-4;
+  return [[0, V53_NS], [p(-L) - e, V53_NS], [p(-L), '#0B3C6B'], [p(0) - e, '#A9C9E8'], [p(0), '#F4F4F2'],
+          [p(0) + e, '#F6C3A5'], [1, '#8C2F0B']];
+}
+function v53Z(uf){
+  if(!v53VarAtivo()) return getIaUF(uf, getAno());
+  const m = V42.uf_mud[uf]; if(!m) return null;
+  return v53Sig(uf) ? m.dif[0] : -v53L() - v53G() / 2;
+}
+function v53pp(v, sinal){ return (v > 0 && sinal !== false ? '+' : v < 0 ? '−' : '') + Math.abs(v).toFixed(1).replace('.', ','); }
+function v53pH(p){ return p < 0.001 ? '< 0,001' : p.toFixed(3).replace('.', ','); }
+function v53Br(br){ return v53VarAtivo() ? v53pp(br) + ' p.p.' : br.toFixed(1).replace('.', ',') + '%'; }
+// A barra do título do mapa (fixa, centrada no cabeçalho, v39) cobria o título do painel entre
+// ~1181 e ~1300 px. Ela passa a ocupar só o espaço livre entre o título e os botões da direita.
+function v53Titlebar(){
+  const tb = document.getElementById('map-titlebar'), hd = document.getElementById('header');
+  if(!tb || !hd || (typeof V48_MQ !== 'undefined' && V48_MQ.matches) || tb.style.display === 'none') return;
+  const tit = document.querySelector('#header h1, #header .titulo, #header > div:first-child');
+  const esq = (tit ? tit.getBoundingClientRect().right : 0) + 18;
+  // só o que está na faixa do cabeçalho (a barra de rodapé também é filha de #header)
+  const dirs = [...hd.querySelectorAll('button, a, div')].filter(e => { const r = e.getBoundingClientRect();
+    return e.offsetParent && !tb.contains(e) && r.width > 0 && r.left > window.innerWidth / 2 && r.top < 52 && r.bottom > 0; });
+  const dir = Math.min(window.innerWidth - 16, ...dirs.map(e => e.getBoundingClientRect().left)) - 18;
+  tb.style.maxWidth = 'none';
+  const nat = tb.scrollWidth, larg = Math.min(nat, dir - esq);
+  const x = Math.max(esq, Math.min(window.innerWidth / 2 - larg / 2, dir - larg));
+  tb.style.left = x + 'px'; tb.style.transform = 'none'; tb.style.maxWidth = (dir - x) + 'px';
+  const t = document.getElementById('mapa-title'); if(t) t.title = t.textContent;
+}
+window.addEventListener('resize', () => setTimeout(v53Titlebar, 80));
+if(document.readyState === 'complete') setTimeout(v53Titlebar, 300);
+else window.addEventListener('load', () => setTimeout(v53Titlebar, 300));
+function v53SetVar(){ S.mapaMil = false; S.mapaVar = true; updateMap(); updateBar(); }
+function v53Dica(uf){
+  const m = V42.uf_mud[uf]; if(!m) return 'Sem dado';
+  const a = EBIA_UF[uf]?.['2023']?.ia, b = EBIA_UF[uf]?.['2024']?.ia;
+  return v53pp(m.dif[0]) + ' <small>p.p. de 2023 para 2024</small><br><small>IC95% ' + v53pp(m.dif[1]) + ' a ' + v53pp(m.dif[2]) + ' · ' +
+    (a != null && b != null ? a.toFixed(1).replace('.', ',') + '% → ' + b.toFixed(1).replace('.', ',') + '%' : '') + '</small><br><small>p ajustado (Holm, 27 UFs) ' + (m.p_holm < 0.001 ? '' : '= ') + v53pH(m.p_holm) +
+    (v53Sig(uf) ? ' · mudança detectada' : ' · sem mudança detectável') + '</small>';
+}
+
 function setModo(modo){
   S.modoAtual = modo;
   // Atualizar aparência das tabs (inclui as famílias ⑤ e ⑥)
-  ['ebia','filtros','pof','nova4','engel','regressao','desig','lacunas'].forEach(m => {
+  ['ebia','filtros','pof','nova4','engel','regressao','desig','lacunas','consumo'].forEach(m => {
     const t = document.getElementById('tab-'+m);
     if(!t) return;
     t.classList.toggle('ativo', m === modo);
@@ -89992,7 +90320,7 @@ function setModo(modo){
   });
 
   // Famílias ⑤ (Engel) e ⑥ (Regressão): não são dados por UF — painel próprio
-  if(modo === 'engel' || modo === 'regressao' || modo === 'desig' || modo === 'lacunas'){
+  if(modo === 'engel' || modo === 'regressao' || modo === 'desig' || modo === 'lacunas' || modo === 'consumo'){
     document.getElementById('kpi-row').style.display = 'none';
     document.getElementById('main-row').style.display = 'none';
     document.getElementById('line-row').style.display = 'none';
@@ -90006,6 +90334,7 @@ function setModo(modo){
     document.getElementById('panel-engel').style.display = (modo === 'engel') ? '' : 'none';
     document.getElementById('panel-desig').style.display = (modo === 'desig') ? '' : 'none';
     document.getElementById('panel-lacunas').style.display = (modo === 'lacunas') ? '' : 'none';
+    document.getElementById('panel-consumo').style.display = (modo === 'consumo') ? '' : 'none';
     // v41: o chip de recorte (ex.: grupo da aquisicao) nao vale nas abas sem mapa
     const _ft = document.getElementById('filter-tag'); if(_ft) _ft.classList.remove('vis');
     const _pr = document.getElementById('panel-regressao'); if(_pr) _pr.style.display = 'none';
@@ -90014,6 +90343,7 @@ function setModo(modo){
     if(modo === 'engel') buildEngelChart();
     if(modo === 'desig') buildDesig();
     if(modo === 'lacunas') buildLacunas();
+    if(modo === 'consumo') buildConsumo();
     syncURL();
     
     return;
@@ -90081,6 +90411,7 @@ const MODO_INTRO = {
   engel:   '<strong>Orçamento familiar (Coeficiente de Engel):</strong> comprometimento da despesa/renda com alimentação por faixa de rendimento, Brasil e Rio de Janeiro (POF 2017-2018). Quanto menor a renda, maior a proporção do orçamento dedicada à alimentação.',
   regressao: '',
   desig:   '<strong>Desigualdades (Brasil):</strong> prevalência por marcador social com IC95% e a diferença entre grupos em duas escalas, absoluta (pontos percentuais) e relativa (razão). A conclusão sobre a mudança da desigualdade depende da escala.',
+  consumo: '<strong>Consumo individual (Estudo 2):</strong> diferença na alimentação relatada por cada morador segundo o nível de insegurança alimentar do domicílio, ajustada por características demográficas, renda e escolaridade, Brasil, POF 2017-2018. Associação, não causa.',
   lacunas: '<strong>Lacunas e comparabilidade:</strong> em que anos há EBIA nos inquéritos do IBGE, quais comparações entre inquéritos são sustentadas e os dez achados sobre a cadeia de informação documentados na dissertação.',
 };
 
@@ -90246,6 +90577,8 @@ function atualizarFonteMapa(){
     // Com 2009/2013 no filtro de instrucao, fixar "PNADC T4" mentiria a fonte.
     const fonteFiltro = S.ano <= 2013 ? 'PNAD' : 'PNADC T4';
     el.textContent = fonteFiltro + ' ' + S.ano + ' — ' + FILTROS[S.filtro].label + ': ' + cat.label + f2txt;
+  } else if(v53VarAtivo()){
+    el.textContent = 'PNADC T4 2023 e 2024 — IBGE · variação em pontos percentuais; cor só onde o p ajustado (Holm, 27 UFs) < 0,05';
   } else {
     const fonteAno = S.ano <= 2013 ? 'PNAD' : (S.ano === 2018 ? 'POF 2017–2018' : 'PNADC T4');
     el.textContent = fonteAno + ' ' + S.ano + ' — IBGE · % domicílios com insegurança alimentar (EBIA)';
@@ -90325,6 +90658,7 @@ function getValGrupo(uf, cod, ano){
 }
 
 function computeZmax(){
+  if(v53VarAtivo()) return v53L();
   if(v47MilAtivo()){ const v = UFS.map(u => getIaUF(u, getAno())).filter(x => x != null); return Math.ceil(Math.max(...v) * 1.04); }
   if(S.grupoAlim !== null){
     const vals = UFS.map(u => getValGrupo(u, S.grupoAlim, S.anoGrupo)).filter(v => v !== null && v > 0);
@@ -90334,6 +90668,7 @@ function computeZmax(){
 }
 
 function computeZmin(){
+  if(v53VarAtivo()) return -v53L() - v53G();
   if(v47MilAtivo()) return 0;
   // Para grupos alimentares: mínimo real dos dados (kg)
   if(S.grupoAlim !== null){
@@ -90375,6 +90710,7 @@ function getCruzObj(uf, ano){
 
 function getIaUF(uf, ano){
   const a = String(ano);
+  if(v53VarAtivo()) return V42.uf_mud[uf]?.dif[0] ?? null;
   if(v47MilAtivo()) return V42.mil[uf]?.[a]?.ia ?? null;
   if(S.grupoAlim !== null) return getValGrupo(uf, S.grupoAlim, S.anoGrupo);
   if(S.nova4) return NOVA4_UF[uf]?.[a] ?? null;
@@ -90538,6 +90874,7 @@ function mapWidths(){ return UFS.map(u => u===S.ufSel||u==='RJ' ? 2.2 : 0.7); }
 function isEbiaMapMode(){ return S.grupoAlim === null && !S.nova4; }
 function activeScale(){
   if(S.grupoAlim !== null) return C.grupoScale;
+  if(v53VarAtivo()) return v53Escala();
   if(v47MilAtivo()) return V47_ESCALA_MIL;
   return S.nova4 ? C.novaScale : ebiaBandScale();
 }
@@ -90545,7 +90882,7 @@ function activeScale(){
 function initMap(){
   const trace = {
     type:'choropleth', geojson:GEOJSON, featureidkey:'properties.sigla',
-    locations:UFS, z:UFS.map(u=>getIaUF(u,getAno())),
+    locations:UFS, z:UFS.map(u=>v53Z(u)),
     colorscale:activeScale(),
     zmin:computeZmin(), zmax:computeZmax(), showscale:false, hoverinfo:'none',
     marker:{line:{color:mapColors(), width:mapWidths()}},
@@ -90581,7 +90918,7 @@ function updateMap(){
   const zmax = computeZmax();
   const zmin = computeZmin();
   Plotly.restyle('div-mapa',{
-    z:[UFS.map(u=>getIaUF(u,getAno()))],
+    z:[UFS.map(u=>v53Z(u))],
     colorscale:[activeScale()], zmin:[zmin], zmax:[zmax],
     'marker.line.color':[mapColors()],
     'marker.line.width':[mapWidths()],
@@ -90598,13 +90935,22 @@ function updateMap(){
     const lbl = FILTROS[S.filtro]?.cats?.[S.catIdx]?.label || '';
     titulo = 'Prevalência de IA por UF — ' + S.ano + ' · ' + FILTROS[S.filtro]?.label + ': ' + lbl;
   } else {
-    titulo = v47MilAtivo() ? 'Domicílios em insegurança alimentar (IA) por UF, em mil — ' + S.ano : 'Prevalência de insegurança alimentar (IA) por UF — ' + S.ano;
+    titulo = v53VarAtivo() ? 'Variação da IA por UF, 2023→2024 (p.p.)'
+      : v47MilAtivo() ? 'Domicílios em insegurança alimentar (IA) por UF, em mil — ' + S.ano : 'Prevalência de insegurança alimentar (IA) por UF — ' + S.ano;
   }
   document.getElementById('mapa-title').textContent = titulo;
+  setTimeout(v53Titlebar, 0);
   const swEl = document.getElementById('leg-swatches');
   const contEl = document.getElementById('leg-cont');
   v47SyncMedida();
-  if(v47MilAtivo()){
+  document.getElementById('v53-leg-ns').style.display = v53VarAtivo() ? 'flex' : 'none';
+  contEl.classList.toggle('v53-var', v53VarAtivo());
+  if(v53VarAtivo()){
+    swEl.style.display = 'none'; contEl.style.display = 'flex';
+    document.getElementById('leg-grad').className = 'leg-grad v53-var-grad';
+    document.getElementById('leg-min').textContent = v53pp(-zmax);
+    document.getElementById('leg-max').textContent = v53pp(zmax) + ' p.p.';
+  } else if(v47MilAtivo()){
     swEl.style.display = 'none'; contEl.style.display = 'flex';
     document.getElementById('leg-grad').className = 'leg-grad v47-mil-grad';
     document.getElementById('leg-min').textContent = '0';
@@ -90981,6 +91327,7 @@ function buildBarData(){
   const locs   = entries.map(e => e.uf);
   const colors = entries.map(e => {
     if(e.uf === S.ufSel) return C.barSel;
+    if(v53VarAtivo()) return v53Sig(e.uf) ? (e.val < 0 ? V53_COR.queda : V53_COR.aumento) : V53_NS;
     if(e.uf === 'RJ')    return C.barRJ;
     if(nivelInstavel(getNAtual(e.uf, ano)) === 2) return 'rgba(150,150,150,0.5)';
     return C.bar;
@@ -91001,14 +91348,14 @@ function initBar(){
     hovertemplate:'%{x:.1f}'+v47Unid()+'%{hovertext}<extra>%{y}</extra>',
     customdata:locs,
   };
-  const br = (S.nova4 || S.grupoAlim !== null || v47MilAtivo()) ? null : (NACIONAL[String(getAno())]?.ia ?? null);
+  const br = v53VarAtivo() ? V41.mudanca.Brasil.ia[0] : (S.nova4 || S.grupoAlim !== null || v47MilAtivo()) ? null : (NACIONAL[String(getAno())]?.ia ?? null);
   const shapes = br != null ? [{
     type:'line', x0:br, x1:br, y0:-0.5, y1:Object.keys(UF_META).length-0.5,
     line:{color:'rgba(30,35,51,0.3)',width:1.5,dash:'dash'},
   }] : [];
   const annotations = br != null ? [{
     x:br, y:Object.keys(UF_META).length-1,
-    text:`Brasil: ${br.toFixed(1).replace('.', ',')}%`,
+    text:`Brasil: ${v53Br(br)}`,
     showarrow:false, xanchor:'left', xshift:6,
     font:{size:9, color:'rgba(30,35,51,0.5)'},
   }] : [];
@@ -91033,13 +91380,13 @@ function initBar(){
 
 function updateBar(){
   const {x,y,locs,colors,htext} = buildBarData();
-  const br = (!S.nova4 && S.grupoAlim === null && !v47MilAtivo()) ? (NACIONAL[String(getAno())]?.ia ?? null) : null;
+  const br = v53VarAtivo() ? V41.mudanca.Brasil.ia[0] : (!S.nova4 && S.grupoAlim === null && !v47MilAtivo()) ? (NACIONAL[String(getAno())]?.ia ?? null) : null;
   const shapes = br != null ? [{
     type:'line', x0:br, x1:br, y0:-0.5, y1:y.length-0.5,
     line:{color:'rgba(30,35,51,0.3)',width:1.5,dash:'dash'},
   }] : [];
   const annotations = br != null ? [{
-    x:br, y:y.length-1, text:`Brasil: ${br.toFixed(1).replace('.', ',')}%`,
+    x:br, y:y.length-1, text:`Brasil: ${v53Br(br)}`,
     showarrow:false, xanchor:'left', xshift:6,
     font:{size:9,color:'rgba(30,35,51,0.5)'},
   }] : [];
@@ -91066,7 +91413,8 @@ function updateBar(){
   } else if(S.filtro!==null && S.catIdx!==null){
     lbl = `Ranking de IA por UF — ${S.ano} · ${FILTROS[S.filtro].label}: ${FILTROS[S.filtro].cats[S.catIdx].label}`;
   } else {
-    lbl = v47MilAtivo() ? `Domicílios em IA por UF (mil) — ${S.ano}` : `IA por UF, com IC95% — ${S.ano}`;
+    lbl = v53VarAtivo() ? 'Variação da IA de 2023 para 2024 por UF (p.p.), com IC95%'
+      : v47MilAtivo() ? `Domicílios em IA por UF (mil) — ${S.ano}` : `IA por UF, com IC95% — ${S.ano}`;
   }
   document.getElementById('barras-title').textContent = lbl;
   v42BarIC();
