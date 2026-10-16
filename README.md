@@ -37,6 +37,8 @@ internet, sem instalar nada.
 
 ## Histórico
 
+- v54 (15/10/2026): botão "variação 2023→24" visível em todos os anos (leva a 2024);
+  painel do estado e do Brasil com IA leve e moderada e barra da distribuição.
 - v53 (15/10/2026): mapa e ranking da variação 2023→2024 por UF (cor só onde p de Holm
   < 0,05); título do mapa deixa de cobrir o título do painel entre 1181 e 1300 px.
 - v52 (15/10/2026): aba Consumo individual (Estudo 2: Onda 1 e grupos alimentares,

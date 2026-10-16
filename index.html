@@ -1539,6 +1539,13 @@ ul.e2-lim li{ margin:2px 0; }
 }
 #v53-leg-ns{ display:none; align-items:center; gap:5px; flex-basis:100%; font-size:.7rem; line-height:1.3; }
 #v53-leg-ns i{ display:inline-block; width:14px; height:10px; border-radius:2px; background:#D3D8DE; border:1px solid rgba(28,45,64,.18); }
+
+/* ════════ v54 — graus de IA no painel do estado ════════ */
+.v54-sw{ display:inline-block; width:9px; height:9px; border-radius:2px; margin:0 6px 0 10px; vertical-align:0; }
+.v54-sub{ color:var(--text-soft); font-size:.92em; }
+.v54-barra{ display:flex; height:9px; border-radius:5px; overflow:hidden; margin:6px 0 3px; gap:2px; background:#fff; }
+.v54-barra span{ display:block; height:100%; }
+.v54-nota{ font-size:.68rem; color:var(--muted); line-height:1.4; margin:2px 0 4px; }
 </style>
 </head>
 <body>
@@ -1615,7 +1622,7 @@ ul.e2-lim li{ margin:2px 0; }
     <section class="panel" aria-label="Mapa coroplético por UF">
       <div class="panel-title">
         <span id="mapa-title">% Insegurança Alimentar por UF</span>
-        <span id="mapa-ano" style="font-size:.85rem;color:var(--ia);font-weight:700"></span><span id="v47-medida" class="v47-medida" role="group" aria-label="Unidade do mapa" style="display:none"><button type="button" data-m="pct" onclick="setMedidaMapa(false)" aria-pressed="true">%</button><button type="button" data-m="mil" onclick="setMedidaMapa(true)" aria-pressed="false" title="Número de domicílios em insegurança alimentar (SIDRA 9552)">mil domicílios</button><button type="button" data-m="var" onclick="v53SetVar()" aria-pressed="false" title="Variação da prevalência entre 2023 e 2024, em pontos percentuais; cor só onde a mudança é detectável após a correção de Holm (27 UFs)">variação</button></span>
+        <span id="mapa-ano" style="font-size:.85rem;color:var(--ia);font-weight:700"></span><span id="v47-medida" class="v47-medida" role="group" aria-label="Unidade do mapa" style="display:none"><button type="button" data-m="pct" onclick="setMedidaMapa(false)" aria-pressed="true">%</button><button type="button" data-m="mil" onclick="setMedidaMapa(true)" aria-pressed="false" title="Número de domicílios em insegurança alimentar (SIDRA 9552)">mil domicílios</button><button type="button" data-m="var" onclick="v53SetVar()" aria-pressed="false" title="Variação da prevalência de 2023 para 2024, em pontos percentuais (abre o ano de 2024); cor só onde a mudança é detectável após a correção de Holm (27 UFs)">variação 2023→24</button></span>
       </div>
       <div class="panel-fonte" id="mapa-fonte">Fonte: PNADC T4 2023/2024 — IBGE</div>
       <div class="chart-wrap"><div id="div-mapa" style="width:100%;height:100%"></div></div>
@@ -89513,7 +89520,7 @@ document.addEventListener('keydown', ev => {
 
 // ════════ v47: % ou mil domicílios no mapa; dica com IC; CSV da visão; Quadro 6.1.1 ════════
 const V47 = {"q611":[["Subpergunta","O indicador e os dados autorizam","Exigem outros dados, escalas ou métodos","Seções"],["P1 Comparabilidade e trajetória","Descrever a prevalência de cada inquérito; comparar 2023 e 2024 e, com ressalva, as edições da PNAD de 2004, 2009 e 2013","Tratar 2013, a POF 2017-2018 e 2023 como série contínua: mudam instrumento, desenho e contexto, e a EBIA está em branco nos arquivos PNADC T4 de 2016 a 2019 e de 2021 examinados","5.1.1; 6.2.1"],["P2 Distribuição e escala","Descrever diferenças entre grupos de renda, raça/cor, sexo e instrução em escala absoluta e relativa, e testar sua mudança entre 2023 e 2024, em análise exploratória","Explicar as diferenças (mecanismos), examinar a sobreposição entre marcadores e atribuir a mudança a políticas","5.1.3; 5.1.4; 6.2.2; 6.2.3"],["P3 Território","Contrastar a capital e o restante do estado do Rio de Janeiro nos domínios amostrais, com n, IC95% e coeficiente de variação","Inferir para municípios, favelas ou subáreas do estado; estimar com precisão a insegurança grave na capital","5.1.5; 6.2.4"],["P4 Dimensão individual (Ondas 1 e 2)","Descrever associações ajustadas entre os níveis de EBIA e a energia relatada, a fibra e a participação de arroz e feijão e de hortaliças na energia, com intervalos de confiança, na Onda 1 e em 2B; sem diferença detectável na densidade energética dos alimentos sólidos;","Inferir causa ou mediação; caracterizar a qualidade global da dieta; afirmar consumo absoluto dos grupos (os indicadores são frações da energia)","5.2; 6.3.1"],["P5 Dimensão do orçamento","Descrever a aquisição domiciliar, a despesa e o coeficiente de Engel (a composição NOVA da aquisição fica no apêndice, não validada)","Relacionar esses dados aos níveis da EBIA (cruzamento em nível de domicílio) e inferir consumo individual ou privação alimentar","5.3; 6.3.2; 6.3.3"],["P6 Informação","Documentar lacunas, quebras e divergências (dez achados) e expressá-las como metadado","Demonstrar que o painel é compreensível ou altera decisões (avaliação com usuários e apreciação ética)","5.4; 6.4"]],"fonte":"DISSERTACAO_REVISADA_v22_20261015_ACEITA.docx"};
-const V47_VERSAO = 'v53';
+const V47_VERSAO = 'v54';
 const V47_ESCALA_MIL = [[0, '#F8E7E4'], [0.5, '#C9707A'], [1, '#6B1F2A']];   // um só tom, claro -> escuro
 S.mapaMil = false;
 function v47MilAtivo(){
@@ -89524,12 +89531,12 @@ function setMedidaMapa(mil){ S.mapaMil = mil; S.mapaVar = false; updateMap(); up
 function v47SyncMedida(){
   const el = document.getElementById('v47-medida');
   if(!el) return;
-  const pode = isEbiaMapMode() && S.filtro === null && ['2023','2024'].includes(String(S.ano));
+  const pode = isEbiaMapMode() && S.filtro === null;   // v54: o grupo aparece em todos os anos
   el.style.display = pode ? 'inline-flex' : 'none';
   const atual = v53VarAtivo() ? 'var' : v47MilAtivo() ? 'mil' : 'pct';
   el.querySelectorAll('button').forEach(b => {
     b.setAttribute('aria-pressed', b.dataset.m === atual ? 'true' : 'false');
-    if(b.dataset.m === 'var') b.style.display = String(S.ano) === '2024' ? '' : 'none';
+    if(b.dataset.m === 'mil') b.style.display = ['2023','2024'].includes(String(S.ano)) ? '' : 'none';
   });
 }
 function v47Dica(uf, v, unit){
@@ -90300,13 +90307,35 @@ function v53Titlebar(){
 window.addEventListener('resize', () => setTimeout(v53Titlebar, 80));
 if(document.readyState === 'complete') setTimeout(v53Titlebar, 300);
 else window.addEventListener('load', () => setTimeout(v53Titlebar, 300));
-function v53SetVar(){ S.mapaMil = false; S.mapaVar = true; updateMap(); updateBar(); }
+function v53SetVar(){
+  S.mapaMil = false; S.mapaVar = true;
+  if(String(S.ano) !== '2024') setAno(2024);   // v54: a variação é 2023→2024
+  else { updateMap(); updateBar(); }
+}
 function v53Dica(uf){
   const m = V42.uf_mud[uf]; if(!m) return 'Sem dado';
   const a = EBIA_UF[uf]?.['2023']?.ia, b = EBIA_UF[uf]?.['2024']?.ia;
   return v53pp(m.dif[0]) + ' <small>p.p. de 2023 para 2024</small><br><small>IC95% ' + v53pp(m.dif[1]) + ' a ' + v53pp(m.dif[2]) + ' · ' +
     (a != null && b != null ? a.toFixed(1).replace('.', ',') + '% → ' + b.toFixed(1).replace('.', ',') + '%' : '') + '</small><br><small>p ajustado (Holm, 27 UFs) ' + (m.p_holm < 0.001 ? '' : '= ') + v53pH(m.p_holm) +
     (v53Sig(uf) ? ' · mudança detectada' : ' · sem mudança detectável') + '</small>';
+}
+
+
+// ════════ v54: graus de IA (leve, moderada, grave) no painel do estado e do Brasil ════════
+// Cores: tons da mesma escala do mapa da EBIA (ordinal, claro -> escuro); SA em verde claro.
+const V54_COR = {sa:'#CFE3DA', leve:'#E7B8AC', mod:'#CF7F6D', grave:'#8B2E3A'};
+function v54f(v){ return v == null ? '—' : v.toFixed(1).replace('.', ',') + '%'; }
+function v54Rot(cor, txt){ return '<span class="v54-sub"><i class="v54-sw" style="background:' + cor + '"></i>' + txt + '</span>'; }
+function v54Barra(d){
+  const sa = d.sa != null ? d.sa : 100 - d.ia;
+  const seg = [['sa', sa, 'Segurança alimentar'], ['leve', d.ia_leve, 'IA leve'], ['mod', d.ia_mod, 'IA moderada'], ['grave', d.ia_grav, 'IA grave']];
+  if(seg.some(x => x[1] == null)) return '';
+  return '<div class="v54-barra" role="img" aria-label="Distribuição dos domicílios: ' + seg.map(x => x[2] + ' ' + v54f(x[1])).join(', ') + '">' +
+    seg.map(x => '<span style="width:' + x[1] + '%;background:' + V54_COR[x[0]] + '" title="' + x[2] + ': ' + v54f(x[1]) + '"></span>').join('') + '</div>';
+}
+function v54Nota(ano){
+  return '<div class="v54-nota">Leve, moderada e grave somam a IA total.' +
+    (['2023','2024'].includes(String(ano)) ? ' IC95% existe só para o total e a grave.' : '') + '</div>';
 }
 
 function setModo(modo){
@@ -91500,8 +91529,11 @@ function renderEstado(){
         el.innerHTML =
           '<div class="ed-nome" style="color:var(--ia)">Brasil · '+a+'</div>'
           + vr('Insegurança alimentar total', d.ia.toFixed(1).replace('.', ',')+'%', 'var(--ia)')
-          + vr('Insegurança grave', d.ia_grav.toFixed(1).replace('.', ',')+'%', 'var(--iag)')
+          + (d.ia_leve != null ? vr(v54Rot(V54_COR.leve, 'Leve'), v54f(d.ia_leve), 'var(--text)') : '')
+          + (d.ia_mod != null ? vr(v54Rot(V54_COR.mod, 'Moderada'), v54f(d.ia_mod), 'var(--text)') : '')
+          + vr(v54Rot(V54_COR.grave, 'Grave'), d.ia_grav.toFixed(1).replace('.', ',')+'%', 'var(--iag)')
           + vr('Segurança alimentar', sa.toFixed(1).replace('.', ',')+'%', 'var(--sa)')
+          + (d.ia_leve != null && d.ia_mod != null ? v54Barra(d) + v54Nota(a) : '')
           + v42MilBR(a)
           + '<hr style="margin:7px 0;border:none;border-top:1px solid var(--border)">'
           + (hi?vr('Maior IA', UF_META[hi.u].nome+' ('+hi.ia.toFixed(1).replace('.', ',')+'%)','var(--ia)'):'')
@@ -91608,7 +91640,7 @@ function renderEstado(){
 
   el.innerHTML = `
     <div class="ed-nome" style="color:var(--${cor})">${meta.nome}</div>
-    ${d ? row('IA Total', d.ia) + row('IA Grave', d.ia_grav,'iag') + row('SA', d.sa,'') : '<div style="color:var(--muted);font-size:.75rem">Sem dado para este ano</div>'}
+    ${d ? row('IA Total', d.ia) + row(v54Rot(V54_COR.leve, 'Leve'), d.ia_leve,'') + row(v54Rot(V54_COR.mod, 'Moderada'), d.ia_mod,'') + row(v54Rot(V54_COR.grave, 'Grave'), d.ia_grav,'iag') + row('SA', d.sa,'') + v54Barra(d) + v54Nota(ano) : '<div style="color:var(--muted);font-size:.75rem">Sem dado para este ano</div>'}
     ${v42BlocoUF(uf, ano)}
     ${dRJ && !isRJ ? `<hr style="margin:4px 0;border:none;border-top:1px solid var(--border)">
       ${row('RJ — IA', dRJ.ia,'rj')}` : ''}
