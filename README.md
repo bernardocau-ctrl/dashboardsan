@@ -24,8 +24,9 @@ ajustado (Holm); em 2024, o mapa mostra também a variação desde 2023, colorid
 nas UFs em que a mudança é detectável após a correção de Holm.
 
 **Como citar:** Castanho, Bernardo. *Painel de Insegurança Alimentar no Brasil*.
-Zenodo, 2026. https://doi.org/10.5281/zenodo.23405765 (todas as versões; a v50,
-descrita na dissertação, é https://doi.org/10.5281/zenodo.23406463).
+Zenodo, 2026. https://doi.org/10.5281/zenodo.23405765 (todas as versões; a v58, atual,
+é https://doi.org/10.5281/zenodo.23769033; a v50, congelada para a banca, é
+https://doi.org/10.5281/zenodo.23406463).
 
 **Fontes:** PNAD 2004/2009/2013 · POF 2002/2008/2017-2018 · PNAD Contínua
 2023/2024 (IBGE) · VIGISAN 2021 (Rede PENSSAN).
@@ -37,6 +38,15 @@ internet, sem instalar nada.
 
 ## Histórico
 
+- v58 (29/10/2026): total de IA exato nas nove séries simples por UF (578 de 1.847 células
+  de 2023 e 2024, diferença de 0,1 p.p.; IA grave, segurança alimentar e n não mudam).
+  Depositada no Zenodo (https://doi.org/10.5281/zenodo.23769033).
+- v57 (29/10/2026): cinco cruzamentos de dois fatores por UF (capital ou interior × sexo,
+  renda e instrução; idoso × instrução; criança menor de 5 anos × situação do domicílio),
+  num total de 23 pares.
+- v56 (22/10/2026): três cruzamentos novos (sexo × criança menor de 5 anos; cor ou raça ×
+  idoso; renda × tamanho do domicílio) e correção do total de IA e do n dos 15 pares
+  anteriores.
 - v55 (15/10/2026): IA moderada ou grave com IC95% por UF e Brasil (2023 e 2024), no
   painel do estado e no CSV; painel do estado não passa mais por baixo da série histórica
   em telas altas.
@@ -48,7 +58,7 @@ internet, sem instalar nada.
   POF 2017-2018, conferida contra as Tabelas 5.21 a 5.24 da dissertação).
 - v51 (15/10/2026): no menu, Aquisição domiciliar antes de Desigualdades no Brasil.
 - v50 (15/10/2026): figuras e CSV exportados trazem o crédito pronto (Fonte: Castanho
-  (2026) e referência ABNT). Versão descrita na dissertação e depositada no Zenodo.
+  (2026) e referência ABNT). Versão congelada para a banca e depositada no Zenodo.
 - v49 (15/10/2026): cada gráfico exporta PNG em alta resolução (com legenda,
   fonte, citação e metadados no arquivo) e CSV, conforme o recorte na tela.
 - v48 (15/10/2026): layout para celular e telas estreitas; janela única "Sobre o
