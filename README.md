@@ -37,6 +37,9 @@ internet, sem instalar nada.
 
 ## Histórico
 
+- v55 (15/10/2026): IA moderada ou grave com IC95% por UF e Brasil (2023 e 2024), no
+  painel do estado e no CSV; painel do estado não passa mais por baixo da série histórica
+  em telas altas.
 - v54 (15/10/2026): botão "variação 2023→24" visível em todos os anos (leva a 2024);
   painel do estado e do Brasil com IA leve e moderada e barra da distribuição.
 - v53 (15/10/2026): mapa e ranking da variação 2023→2024 por UF (cor só onde p de Holm
