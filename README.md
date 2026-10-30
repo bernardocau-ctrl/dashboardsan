@@ -23,10 +23,17 @@ comparações sustentadas e os achados sobre a cadeia de informação. Para 2023
 ajustado (Holm); em 2024, o mapa mostra também a variação desde 2023, colorida só
 nas UFs em que a mudança é detectável após a correção de Holm.
 
+Os recortes por fator podem ser cruzados dois a dois (55 pares de 11 fatores, por UF, Brasil e Grandes
+Regiões; PNADC 2023 e 2024, com IC95% em cada célula, e PNAD 2004, 2009 e 2013, sem intervalo). A janela
+de análise de cada cruzamento mostra a diferença entre dois grupos por UF (com IC95% da diferença), a
+variação de 2023 para 2024 (com IC95%) e um mapa de calor numa UF, para a insegurança alimentar total ou
+moderada ou grave. Os intervalos de diferença e de variação não têm correção para comparações múltiplas
+nos marcadores (o resumo informa a de Bonferroni), e a PNAD tradicional não é comparável com a PNADC.
+
 **Como citar:** Castanho, Bernardo. *Painel de Insegurança Alimentar no Brasil*.
-Zenodo, 2026. https://doi.org/10.5281/zenodo.23405765 (todas as versões; a v58, atual,
-é https://doi.org/10.5281/zenodo.23769033; a v50, congelada para a banca, é
-https://doi.org/10.5281/zenodo.23406463).
+Zenodo, 2026. https://doi.org/10.5281/zenodo.23405765 (todas as versões; a v70, atual,
+é https://doi.org/10.5281/zenodo.23784335; a v58 é https://doi.org/10.5281/zenodo.23769033; a v50,
+congelada anteriormente, é https://doi.org/10.5281/zenodo.23406463).
 
 **Fontes:** PNAD 2004/2009/2013 · POF 2002/2008/2017-2018 · PNAD Contínua
 2023/2024 (IBGE) · VIGISAN 2021 (Rede PENSSAN).
@@ -38,6 +45,17 @@ internet, sem instalar nada.
 
 ## Histórico
 
+- v70 (29/10/2026): variação 2023→2024 por grupo e UF, com IC95% (o erro-padrão trata os dois anos como
+  independentes, o que concorda com o bootstrap dos pesos replicados). Depositada no Zenodo
+  (https://doi.org/10.5281/zenodo.23784335).
+- v69 (29/10/2026): fator posição na ocupação da pessoa de referência (55 pares, 11 fatores).
+- v68 (29/10/2026): IC95% da diferença entre dois grupos nos halteres.
+- v67 (29/10/2026): insegurança alimentar moderada ou grave em todas as células.
+- v66 (29/10/2026): recortes e cruzamentos nos anos da PNAD (2004, 2009 e 2013), sem IC.
+- v65 (29/10/2026): IC95% nas células de recortes e cruzamentos de 2023 e 2024.
+- v59 a v64 (29/10/2026): janela de análise de cruzamentos, ranking com busca, comparação de UF,
+  visualização como tabela, matriz completa de pares (por UF, Brasil e Grandes Regiões), idade da pessoa
+  de referência, download de todos os cruzamentos e link da análise.
 - v58 (29/10/2026): total de IA exato nas nove séries simples por UF (578 de 1.847 células
   de 2023 e 2024, diferença de 0,1 p.p.; IA grave, segurança alimentar e n não mudam).
   Depositada no Zenodo (https://doi.org/10.5281/zenodo.23769033).
