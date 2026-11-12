@@ -1887,6 +1887,7 @@ ul.e2-lim li{ margin:2px 0; }
         <li><strong>Ranking UF:</strong> ordena por prevalência, variação 2023→24 (sem recorte), n da célula (com recorte) ou nome, e busca uma UF por nome ou sigla.</li>
         <li><strong>Comparar UF:</strong> põe duas UF, ou o Brasil e as Grandes Regiões, lado a lado com o recorte ativo do mapa.</li>
         <li><strong>Indicador:</strong> na análise do cruzamento, o seletor “Indicador” troca a insegurança alimentar total pela insegurança <em>moderada ou grave</em> (domicílios em IA moderada ou grave, o indicador usado em comparações internacionais). O CSV de todos os cruzamentos traz as duas.</li>
+        <li><strong>Leitura do mapa:</strong> o mapa traz as siglas das UF (quando cabem) e contorna a UF sob o cursor; na legenda por faixas, cada faixa informa quantas UF contém e, ao passar o cursor ou o foco do teclado, destaca essas UF. O botão ▶ ao lado dos anos percorre os levantamentos, e as setas ← e → do teclado trocam o ano; PNAD (2004 a 2013) e PNADC (2023 e 2024) não formam série contínua. As animações são desligadas quando o sistema pede movimento reduzido. Esses recursos são de apresentação: nenhum dado mudou em relação à versão anterior.</li>
         <li><strong>Variação 2023→2024:</strong> a aba “Variação 2023→2024” da análise do cruzamento mostra, por UF, quanto a prevalência de cada grupo mudou de 2023 para 2024, com IC95%. Os dois levantamentos compartilham 86% das UPAs e parte dos domicílios, mas, com os pesos replicados do IBGE, a sobreposição quase não reduz o erro-padrão; o painel trata os anos como independentes, o que é conservador. Círculo cheio: o IC exclui zero. Não há correção para múltiplas comparações no marcador (o resumo informa Bonferroni), e variação não é causa.</li>
         <li><strong>Diferença entre dois grupos:</strong> nos halteres, a linha escura marca as UF em que o IC95% da diferença exclui zero. O erro-padrão da diferença inclui a covariância entre os grupos, que compartilham os mesmos conglomerados. Os marcadores não têm correção para múltiplas comparações; o texto e a tabela informam também quantas UF permanecem após a correção de Bonferroni. “Exclui zero” indica diferença estatisticamente distinguível, não diferença importante, e só vale para 2023 e 2024.</li>
         <li><strong>Intervalos de confiança:</strong> as células de cruzamentos e recortes de 2023 e 2024 trazem o IC95% (linearização de Taylor, o mesmo método do total por UF). Nos halteres, as barras podem ser ocultadas em “Mostrar IC95%”. O intervalo mede a imprecisão de cada estimativa; ele não testa a diferença entre dois grupos, e intervalos que se sobrepõem não indicam ausência de diferença.</li>
@@ -89608,7 +89609,7 @@ document.addEventListener('keydown', ev => {
 
 // ════════ v47: % ou mil domicílios no mapa; dica com IC; CSV da visão; Quadro 6.1.1 ════════
 const V47 = {"q611":[["Subpergunta","O indicador e os dados autorizam","Exigem outros dados, escalas ou métodos","Seções"],["P1 Comparabilidade e trajetória","Descrever a prevalência de cada inquérito; comparar 2023 e 2024 e, com ressalva, as edições da PNAD de 2004, 2009 e 2013","Tratar 2013, a POF 2017-2018 e 2023 como série contínua: mudam instrumento, desenho e contexto, e a EBIA está em branco nos arquivos PNADC T4 de 2016 a 2019 e de 2021 examinados","5.1.1; 6.2.1"],["P2 Distribuição e escala","Descrever diferenças entre grupos de renda, raça/cor, sexo e instrução em escala absoluta e relativa, e testar sua mudança entre 2023 e 2024, em análise exploratória","Explicar as diferenças (mecanismos), examinar a sobreposição entre marcadores e atribuir a mudança a políticas","5.1.3; 5.1.4; 6.2.2; 6.2.3"],["P3 Território","Contrastar a capital e o restante do estado do Rio de Janeiro nos domínios amostrais, com n, IC95% e coeficiente de variação","Inferir para municípios, favelas ou subáreas do estado; estimar com precisão a insegurança grave na capital","5.1.5; 6.2.4"],["P4 Dimensão individual (Ondas 1 e 2)","Descrever associações ajustadas entre os níveis de EBIA e a energia relatada, a fibra e a participação de arroz e feijão e de hortaliças na energia, com intervalos de confiança, na Onda 1 e em 2B; sem diferença detectável na densidade energética dos alimentos sólidos;","Inferir causa ou mediação; caracterizar a qualidade global da dieta; afirmar consumo absoluto dos grupos (os indicadores são frações da energia)","5.2; 6.3.1"],["P5 Dimensão do orçamento","Descrever a aquisição domiciliar, a despesa e o coeficiente de Engel (a composição NOVA da aquisição fica no apêndice, não validada)","Relacionar esses dados aos níveis da EBIA (cruzamento em nível de domicílio) e inferir consumo individual ou privação alimentar","5.3; 6.3.2; 6.3.3"],["P6 Informação","Documentar lacunas, quebras e divergências (dez achados) e expressá-las como metadado","Demonstrar que o painel é compreensível ou altera decisões (avaliação com usuários e apreciação ética)","5.4; 6.4"]],"fonte":"DISSERTACAO_REVISADA_v22_20261015_ACEITA.docx"};
-const V47_VERSAO = 'v70';
+const V47_VERSAO = 'v71';
 const V47_ESCALA_MIL = [[0, '#F8E7E4'], [0.5, '#C9707A'], [1, '#6B1F2A']];   // um só tom, claro -> escuro
 S.mapaMil = false;
 function v47MilAtivo(){
@@ -92448,7 +92449,7 @@ window.addEventListener('DOMContentLoaded',()=>{
         <span id="citar-aviso" class="v46-aviso" aria-live="polite"></span>
       </div>
       <p class="v46-nota">O DOI acima reúne todas as versões e leva sempre à mais recente. Versão exibida:
-        <strong id="citar-versao">v70</strong>. A versão descrita na dissertação é a v58, de 29/10/2026 (<a href="https://doi.org/10.5281/zenodo.23769033" target="_blank" rel="noopener">doi.org/10.5281/zenodo.23769033</a>).
+        <strong id="citar-versao">v71</strong>. A versão descrita na dissertação é a v58, de 29/10/2026 (<a href="https://doi.org/10.5281/zenodo.23769033" target="_blank" rel="noopener">doi.org/10.5281/zenodo.23769033</a>).
         Licença CC BY 4.0: pode ser reutilizado e adaptado, desde que citado.</p>
     </div>
   </div>
@@ -93440,6 +93441,446 @@ v59Ctrl = function(){
     const sel = document.querySelector('#v59-ctrl select[onchange*="\'ano\'"]'); if(sel && sel.closest('label')) sel.closest('label').remove(); const ck = document.querySelector('#v59-ctrl .v65-ck'); if(ck) ck.remove();
   }
 };
+
+</script>
+<style>
+/* ════════════════════════════════════════════════════════════════════════════
+   v71: camada de apresentação (movimento, profundidade, diagramação).
+   Só aparência e interação. Nenhum dado, estimativa, IC ou texto de resultado muda.
+   Regras de desempenho do projeto mantidas: nenhum filtro CSS vivo sobre o mapa
+   (a sombra do país é um bitmap assado uma vez, como o #halo-costa).
+   ════════════════════════════════════════════════════════════════════════════ */
+:root{
+  --v71-ease: cubic-bezier(.22,.8,.24,1);
+  --v71-sombra: 0 1px 2px rgba(20,36,54,.10), 0 6px 16px rgba(20,36,54,.10), 0 20px 44px rgba(20,36,54,.10);
+  --v71-sombra-alta: 0 2px 4px rgba(20,36,54,.12), 0 10px 24px rgba(20,36,54,.13), 0 28px 60px rgba(20,36,54,.14);
+}
+
+/* ── Profundidade: cartões flutuantes em três camadas de sombra ─────────────── */
+@media (min-width:1181px){
+  #mode-tabs, #intro-bar, #ano-pills, #filtros-wrap, #line-row,
+  #main-row > section > #leg-mapa{ box-shadow: var(--v71-sombra); border-color: rgba(255,255,255,.7); }
+  #kpi-row .kpi{ box-shadow: var(--v71-sombra); }
+  #filtros-wrap, #line-row{ outline: 1px solid rgba(28,45,64,.07); outline-offset: 0; }
+  #detail-row .panel, #extra-row .panel{ box-shadow: var(--v71-sombra-alta); }
+}
+#header{ box-shadow: 0 1px 0 rgba(28,45,64,.06), 0 4px 18px rgba(28,45,64,.07); }
+
+/* Sombra do país: bitmap estático, entre a base assada e a camada de dados */
+#v71-sombra{ position:absolute; inset:0; pointer-events:none; z-index:0; }
+
+/* ── KPIs: filete de cor, elevação ao passar o cursor, troca de valor ───────── */
+#kpi-row .kpi{ position:relative; overflow:hidden; transition: translate .28s var(--v71-ease), box-shadow .28s var(--v71-ease); }
+#kpi-row .kpi::before{ content:""; position:absolute; left:0; right:0; top:0; height:3px; background:#9AA6B2; opacity:.9; }
+#kpi-row .kpi.ia::before{ background:var(--ia); }
+#kpi-row .kpi.iag::before{ background:var(--iag); }
+#kpi-row .kpi.sa::before{ background:var(--sa); }
+#kpi-row .kpi.grupo::before{ background:var(--grupo-4); }
+#kpi-row .kpi.nova::before{ background:var(--nova-4); }
+@media (hover:hover) and (min-width:1181px){
+  #kpi-row .kpi:hover{ translate:0 -2px; box-shadow: var(--v71-sombra-alta); }
+}
+/* a ressalva "outro inquérito: não é variação" não pode ser cortada por reticências */
+#kpi-row .kpi.trend .kpi-sub{ white-space:normal; overflow:visible; text-overflow:clip; }
+
+/* ── Mapa: rótulos, destaque sob o cursor, transição de cor entre anos ──────── */
+#v71-rotulos text{
+  font-family:'Roboto Condensed','Inter',sans-serif; font-weight:700; letter-spacing:.04em;
+  text-anchor:middle; dominant-baseline:central; paint-order:stroke; stroke-linejoin:round;
+  pointer-events:none; user-select:none;
+}
+#v71-rotulos text.claro { fill:#fff;    stroke:rgba(70,22,20,.42);  stroke-width:2.2px; }
+#v71-rotulos text.escuro{ fill:#3B4654; stroke:rgba(255,255,255,.78); stroke-width:2.4px; }
+#v71-hov{ fill:none; stroke:#16283A; stroke-width:2.1px; stroke-linejoin:round; pointer-events:none; }
+.v71-vela{ fill:#fff; fill-opacity:.66; stroke:none; pointer-events:none; }
+.v71-faixa{ fill:none; stroke:#16283A; stroke-width:1.5px; stroke-linejoin:round; pointer-events:none; }
+
+/* Legenda por faixas: passa a ser interativa (destaca as UF da faixa) */
+#leg-swatches .leg-band{ border-radius:5px; padding:0 6px 0 2px; margin-left:-2px; cursor:default; transition: background .18s, box-shadow .18s; }
+#leg-swatches .leg-band i{ transition: scale .18s var(--v71-ease); }
+#leg-swatches.v71-viva .leg-band:hover, #leg-swatches.v71-viva .leg-band:focus-visible{ background:#F3EFEA; box-shadow: inset 0 0 0 1px rgba(28,45,64,.12); }
+#leg-swatches.v71-viva .leg-band:hover i, #leg-swatches.v71-viva .leg-band:focus-visible i{ scale:1.25; }
+#leg-swatches .leg-band .v71-n{ margin-left:6px; font-size:.68rem; color:#56626F; font-variant-numeric:tabular-nums; }
+
+/* ── Percorrer os anos ──────────────────────────────────────────────────────── */
+#v71-play{
+  display:none; position:absolute; right:8px; top:5px; width:22px; height:22px; border-radius:50%;
+  border:1px solid rgba(28,45,64,.2); background:#fff; color:#3E4650; cursor:pointer; padding:0;
+  align-items:center; justify-content:center; transition: background .18s, color .18s, border-color .18s, scale .12s;
+}
+#v71-play svg{ width:10px; height:10px; display:block; }
+#v71-play:hover{ background:#F7F2EA; color:#7C332C; border-color:#7C332C; }
+#v71-play:active{ scale:.92; }
+#v71-play[aria-pressed="true"]{ background:var(--fao-badge); color:#fff; border-color:var(--fao-badge); }
+@media (min-width:1181px){ #v71-play{ display:inline-flex; } }
+#v71-aviso{
+  position:fixed; left:50%; top:166px; translate:-50% 0; z-index:276; max-width:min(560px,60vw);
+  background:rgba(27,42,56,.92); color:#fff; font-size:.76rem; line-height:1.4; padding:7px 14px; border-radius:100px;
+  box-shadow:0 6px 20px rgba(20,36,54,.25); opacity:0; pointer-events:none; transition: opacity .3s; text-align:center;
+}
+#v71-aviso.vis{ opacity:1; }
+@media (max-width:1180px){ #v71-aviso{ display:none; } }
+
+/* ── Abas analíticas: fundo, hierarquia de títulos, tabelas ─────────────────── */
+body.v71-analitico{ background: linear-gradient(165deg, #E3ECF2 0%, #CFDEE9 52%, #BDD1E0 100%) fixed; }
+#extra-row .panel > .panel-title{ border-bottom:1px solid rgba(28,45,64,.08); }
+#extra-row .panel > .panel-title > span:first-child{ font-weight:600; color:var(--text); }
+#extra-row .v41-corpo h3{ position:relative; padding-left:11px; }
+#extra-row .v41-corpo h3::before{ content:""; position:absolute; left:0; top:.18em; bottom:.18em; width:3px; border-radius:2px; background:var(--fao-accent); }
+#extra-row table tbody tr{ transition: background .15s; }
+#extra-row table tbody tr:hover{ background: rgba(47,93,138,.055); }
+#extra-row{ scrollbar-width:thin; scrollbar-color: rgba(28,45,64,.28) transparent; }
+#filtros-wrap, #estado-detail, #nota-metodo > div, #drawer-body{ scrollbar-width:thin; scrollbar-color: rgba(28,45,64,.25) transparent; }
+
+/* Cartão de contexto: quando o texto não cabe, fica só o botão (em vez de uma linha cortada) */
+#intro-bar.v71-curto #intro-bar-txt{ display:none; }
+#intro-bar.v71-curto #btn-sobre-painel{ margin-top:0; }
+
+/* ── Microinterações ────────────────────────────────────────────────────────── */
+#mode-tabs .tab-modo{ transition: background .22s, color .22s, border-color .22s; }
+#mode-tabs .tab-modo .ic{ transition: scale .22s var(--v71-ease); }
+#mode-tabs .tab-modo.ativo .ic{ scale:1.12; }
+.pill-ano, .v41-btn, .engel-metrica-btn, .btn-filtro-cta, #btn-ranking-sheet, #btn-sobre-painel, #btn-citar{ transition: background .18s, color .18s, border-color .18s, scale .12s, box-shadow .18s; }
+.pill-ano:active, .v41-btn:active, .engel-metrica-btn:active, .btn-filtro-cta:active, #btn-ranking-sheet:active, #btn-sobre-painel:active, #btn-citar:active, #mode-tabs .tab-modo:active{ scale:.97; }
+#tip{ transition: opacity .14s, translate .16s var(--v71-ease); box-shadow: var(--v71-sombra); }
+#tip:not(.vis){ translate:0 5px; }
+
+/* ── Movimento (só para quem não pediu movimento reduzido) ──────────────────── */
+@keyframes v71-fade  { from{ opacity:0 } to{ opacity:1 } }
+@keyframes v71-sobe  { from{ opacity:0; translate:0 14px } to{ opacity:1; translate:0 0 } }
+@keyframes v71-desce { from{ opacity:0; translate:0 -12px } to{ opacity:1; translate:0 0 } }
+@keyframes v71-dir   { from{ opacity:0; translate:-16px 0 } to{ opacity:1; translate:0 0 } }
+@keyframes v71-esq   { from{ opacity:0; translate:18px 0 } to{ opacity:1; translate:0 0 } }
+@keyframes v71-tick  { from{ opacity:0; translate:0 9px } to{ opacity:1; translate:0 0 } }
+@keyframes v71-cresce{ from{ transform:scaleX(0) } to{ transform:scaleX(1) } }
+
+@media (prefers-reduced-motion: no-preference){
+  /* cor das UF: transição suave ao trocar de ano, recorte ou medida */
+  #div-mapa .choroplethlayer path.choroplethlocation{ transition: fill .55s ease; }
+
+  /* abertura: uma coreografia só, na primeira carga */
+  body.v71-entra #header{ animation: v71-fade .5s ease both; }
+  body.v71-entra #main-row > section > .chart-wrap, body.v71-entra #halo-costa{ animation: v71-fade 1s ease both; }
+  body.v71-entra #kpi-row .kpi{ animation: v71-desce .6s var(--v71-ease) both; }
+  body.v71-entra #kpi-row .kpi:nth-child(1){ animation-delay:.22s } body.v71-entra #kpi-row .kpi:nth-child(2){ animation-delay:.30s }
+  body.v71-entra #kpi-row .kpi:nth-child(3){ animation-delay:.38s } body.v71-entra #kpi-row .kpi:nth-child(4){ animation-delay:.46s }
+  body.v71-entra #extra-row .panel{ animation: v71-sobe .6s var(--v71-ease) .2s both; }
+  @media (min-width:1181px){
+    body.v71-entra #mode-tabs{ animation: v71-dir .6s var(--v71-ease) .12s both; }
+    body.v71-entra #ano-pills{ animation: v71-dir .6s var(--v71-ease) .20s both; }
+    body.v71-entra #intro-bar{ animation: v71-dir .6s var(--v71-ease) .28s both; }
+    body.v71-entra #main-row > section > #leg-mapa{ animation: v71-dir .6s var(--v71-ease) .36s both; }
+    body.v71-entra #filtros-wrap{ animation: v71-esq .65s var(--v71-ease) .30s both; }
+    body.v71-entra #line-row{ animation: v71-esq .65s var(--v71-ease) .42s both; }
+  }
+
+  /* troca de aba e de valor */
+  .v71-troca{ animation: v71-sobe .42s var(--v71-ease) both; }
+  .v71-troca-suave{ animation: v71-fade .38s ease both; }
+  .kpi-val.v71-tick{ animation: v71-tick .42s var(--v71-ease) both; }
+  #estado-detail.v71-novo > *{ animation: v71-fade .4s ease both; }
+  #estado-detail.v71-novo .v54-barra span{ transform-origin:left center; animation: v71-cresce .7s var(--v71-ease) both; }
+  #sintese-bloco.v71-novo{ animation: v71-fade .4s ease both; }
+}
+
+</style>
+<script>
+// ════════ v71: camada de apresentação (movimento, profundidade, legibilidade do mapa) ════════
+// Só aparência e interação: lê S, UFS, GEOJSON, EBIA_BANDS e as funções já existentes; não cria,
+// não altera e não formata nenhuma estimativa. Tudo que é número na tela continua vindo das
+// funções das versões anteriores. As animações respeitam prefers-reduced-motion.
+const V71 = { rm: window.matchMedia('(prefers-reduced-motion: reduce)'), play: null, auto: false, cent: {}, tmr: {} };
+const V71_NS = 'http://www.w3.org/2000/svg';
+const V71_ANALITICAS = ['engel', 'desig', 'lacunas', 'consumo', 'regressao'];
+function v71Anim(){ return !V71.rm.matches; }
+function v71ModoMapa(){ return !V71_ANALITICAS.includes(S.modoAtual); }
+function v71Depois(chave, fn, ms){ clearTimeout(V71.tmr[chave]); V71.tmr[chave] = setTimeout(fn, ms); }
+function v71Reanima(el, cls){
+  if(!el || !v71Anim()) return;
+  el.classList.remove(cls); void el.offsetWidth; el.classList.add(cls);
+  el.addEventListener('animationend', function f(ev){ if(ev.target === el){ el.classList.remove(cls); el.removeEventListener('animationend', f); } });
+}
+
+// ── Mapa: caminho de cada UF e centroide ponderado pela área (maior polígono) ──
+function v71Paths(){
+  const gd = document.getElementById('div-mapa'), o = {};
+  if(gd) gd.querySelectorAll('.choroplethlayer path.choroplethlocation').forEach(p => { const u = p.__data__ && p.__data__.loc; if(u) o[u] = p; });
+  return o;
+}
+function v71Centroides(){
+  try{
+    (GEOJSON.features || []).forEach(ft => {
+      const sig = ft.properties && ft.properties.sigla, g = ft.geometry; if(!sig || !g) return;
+      const polys = g.type === 'Polygon' ? [g.coordinates] : g.coordinates;
+      let melhor = null, maior = 0;
+      polys.forEach(p => {
+        const r = p[0]; let a = 0, cx = 0, cy = 0;
+        for(let i = 0, j = r.length - 1; i < r.length; j = i++){
+          const f = r[j][0] * r[i][1] - r[i][0] * r[j][1];
+          a += f; cx += (r[j][0] + r[i][0]) * f; cy += (r[j][1] + r[i][1]) * f;
+        }
+        a /= 2;
+        if(Math.abs(a) > maior && a !== 0){ maior = Math.abs(a); melhor = [cx / (6 * a), cy / (6 * a)]; }
+      });
+      if(melhor) V71.cent[sig] = melhor;
+    });
+  }catch(e){ /* sem centroides, o mapa segue sem rótulos */ }
+}
+
+// ── Rótulos (siglas) sobre o mapa: SVG próprio, fora dos dados do Plotly ──
+function v71Lum(cor){
+  const m = /(\d+)[,\s]+(\d+)[,\s]+(\d+)/.exec(cor || ''); if(!m) return 1;
+  const f = v => { v /= 255; return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4); };
+  return 0.2126 * f(+m[1]) + 0.7152 * f(+m[2]) + 0.0722 * f(+m[3]);
+}
+function v71Rotulos(){
+  const gd = document.getElementById('div-mapa');
+  if(!gd || !gd._fullLayout || !gd._fullLayout.geo) return;
+  const svg = gd.querySelector('svg.main-svg'), sp = gd._fullLayout.geo._subplot;
+  if(!svg || !sp || !sp.projection) return;
+  let g = svg.querySelector('#v71-rotulos');
+  if(!g){ g = document.createElementNS(V71_NS, 'g'); g.id = 'v71-rotulos'; g.setAttribute('aria-hidden', 'true'); svg.appendChild(g); }
+  const W = svg.getBoundingClientRect().width, fs = W >= 1500 ? 11.5 : W >= 1050 ? 10.5 : 9.5;
+  const paths = v71Paths();
+  UFS.forEach(u => {
+    const p = paths[u], c = V71.cent[u];
+    let t = g.querySelector('[data-uf="' + u + '"]');
+    if(!p || !c){ if(t) t.remove(); return; }
+    const xy = sp.projection(c); let bb;
+    try{ bb = p.getBBox(); }catch(e){ bb = null; }
+    const folga = W < 700 ? 2.6 : 1.9;      // em telas estreitas, só as UF em que a sigla cabe com folga
+    const cabe = xy && isFinite(xy[0]) && isFinite(xy[1]) && bb && bb.width >= fs * folga && bb.height >= fs * (folga - 0.45);
+    if(!cabe){ if(t) t.remove(); return; }
+    if(!t){ t = document.createElementNS(V71_NS, 'text'); t.setAttribute('data-uf', u); t.textContent = u; g.appendChild(t); }
+    t.setAttribute('x', xy[0].toFixed(1)); t.setAttribute('y', xy[1].toFixed(1));
+    t.setAttribute('font-size', fs);
+    // cor do texto pela cor-alvo do preenchimento (atributo), não pela cor em transição
+    t.setAttribute('class', v71Lum(p.getAttribute('fill')) < 0.36 ? 'claro' : 'escuro');
+  });
+  g.style.display = v71ModoMapa() ? '' : 'none';
+}
+
+// ── Destaque da UF sob o cursor: contorno clonado (não mexe no estilo que o Plotly controla) ──
+function v71Hover(u){
+  const velho = document.getElementById('v71-hov'); if(velho) velho.remove();
+  if(!u) return;
+  const p = v71Paths()[u]; if(!p) return;
+  const c = document.createElementNS(V71_NS, 'path');
+  c.setAttribute('d', p.getAttribute('d')); c.id = 'v71-hov';
+  p.parentNode.appendChild(c);
+}
+
+// ── Legenda por faixas: destacar as UF de uma faixa ──
+function v71FaixasAtivas(){ return typeof isEbiaMapMode === 'function' && isEbiaMapMode() && !v53VarAtivo() && !v47MilAtivo(); }
+function v71UFsDaFaixa(i){
+  const lo = i === 0 ? -Infinity : EBIA_BANDS[i - 1].max, hi = i === EBIA_BANDS.length - 1 ? Infinity : EBIA_BANDS[i].max;
+  return UFS.filter(u => { const z = v53Z(u); return z != null && isFinite(z) && z >= lo && z < hi; });
+}
+function v71LimpaFaixa(){ document.querySelectorAll('.v71-vela, .v71-faixa').forEach(e => e.remove()); }
+function v71DestacaFaixa(i){
+  v71LimpaFaixa();
+  if(i == null || !v71FaixasAtivas()) return;
+  const dentro = new Set(v71UFsDaFaixa(i)), paths = v71Paths();
+  Object.keys(paths).forEach(u => {
+    const p = paths[u], c = document.createElementNS(V71_NS, 'path');
+    c.setAttribute('d', p.getAttribute('d')); c.setAttribute('class', dentro.has(u) ? 'v71-faixa' : 'v71-vela');
+    p.parentNode.appendChild(c);
+  });
+}
+function v71Legenda(){
+  const sw = document.getElementById('leg-swatches'); if(!sw) return;
+  const viva = v71FaixasAtivas();
+  sw.classList.toggle('v71-viva', viva);
+  sw.querySelectorAll('.leg-band').forEach((b, i) => {
+    let n = b.querySelector('.v71-n');
+    if(!viva){ if(n) n.remove(); b.removeAttribute('tabindex'); b.removeAttribute('title'); return; }
+    const k = v71UFsDaFaixa(i).length;
+    if(!n){ n = document.createElement('span'); n.className = 'v71-n'; b.appendChild(n); }
+    n.textContent = k + ' UF';
+    b.title = k ? 'Passe o cursor para destacar no mapa as ' + k + ' UF desta faixa' : 'Nenhuma UF nesta faixa';
+    b.tabIndex = 0;
+    if(!b._v71){
+      b._v71 = true;
+      b.addEventListener('mouseenter', () => v71DestacaFaixa(i));
+      b.addEventListener('mouseleave', () => v71DestacaFaixa(null));
+      b.addEventListener('focus', () => v71DestacaFaixa(i));
+      b.addEventListener('blur', () => v71DestacaFaixa(null));
+    }
+  });
+}
+
+// ── Sombra do país: bitmap assado uma vez por tamanho de tela (como o #halo-costa) ──
+function v71Sombra(){
+  try{
+    const gd = document.getElementById('div-mapa'); if(!gd) return;
+    const svg = gd.querySelector('svg.main-svg'); if(!svg) return;
+    const d = [...gd.querySelectorAll('.choroplethlayer path.choroplethlocation')].map(p => p.getAttribute('d') || '').filter(Boolean).join(' ');
+    const r = svg.getBoundingClientRect(), W = Math.round(r.width), H = Math.round(r.height);
+    if(!d || W < 10 || H < 10) return;
+    const cv = document.createElement('canvas'); cv.width = W; cv.height = H;
+    const ctx = cv.getContext('2d'), forma = new Path2D(d);
+    ctx.fillStyle = '#000';
+    ctx.shadowColor = 'rgba(14,34,54,.42)'; ctx.shadowBlur = Math.max(16, W / 64); ctx.shadowOffsetY = Math.max(5, W / 260);   // sombra ambiente
+    ctx.fill(forma);
+    ctx.shadowColor = 'rgba(14,34,54,.42)'; ctx.shadowBlur = 5; ctx.shadowOffsetY = 1.5;                                        // sombra de contato
+    ctx.fill(forma);
+    ctx.shadowColor = 'transparent'; ctx.shadowBlur = 0; ctx.shadowOffsetY = 0;
+    ctx.globalCompositeOperation = 'destination-out'; ctx.fill(forma);      // a sombra só existe FORA do país: não tinge a cor do dado
+    let host = document.getElementById('v71-sombra');
+    if(!host){ host = document.createElement('div'); host.id = 'v71-sombra'; host.setAttribute('aria-hidden', 'true'); gd.parentElement.insertBefore(host, gd); }
+    host.style.background = 'no-repeat 0 0/' + W + 'px ' + H + 'px url(' + cv.toDataURL('image/png') + ')';
+  }catch(e){ /* sem a sombra, o mapa segue normal */ }
+}
+
+// ── Revelação dos gráficos (cortina) quando o conteúdo muda por ação do usuário ──
+function v71Revela(id, sentido){
+  if(!v71Anim()) return;
+  setTimeout(() => {
+    const gd = document.getElementById(id); if(!gd || !gd.offsetParent) return;
+    const de = sentido === 'cima' ? 'inset(100% 0 0 0)' : sentido === 'baixo' ? 'inset(0 0 100% 0)' : 'inset(0 100% 0 0)';
+    gd.querySelectorAll('.cartesianlayer .scatterlayer, .cartesianlayer .barlayer').forEach(el => {
+      try{ el.animate([{clipPath: de}, {clipPath: 'inset(0 0 0 0)'}], {duration: 720, easing: 'cubic-bezier(.22,.8,.24,1)'}); }catch(e){}
+    });
+  }, 60);
+}
+
+// ── Percorrer os anos ──
+const V71_ICO = { play: '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1l7 4-7 4z" fill="currentColor"/></svg>',
+                  pausa: '<svg viewBox="0 0 10 10" aria-hidden="true"><path d="M2 1h2.2v8H2zM5.8 1H8v8H5.8z" fill="currentColor"/></svg>' };
+function v71Pills(){ return [...document.querySelectorAll('#ano-pills .pill-ano')].filter(b => !b.classList.contains('pof')); }
+function v71BotaoPlay(){
+  const box = document.getElementById('ano-pills'); if(!box || document.getElementById('v71-play')) return;
+  const b = document.createElement('button');
+  b.id = 'v71-play'; b.type = 'button';
+  b.setAttribute('aria-pressed', V71.play ? 'true' : 'false');
+  b.setAttribute('aria-label', 'Percorrer os anos da pesquisa');
+  b.title = 'Percorrer os anos. Cada ano é um levantamento: PNAD (2004 a 2013) e PNADC (2023 e 2024) não formam série contínua.';
+  b.innerHTML = V71.play ? V71_ICO.pausa : V71_ICO.play;
+  b.onclick = v71Play;
+  box.appendChild(b);
+}
+function v71Aviso(txt){
+  let a = document.getElementById('v71-aviso');
+  if(!a){ a = document.createElement('div'); a.id = 'v71-aviso'; a.setAttribute('role', 'status'); document.body.appendChild(a); }
+  if(txt){ a.textContent = txt; a.classList.add('vis'); } else a.classList.remove('vis');
+}
+function v71PlayPara(){
+  if(V71.play){ clearInterval(V71.play); V71.play = null; }
+  v71Aviso(null);
+  const b = document.getElementById('v71-play'); if(b){ b.setAttribute('aria-pressed', 'false'); b.innerHTML = V71_ICO.play; }
+}
+function v71Play(){
+  if(V71.play){ v71PlayPara(); return; }
+  if(!v71Pills().length) return;
+  let i = 0;
+  const passo = () => {
+    const ps = v71Pills();
+    if(i >= ps.length || !v71ModoMapa()){ v71PlayPara(); return; }
+    V71.auto = true; ps[i].click(); V71.auto = false; i++;
+    if(i >= ps.length) setTimeout(() => { if(V71.play) v71PlayPara(); }, 1700);
+  };
+  V71.play = setInterval(passo, 1700);
+  if(S.grupoAlim === null && !S.nova4) v71Aviso('Cada ano é um levantamento: PNAD (2004 a 2013) e PNADC (2023 e 2024) não formam série contínua.');
+  passo();
+  const b = document.getElementById('v71-play'); if(b){ b.setAttribute('aria-pressed', 'true'); b.innerHTML = V71_ICO.pausa; }
+}
+
+// ── Estado geral da página conforme a aba ──
+function v71Sincroniza(){
+  const mapa = v71ModoMapa();
+  document.body.classList.toggle('v71-analitico', !mapa);
+  // defeito antigo: abrindo o painel por um link direto para uma aba analítica, o título e a fonte
+  // do mapa (movidos para o <body> só no evento load) ficavam visíveis sobre a aba
+  const tb = document.getElementById('map-titlebar'), mf = document.getElementById('mapa-fonte');
+  if(tb && tb.parentElement === document.body) tb.style.display = mapa ? 'flex' : 'none';
+  if(mf && mf.parentElement === document.body) mf.style.display = mapa ? '' : 'none';
+  if(mapa && typeof v53Titlebar === 'function') setTimeout(v53Titlebar, 0);
+  const g = document.getElementById('v71-rotulos'); if(g) g.style.display = mapa ? '' : 'none';
+  v71Intro();
+}
+function v71Intro(){
+  const ib = document.getElementById('intro-bar'); if(!ib) return;
+  ib.classList.remove('v71-curto');
+  const tx = document.getElementById('intro-bar-txt');
+  if(window.innerWidth > 1180 && tx && tx.offsetParent && tx.scrollHeight > tx.clientHeight + 2) ib.classList.add('v71-curto');
+}
+
+// ── Valor dos cartões: o número novo entra de uma vez (sem contagem com valores intermediários) ──
+function v71ObservaKPIs(){
+  document.querySelectorAll('#kpi-row .kpi-val').forEach(el => {
+    let ult = el.textContent;
+    new MutationObserver(() => { if(el.textContent !== ult){ ult = el.textContent; v71Reanima(el, 'v71-tick'); } })
+      .observe(el, {childList: true, characterData: true, subtree: true});
+  });
+}
+
+// ── Ganchos nas funções existentes (as originais continuam fazendo todo o trabalho) ──
+(function(){
+  const embrulha = (nome, depois, antes) => {
+    const orig = window[nome]; if(typeof orig !== 'function') return;
+    window[nome] = function(){ if(antes) antes.apply(this, arguments); const r = orig.apply(this, arguments); try{ depois.apply(this, arguments); }catch(e){} return r; };
+  };
+  embrulha('setModo', function(modo){
+    v71PlayPara(); v71Sincroniza();
+    if(V71_ANALITICAS.includes(modo)){
+      const p = document.getElementById('panel-' + modo); v71Reanima(p, 'v71-troca');
+      if(modo === 'engel') v71Revela('div-engel', 'cima');
+      if(modo === 'desig'){ v71Revela('div-desig-prev'); v71Revela('div-desig-contr'); }
+      if(modo === 'consumo'){ v71Revela('div-e2-dif'); v71Revela('div-e2-mod', 'baixo'); }
+    } else {
+      document.querySelectorAll('#kpi-row .kpi, #filtros-wrap, #line-row').forEach(e => v71Reanima(e, 'v71-troca-suave'));
+      v71Revela('div-linha');
+    }
+  });
+  embrulha('selUF', function(){
+    v71Reanima(document.getElementById('estado-detail'), 'v71-novo');
+    v71Reanima(document.getElementById('sintese-bloco'), 'v71-novo');
+    v71Revela('div-linha');
+  }, function(){ v71Hover(null); });
+  embrulha('setDesig', function(){ v71Revela('div-desig-prev'); v71Revela('div-desig-contr'); });
+  embrulha('setE2', function(){ v71Revela('div-e2-dif'); v71Revela('div-e2-mod', 'baixo'); });
+  embrulha('setEngelMetrica', function(){ v71Revela('div-engel', 'cima'); });
+  embrulha('buildAnoPills', function(){ v71BotaoPlay(); });
+  ['setAno', 'setAnoGrupo', 'setAnoNova'].forEach(n => embrulha(n, function(){}, function(){ if(!V71.auto) v71PlayPara(); }));
+  embrulha('updateMap', function(){ v71LimpaFaixa(); v71Depois('leg', v71Legenda, 30); });
+})();
+
+function v71Inicia(){
+  v71Centroides();
+  const gd = document.getElementById('div-mapa');
+  if(gd && gd.on){
+    gd.on('plotly_afterplot', () => v71Depois('rot', v71Rotulos, 40));
+    gd.on('plotly_hover', d => v71Hover(d.points && d.points[0] && d.points[0].location));
+    gd.on('plotly_unhover', () => v71Hover(null));
+  }
+  v71BotaoPlay(); v71ObservaKPIs(); v71Legenda(); v71Sincroniza(); v71Rotulos();
+  if(v71Anim()){
+    document.body.classList.add('v71-entra');
+    setTimeout(() => document.body.classList.remove('v71-entra'), 3200);
+  }
+  // setas do teclado trocam o ano quando o foco não está em nenhum controle
+  document.addEventListener('keydown', ev => {
+    if(ev.key !== 'ArrowLeft' && ev.key !== 'ArrowRight') return;
+    if(ev.altKey || ev.ctrlKey || ev.metaKey || !v71ModoMapa()) return;
+    const ae = document.activeElement;
+    if(ae && ae !== document.body && !ae.classList.contains('pill-ano')) return;
+    const ps = [...document.querySelectorAll('#ano-pills .pill-ano')], i = ps.findIndex(b => b.classList.contains('ativo'));
+    const j = i + (ev.key === 'ArrowRight' ? 1 : -1);
+    if(i < 0 || j < 0 || j >= ps.length) return;
+    ev.preventDefault(); ps[j].click();
+    const novo = document.querySelector('#ano-pills .pill-ano.ativo'); if(ae && ae !== document.body && novo) novo.focus();
+  });
+}
+if(document.readyState === 'loading') window.addEventListener('DOMContentLoaded', v71Inicia); else v71Inicia();
+window.addEventListener('load', () => {
+  // o título/fonte do mapa são movidos para o <body> no load; a base do mapa é assada em ~1 s e ~2,4 s
+  setTimeout(v71Sincroniza, 60);
+  setTimeout(v71Sombra, 1300); setTimeout(v71Sombra, 2800);
+  setTimeout(v71Rotulos, 1300); setTimeout(v71Rotulos, 2800);
+});
+window.addEventListener('resize', () => {
+  v71Depois('rz', () => { v71Sombra(); v71Rotulos(); v71Intro(); }, 900);
+});
 
 </script>
 </body>

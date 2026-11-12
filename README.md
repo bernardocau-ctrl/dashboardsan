@@ -45,6 +45,7 @@ internet, sem instalar nada.
 
 ## Histórico
 
+- v71 (12/11/2026): camada de apresentação, sem alteração de dados (o bloco de dados é idêntico ao da v70): siglas das UF no mapa, contorno sob o cursor, legenda por faixas interativa, botão para percorrer os anos e setas do teclado, animações que respeitam o movimento reduzido, e correção de três defeitos de layout. DOI a atribuir no depósito.
 - v70 (29/10/2026): variação 2023→2024 por grupo e UF, com IC95% (o erro-padrão trata os dois anos como
   independentes, o que concorda com o bootstrap dos pesos replicados). Depositada no Zenodo
   (https://doi.org/10.5281/zenodo.23784335).
