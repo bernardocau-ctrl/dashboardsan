@@ -248,6 +248,13 @@ html.com-abertura,.com-abertura body{overflow:hidden}
 }
 .ab-rever{background:var(--paper-2);border:1px solid var(--linha);padding:5px 12px;border-radius:999px;font:inherit;font-size:.8rem;color:var(--ink);cursor:pointer;margin-left:8px}
 .ab-rever:hover,.ab-rever:focus-visible{border-color:var(--ink)}
+/* ════ celular (13/11/2026) ════ */
+@media (max-width:900px){
+  .abas-retrato{flex-wrap:wrap !important;overflow-x:visible !important;justify-content:space-between !important;gap:4px 3px !important;padding:8px 10px 2px !important}
+  .abas-retrato .marca-ibge{flex:0 0 100%;margin:0 0 1px !important;font-size:.6rem !important}
+  .abas-retrato a{flex:1 1 auto;text-align:center;padding:6px 4px !important;font-size:.76rem !important;white-space:nowrap}
+  a.aba-painel{position:static !important;margin-left:0 !important;box-shadow:0 2px 6px rgba(139,46,58,.3) !important}
+}
 </style>
 </head>
 <body>
@@ -272,8 +279,8 @@ html.com-abertura,.com-abertura body{overflow:hidden}
 <nav class="abas-retrato" aria-label="Páginas do retrato">
   <span class="marca-ibge">Dados do <b>IBGE</b></span>
   <a href="index.html" aria-current="page">Retrato</a>
-  <a href="aceso.html">Luzes acesas</a>
-  <a href="prato.html">O prato</a>
+  <a href="aceso.html"><span class="aba-l">Luzes acesas</span><span class="aba-c">Luzes</span></a>
+  <a href="prato.html"><span class="aba-l">O prato</span><span class="aba-c">Prato</span></a>
   <a href="dados.html"><span class="aba-l">De onde vêm os dados</span><span class="aba-c">Dados</span></a>
   <a href="../" class="aba-painel" title="Abrir o painel interativo com todos os dados">Painel <span aria-hidden="true">↗</span></a>
 </nav>
@@ -1461,13 +1468,14 @@ function v5Azul(t){
   function encerra(){
     if(!ativo) return; ativo = false; timers.forEach(clearTimeout); timers = [];
     try{ localStorage.setItem('retrato_abertura', '1'); }catch(e){}
+    if(veioSozinha){ veioSozinha = false; try{ history.scrollRestoration = 'manual'; }catch(e){} document.documentElement.style.scrollBehavior = 'auto'; scrollTo(0, 0); document.documentElement.style.scrollBehavior = ''; }
     el.classList.add('fim');
     setTimeout(() => { cancelAnimationFrame(raf); el.classList.remove('ativa', 'fim'); document.documentElement.classList.remove('com-abertura'); }, T.fade);
   }
-  let auto = false;
+  let auto = false, veioSozinha = false;
   function inicia(){
     ['ab-selo', 'ab-l1', 'ab-l2', 'ab-nota', 'ab-cred'].forEach(id => vis(id, false)); ['ab-l1', 'ab-l2', 'ab-selo'].forEach(id => $(id).classList.remove('sai'));
-    if(auto) scrollTo(0, 0);
+    if(auto){ document.documentElement.style.scrollBehavior = 'auto'; scrollTo(0, 0); document.documentElement.style.scrollBehavior = ''; }
     el.classList.remove('fim'); el.classList.add('ativa'); ativo = true; mede(); t0 = performance.now(); raf = requestAnimationFrame(quadro);
     const em = (ms, f) => timers.push(setTimeout(f, ms));
     em(T.l1, () => { vis('ab-selo', true); vis('ab-l1', true); });
@@ -1483,7 +1491,7 @@ function v5Azul(t){
   addEventListener('resize', () => { if(ativo) mede(); });
   $('ab-rever').onclick = () => { $('ab-nota').textContent = 'Cada ponto são 100 casas entrevistadas.'; document.documentElement.classList.add('com-abertura'); inicia(); };
   window.ABERTURA = {PT, NTOT, inicia, encerra, ativo: () => ativo, T};
-  if(document.documentElement.classList.contains('com-abertura')){ auto = true; inicia(); auto = false; }
+  if(document.documentElement.classList.contains('com-abertura')){ try{ history.scrollRestoration = 'manual'; }catch(e){} veioSozinha = true; auto = true; inicia(); auto = false; }
 })();
 </script>
 

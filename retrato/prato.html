@@ -99,14 +99,21 @@ details{margin:.6em 0} details summary{cursor:pointer;color:var(--tinta-2)}
   .capa{justify-content:flex-start;padding-top:35vh;padding-bottom:9vh}
 }
 a.aba-painel{background:#8B2E3A !important;color:#fff !important;font-weight:700 !important;border:1px solid #8B2E3A !important;margin-left:6px;box-shadow:0 2px 8px rgba(139,46,58,.35);transition:background .15s,transform .15s}a.aba-painel:hover,a.aba-painel:focus-visible{background:#6E1F2B !important;transform:translateY(-1px)}@media (max-width:760px){a.aba-painel{margin-left:2px;position:sticky;right:0;z-index:2;box-shadow:-10px 0 12px 2px rgba(247,243,236,.95),0 2px 8px rgba(139,46,58,.35)}}
+/* ════ celular (13/11/2026) ════ */
+@media (max-width:900px){
+  .abas{flex-wrap:wrap !important;overflow-x:visible !important;justify-content:space-between !important;gap:3px 3px !important;padding:6px 10px 18px !important}
+  .abas .marca{flex:0 0 100%;margin:0 0 1px !important;font-size:.6rem !important;white-space:nowrap}
+  .abas a{flex:1 1 auto;text-align:center;padding:6px 4px !important;font-size:.76rem !important;white-space:nowrap}
+  a.aba-painel{position:static !important;margin-left:0 !important;box-shadow:0 2px 6px rgba(139,46,58,.3) !important}
+}
 </style>
 </head>
 <body>
 <nav class="abas" aria-label="Páginas do retrato">
   <span class="marca">Dados do <b>IBGE</b><span> · Insegurança alimentar no Brasil</span></span>
   <a href="index.html">Retrato</a>
-  <a href="aceso.html">Luzes acesas</a>
-  <a href="prato.html" aria-current="page">O prato</a>
+  <a href="aceso.html"><span class="aba-l">Luzes acesas</span><span class="aba-c">Luzes</span></a>
+  <a href="prato.html" aria-current="page"><span class="aba-l">O prato</span><span class="aba-c">Prato</span></a>
   <a href="dados.html"><span class="aba-l">De onde vêm os dados</span><span class="aba-c">Dados</span></a>
   <a href="../" class="aba-painel" title="Abrir o painel interativo com todos os dados">Painel <span aria-hidden="true">↗</span></a>
 </nav>
@@ -326,7 +333,9 @@ Object.keys(T).forEach(k => { const e = $(k); if(e) e.textContent = T[k]; });
 
 // ───────── palco ─────────
 const cv = $('mesa'), ctx = cv.getContext('2d'); ctx.imageSmoothingQuality = 'high';
+function topoMenu(){ const as = document.querySelectorAll('nav a'); let b = 0; as.forEach(a => { b = Math.max(b, a.getBoundingClientRect().bottom); }); return Math.max(56, Math.round(b + 12)); }
 let W = 0, H = 0, DPR = 1, palco = {}, estreito = false;
+window.PALCO = () => palco;   // para o teste
 const COR = {grao: '#E9DFC8', feijao: '#7A3E1D', verde: '#3F7A34', cai: '#E9DFC8'};
 const SPR = {};
 // Grãos desenhados uma vez, em alta resolução, com sombra, translucidez e brilho; cada tipo tem variações de
@@ -539,7 +548,7 @@ function cenaPratos(ids, colorir, apaga){
 
 // ───────── gráficos desenhados sobre a mesa ─────────
 const FONTE = 'system-ui,-apple-system,"Segoe UI",Roboto,Helvetica,Arial,sans-serif';
-function txt(t, x, y, o){ ctx.font = (o.b ? '700 ' : '500 ') + o.f + 'px ' + FONTE; ctx.fillStyle = o.cor || '#2A2119'; ctx.textAlign = o.al || 'left'; ctx.textBaseline = o.bl || 'middle'; ctx.fillText(t, x, y); }
+function txt(t, x, y, o){ ctx.font = (o.b ? '700 ' : '500 ') + o.f + 'px ' + FONTE; { const al = o.al || 'left', w = ctx.measureText(t).width, lim = al === 'center' ? 2 * Math.min(x - 4, W - 4 - x) : al === 'right' ? x - 4 : W - 4 - x; if(lim > 0 && w > lim) ctx.font = (o.b ? '700 ' : '500 ') + Math.max(o.f * .62, o.f * lim / w).toFixed(2) + 'px ' + FONTE; } ctx.fillStyle = o.cor || '#2A2119'; ctx.textAlign = o.al || 'left'; ctx.textBaseline = o.bl || 'middle'; ctx.fillText(t, x, y); }
 function eixoZero(zero, y0, y1){ ctx.strokeStyle = 'rgba(42,33,25,.35)'; ctx.lineWidth = 1; ctx.beginPath(); ctx.moveTo(zero, y0); ctx.lineTo(zero, y1); ctx.stroke(); }
 function escalaX(lo, hi, x0, larg){ lo = Math.min(0, lo); hi = Math.max(0, hi); const k = larg / (hi - lo || 1); return {k, zero: x0 - lo * k}; }
 
@@ -728,7 +737,7 @@ function montaCenas(){
 function mede(){
   DPR = Math.min(window.devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight; estreito = W <= 820;
   cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
-  palco = estreito ? {x: 12, y: 58, w: W - 24, h: H * .5 - 62} : {x: Math.min(W * .05 + 410, W * .44) + 46, y: 70, w: 0, h: H - 70 - 40};
+  palco = estreito ? {x: 12, y: topoMenu(), w: W - 24, h: H * .5 - 4 - topoMenu()} : {x: Math.min(W * .05 + 410, W * .44) + 46, y: 70, w: 0, h: H - 70 - 40};
   if(!estreito) palco.w = W - palco.x - Math.max(28, W * .04);
   spritesGrao(); montaCenas();
 }
@@ -845,6 +854,25 @@ let tmr = null;
 addEventListener('resize', () => { clearTimeout(tmr); tmr = setTimeout(() => { mede(); leRolagem(); }, 120); });
 addEventListener('scroll', leRolagem, {passive: true});
 mede(); leRolagem(); requestAnimationFrame(laco);
+})();
+</script>
+
+<script>
+/* celular: o cartão de texto esmaece ao subir, para não passar por cima do desenho (13/11/2026) */
+(function(){
+  const cs = [...document.querySelectorAll('.passo .cartao')], mq = matchMedia('(max-width:820px)');
+  if(!cs.length) return;
+  function f(){
+    const H = innerHeight;
+    cs.forEach(c => {
+      if(!mq.matches){ c.style.opacity = ''; c.style.visibility = ''; return; }
+      const lim = parseFloat(getComputedStyle(c).top) || .53 * H, z = .08 * H, t = c.getBoundingClientRect().top;
+      const o = t >= lim - 2 ? 1 : Math.max(0, Math.min(1, (t - (lim - z)) / z));
+      c.style.opacity = o >= 1 ? '' : o.toFixed(3); c.style.visibility = o <= 0 ? 'hidden' : '';
+    });
+  }
+  addEventListener('scroll', f, {passive: true}); addEventListener('resize', f); f();
+  window.CARTOES = {f, cs};
 })();
 </script>
 </body>
