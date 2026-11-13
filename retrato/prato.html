@@ -106,6 +106,12 @@ a.aba-painel{background:#8B2E3A !important;color:#fff !important;font-weight:700
   .abas a{flex:1 1 auto;text-align:center;padding:6px 4px !important;font-size:.76rem !important;white-space:nowrap}
   a.aba-painel{position:static !important;margin-left:0 !important;box-shadow:0 2px 6px rgba(139,46,58,.3) !important}
 }
+/* ════ celular 2 (13/11/2026) ════ */
+@media (max-width:900px){
+  .passo .cartao:not(.longo){max-height:none !important;overflow:visible !important}
+  .passo .cartao.longo{overscroll-behavior:contain}
+  .abas{background:linear-gradient(rgba(243,236,226,.98) 70%,rgba(243,236,226,0)) !important}
+}
 </style>
 </head>
 <body>
@@ -495,8 +501,10 @@ function cenaCapa(){
 }
 function cenaKg(){
   const L = novo(), n = cer.br.map(v => Math.round(v * 10)), cols = 3, m = palco;
-  const larg = Math.min(m.w / 3 * .62, 190), por = Math.max(10, Math.floor(larg / 9)), passo = larg / por;
-  const altMax = Math.ceil(n[0] / por) * passo, base = m.y + m.h * .5 + Math.min(altMax, m.h * .7) / 2;
+  const larg = Math.min(m.w / 3 * .62, 190), porMin = Math.ceil(Math.sqrt(n[0] * larg * .82 / Math.max(80, m.h - 64)));
+  let por = estreito ? Math.max(10, Math.floor(larg / 9), porMin) : Math.max(10, Math.floor(larg / 9)); if(estreito && por % 3 === 0) por++;   // por múltiplo de 3 alinha os feijões em listras
+  const passo = larg / por;
+  const altMax = Math.ceil(n[0] / por) * passo, base = estreito ? m.y + m.h - 30 : m.y + m.h * .5 + Math.min(altMax, m.h * .7) / 2;
   let k = 0; L.over = [];
   for(let c = 0; c < cols; c++){
     const x0 = m.x + m.w * (c + .5) / cols - larg / 2;
@@ -862,16 +870,21 @@ mede(); leRolagem(); requestAnimationFrame(laco);
 (function(){
   const cs = [...document.querySelectorAll('.passo .cartao')], mq = matchMedia('(max-width:820px)');
   if(!cs.length) return;
+  const capa = document.querySelector('.capa');
+  // cartão que cabe na metade de baixo fica inteiro e sem rolagem interna; o que não cabe (o questionário) rola por dentro
+  function classifica(){ cs.forEach(c => { c.classList.remove('longo'); if(mq.matches && c.offsetHeight > .54 * innerHeight - 14) c.classList.add('longo'); }); f(); }
   function f(){
     const H = innerHeight;
+    if(capa) [...capa.children].forEach(e => { const o = mq.matches ? Math.max(0, Math.min(1, 1 - (scrollY - .06 * H) / (.2 * H))) : 1; e.style.opacity = o >= 1 ? '' : o.toFixed(3); });
     cs.forEach(c => {
-      if(!mq.matches){ c.style.opacity = ''; c.style.visibility = ''; return; }
-      const lim = parseFloat(getComputedStyle(c).top) || .53 * H, z = .08 * H, t = c.getBoundingClientRect().top;
+      if(!mq.matches){ c.style.opacity = ''; c.style.visibility = ''; c.style.top = ''; return; }
+      const alvo = Math.max(.46 * H, Math.min(.53 * H, H - c.offsetHeight - 14)); c.style.top = alvo.toFixed(0) + 'px';
+      const lim = alvo, z = .08 * H, t = c.getBoundingClientRect().top;
       const o = t >= lim - 2 ? 1 : Math.max(0, Math.min(1, (t - (lim - z)) / z));
       c.style.opacity = o >= 1 ? '' : o.toFixed(3); c.style.visibility = o <= 0 ? 'hidden' : '';
     });
   }
-  addEventListener('scroll', f, {passive: true}); addEventListener('resize', f); f();
+  addEventListener('scroll', f, {passive: true}); addEventListener('resize', classifica); addEventListener('load', classifica); classifica();
   window.CARTOES = {f, cs};
 })();
 </script>
