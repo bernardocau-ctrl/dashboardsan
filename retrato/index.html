@@ -22,6 +22,7 @@
 <meta name="twitter:title" content="24 em cada 100 domicílios">
 <meta name="twitter:description" content="18,9 milhões de domicílios brasileiros convivem com insegurança alimentar. Onde estão e o que os separa.">
 <meta name="twitter:image" content="https://bernardocau-ctrl.github.io/dashboardsan/retrato/capa.png">
+<script>try{var t=localStorage.getItem('retrato_tema');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
 <style>
 :root{
   color-scheme: light;
@@ -1337,7 +1338,10 @@ function v5Azul(t){
   const atual = () => document.documentElement.getAttribute('data-theme') ||
                 (matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
   const rotula = () => b.textContent = atual() === 'dark' ? 'Usar tema claro' : 'Usar tema escuro';
-  b.onclick = () => { document.documentElement.setAttribute('data-theme', atual() === 'dark' ? 'light' : 'dark');
+  // a escolha é guardada no navegador: sem isso, o recarregamento (que redesenha os gráficos com as cores do tema) a perdia
+  b.onclick = () => { const novo = atual() === 'dark' ? 'light' : 'dark';
+                      document.documentElement.setAttribute('data-theme', novo);
+                      try{ localStorage.setItem('retrato_tema', novo); }catch(e){}
                       rotula(); location.reload(); };
   rotula(); p.appendChild(b);
 })();
