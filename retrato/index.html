@@ -22,6 +22,7 @@
 <meta name="twitter:title" content="24 em cada 100 domicílios">
 <meta name="twitter:description" content="18,9 milhões de domicílios brasileiros convivem com insegurança alimentar. Onde estão e o que os separa.">
 <meta name="twitter:image" content="https://bernardocau-ctrl.github.io/dashboardsan/retrato/capa.png">
+<script>try{if(!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!localStorage.getItem('retrato_abertura'))document.documentElement.classList.add('com-abertura');}catch(e){}</script>
 <script>try{var t=localStorage.getItem('retrato_tema');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
 <style>
 :root{
@@ -211,9 +212,47 @@ input[type=range]{accent-color:var(--realce);height:28px}
 }
 .nota-fotos{font-size:.8rem;color:var(--ink-2)}
 a.aba-painel{background:#8B2E3A !important;color:#fff !important;font-weight:700 !important;border:1px solid #8B2E3A !important;margin-left:6px;box-shadow:0 2px 8px rgba(139,46,58,.35);transition:background .15s,transform .15s}a.aba-painel:hover,a.aba-painel:focus-visible{background:#6E1F2B !important;transform:translateY(-1px)}@media (max-width:760px){a.aba-painel{margin-left:2px;position:sticky;right:0;z-index:2;box-shadow:-10px 0 12px 2px rgba(247,243,236,.95),0 2px 8px rgba(139,46,58,.35)}}
+
+/* ════ abertura animada (13/11/2026) ════ */
+#abertura{display:none;position:fixed;inset:0;z-index:60;background:var(--paper);color:var(--ink);overflow:hidden}
+.com-abertura #abertura,#abertura.ativa{display:block}
+.com-abertura body{overflow:hidden}
+#abertura canvas{position:absolute;inset:0;width:100%;height:100%}
+#abertura .ab-txt{position:absolute;left:7vw;top:50%;transform:translateY(-50%);width:min(38vw,460px);font-family:var(--serif)}
+#abertura .ab-selo{display:inline-flex;align-items:center;gap:10px;font-family:var(--sans);font-size:.74rem;letter-spacing:.14em;
+  text-transform:uppercase;color:var(--ink-2);opacity:0;transition:opacity .8s ease}
+#abertura .ab-selo b{font-size:1rem;letter-spacing:.16em;color:var(--ink);border:1.5px solid var(--ink);padding:3px 8px;border-radius:4px}
+#abertura .ab-l{font-size:clamp(1.5rem,2.6vw,2.4rem);line-height:1.18;margin:18px 0 0;opacity:0;transform:translateY(10px);
+  transition:opacity .8s ease,transform .8s cubic-bezier(.2,.8,.2,1)}
+#abertura .ab-l strong{color:var(--realce)}
+#abertura .ab-nota{font-family:var(--sans);font-size:.86rem;color:var(--ink-2);margin:16px 0 0;opacity:0;transition:opacity .8s ease}
+#abertura .vis{opacity:1;transform:none}
+#abertura .ab-l.sai{opacity:0;transform:translateY(-8px)}
+#abertura .ab-l2{display:grid} #abertura .ab-l2>.ab-l{grid-area:1/1}
+#abertura .ab-pular{position:absolute;right:18px;bottom:18px;font-family:var(--sans);font-size:.82rem;padding:9px 16px;border-radius:999px;
+  background:var(--paper-2);color:var(--ink);border:1px solid var(--linha);cursor:pointer}
+#abertura .ab-pular:hover,#abertura .ab-pular:focus-visible{border-color:var(--ink)}
+#abertura.fim{opacity:0;transition:opacity .7s ease}
+@media (max-aspect-ratio:11/10){
+  #abertura .ab-txt{left:20px;right:20px;top:max(56px,7vh);transform:none;width:auto;max-width:560px}
+  #abertura .ab-l{font-size:clamp(1.35rem,5.6vw,2rem)}
+}
+.ab-rever{background:none;border:0;padding:0;font:inherit;font-size:.8rem;color:var(--ink-2);text-decoration:underline;cursor:pointer;margin-left:6px}
 </style>
 </head>
 <body>
+<div id="abertura" role="region" aria-label="Abertura animada">
+  <canvas id="ab-cv" aria-hidden="true"></canvas>
+  <div class="ab-txt">
+    <div class="ab-selo" id="ab-selo"><b>IBGE</b> PNAD Contínua · 2024</div>
+    <div class="ab-l2">
+      <p class="ab-l" id="ab-l1">Em 2024, o IBGE visitou <strong id="ab-n"></strong> casas pelo Brasil.</p>
+      <p class="ab-l" id="ab-l2"><strong>24 em cada 100</strong> viviam com insegurança alimentar.</p>
+    </div>
+    <p class="ab-nota" id="ab-nota">Cada ponto são 100 casas entrevistadas.</p>
+  </div>
+  <button class="ab-pular" id="ab-pular" type="button">Pular abertura ›</button>
+</div>
 <nav class="abas-retrato" aria-label="Páginas do retrato">
   <span class="marca-ibge">Dados do <b>IBGE</b></span>
   <a href="index.html" aria-current="page">Retrato</a>
@@ -238,7 +277,7 @@ a.aba-painel{background:#8B2E3A !important;color:#fff !important;font-weight:700
   <div class="ctrl" style="margin-top:26px">
     <a href="#sec-mapa" class="pri" style="text-decoration:none;display:inline-block;padding:11px 18px;border-radius:9px">Ir direto ao mapa interativo</a>
   </div>
-  <div class="rolar"><i></i> ou role para ler a história inteira</div>
+  <div class="rolar"><i></i> ou role para ler a história inteira <button class="ab-rever" id="ab-rever" type="button">rever a abertura</button></div>
 </section>
 
 <section class="env indice" aria-label="Índice da página">
@@ -1346,6 +1385,87 @@ function v5Azul(t){
   rotula(); p.appendChild(b);
 })();
 </script>
+
+<script>
+/* ════ abertura animada ════ */
+(function(){
+  const el = document.getElementById('abertura'), cv = document.getElementById('ab-cv'), cx = cv.getContext('2d');
+  const $ = id => document.getElementById(id);
+  // amostra: 1 ponto = 100 domicílios entrevistados (PNAD Contínua 2024), sorteados dentro do estado; semente fixa
+  let sem = 20241113; const rnd = () => { sem |= 0; sem = sem + 0x6D2B79F5 | 0; let t = Math.imul(sem ^ sem >>> 15, 1 | sem); t = t + Math.imul(t ^ t >>> 7, 61 | t) ^ t; return ((t ^ t >>> 14) >>> 0) / 4294967296; };
+  function dentro(u, lon, lat){ let c = false; UF[u].aneis.forEach(a => { for(let i = 0, j = a.length - 1; i < a.length; j = i++){ const xi = a[i][0], yi = a[i][1], xj = a[j][0], yj = a[j][1];
+    if(((yi > lat) !== (yj > lat)) && lon < (xj - xi) * (lat - yi) / (yj - yi) + xi) c = !c; } }); return c; }
+  const PT = []; let NTOT = 0;
+  SIGLAS.forEach(u => {
+    const n = Math.round(UF[u].ic24.n / 100); NTOT += UF[u].ic24.n;
+    let x0 = 1e9, x1 = -1e9, y0 = 1e9, y1 = -1e9; UF[u].aneis.forEach(a => a.forEach(p => { x0 = Math.min(x0, p[0]); x1 = Math.max(x1, p[0]); y0 = Math.min(y0, p[1]); y1 = Math.max(y1, p[1]); }));
+    const nv = Math.round(n * UF[u].ia['2024'] / 100), idx = [];
+    for(let k = 0; k < n; k++){ let lon, lat, t = 0; do { lon = x0 + rnd() * (x1 - x0); lat = y0 + rnd() * (y1 - y0); t++; } while(!dentro(u, lon, lat) && t < 400);
+      if(t >= 400){ lon = UF[u].cen[0]; lat = UF[u].cen[1]; } const xy = proj(lon, lat); idx.push(PT.length); PT.push({uf: u, x: xy[0], y: xy[1], v: false, d: rnd(), j: rnd()}); }
+    for(let k = idx.length - 1; k > 0; k--){ const r = Math.floor(rnd() * (k + 1)); [idx[k], idx[r]] = [idx[r], idx[k]]; }
+    idx.slice(0, nv).forEach(i => PT[i].v = true);
+  });
+  $('ab-n').textContent = mil(NTOT);
+  $('ab-l2').querySelector('strong').textContent = Math.round(D.nacional['2024'].ia) + ' em cada 100';
+  const CONT = SIGLAS.map(u => { const p = new Path2D(); UF[u].aneis.forEach(a => { a.forEach((q, i) => { const xy = proj(q[0], q[1]); i ? p.lineTo(xy[0], xy[1]) : p.moveTo(xy[0], xy[1]); }); p.closePath(); }); return p; });
+
+  // tempos (ms)
+  const T = {l1: 150, cai0: 900, cai: 2600, dur: 1000, cont: 3300, l2: 4100, ver: 900, sai: 6500, fade: 700};
+  let W, H, esc, ox, oy, raf = 0, t0 = 0, ativo = false, timers = [];
+  function mede(){
+    const dpr = Math.min(2, devicePixelRatio || 1); W = innerWidth; H = innerHeight;
+    cv.width = W * dpr; cv.height = H * dpr; cx.setTransform(dpr, 0, 0, dpr, 0, 0);
+    const deitado = W / H > 1.1;
+    const bx = deitado ? {x: W * .44, y: H * .06, w: W * .53, h: H * .88} : {x: 4, y: H * .27, w: W - 8, h: H * .64};
+    esc = Math.min(bx.w / VB.w, bx.h / VB.h); ox = bx.x + (bx.w - VB.w * esc) / 2; oy = bx.y + (bx.h - VB.h * esc) / 2;
+  }
+  const ease = t => t <= 0 ? 0 : t >= 1 ? 1 : 1 - Math.pow(1 - t, 3);
+  const quica = t => { if(t <= 0) return 0; if(t >= 1) return 1; const c = 1.4; return 1 + (c + 1) * Math.pow(t - 1, 3) + c * Math.pow(t - 1, 2); };
+  function quadro(agora){
+    const t = agora - t0, ink = cor('--ink-2'), ver = cor('--realce'), lin = cor('--linha');
+    cx.clearRect(0, 0, W, H);
+    cx.save(); cx.translate(ox, oy); cx.scale(esc, esc);
+    const ac = ease((t - T.cont) / 900);
+    if(ac > 0){ cx.globalAlpha = ac; cx.strokeStyle = lin; cx.lineWidth = 1 / esc; CONT.forEach(p => cx.stroke(p)); }
+    const r = Math.max(1.3, 2.3 / Math.sqrt(esc)), pv = ease((t - T.l2) / T.ver);
+    for(let i = 0; i < PT.length; i++){
+      const p = PT[i], ti = (t - T.cai0 - p.d * T.cai) / T.dur;
+      if(ti <= 0) continue;
+      const k = quica(ti), y = p.y - (1 - k) * (oy / esc + p.y + 30 + p.j * 60);
+      const vermelho = p.v && pv > p.j * .7;
+      cx.globalAlpha = Math.min(1, ti * 3) * (vermelho ? .95 : .55);
+      cx.fillStyle = vermelho ? ver : ink;
+      cx.beginPath(); cx.arc(p.x, y, vermelho ? r * 1.3 : r, 0, 6.2832); cx.fill();
+    }
+    cx.restore();
+    if(ativo) raf = requestAnimationFrame(quadro);
+  }
+  const vis = (id, on) => $(id).classList.toggle('vis', on);
+  function encerra(){
+    if(!ativo) return; ativo = false; timers.forEach(clearTimeout); timers = [];
+    try{ localStorage.setItem('retrato_abertura', '1'); }catch(e){}
+    el.classList.add('fim');
+    setTimeout(() => { cancelAnimationFrame(raf); el.classList.remove('ativa', 'fim'); document.documentElement.classList.remove('com-abertura'); }, T.fade);
+  }
+  function inicia(){
+    ['ab-selo', 'ab-l1', 'ab-l2', 'ab-nota'].forEach(id => vis(id, false)); $('ab-l1').classList.remove('sai');
+    el.classList.remove('fim'); el.classList.add('ativa'); ativo = true; mede(); t0 = performance.now(); raf = requestAnimationFrame(quadro);
+    const em = (ms, f) => timers.push(setTimeout(f, ms));
+    em(T.l1, () => { vis('ab-selo', true); vis('ab-l1', true); });
+    em(T.cai0 + 600, () => vis('ab-nota', true));
+    em(T.l2 - 200, () => { $('ab-l1').classList.add('sai'); vis('ab-l1', false); vis('ab-nota', false); });
+    em(T.l2, () => { vis('ab-l2', true); $('ab-nota').textContent = 'Em cada estado, os pontos em destaque seguem a proporção medida ali.'; vis('ab-nota', true); });
+    em(T.sai, encerra);
+  }
+  $('ab-pular').onclick = encerra;
+  addEventListener('keydown', e => { if(e.key === 'Escape') encerra(); });
+  addEventListener('resize', () => { if(ativo) mede(); });
+  $('ab-rever').onclick = () => { $('ab-nota').textContent = 'Cada ponto são 100 casas entrevistadas.'; document.documentElement.classList.add('com-abertura'); inicia(); };
+  window.ABERTURA = {PT, NTOT, inicia, encerra, ativo: () => ativo, T};
+  if(document.documentElement.classList.contains('com-abertura')) inicia();
+})();
+</script>
+
 
 <script>
 // as fotos "assentam" na página quando entram na tela
