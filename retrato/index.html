@@ -22,7 +22,7 @@
 <meta name="twitter:title" content="24 em cada 100 domicílios">
 <meta name="twitter:description" content="18,9 milhões de domicílios brasileiros convivem com insegurança alimentar. Onde estão e o que os separa.">
 <meta name="twitter:image" content="https://bernardocau-ctrl.github.io/dashboardsan/retrato/capa.png">
-<script>try{if(!location.hash&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!localStorage.getItem('retrato_abertura'))document.documentElement.classList.add('com-abertura');}catch(e){}</script>
+<script>try{if(!/^#[A-Za-z][A-Za-z0-9_-]*$/.test(location.hash)&&!matchMedia('(prefers-reduced-motion: reduce)').matches&&!localStorage.getItem('retrato_abertura'))document.documentElement.classList.add('com-abertura');}catch(e){}</script>
 <script>try{var t=localStorage.getItem('retrato_tema');if(t==='dark'||t==='light')document.documentElement.setAttribute('data-theme',t);}catch(e){}</script>
 <style>
 :root{
@@ -237,7 +237,8 @@ a.aba-painel{background:#8B2E3A !important;color:#fff !important;font-weight:700
   #abertura .ab-txt{left:20px;right:20px;top:max(56px,7vh);transform:none;width:auto;max-width:560px}
   #abertura .ab-l{font-size:clamp(1.35rem,5.6vw,2rem)}
 }
-.ab-rever{background:none;border:0;padding:0;font:inherit;font-size:.8rem;color:var(--ink-2);text-decoration:underline;cursor:pointer;margin-left:6px}
+.ab-rever{background:var(--paper-2);border:1px solid var(--linha);padding:5px 12px;border-radius:999px;font:inherit;font-size:.8rem;color:var(--ink);cursor:pointer;margin-left:8px}
+.ab-rever:hover,.ab-rever:focus-visible{border-color:var(--ink)}
 </style>
 </head>
 <body>
@@ -277,7 +278,7 @@ a.aba-painel{background:#8B2E3A !important;color:#fff !important;font-weight:700
   <div class="ctrl" style="margin-top:26px">
     <a href="#sec-mapa" class="pri" style="text-decoration:none;display:inline-block;padding:11px 18px;border-radius:9px">Ir direto ao mapa interativo</a>
   </div>
-  <div class="rolar"><i></i> ou role para ler a história inteira <button class="ab-rever" id="ab-rever" type="button">rever a abertura</button></div>
+  <div class="rolar"><i></i> ou role para ler a história inteira <button class="ab-rever" id="ab-rever" type="button">▶ rever a abertura</button></div>
 </section>
 
 <section class="env indice" aria-label="Índice da página">
