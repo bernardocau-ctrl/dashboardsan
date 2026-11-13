@@ -1,0 +1,86 @@
+{
+ "capa": {
+  "arquivo": "capa.webp",
+  "w": 742,
+  "h": 982,
+  "foto": "two-children-are-smiling-one-is-wearing-watch-happy (1).jpg",
+  "moldura": "old-paper-white.jpg"
+ },
+ "cem": {
+  "arquivo": "cem.webp",
+  "w": 854,
+  "h": 646,
+  "foto": "colorful-small-houses-with-clothes-hanged-outside-suburban-district.jpg",
+  "moldura": "vintage-photo-frame-with-adhesive-tape-isolated.jpg"
+ },
+ "tres": {
+  "arquivo": "tres.webp",
+  "w": 563,
+  "h": 791,
+  "foto": "medium-shot-old-woman-exterior-portrait.jpg",
+  "moldura": "old-photo-with-clipping-path-inside-blank-vintage-frame (1).jpg"
+ },
+ "pergunta": {
+  "arquivo": "pergunta.webp",
+  "w": 817,
+  "h": 492,
+  "foto": "typical-brazilian-dish-called-feijoada-made-with-black-beans-pork-sausage-top-view.jpg",
+  "moldura": "vintage-photo-frame-with-figured-edges-white-background.jpg"
+ },
+ "mapa": {
+  "arquivo": "mapa.webp",
+  "w": 544,
+  "h": 735,
+  "foto": "coloured-houses-church-sloping-city-minas-gerais-brazil.jpg",
+  "moldura": "120-film-frame-photographic-template.jpg"
+ },
+ "pessoas": {
+  "arquivo": "pessoas.webp",
+  "w": 606,
+  "h": 804,
+  "foto": "uma-viagem-visual-atraves-de-fundos-criativos-e-geometricos.jpg",
+  "moldura": "old-paper-white.jpg"
+ },
+ "azar": {
+  "arquivo": "azar.webp",
+  "w": 544,
+  "h": 735,
+  "foto": "person-getting-some-street-food (1).jpg",
+  "moldura": "120-film-frame-photographic-template.jpg"
+ },
+ "soma": {
+  "arquivo": "soma.webp",
+  "w": 563,
+  "h": 791,
+  "foto": "children-dog-run-down-street-with-soccer-ball.jpg",
+  "moldura": "old-photo-with-clipping-path-inside-blank-vintage-frame (1).jpg"
+ },
+ "mulheres": {
+  "arquivo": "mulheres.webp",
+  "w": 736,
+  "h": 536,
+  "foto": "close-up-indigenous-woman-having-geometric-patterns-painted-her-face.jpg",
+  "moldura": "old-photo-with-clipping-path-inside-blank-vintage-frame.jpg"
+ },
+ "trajetoria": {
+  "arquivo": "trajetoria.webp",
+  "w": 606,
+  "h": 804,
+  "foto": "brazil-flag-painted-ladder-hill-conception-center-rio-de-janeiro.jpg",
+  "moldura": "old-paper-white.jpg"
+ },
+ "distancia": {
+  "arquivo": "distancia.webp",
+  "w": 854,
+  "h": 646,
+  "foto": "close-up-figurine-parrot.jpg",
+  "moldura": "vintage-photo-frame-with-adhesive-tape-isolated.jpg"
+ },
+ "estado": {
+  "arquivo": "estado.webp",
+  "w": 817,
+  "h": 492,
+  "foto": "rainbow-lights-are-hanging-from-tree.jpg",
+  "moldura": "vintage-photo-frame-with-figured-edges-white-background.jpg"
+ }
+}

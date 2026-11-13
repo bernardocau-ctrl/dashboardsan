@@ -31,11 +31,11 @@ moderada ou grave. Os intervalos de diferença e de variação não têm correç
 nos marcadores (o resumo informa a de Bonferroni), e a PNAD tradicional não é comparável com a PNADC.
 
 **Como citar:** Castanho, Bernardo. *Painel de Insegurança Alimentar no Brasil*.
-Zenodo, 2026. https://doi.org/10.5281/zenodo.23405765 (todas as versões; a v70, atual,
-é https://doi.org/10.5281/zenodo.23784335; a v58 é https://doi.org/10.5281/zenodo.23769033; a v50,
+Zenodo, 2026. https://doi.org/10.5281/zenodo.23405765 (todas as versões; a v71, atual,
+é https://doi.org/10.5281/zenodo.24178989; a v70 é https://doi.org/10.5281/zenodo.23784335; a v58 é https://doi.org/10.5281/zenodo.23769033; a v50,
 congelada anteriormente, é https://doi.org/10.5281/zenodo.23406463).
 
-**Fontes:** PNAD 2004/2009/2013 · POF 2002/2008/2017-2018 · PNAD Contínua
+**Fontes:** todos os dados são do Instituto Brasileiro de Geografia e Estatística (IBGE), exceto o VIGISAN: PNAD 2004/2009/2013 · POF 2002/2008/2017-2018 · PNAD Contínua
 2023/2024 (IBGE) · VIGISAN 2021 (Rede PENSSAN).
 
 O arquivo `index.html` é autocontido: abre em qualquer navegador, inclusive sem
@@ -45,7 +45,8 @@ internet, sem instalar nada.
 
 ## Histórico
 
-- v71 (12/11/2026): camada de apresentação, sem alteração de dados (o bloco de dados é idêntico ao da v70): siglas das UF no mapa, contorno sob o cursor, legenda por faixas interativa, botão para percorrer os anos e setas do teclado, animações que respeitam o movimento reduzido, e correção de três defeitos de layout. DOI a atribuir no depósito.
+- v72 (13/11/2026): destaque da fonte dos dados (IBGE) no cabeçalho e no Sobre o painel, com o aviso de que o painel é elaboração própria e não publicação oficial do IBGE; nenhum dado muda. DOI a atribuir no depósito.
+- v71 (12/11/2026): camada de apresentação, sem alteração de dados (o bloco de dados é idêntico ao da v70): siglas das UF no mapa, contorno sob o cursor, legenda por faixas interativa, botão para percorrer os anos e setas do teclado, animações que respeitam o movimento reduzido, e correção de três defeitos de layout. Depositada no Zenodo (https://doi.org/10.5281/zenodo.24178989).
 - v70 (29/10/2026): variação 2023→2024 por grupo e UF, com IC95% (o erro-padrão trata os dois anos como
   independentes, o que concorda com o bootstrap dos pesos replicados). Depositada no Zenodo
   (https://doi.org/10.5281/zenodo.23784335).
