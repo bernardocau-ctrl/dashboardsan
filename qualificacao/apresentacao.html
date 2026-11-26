@@ -112,7 +112,9 @@ body.presenter #pres{display:grid;position:fixed;inset:0;grid-template-columns:1
 #pres .right{display:flex;flex-direction:column;gap:14px;min-height:0}
 #pres .box2{background:#121925;border:1px solid #232d3c;border-radius:14px;padding:16px 20px}
 #pres .box2 h4{font:600 13px var(--sans);letter-spacing:.14em;text-transform:uppercase;color:#8994a3;margin-bottom:8px}
-#pres .nexttitle{font:600 24px var(--sans)}
+#pres .nexttitle{font:600 22px var(--sans)}
+#pres .mirwrap{position:relative;width:100%;aspect-ratio:16/9;border-radius:8px;overflow:hidden;background:#000}
+#pres .mirwrap iframe{position:absolute;inset:0;width:100%;height:100%;border:0;pointer-events:none}
 #pres ol{list-style:none;max-height:100%;overflow:auto;font-size:15px}
 #pres ol li{display:grid;grid-template-columns:34px 1fr 64px 64px;gap:6px;padding:5px 8px;border-radius:7px;color:#9aa3b0;cursor:pointer}
 #pres ol li.now{background:#26303f;color:#fff}
@@ -870,7 +872,7 @@ table.tb td:first-child{color:var(--ink)}
   <div style="font:600 22px var(--sans);margin-bottom:12px;color:#fff">Atalhos</div>
   <div><kbd>→</kbd><kbd>Espaço</kbd> avançar (etapa ou slide) · <kbd>←</kbd> voltar</div>
   <div><kbd>P</kbd> abrir janela do apresentador (notas e cronômetro)</div>
-  <div><kbd>N</kbd> mostrar notas nesta tela (ensaio) · <kbd>T</kbd> cronômetro na tela</div>
+  <div><kbd>N</kbd> notas nesta tela e <kbd>T</kbd> cronômetro nesta tela: <b style="color:#F2925E">só para ensaio</b> (aparecem para quem vê esta aba)</div>
   <div><kbd>S</kbd> iniciar/pausar cronômetro · <kbd>R</kbd> zerar</div>
   <div><kbd>F</kbd> tela cheia · <kbd>B</kbd> tela preta · <kbd>Home</kbd>/<kbd>End</kbd> início/fim</div>
   <div>número + <kbd>Enter</kbd> ir para o slide (23 a 28: reservas)</div>
@@ -890,6 +892,7 @@ table.tb td:first-child{color:var(--ink)}
     <div class="btns"><button onclick="send('prev')">◀ Voltar</button><button onclick="send('next')">Avançar ▶</button><button onclick="send('timer')">Iniciar/pausar cronômetro</button><button onclick="send('reset')">Zerar</button><button onclick="send('black')">Tela preta</button></div>
   </div>
   <div class="right">
+    <div class="box2"><h4>Na tela da banca agora</h4><div class="mirwrap"><iframe id="pt-mirror" title="Prévia do que a banca vê" tabindex="-1"></iframe></div></div>
     <div class="box2"><h4>Próximo</h4><div class="nexttitle" id="pt-next"></div></div>
     <div class="box2" style="flex:1;min-height:0;display:flex;flex-direction:column"><h4>Roteiro (tempo previsto · fim acumulado)</h4><ol id="pt-list"></ol></div>
   </div>
@@ -905,7 +908,7 @@ const GEO = {"vb":[765,783],"uf":[{"s":"AC","n":"Acre","d":"M11.5,252.0L29.9,260
 const $=(s,r=document)=>r.querySelector(s), $$=(s,r=document)=>[...r.querySelectorAll(s)];
 const NS='http://www.w3.org/2000/svg';
 const qs=new URLSearchParams(location.search);
-const PRINT=qs.has('print'), PRESENTER=location.hash.startsWith('#presenter');
+const PRINT=qs.has('print'), PRESENTER=location.hash.startsWith('#presenter'), MIRROR=location.hash.startsWith('#mirror');
 const fmt=(v,d=1)=>v.toLocaleString('pt-BR',{minimumFractionDigits:d,maximumFractionDigits:d});
 const sgn=(v,d=1)=>(v>0?'+':v<0?'−':'')+fmt(Math.abs(v),d);
 function el(tag,attrs={},parent,text){const e=document.createElementNS(NS,tag);for(const k in attrs)e.setAttribute(k,attrs[k]);if(text!=null)e.textContent=text;if(parent)parent.appendChild(e);return e}
@@ -1147,7 +1150,7 @@ function startTimer(){ if(!T.running){T.running=true;T.start=performance.now(); 
 function toggleTimer(){ if(T.running){T.acc=now();T.running=false} else {T.running=true;T.start=performance.now()} }
 function resetTimer(){ T.running=false;T.acc=0;T.slideStart=0;T.enterAt={} }
 T.enterAt={};
-function onSlideChange(){ if(state.i>0 && state.i<MAIN && !T.running && T.acc===0){ T.acc=plannedStart[state.i]*1000; startTimer(); } T.enterAt[state.i]=now(); }
+function onSlideChange(){ if(MIRROR) return; if(state.i>0 && state.i<MAIN && !T.running && T.acc===0){ T.acc=plannedStart[state.i]*1000; startTimer(); } T.enterAt[state.i]=now(); }
 const mmss=ms=>{const s=Math.max(0,Math.round(ms/1000)); return String(Math.floor(s/60)).padStart(2,'0')+':'+String(s%60).padStart(2,'0')};
 function timing(){ const e=now(); const i=state.i; const inSlide=e-(T.enterAt[i]??e); const m=META.slides[i];
   let delta=null; if(m){ const enterDelta=(T.enterAt[i]??e)-plannedStart[i]*1000; delta=enterDelta+Math.max(0,inSlide-m.t*1000); }
@@ -1155,7 +1158,7 @@ function timing(){ const e=now(); const i=state.i; const inSlide=e-(T.enterAt[i]
 
 /* ui */
 function ui(){ const i=state.i; $('#bar').style.width=((i)/(MAIN-1)*100)+'%'; $('#pageno').textContent=(i+1)+' / '+MAIN+(i>=MAIN?' · reserva':'');
-  if(!PRINT) history.replaceState(null,'','#/'+(i+1));
+  if(!PRINT&&!MIRROR) history.replaceState(null,'','#/'+(i+1));
   renderNotes(); broadcast(); }
 function noteHTML(i,f){ const m=META.slides[i]||META.reserva[i-MAIN]; if(!m)return ''; const parts=m.notes.trim().split('▶');
   return parts.map((p,k)=>`<p class="${k<f?'done':''}">${k?'<mark>▶ '+k+'</mark> ':''}${p.trim().replace(/\n+/g,' ')}</p>`).join(''); }
@@ -1165,15 +1168,15 @@ function renderNotes(){ const n=$('#notes'); if(!n.classList.contains('show'))re
 /* presenter sync via postMessage (works on file://) */
 let presWin=null; const BC=('BroadcastChannel' in window)?new BroadcastChannel('qualif-deck'):null;
 function payload(){ return {type:'state',i:state.i,f:state.f,maxF:maxF[state.i],T:{running:T.running,acc:now(),enterAt:T.enterAt[state.i]??now()}} }
-function broadcast(){ const p=payload(); try{presWin&&!presWin.closed&&presWin.postMessage(p,'*')}catch(e){} try{BC&&BC.postMessage(p)}catch(e){} }
+function broadcast(){ if(MIRROR) return; const p=payload(); try{presWin&&!presWin.closed&&presWin.postMessage(p,'*')}catch(e){} try{BC&&BC.postMessage(p)}catch(e){} }
 function handleCmd(c){ if(c==='next')next(); else if(c==='prev')prev(); else if(c==='timer')toggleTimer(); else if(c==='reset')resetTimer(); else if(c==='black')$('#blackout').classList.toggle('show'); else if(typeof c==='object'&&c.goto!=null)go(c.goto,0); broadcast(); }
-window.addEventListener('message',ev=>{ const d=ev.data||{}; if(d.type==='cmd')handleCmd(d.cmd); if(d.type==='hello')broadcast(); });
-if(BC) BC.onmessage=ev=>{const d=ev.data||{}; if(!PRESENTER&&d.type==='cmd')handleCmd(d.cmd); if(PRESENTER&&d.type==='state')presRender(d)};
+window.addEventListener('message',ev=>{ const d=ev.data||{}; if(MIRROR){ if(d.type==='mirror') go(d.i,d.f); return; } if(d.type==='cmd')handleCmd(d.cmd); if(d.type==='hello')broadcast(); });
+if(BC) BC.onmessage=ev=>{const d=ev.data||{}; if(!PRESENTER&&!MIRROR&&d.type==='cmd')handleCmd(d.cmd); if(PRESENTER&&d.type==='state')presRender(d)};
 
 /* presenter window */
 let PS=null;
-window.send=function(cmd){ const m={type:'cmd',cmd}; try{window.opener&&window.opener.postMessage(m,'*')}catch(e){} try{BC&&BC.postMessage(m)}catch(e){} };
-function presRender(d){ PS={...d,recv:performance.now()}; const i=d.i; const m=META.slides[i]||META.reserva[i-MAIN];
+window.send=function(cmd){ const m={type:'cmd',cmd}; let ok=false; try{ if(window.opener&&!window.opener.closed){window.opener.postMessage(m,'*'); ok=true} }catch(e){} if(!ok){ try{BC&&BC.postMessage(m)}catch(e){} } };
+let lastMir=''; function presRender(d){ PS={...d,recv:performance.now()}; const mf=$('#pt-mirror'); const key=d.i+'/'+d.f; if(mf&&mf.contentWindow&&key!==lastMir){ lastMir=key; try{mf.contentWindow.postMessage({type:'mirror',i:d.i,f:d.f},'*')}catch(e){} } const i=d.i; const m=META.slides[i]||META.reserva[i-MAIN];
   $('#pt-title').textContent=(i+1)+'. '+(m?m.title:''); $('#pt-sec').textContent=(m&&m.sec?m.sec:'Reserva')+' · etapa '+d.f+' de '+d.maxF;
   state.i=i; $('#pt-notes').innerHTML=noteHTML(i,d.f);
   const nx=META.slides[i+1]||META.reserva[i+1-MAIN]; $('#pt-next').textContent= d.f<d.maxF ? 'Etapa '+(d.f+1)+' deste slide (clique)' : (nx? (i+2)+'. '+nx.title : 'fim');
@@ -1184,7 +1187,8 @@ function presTick(){ if(!PS) return; const run=PS.T.running; const e=PS.T.acc+(r
   if(m){ const delta=(PS.T.enterAt-plannedStart[i]*1000)+Math.max(0,inSlide-m.t*1000); const dd=$('#pt-delta'); const s=Math.round(delta/1000);
     dd.textContent= Math.abs(s)<10?'em dia': (s>0?'+'+mmss(delta)+' atrasado':mmss(-delta)+' adiantado'); dd.className=Math.abs(s)<10?'':(s>0?'neg':'pos'); }
   if(!run) $('#pt-total').textContent+= e===0?' · aperte S ao começar':' (parado)'; }
-function initPresenter(){ document.body.classList.add('presenter'); document.title='Apresentador · '+document.title;
+function initPresenter(){ document.body.classList.add('presenter'); document.title='Apresentador (só para você) · '+document.title;
+  const mf=$('#pt-mirror'); mf.src=location.href.split('#')[0]+'#mirror'; mf.onload=()=>{lastMir=''; PS&&presRender(PS)};
   const ol=$('#pt-list'); let c=0; META.slides.forEach((m,k)=>{c+=m.t; const li=document.createElement('li'); li.innerHTML=`<span>${k+1}</span><span>${m.title}</span><span>${Math.floor(m.t/60)}:${String(m.t%60).padStart(2,'0')}</span><span>${mmss(c*1000)}</span>`; li.onclick=()=>send({goto:k}); ol.appendChild(li)});
   META.reserva.forEach((m,k)=>{const li=document.createElement('li'); li.innerHTML=`<span>${MAIN+k+1}</span><span>${m.title}</span><span></span><span></span>`; li.onclick=()=>send({goto:MAIN+k}); ol.appendChild(li)});
   window.addEventListener('message',ev=>{const d=ev.data||{}; if(d.type==='state')presRender(d)});
@@ -1194,14 +1198,14 @@ function initPresenter(){ document.body.classList.add('presenter'); document.tit
 }
 
 /* chips */
-setInterval(()=>{ if(PRESENTER||PRINT)return; const tc=$('#timerchip'); if(tc.classList.contains('show')){const t=timing(); tc.textContent=mmss(t.e)+' · slide '+mmss(t.inSlide)+(t.budget?' / '+mmss(t.budget):'')+(t.delta!=null&&Math.abs(t.delta)>10000?(t.delta>0?'  +':'  −')+mmss(Math.abs(t.delta)):'')} if(Date.now()%2000<300)broadcast() },250);
+setInterval(()=>{ if(PRESENTER||PRINT||MIRROR)return; const tc=$('#timerchip'); if(tc.classList.contains('show')){const t=timing(); tc.textContent=mmss(t.e)+' · slide '+mmss(t.inSlide)+(t.budget?' / '+mmss(t.budget):'')+(t.delta!=null&&Math.abs(t.delta)>10000?(t.delta>0?'  +':'  −')+mmss(Math.abs(t.delta)):'')} if(Date.now()%2000<300)broadcast() },250);
 
 /* scale */
 function fit(){ const s=Math.min(innerWidth/1920,innerHeight/1080); $('#stage').style.transform=`scale(${s})` }
 
 /* input */
 let typed='';
-document.addEventListener('keydown',e=>{ if(PRESENTER||PRINT)return; const k=e.key;
+document.addEventListener('keydown',e=>{ if(PRESENTER||PRINT||MIRROR)return; const k=e.key;
   if(/^[0-9]$/.test(k)){typed+=k;return}
   if(k==='Enter'&&typed){go(+typed-1,0);typed='';return} typed='';
   if(['ArrowRight','PageDown',' ','ArrowDown'].includes(k)){e.preventDefault();next()}
@@ -1216,11 +1220,12 @@ document.addEventListener('keydown',e=>{ if(PRESENTER||PRINT)return; const k=e.k
   else if(k==='?'||k==='h'||k==='H')$('#help').classList.toggle('show');
   else if(k==='Escape'){$('#help').classList.remove('show');$('#blackout').classList.remove('show')}
 });
-document.addEventListener('click',e=>{ if(PRESENTER||PRINT)return; if(e.target.closest('#notes,#help'))return; if(e.clientX<innerWidth*0.2)prev(); else next(); });
+document.addEventListener('click',e=>{ if(PRESENTER||PRINT||MIRROR)return; if(e.target.closest('#notes,#help'))return; if(e.clientX<innerWidth*0.2)prev(); else next(); });
 let tx=null; document.addEventListener('touchstart',e=>tx=e.touches[0].clientX,{passive:true}); document.addEventListener('touchend',e=>{if(tx==null)return; const dx=e.changedTouches[0].clientX-tx; if(Math.abs(dx)>50)(dx<0?next:prev)(); tx=null});
 
 /* boot */
 if(PRESENTER){ initPresenter(); return; }
+if(MIRROR){ document.body.style.cursor='none'; $('#chrome').style.display='none'; $('#pageno').style.display='none'; addEventListener('resize',fit); fit(); go(0,0); return; }
 if(PRINT){ document.body.classList.add('print'); slides.forEach((s,k)=>{ s.classList.add('active'); enter(k); const mf=maxF[k]; for(let f=0;f<=mf;f++) applyFrags(s,f); }); window.__ready=true; return; }
 addEventListener('resize',fit); fit();
 const h=location.hash.match(/#\/(\d+)/); go(h?(+h[1]-1):0,0);
