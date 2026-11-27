@@ -32,10 +32,10 @@ nos marcadores (o resumo informa a de Bonferroni), e a PNAD tradicional não é 
 
 A pasta `pof2025/` prepara a POF 2024-2025 para quando o IBGE liberar a EBIA: leitura dos microdados, base de
 famílias com 9 dos 11 fatores do painel (conferida contra as tabelas publicadas) e estimativas com IC95% pelos pesos
-de replicação. Nada dela aparece no painel ainda; ver `pof2025/README.md`.
+de replicação. Desde a v74, os indicadores complementares calculados ali aparecem nas abas Orçamento familiar e Renda e acesso; ver `pof2025/README.md`.
 
 **Como citar:** Castanho, Bernardo. *Painel de Insegurança Alimentar no Brasil*.
-Zenodo, 2026. https://doi.org/10.5281/zenodo.23405765 (todas as versões; a v73, atual, ainda sem DOI próprio; a v71
+Zenodo, 2026. https://doi.org/10.5281/zenodo.23405765 (todas as versões; a v74, atual, ainda sem DOI próprio; a v71
 é https://doi.org/10.5281/zenodo.24178989; a v70 é https://doi.org/10.5281/zenodo.23784335; a v58 é https://doi.org/10.5281/zenodo.23769033; a v50,
 congelada anteriormente, é https://doi.org/10.5281/zenodo.23406463).
 
@@ -49,6 +49,14 @@ internet, sem instalar nada.
 
 ## Histórico
 
+- v74 (27/11/2026): todas as informações novas que os microdados da POF 2024-2025 já permitem, com IC95% pelos
+  pesos de replicação, por UF, Grande Região e 9 fatores (sexo, idade, criança, idoso, tamanho, urbano ou rural,
+  capital, rendimento per capita e ocupação). Na aba Orçamento familiar, bloco novo com mapa e ranking por UF do
+  coeficiente de Engel, do % fora do domicílio, do gasto por pessoa e do gás de cozinha, com comparação por UF com
+  2017-2018. Aba nova Renda e acesso: Bolsa Família, BPC, auxílio-gás, vale-alimentação, Bolsa Família na renda e
+  Engel de quem recebe, alimentos obtidos sem compra (doação e produção própria), cesta básica, alimentação escolar
+  paga e composição do gasto com alimentação em 16 grupos. Nenhum desses indicadores mede insegurança alimentar.
+  Dados de `pof2025/gerar_painel.py`; registro na parte 13 de `docs/registro_POF_2024_2025.docx`. DOI a atribuir.
 - v73 (27/11/2026): coeficiente de Engel da POF 2024-2025 (Primeiros Resultados do IBGE, divulgados em 27/11/2026),
   Brasil e Rio de Janeiro, com as mesmas definições de 2017-2018 (despesa corrente; rendimento total sem variação
   patrimonial; classes do IBGE em múltiplos do salário mínimo). A aba ganha os botões 2017-2018, 2024-2025 (padrão) e

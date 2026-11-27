@@ -4,7 +4,8 @@ const fs = require('fs');
 const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, ShadingType, AlignmentType,
   HeadingLevel, LevelFormat, BorderStyle, Footer, PageNumber, TableOfContents } = require('docx');
 
-const [TAB, MIC, OUT, EXP] = process.argv.slice(2);
+const [TAB, MIC, OUT, EXP, PV] = process.argv.slice(2);
+const P = JSON.parse(fs.readFileSync(PV, 'utf8'));
 const X = JSON.parse(fs.readFileSync(EXP, 'utf8'));
 const g = (L, nome) => L.find(d => d.grupo === nome);
 const ic = d => br(d.est) + '% (IC95% ' + br(d.ic95[0]) + ' a ' + br(d.ic95[1]) + ')';
@@ -67,7 +68,7 @@ const FTP = 'https://ftp.ibge.gov.br/Orcamentos_Familiares/Pesquisa_de_Orcamento
 const filhos = [
   new Paragraph({ heading: HeadingLevel.TITLE, children: [new TextRun({ text: 'Registro das inclusões da POF 2024-2025', font: FONT })] }),
   p([new TextRun({ text: 'Painel de Insegurança Alimentar no Brasil (produto técnico da dissertação, PPGSAN/UNIRIO)', font: FONT, size: 24, color: '4E5968' })]),
-  p([b('Versão do painel: '), 'v73 (a v72 é a anterior). ', b('Data: '), hoje + '. ', b('Situação: '), 'versão de trabalho, ainda sem depósito no Zenodo e sem DOI próprio.']),
+  p([b('Versão do painel: '), 'v74 (inclui a v73). ', b('Data: '), hoje + '. ', b('Situação: '), 'versão de trabalho, ainda sem depósito no Zenodo e sem DOI próprio.']),
   p([b('Finalidade deste documento: '), 'registrar, de forma rastreável, tudo o que entrar no painel a partir da Pesquisa de Orçamentos Familiares (POF) 2024-2025 do IBGE: o que foi incluído, de quais tabelas e arquivos, com quais definições, como foi conferido e com quais cautelas. Novas inclusões devem ser acrescentadas como novas seções da parte 9 (Histórico de inclusões), sem apagar as anteriores.']),
 
   h1('1. Resumo'),
@@ -159,6 +160,7 @@ const filhos = [
   titTab('Tabela 7. Inclusões da POF 2024-2025 no painel'),
   tabela(['Data', 'Versão', 'O que entrou', 'Fonte'], [
     ['27/11/2026', 'v73', 'Coeficiente de Engel, Brasil e Rio de Janeiro, 7 faixas; comparação com 2017-2018', 'Primeiros Resultados (tabelas 1.1.1, 1.1.7, 2.1.1, 1.3.33.1, 1.3.33.3, 2.3.33.1); microdados de 27/11/2026'],
+    ['27/11/2026', 'v74', '33 indicadores por UF, Grande Região e 9 fatores, com IC95%: Engel, % fora, gasto por pessoa e gás (aba Orçamento familiar); transferências de renda, forma de aquisição e composição do gasto (aba nova Renda e acesso); Engel e % fora por UF em 2017-2018', 'Microdados de 27/11/2026; tabelas por UF da POF 2017-2018'],
   ], [1200, 900, 3426, 3500], { numericas: false }),
 
   h1('10. Pendências e próximos passos'),
@@ -211,6 +213,33 @@ const filhos = [
   h2('12.7 Avaliação'),
   p('As informações de 12.1 a 12.4 têm boa precisão (coeficientes de variação em geral abaixo de 5% no Brasil) e ligação direta com o acesso aos alimentos. As mais próximas do objeto da dissertação são o Engel por fator e por UF (que ampliam uma aba existente sem criar nova família de indicadores) e a aquisição não monetária, que mostra a importância da produção própria no rural. Os programas de transferência são o contexto mais relevante para a leitura da EBIA quando ela sair, mas pedem cuidado com a subdeclaração. Todas são indicadores complementares e precisam da mesma ressalva do painel: não medem insegurança alimentar.'),
 
+  h1('13. Inclusões da v74: todas as informações novas'),
+  p('A v74 leva ao painel as informações da parte 12. Na aba Orçamento familiar, abaixo do gráfico por faixa de rendimento, um bloco novo mostra o Engel e indicadores do orçamento por UF (mapa e ranking), Grande Região e pelos 9 fatores. Uma aba nova, Renda e acesso, reúne as transferências de renda, a forma de aquisição dos alimentos e a composição do gasto com alimentação, com os mesmos recortes. Os dados vêm de pof2025/gerar_painel.py (arquivo pof2025/resultados/painel_v74.json).'),
+  titTab('Tabela 10. Indicadores incluídos na v74, com o valor do Brasil (POF 2024-2025)'),
+  tabela(['Aba e seção', 'Indicador', 'Brasil (IC95%)'],
+    P.ind.map(it => { const c = it.dados.total.Brasil, f = v => it.unid === 'R$' ? 'R$ ' + rs(v) : br(v, it.nd) + '%';
+      return [(it.familia === 'engel' ? 'Orçamento familiar' : 'Renda e acesso') + ': ' + it.secao, it.rot, f(c[0]) + ' (' + f(c[1]) + ' a ' + f(c[2]) + ')']; }),
+    [2400, 4426, 2200], { numericas: false }),
+  legenda('Fonte: IBGE, microdados da POF 2024-2025 (27/11/2026); elaboração própria. Cada indicador está disponível por UF (27), Grande Região (5) e pelas categorias dos 9 fatores da parte 11.'),
+  h2('13.1 Regras de exibição'),
+  item('Estimativa pontual com PESO_FINAL; IC95% pelos 200 pesos de replicação (bootstrap), com o erro-padrão descrito no README de pof2025.'),
+  item('Grupos com menos de 30 famílias na amostra não aparecem (caso, por exemplo, de "sem rendimento", com 4 famílias). Grupos com menos de 150 famílias ou coeficiente de variação acima de 15% aparecem mais claros e com o sinal †, para interpretação com cautela.'),
+  item('A frase de leitura compara o maior e o menor valor só entre os grupos sem aviso de cautela e diz se os intervalos de confiança deles se sobrepõem. Quando quase todos os grupos são imprecisos (cesta básica por UF, por exemplo), a frase avisa isso em vez de apontar extremos.'),
+  item('Na aba Orçamento familiar, o Engel e o % fora do domicílio por UF podem ser comparados com 2017-2018 (losangos laranja), calculados com as mesmas definições a partir das tabelas por UF daquela edição, sem intervalo de confiança. A comparação é descritiva; em ' + (() => { const it = P.ind.find(i => i.id === 'engel_desp'); const u = Object.keys(P.uf2018); return u.filter(k => it.dados.uf[k] && it.dados.uf[k][0] > P.uf2018[k].engel_desp).length + ' de ' + u.length; })() + ' UFs o Engel de 2024-2025 é maior que o de 2017-2018.'),
+  item('Os gráficos exportam PNG (com título, fonte e citação), CSV (com IC, n e coeficiente de variação) e tabela, como os demais; o endereço guarda indicador e recorte.'),
+  h2('13.2 Conferências'),
+  item('Engel por UF: igual às 27 tabelas estaduais publicadas (parte 11).'),
+  item('Engel e % fora por UF em 2017-2018: o valor do Rio de Janeiro (13,6% e 30,7%) coincide com o que a aba já mostrava a partir das tabelas daquela edição.'),
+  item('Composição do gasto: os 15 grupos com nome próprio coincidem com a Tabela 1.1.7 (participação de cada grupo na alimentação no domicílio) até a segunda casa decimal; os 16 grupos somam 100%.'),
+  item('Programas sociais: a soma dos códigos do tradutor reproduz a linha "Programas sociais federais" (R$ 200,14).'),
+  item('Gasto por pessoa: R$ 416,36 por mês, igual à despesa média com alimentação (R$ 1.113,00) dividida pelo tamanho médio da família (2,67), a menos do arredondamento.'),
+  h2('13.3 Cautelas próprias desta versão'),
+  item('Nenhum indicador novo mede insegurança alimentar; todos descrevem orçamento, renda ou forma de aquisição.'),
+  item('Transferências: recebimento declarado, sujeito a subdeclaração. O Engel das famílias que recebem Bolsa Família descreve o perfil de quem recebe e não é efeito do programa.'),
+  item('Doação, produção própria e cesta básica vêm da caderneta de 7 dias e captam mal aquisições esporádicas ou sazonais. A cesta básica é rara na amostra (0,16% das famílias, coeficiente de variação de 17%) e fica imprecisa por recorte.'),
+  item('Faixa de rendimento per capita da POF e posição na ocupação seguem as diferenças da Tabela 9: não comparar com as categorias da PNADC das outras abas.'),
+  item('Composição do gasto: participação no valor gasto, não na quantidade adquirida nem no consumo.'),
+
   h1('Referências'),
   p('IBGE. Pesquisa de Orçamentos Familiares 2024-2025: primeiros resultados. Tabelas e microdados. Rio de Janeiro: IBGE, 2026. Disponível em: ' + FTP + '. Acesso em: 27 nov. 2026.'),
   p('IBGE. Pesquisa de Orçamentos Familiares 2017-2018: primeiros resultados. Tabelas de despesas, rendimentos e Unidades da Federação. Rio de Janeiro: IBGE, 2019. Disponível em: https://ftp.ibge.gov.br/Orcamentos_Familiares/Pesquisa_de_Orcamentos_Familiares_2017_2018/Primeiros_resultados/. Acesso em: 27 nov. 2026.'),
@@ -235,7 +264,7 @@ const doc = new Document({
   sections: [{
     properties: { page: { margin: { top: 1440, bottom: 1440, left: 1440, right: 1440 } } },
     footers: { default: new Footer({ children: [new Paragraph({ alignment: AlignmentType.RIGHT, children: [
-      new TextRun({ text: 'Registro POF 2024-2025 · Painel v73 · página ', font: FONT, size: 16, color: '6B7682' }),
+      new TextRun({ text: 'Registro POF 2024-2025 · Painel v74 · página ', font: FONT, size: 16, color: '6B7682' }),
       new TextRun({ children: [PageNumber.CURRENT], font: FONT, size: 16, color: '6B7682' })] })] }) },
     children: filhos,
   }],
