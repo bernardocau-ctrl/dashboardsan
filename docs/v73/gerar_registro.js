@@ -4,7 +4,10 @@ const fs = require('fs');
 const { Document, Packer, Paragraph, TextRun, Table, TableRow, TableCell, WidthType, ShadingType, AlignmentType,
   HeadingLevel, LevelFormat, BorderStyle, Footer, PageNumber, TableOfContents } = require('docx');
 
-const [TAB, MIC, OUT] = process.argv.slice(2);
+const [TAB, MIC, OUT, EXP] = process.argv.slice(2);
+const X = JSON.parse(fs.readFileSync(EXP, 'utf8'));
+const g = (L, nome) => L.find(d => d.grupo === nome);
+const ic = d => br(d.est) + '% (IC95% ' + br(d.ic95[0]) + ' a ' + br(d.ic95[1]) + ')';
 const T = JSON.parse(fs.readFileSync(TAB, 'utf8'));
 const M = JSON.parse(fs.readFileSync(MIC, 'utf8'));
 
@@ -161,10 +164,52 @@ const filhos = [
   h1('10. Pendências e próximos passos'),
   item([b('Decisão do autor: '), 'depositar a v73 no Zenodo (novo DOI) e decidir se o texto da dissertação passa a citá-la; hoje a dissertação descreve a v58.']),
   item([b('Possível ampliação, com os dados já liberados: '), 'Engel para as 27 UFs e por situação do domicílio; intervalos de confiança com os pesos de replicação.']),
-  item([b('Quando o IBGE liberar a EBIA: '), 'ponto de 2024-2025 na série nacional e por UF, recortes e cruzamentos (9 dos 11 fatores já podem ser preparados com os dados atuais).']),
+  item([b('Quando o IBGE liberar a EBIA: '), 'ponto de 2024-2025 na série nacional e por UF, recortes e cruzamentos. A base com 9 dos 11 fatores já está pronta (parte 11); falta só juntar a EBIA pela chave da família e calcular.']),
+  item([b('Decisão do autor: '), 'quais das informações novas da parte 12 entram no painel, e em qual aba.']),
   item([b('Quando liberar cor ou raça e instrução: '), 'os 19 cruzamentos restantes.']),
   item([b('Quando liberar as quantidades: '), 'aquisição domiciliar em kg por pessoa ao ano, com a mesma classificação em 17 grupos.']),
   item([b('Quando liberar o consumo alimentar pessoal: '), 'avaliar a atualização do Estudo 2, que depende também da EBIA.']),
+
+  h1('11. Preparação da base de microdados (27/11/2026)'),
+  p('Para que a atualização seja rápida quando a EBIA for liberada, a leitura dos microdados e a construção dos fatores do painel ficaram prontas na pasta pof2025/ do repositório (leitura.py, base_familias.py, estimativas.py, explorar.py e README.md). A base tem uma linha por família (unidade de consumo), que é também a unidade em que a EBIA é perguntada (questionário POF 6, pessoa de referência da unidade de consumo); a EBIA entrará pela chave COD_UPA + NUM_DOM + NUM_UC. Só 0,13% das famílias dividem o domicílio com outra unidade de consumo, de modo que família e domicílio praticamente coincidem.'),
+  titTab('Tabela 8. Conferência da base com as tabelas publicadas, Brasil, POF 2024-2025'),
+  tabela(['Indicador', 'Base', 'Publicado pelo IBGE'], [
+    ['Número de famílias', '79.561.637', '79.561.637'], ['Tamanho médio da família (pessoas)', '2,67', '2,67'],
+    ['Rendimento total e variação patrimonial médio (R$)', '9.240,04', '9.240,04'], ['Despesa com alimentação média (R$)', '1.113,00', '1.113,00'],
+    ['Despesa corrente média (R$)', '7.331,88', '7.331,88'], ['Programas sociais federais, média por família (R$)', '200,14', '200,14'],
+    ['Coeficiente de Engel nas 27 UFs', 'igual em todas', 'Tabelas 1.3.UF.1 e 1.3.UF.3'],
+  ], [4626, 2200, 2200]),
+  legenda('Fonte: microdados e Tabelas 1.1.1, 1.1.7 e 2.1.1 da POF 2024-2025 (IBGE, 2026).'),
+  p([b('Achado sobre a tabela publicada. '), 'O tradutor oficial de despesa geral repete em duas linhas idênticas 10 códigos de deduções de rendimentos (507001 a 507010, quadro 7 de outros rendimentos: pensão alimentícia, mesada e doação de não morador, entre outros). Como o programa do IBGE junta os registros ao tradutor pelo código, essas deduções entram duas vezes na despesa corrente publicada: R$ 2,99 a mais na média do Brasil (0,04%). O efeito no coeficiente de Engel é desprezível (15,2% nas duas versões). A base guarda a despesa corrente igual à publicada e a versão sem a repetição. O achado se soma aos registrados na aba Lacunas sobre a cadeia de informação e pode ser comunicado ao IBGE.']),
+  titTab('Tabela 9. Fatores do painel na POF 2024-2025 (dados de 27/11/2026)'),
+  tabela(['Fator', 'Situação', 'Diferença em relação à PNADC usada no painel'], [
+    ['Sexo, idade da pessoa de referência, criança <5, idoso ≥60, urbano ou rural', 'Pronto', 'Nenhuma relevante (o sexo é o de nascimento).'],
+    ['Tamanho do domicílio', 'Pronto', 'Conta os moradores da unidade de consumo, exceto pensionista, empregado doméstico e parente dele.'],
+    ['Capital ou interior', 'Pronto, com diferença', 'Na POF, "capital" é a área urbana do município da capital (estrato); a área rural da capital fica no interior.'],
+    ['Faixa de renda (per capita, em salários mínimos)', 'Pronto, com diferença', 'O rendimento da POF inclui rendimentos não monetários (como o aluguel estimado de imóvel próprio) e a variação patrimonial. As faixas baixas ficam muito menores (1,4% das famílias até 1/4 SM) e "sem rendimento" quase não existe (4 famílias na amostra). As faixas não devem ser comparadas com as da PNADC.'],
+    ['Posição na ocupação', 'Parcial', 'A POF não separa emprego com e sem carteira, e o período é de 12 meses. Ficam 6 categorias: privado (com ou sem carteira), doméstico, público (com militar), empregador, conta própria e outros (sem trabalho no período, 30,4% das pessoas de referência, ou não remunerado).'],
+    ['Cor ou raça; instrução', 'Não liberado', 'Coletados (questionário POF 1), ainda não disponíveis.'],
+  ], [2900, 1500, 4626], { numericas: false }),
+
+  h1('12. Informações novas que os dados liberados já permitem'),
+  p('Sem a EBIA, nenhuma informação nova mede insegurança alimentar. Os dados liberados permitem, porém, indicadores complementares de acesso aos alimentos pela via do orçamento, da renda e da forma de aquisição, todos com intervalo de confiança pelos pesos de replicação. Os resultados abaixo são do Brasil (exceto quando indicado), calculados com a base da parte 11; nenhum deles está no painel.'),
+  h2('12.1 Coeficiente de Engel pelos fatores do painel'),
+  p('Hoje o painel mostra o Engel só por faixa de rendimento familiar. Com a base, ele pode ser cruzado com os 9 fatores. Exemplos: famílias até 1/4 SM per capita, ' + ic(g(X.A_engel_por_fator.faixa_renda, 'Até 1/4 SM')) + ' da despesa corrente; mais de 5 SM, ' + ic(g(X.A_engel_por_fator.faixa_renda, 'Mais de 5 SM')) + '; pessoa de referência trabalhadora doméstica, ' + ic(g(X.A_engel_por_fator.ocupacao, 'Trabalhador doméstico')) + '; setor público, ' + ic(g(X.A_engel_por_fator.ocupacao, 'Setor público (inclui militar)')) + '. A parcela da alimentação feita fora de casa vai de ' + br(g(X.A_fora_por_fator.faixa_renda, '1/4 a 1/2 SM').est) + '% (1/4 a 1/2 SM) a ' + br(g(X.A_fora_por_fator.faixa_renda, 'Mais de 5 SM').est) + '% (mais de 5 SM).'),
+  h2('12.2 Coeficiente de Engel por UF e por Grande Região'),
+  p('Os valores conferem com as tabelas estaduais publicadas. O Engel vai de ' + br(g(X.D_engel_por_uf, 'DF').est) + '% (Distrito Federal) a ' + br(g(X.D_engel_por_uf, 'AM').est) + '% (Amazonas); por região, de ' + br(g(X.D_engel_por_regiao, 'CO').est) + '% (Centro-Oeste) a ' + br(g(X.D_engel_por_regiao, 'N').est) + '% (Norte). Isso permitiria um mapa do Engel por UF, como o mapa da EBIA, e a comparação com a POF 2017-2018 por UF (as tabelas estaduais de 2017-2018 também estão publicadas).'),
+  h2('12.3 Programas de transferência de renda'),
+  p('O cadastro de produtos identifica Bolsa Família (com Auxílio Brasil), BPC, auxílio-gás e outros programas; a soma confere com a linha "Programas sociais federais" da tabela publicada. Famílias que declararam receber Bolsa Família: ' + ic(g(X.B_bolsa_familia_por_fator.faixa_renda, 'Total')) + '; ' + br(g(X.B_bolsa_familia_por_fator.sexo, 'Mulher').est) + '% com pessoa de referência mulher e ' + br(g(X.B_bolsa_familia_por_fator.sexo, 'Homem').est) + '% com homem; ' + br(g(X.B_bolsa_familia_por_fator.crianca5, 'Com criança <5').est) + '% das famílias com criança menor de 5 anos; ' + br(g(X.B_bolsa_familia_por_fator.sit_dom, 'Rural').est) + '% no rural. Nas famílias que recebem, o benefício é ' + br(X.B_bf_parcela_da_renda.est) + '% do rendimento total, e o Engel é ' + br(g(X.B_engel_bf, 'Recebe Bolsa Família').est) + '%, contra ' + br(g(X.B_engel_bf, 'Não recebe').est) + '% nas que não recebem (diferença de ' + br(X.B_engel_bf_dif.dif) + ' p.p., IC95% ' + br(X.B_engel_bf_dif.ic95[0]) + ' a ' + br(X.B_engel_bf_dif.ic95[1]) + '). A diferença descreve perfis de renda distintos e não é efeito do programa. Cautela: o recebimento é declarado e pode estar subdeclarado; antes de publicar, convém comparar com os registros administrativos do programa no mesmo período.'),
+  h2('12.4 Forma de aquisição dos alimentos para o domicílio'),
+  p('Cada aquisição tem a forma registrada: monetária, doada pelo governo, doada por outros, produção própria, troca, retirada do negócio ou outra. Do valor da alimentação no domicílio, ' + ic(g(X.C_nao_monet_por_situacao, 'Total')) + ' foi não monetário no Brasil, ' + br(g(X.C_nao_monet_por_situacao, 'Urbano').est) + '% no urbano e ' + br(g(X.C_nao_monet_por_situacao, 'Rural').est) + '% no rural, onde a produção própria responde por ' + br(g(X.C_prod_propria_por_situacao, 'Rural').est) + '% do valor e está presente em ' + br(g(X.C_familias_prod_propria_por_situacao, 'Rural').est) + '% das famílias. Receberam algum alimento doado ' + ic(g(X.C_familias_com_doacao_por_renda, 'Total')) + ' das famílias, com maior frequência nas faixas de 1/4 a 1 SM per capita (cerca de 6%). A doação pelo governo é rara na caderneta (' + br(g(X.C_doacao_gov_por_renda, 'Total').est) + '% do valor) e tem coeficiente de variação alto; não deve ser detalhada por recorte.'),
+  h2('12.5 Gasto mensal per capita com alimentação'),
+  p('Gasto com alimentação por pessoa por mês: R$ ' + rs(g(X.E_alim_pc_por_renda, 'Até 1/4 SM').est) + ' nas famílias até 1/4 SM per capita e R$ ' + rs(g(X.E_alim_pc_por_renda, 'Mais de 5 SM').est) + ' nas de mais de 5 SM (média do Brasil, R$ ' + rs(g(X.E_alim_pc_por_renda, 'Total').est) + '). O valor descreve gasto, não quantidade nem qualidade da alimentação.'),
+  h2('12.6 Outras possibilidades identificadas, ainda não calculadas'),
+  item('Auxílio-alimentação recebido do trabalho (vale ou cartão): declarado por 24,4% das famílias.'),
+  item('Despesa com alimentação escolar e com cesta básica, e desconto de cesta básica no salário.'),
+  item('Auxílio-gás (3,3% das famílias) e gasto com gás de cozinha, relacionado ao preparo de alimentos.'),
+  item('Composição do gasto alimentar no domicílio pelos grupos da tabela do IBGE (arroz, feijão, carnes, frutas, refrigerantes e outros), por faixa de renda.'),
+  h2('12.7 Avaliação'),
+  p('As informações de 12.1 a 12.4 têm boa precisão (coeficientes de variação em geral abaixo de 5% no Brasil) e ligação direta com o acesso aos alimentos. As mais próximas do objeto da dissertação são o Engel por fator e por UF (que ampliam uma aba existente sem criar nova família de indicadores) e a aquisição não monetária, que mostra a importância da produção própria no rural. Os programas de transferência são o contexto mais relevante para a leitura da EBIA quando ela sair, mas pedem cuidado com a subdeclaração. Todas são indicadores complementares e precisam da mesma ressalva do painel: não medem insegurança alimentar.'),
 
   h1('Referências'),
   p('IBGE. Pesquisa de Orçamentos Familiares 2024-2025: primeiros resultados. Tabelas e microdados. Rio de Janeiro: IBGE, 2026. Disponível em: ' + FTP + '. Acesso em: 27 nov. 2026.'),

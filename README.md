@@ -30,6 +30,10 @@ variação de 2023 para 2024 (com IC95%) e um mapa de calor numa UF, para a inse
 moderada ou grave. Os intervalos de diferença e de variação não têm correção para comparações múltiplas
 nos marcadores (o resumo informa a de Bonferroni), e a PNAD tradicional não é comparável com a PNADC.
 
+A pasta `pof2025/` prepara a POF 2024-2025 para quando o IBGE liberar a EBIA: leitura dos microdados, base de
+famílias com 9 dos 11 fatores do painel (conferida contra as tabelas publicadas) e estimativas com IC95% pelos pesos
+de replicação. Nada dela aparece no painel ainda; ver `pof2025/README.md`.
+
 **Como citar:** Castanho, Bernardo. *Painel de Insegurança Alimentar no Brasil*.
 Zenodo, 2026. https://doi.org/10.5281/zenodo.23405765 (todas as versões; a v73, atual, ainda sem DOI próprio; a v71
 é https://doi.org/10.5281/zenodo.24178989; a v70 é https://doi.org/10.5281/zenodo.23784335; a v58 é https://doi.org/10.5281/zenodo.23769033; a v50,
