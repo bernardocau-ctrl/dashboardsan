@@ -35,7 +35,7 @@ famílias com 9 dos 11 fatores do painel (conferida contra as tabelas publicadas
 de replicação. Desde a v74, os indicadores complementares calculados ali aparecem nas abas Orçamento familiar e Renda e acesso; ver `pof2025/README.md`.
 
 **Como citar:** Castanho, Bernardo. *Painel de Insegurança Alimentar no Brasil*.
-Zenodo, 2026. https://doi.org/10.5281/zenodo.23405765 (todas as versões; a v74, atual, ainda sem DOI próprio; a v71
+Zenodo, 2026. https://doi.org/10.5281/zenodo.23405765 (todas as versões; a v75, atual, ainda sem DOI próprio; a v71
 é https://doi.org/10.5281/zenodo.24178989; a v70 é https://doi.org/10.5281/zenodo.23784335; a v58 é https://doi.org/10.5281/zenodo.23769033; a v50,
 congelada anteriormente, é https://doi.org/10.5281/zenodo.23406463).
 
@@ -49,6 +49,10 @@ internet, sem instalar nada.
 
 ## Histórico
 
+- v75 (27/11/2026): aba Renda e acesso com os 57 subgrupos da composição do gasto com alimentação (arroz, feijão,
+  carnes, refrigerantes e outros; conferidos contra a Tabela 1.1.7), o valor da alimentação escolar paga, o valor médio
+  da cesta básica por família e o desconto de cesta básica no salário. Limite inferior dos IC cortado em zero.
+  Registro na parte 14 de `docs/registro_POF_2024_2025.docx`. DOI a atribuir.
 - v74 (27/11/2026): todas as informações novas que os microdados da POF 2024-2025 já permitem, com IC95% pelos
   pesos de replicação, por UF, Grande Região e 9 fatores (sexo, idade, criança, idoso, tamanho, urbano ou rural,
   capital, rendimento per capita e ocupação). Na aba Orçamento familiar, bloco novo com mapa e ranking por UF do

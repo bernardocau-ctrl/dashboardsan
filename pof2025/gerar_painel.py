@@ -52,15 +52,20 @@ for arq in ('CADERNETA_COLETIVA', 'DESPESA_INDIVIDUAL', 'DESPESA_COLETIVA'):
     reg.append(pd.DataFrame({**{k: d[k] for k in CHAVE_UC}, 'V9001': d['V9001'], 'V9002': d['V9002'], 'valor': valor_mensal(d, arq), 'arq': arq}))
 reg = pd.concat(reg, ignore_index=True).dropna(subset=['valor'])
 reg['CODIGO'] = reg['V9001'] // 100
-alim = reg[reg['arq'] != 'DESPESA_COLETIVA'].merge(ta[['CODIGO', 'NIVEL_1', 'NIVEL_2']].drop_duplicates('CODIGO'), on='CODIGO')
+alim = reg[reg['arq'] != 'DESPESA_COLETIVA'].merge(ta[['CODIGO', 'NIVEL_1', 'NIVEL_2', 'NIVEL_3']].drop_duplicates('CODIGO'), on='CODIGO')
 grp = alim[alim['NIVEL_1'] == 1].pivot_table(index=CHAVE_UC, columns='NIVEL_2', values='valor', aggfunc='sum').fillna(0)
 GRUPOS = [int(c) for c in grp.columns]
 grp.columns = [f'g{int(c)}' for c in grp.columns]
+sub = alim[(alim['NIVEL_1'] == 1) & alim['NIVEL_3'].notna()].pivot_table(index=CHAVE_UC, columns='NIVEL_3', values='valor', aggfunc='sum').fillna(0)
+SUBGRUPOS = sorted(int(c) for c in sub.columns)
+sub.columns = [f's{int(c)}' for c in sub.columns]
+grp = grp.join(sub, how='outer').fillna(0)
 cod_gas = set(td.loc[td['DESCRICAO_5'].astype(str).str.strip().str.lower() == 'gas domestico', 'CODIGO'])
 extras = pd.DataFrame({
     'gas': reg[reg['CODIGO'].isin(cod_gas) & (reg['arq'] == 'DESPESA_COLETIVA')].groupby(CHAVE_UC)['valor'].sum(),
     'cesta_basica': reg[reg['CODIGO'] == 390005].groupby(CHAVE_UC)['valor'].sum(),
     'alim_escolar': reg[reg['CODIGO'] == 430065].groupby(CHAVE_UC)['valor'].sum(),
+    'desc_cesta': reg[reg['CODIGO'] == 433019].groupby(CHAVE_UC)['valor'].sum(),
 })
 uc = uc.merge(grp.reset_index(), on=CHAVE_UC, how='left').merge(extras.reset_index(), on=CHAVE_UC, how='left')
 for c in list(grp.columns) + list(extras.columns):
@@ -74,6 +79,7 @@ uc['tem_doacao'] = (uc['alim_dom_doada'] > 0).astype(float)
 uc['tem_prod_propria'] = (uc['alim_dom_producao_propria'] > 0).astype(float)
 uc['tem_cesta'] = (uc['cesta_basica'] > 0).astype(float)
 uc['tem_alim_escolar'] = (uc['alim_escolar'] > 0).astype(float)
+uc['tem_desc_cesta'] = (uc['desc_cesta'] > 0).astype(float)
 uc['um'] = 1.0
 uc['uf'] = uc['UF'].map(UF_SIG)
 uc['regiao_nome'] = uc['regiao'].map(REG_NOME)
@@ -115,7 +121,7 @@ def estimar_por(num, den, recorte, fator=100.0, universo=None):
         ep = float(np.sqrt(((t[1:] - est) ** 2).sum() / DIVISOR))
         cv = 100 * ep / est if est else None
         caut = 1 if (nn < N_CAUT or (cv is not None and cv > CV_CAUT)) else 0
-        res[str(c)] = [round(est, 2), round(est - 1.96 * ep, 2), round(est + 1.96 * ep, 2), nn, round(cv, 1) if cv is not None else None, caut]
+        res[str(c)] = [round(est, 2), round(max(est - 1.96 * ep, 0.0) if est >= 0 else est - 1.96 * ep, 2), round(est + 1.96 * ep, 2), nn, round(cv, 1) if cv is not None else None, caut]
     return res
 
 
@@ -177,11 +183,28 @@ IND.append(indicador('fam_cesta', A, 'Forma de aquisição', 'Famílias que adqu
                      cautela='A caderneta cobre 7 dias; aquisições mensais podem não aparecer.'))
 IND.append(indicador('fam_escolar', A, 'Forma de aquisição', 'Famílias com despesa com alimentação escolar (%)', 'Alimentação escolar paga (% das famílias)', '%',
                      'Famílias com despesa declarada com alimentação escolar (paga pela família; não inclui a merenda gratuita).', 'tem_alim_escolar', 'um', nd=2))
+IND.append(indicador('val_escolar', A, 'Forma de aquisição', 'Despesa mensal com alimentação escolar, nas famílias que têm essa despesa (R$)', 'Alimentação escolar paga (R$ por mês)', 'R$',
+                     'Despesa mensal média com alimentação escolar (paga pela família), só nas famílias que declararam essa despesa.', 'alim_escolar', 'um', fator=1.0, nd=2,
+                     universo='tem_alim_escolar', cautela='Não inclui a alimentação escolar gratuita.'))
+IND.append(indicador('val_cesta', A, 'Forma de aquisição', 'Despesa mensal média com cesta básica, por família (R$, todas as famílias)', 'Cesta básica (R$ por mês, média de todas as famílias)', 'R$',
+                     'Valor mensal das cestas básicas registradas na caderneta (compradas, doadas ou recebidas), em média por família, contando as que não adquiriram.',
+                     'cesta_basica', 'um', fator=1.0, nd=2,
+                     cautela='A caderneta cobre 7 dias e o IBGE converte essa semana em valor mensal; por isso o valor só é válido como média de todas as famílias, não como gasto de quem comprou. Poucas famílias registraram cesta básica: a estimativa é imprecisa.'))
+IND.append(indicador('fam_desc_cesta', A, 'Forma de aquisição', 'Famílias com desconto de cesta básica no salário (%)', 'Desconto de cesta básica (% das famílias)', '%',
+                     'Famílias em que algum morador declarou desconto de cesta básica no salário (cesta fornecida pelo empregador e descontada da remuneração).',
+                     'tem_desc_cesta', 'um', nd=2, cautela='Despesa rara na amostra; a estimativa é imprecisa e, por recorte, quase sempre fica suprimida ou com aviso.'))
 for gcod in GRUPOS:
     nome = str(NOME_NIVEL.get(gcod, gcod))
     IND.append(indicador(f'g{gcod}', 'composicao', 'Composição do gasto no domicílio', f'{nome}, em % da despesa com alimentação no domicílio', nome, '%',
                          f'Despesa com o grupo "{nome}" (classificação do IBGE na tabela de alimentação) em % da despesa com alimentação no domicílio.',
                          f'g{gcod}', 'alim_dom', nd=1, cautela='Participação no gasto, não na quantidade adquirida nem no consumo.'))
+
+for scod in SUBGRUPOS:
+    nome, pai = str(NOME_NIVEL.get(scod, scod)), str(NOME_NIVEL.get(scod // 10, scod // 10))
+    rot = nome if nome.lower() not in ('outros', 'outras', 'orgânicos', 'light e diet') else f'{nome} ({pai.lower()})'
+    IND.append(indicador(f's{scod}', 'composicao_sub', 'Subgrupos: ' + pai, f'{rot}, em % da despesa com alimentação no domicílio', rot, '%',
+                         f'Despesa com "{rot}" (subgrupo de "{pai}" na tabela de alimentação do IBGE) em % da despesa com alimentação no domicílio.',
+                         f's{scod}', 'alim_dom', nd=2, cautela='Participação no gasto, não na quantidade adquirida nem no consumo.'))
 
 # ── Engel e % fora por UF na POF 2017-2018 (tabelas publicadas, sem IC) ──────────────────────────────────
 

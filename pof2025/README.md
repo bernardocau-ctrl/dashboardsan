@@ -11,8 +11,10 @@ Desde a v74, os indicadores complementares calculados por `gerar_painel.py` apar
 | `base_familias.py` | Monta a base com uma linha por família (unidade de consumo, UC), os 9 fatores do painel que já podem ser construídos, gasto com alimentação, despesa corrente, programas sociais e os 200 pesos de replicação; confere com as tabelas publicadas. |
 | `estimativas.py` | Estimativas ponderadas (razão, proporção e média) com IC95% pelos pesos de replicação (bootstrap), por grupo, e diferença entre dois grupos. |
 | `explorar.py` | Triagem das informações novas que os dados liberados já permitem (Engel por fator e UF, Bolsa Família, aquisição não monetária de alimentos, gasto per capita). |
-| `gerar_painel.py` | Calcula os 33 indicadores do painel (v74) por UF, Grande Região e 9 fatores, com IC95%, e o Engel por UF de 2017-2018 a partir das tabelas publicadas. Grava `resultados/painel_v74.json`. |
-| `resultados/painel_v74.json` | Dados usados no painel v74. |
+| `gerar_painel.py` | Calcula os 93 indicadores do painel (v75) por UF, Grande Região e 9 fatores, com IC95%, e o Engel por UF de 2017-2018 a partir das tabelas publicadas. Grava `resultados/painel_v75.json`. |
+| `resultados/painel_v74.json` | Dados usados no painel v74 (substituídos pelos da v75). |
+| `resultados/painel_v75.json` | Dados usados no painel v75. |
+| `conferir_composicao.py` | Confere grupos e subgrupos da composição do gasto com a Tabela 1.1.7. |
 | `resultados/triagem_2026-11-27.json` | Saída de `explorar.py` com os microdados de 27/11/2026. |
 
 ## Como rodar
@@ -22,10 +24,10 @@ Precisa de Python 3 com pandas, numpy e xlrd (para os tradutores `.xls`).
 ```
 python3 -I base_familias.py <Dados_20261127.zip> <Tradutor_Alimentação.xls> <Tradutor_Despesa_Geral.xls> <pasta_cache>
 python3 -I explorar.py <pasta_cache>/base_uc.pkl <saida.json>
-python3 -I gerar_painel.py <Dados_20261127.zip> <pasta_cache> <pasta_tradutores_e_R> <tabelas_UF_2017_2018> resultados/painel_v74.json
+python3 -I gerar_painel.py <Dados_20261127.zip> <pasta_cache> <pasta_tradutores_e_R> <tabelas_UF_2017_2018> resultados/painel_v75.json
 ```
 
-`gerar_painel.py` leva cerca de 3 minutos. Para aplicar ao painel: `python3 -I ../docs/v74/patch_v74.py ../index.html resultados/painel_v74.json` (sobre a v73).
+`gerar_painel.py` leva cerca de 9 minutos. Para aplicar ao painel: `python3 -I ../docs/v74/patch_v74.py ../index.html resultados/painel_v74.json` (sobre a v73), depois `python3 -I ../docs/v75/patch_v75.py ../index.html resultados/painel_v75.json`.
 
 Os dados e tradutores estão em
 https://ftp.ibge.gov.br/Orcamentos_Familiares/Pesquisa_de_Orcamentos_Familiares_2024_2025/Microdados/
