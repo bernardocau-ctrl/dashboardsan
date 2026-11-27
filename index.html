@@ -1628,7 +1628,7 @@ ul.e2-lim li{ margin:2px 0; }
       <button class="tab-modo pof" id="tab-pof" onclick="setModo('pof')" aria-pressed="false" title="Aquisição domiciliar de grupos alimentares — POF 2002/2008/2018"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M4.4 9h15.2l-1.3 9.4a2 2 0 0 1-2 1.6H7.7a2 2 0 0 1-2-1.6L4.4 9Z"/><path d="M9 9a3 3 0 0 1 6 0"/><path d="M10 12.8v3.4M14 12.8v3.4"/></svg><span>Aquisição domiciliar</span></button>
       <button class="tab-modo desig" id="tab-desig" onclick="setModo('desig')" aria-pressed="false" title="Desigualdades no Brasil: prevalência por marcador social com IC95%, diferença absoluta e razão entre grupos (PNAD 2004–2013 e PNADC 2023–2024)"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M5 20V12M12 20V5M19 20v-9"/><path d="M3 20h18"/></svg><span>Desigualdades no Brasil</span></button>
       
-      <button class="tab-modo engel" id="tab-engel" onclick="setModo('engel')" aria-pressed="false" title="Coeficiente de Engel — comprometimento orçamentário com alimentação por faixa de renda (POF 2017-2018), Brasil e Rio de Janeiro"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/><path d="M12 4v8h8"/></svg><span>Orçamento familiar</span></button>
+      <button class="tab-modo engel" id="tab-engel" onclick="setModo('engel')" aria-pressed="false" title="Coeficiente de Engel — comprometimento orçamentário com alimentação por faixa de renda (POF 2017-2018 e 2024-2025), Brasil e Rio de Janeiro"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/><path d="M12 4v8h8"/></svg><span>Orçamento familiar</span></button>
       <button class="tab-modo consumo" id="tab-consumo" onclick="setModo('consumo')" aria-pressed="false" title="Consumo individual: alimentação relatada segundo o nível de insegurança alimentar do domicílio (Estudo 2, POF 2017-2018)"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><path d="M7 3v18M4.5 3v4.5a2.5 2.5 0 0 0 5 0V3"/><path d="M17 21V3c-2 0-3.5 2.4-3.5 6s1.5 5 3.5 5"/></svg><span>Consumo individual</span></button>
       <button class="tab-modo lacunas" id="tab-lacunas" onclick="setModo('lacunas')" aria-pressed="false" title="Lacunas e comparabilidade: anos com EBIA nos inquéritos, comparações sustentadas e achados sobre a cadeia de informação"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><rect x="4" y="5" width="16" height="15" rx="2"/><path d="M4 10h16M8 3v4M16 3v4M8 14h2M14 14h2M8 17h2"/></svg><span>Lacunas e comparabilidade</span></button>
       
@@ -1733,14 +1733,14 @@ ul.e2-lim li{ margin:2px 0; }
       <div class="panel-title">
         <span>Coeficiente de Engel — comprometimento orçamentário com alimentação por faixa de renda</span>
         <div style="display:flex;gap:6px;align-items:center;flex-wrap:wrap">
-          <button class="engel-metrica-btn ativo" data-m="engel_desp" onclick="setEngelMetrica('engel_desp')" style="padding:3px 9px;border-radius:10px;border:1.5px solid var(--border);background:transparent;font-size:.72rem;font-weight:600;cursor:pointer">% despesa</button>
+          <span class="v73-grupo" role="group" aria-label="Edição da POF"><button class="engel-metrica-btn engel-ed-btn" data-ed="2018" onclick="setEngelEd('2018')" style="padding:3px 9px;border-radius:10px;border:1.5px solid var(--border);background:transparent;font-size:.72rem;font-weight:600;cursor:pointer">2017-2018</button><button class="engel-metrica-btn engel-ed-btn ativo" data-ed="2025" onclick="setEngelEd('2025')" style="padding:3px 9px;border-radius:10px;border:1.5px solid var(--border);background:transparent;font-size:.72rem;font-weight:600;cursor:pointer">2024-2025</button><button class="engel-metrica-btn engel-ed-btn" data-ed="comp" onclick="setEngelEd('comp')" style="padding:3px 9px;border-radius:10px;border:1.5px solid var(--border);background:transparent;font-size:.72rem;font-weight:600;cursor:pointer">Comparar</button></span><span class="v73-grupo" id="engel-local-grupo" role="group" aria-label="Local da comparação" style="display:none"><button class="engel-metrica-btn engel-local-btn ativo" data-l="br" onclick="setEngelLocal('br')" style="padding:3px 9px;border-radius:10px;border:1.5px solid var(--border);background:transparent;font-size:.72rem;font-weight:600;cursor:pointer">Brasil</button><button class="engel-metrica-btn engel-local-btn" data-l="rj" onclick="setEngelLocal('rj')" style="padding:3px 9px;border-radius:10px;border:1.5px solid var(--border);background:transparent;font-size:.72rem;font-weight:600;cursor:pointer">Rio de Janeiro</button></span><span class="v73-grupo" role="group" aria-label="Medida"><button class="engel-metrica-btn ativo" data-m="engel_desp" onclick="setEngelMetrica('engel_desp')" style="padding:3px 9px;border-radius:10px;border:1.5px solid var(--border);background:transparent;font-size:.72rem;font-weight:600;cursor:pointer">% despesa</button>
           <button class="engel-metrica-btn" data-m="engel_renda" onclick="setEngelMetrica('engel_renda')" style="padding:3px 9px;border-radius:10px;border:1.5px solid var(--border);background:transparent;font-size:.72rem;font-weight:600;cursor:pointer">% renda</button>
-          <button class="engel-metrica-btn" data-m="pct_fora" onclick="setEngelMetrica('pct_fora')" style="padding:3px 9px;border-radius:10px;border:1.5px solid var(--border);background:transparent;font-size:.72rem;font-weight:600;cursor:pointer">% fora do domicílio</button>
+          <button class="engel-metrica-btn" data-m="pct_fora" onclick="setEngelMetrica('pct_fora')" style="padding:3px 9px;border-radius:10px;border:1.5px solid var(--border);background:transparent;font-size:.72rem;font-weight:600;cursor:pointer">% fora do domicílio</button></span>
         </div>
       </div>
       <p id="engel-leitura" class="v43-leitura" style="margin:10px 14px 0"></p>
       <div class="chart-wrap" style="height:420px"><div id="div-engel" style="width:100%;height:100%"></div></div>
-      <div style="font-size:.72rem;color:var(--text-faint);padding:8px 14px 4px;line-height:1.5">Fonte: IBGE, POF 2017-2018. SIDRA tabelas 6715, 6972, 6974 e 6977. Na faixa de menor rendimento (até R$1.908/mês), a despesa corrente média (R$1.448,92) é maior que o rendimento declarado (R$1.236,27). No Rio de Janeiro, o coeficiente de Engel nessa faixa é menor que o do Brasil (17,8% contra 22,8% da despesa); o painel descreve a diferença e não testa a explicação para ela.</div>
+      <div id="engel-nota" style="font-size:.72rem;color:var(--text-faint);padding:8px 14px 4px;line-height:1.5"></div>
     </div>
     
   
@@ -1858,7 +1858,7 @@ ul.e2-lim li{ margin:2px 0; }
     <summary>ⓘ Notas metodológicas</summary>
     <div>
       <h3>De onde vêm os dados</h3>
-      <p id="v72-fonte-dados">Todas as estimativas de insegurança alimentar, aquisição de alimentos, orçamento e consumo deste painel vêm de pesquisas do <strong>Instituto Brasileiro de Geografia e Estatística (IBGE)</strong>: Pesquisa Nacional por Amostra de Domicílios (PNAD 2004, 2009 e 2013), PNAD Contínua (4º trimestre de 2023 e 2024), Pesquisa de Orçamentos Familiares (POF 2002-2003, 2008-2009 e 2017-2018) e tabelas do SIDRA. Os recortes, cruzamentos e intervalos de confiança foram calculados pelo autor a partir dos microdados públicos do IBGE. A única fonte externa ao IBGE é o VIGISAN 2021 (Rede PENSSAN), mostrado como referência. O painel é elaboração própria e não é publicação oficial do IBGE.</p>
+      <p id="v72-fonte-dados">Todas as estimativas de insegurança alimentar, aquisição de alimentos, orçamento e consumo deste painel vêm de pesquisas do <strong>Instituto Brasileiro de Geografia e Estatística (IBGE)</strong>: Pesquisa Nacional por Amostra de Domicílios (PNAD 2004, 2009 e 2013), PNAD Contínua (4º trimestre de 2023 e 2024), Pesquisa de Orçamentos Familiares (POF 2002-2003, 2008-2009 e 2017-2018; da POF 2024-2025, só o coeficiente de Engel, a partir dos Primeiros Resultados divulgados em 27/11/2026) e tabelas do SIDRA. Os recortes, cruzamentos e intervalos de confiança foram calculados pelo autor a partir dos microdados públicos do IBGE. A única fonte externa ao IBGE é o VIGISAN 2021 (Rede PENSSAN), mostrado como referência. O painel é elaboração própria e não é publicação oficial do IBGE.</p>
       <h3>Como o painel se organiza</h3>
       <p>Este painel organiza indicadores de IAN em quatro famílias: <strong>① experiência de acesso</strong> (EBIA — <em>medida direta</em>), <strong>② fatores socioeconômicos e demográficos</strong> (<em>fatores associados</em> — estratificações da prevalência de IA), <strong>③ aquisição domiciliar</strong> (<em>indicador complementar</em> — grupos alimentares, POF) e <strong>④ orçamento familiar</strong> (<em>indicador complementar</em> — Coeficiente de Engel por faixa de renda). Nenhum indicador isolado esgota o fenômeno — a leitura deve articular essas famílias. A família ② aparece no botão <strong>Filtros</strong>, no painel do estado (mapa por UF, com recortes), e na aba <strong>Desigualdades no Brasil</strong> (prevalência por marcador social com IC95%, diferença absoluta e razão entre grupos), que reúne resultados nacionais da dissertação. <strong>Consumo individual</strong> traz o Estudo 2: a alimentação relatada por cada morador segundo o nível de insegurança alimentar do domicílio (POF 2017-2018, Brasil, associações ajustadas). Em 2024, o seletor do mapa mostra também a <strong>variação de 2023 para 2024</strong> por UF, colorida só onde a mudança é detectável após a correção de Holm. <strong>Lacunas e comparabilidade</strong> mostra os anos com EBIA, as comparações sustentadas e os achados sobre a cadeia de informação. As cautelas abaixo são obrigatórias em qualquer combinação.</p>
       <h3>O que o painel não mostra</h3>
@@ -1976,7 +1976,7 @@ ul.e2-lim li{ margin:2px 0; }
         <div class="fam-num"><svg class="ic" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true" focusable="false"><circle cx="12" cy="12" r="8"/><path d="M12 4v8h8"/></svg></div>
         <div>
           <strong>Orçamento familiar (Coeficiente de Engel)</strong>
-          <p>Indicador complementar — comprometimento do orçamento familiar com alimentação por faixa de rendimento, Brasil e Rio de Janeiro (POF 2017-2018).</p>
+          <p>Indicador complementar — comprometimento do orçamento familiar com alimentação por faixa de rendimento, Brasil e Rio de Janeiro (POF 2017-2018 e POF 2024-2025).</p>
           <em>Não mede insegurança alimentar.</em>
         </div>
       </div>
@@ -2015,6 +2015,33 @@ const ENGEL_RJ = [
   {faixa:'R$ 14.310–23.850', engel_desp:10.8, engel_renda:8.0, pct_fora:48.2},
   {faixa:'Mais de R$ 23.850', engel_desp:8.8, engel_renda:5.8, pct_fora:53.1},
 ];
+// v73: POF 2024-2025 (IBGE, Primeiros Resultados, 27/11/2026). Tabelas 1.1.1, 1.1.7 e 2.1.1 (Brasil) e
+// 1.3.33.1, 1.3.33.3 e 2.3.33.1 (Rio de Janeiro); mesmas definicoes de 2017-2018 (despesa corrente; rendimento
+// total sem variacao patrimonial). Gasto com alimentacao conferido ao centavo contra os microdados; n = familias
+// (unidades de consumo) na amostra.
+const ENGEL_BR_2025 = [
+  {faixa:'Até R$ 3.036', sm:'Até 2 SM', alim_dom:420.84, alim_fora:104.61, alim_total:525.46, despesa:2405.68, renda:1984.89, engel_desp:21.8, engel_renda:26.5, pct_fora:19.9, n:18539},
+  {faixa:'R$ 3.036–4.554', sm:'2 a 3 SM', alim_dom:554.32, alim_fora:170.38, alim_total:724.71, despesa:3611.48, renda:3728.16, engel_desp:20.1, engel_renda:19.4, pct_fora:23.5, n:14775},
+  {faixa:'R$ 4.554–9.108', sm:'3 a 6 SM', alim_dom:741.95, alim_fora:282.64, alim_total:1024.59, despesa:5718.24, renda:6340.05, engel_desp:17.9, engel_renda:16.2, pct_fora:27.6, n:24442},
+  {faixa:'R$ 9.108–15.180', sm:'6 a 10 SM', alim_dom:965.13, alim_fora:485.95, alim_total:1451.09, despesa:9728.68, renda:11282.04, engel_desp:14.9, engel_renda:12.9, pct_fora:33.5, n:10578},
+  {faixa:'R$ 15.180–22.770', sm:'10 a 15 SM', alim_dom:1188.82, alim_fora:740.75, alim_total:1929.57, despesa:14700.91, renda:17445.24, engel_desp:13.1, engel_renda:11.1, pct_fora:38.4, n:4690},
+  {faixa:'R$ 22.770–37.950', sm:'15 a 25 SM', alim_dom:1321.12, alim_fora:1051.65, alim_total:2372.77, despesa:20864.53, renda:26587.33, engel_desp:11.4, engel_renda:8.9, pct_fora:44.3, n:2731},
+  {faixa:'Mais de R$ 37.950', sm:'Mais de 25 SM', alim_dom:1647.16, alim_fora:1647.20, alim_total:3294.36, despesa:35664.61, renda:57412.39, engel_desp:9.2, engel_renda:5.7, pct_fora:50.0, n:1537},
+];
+const ENGEL_RJ_2025 = [
+  {faixa:'Até R$ 3.036', sm:'Até 2 SM', alim_dom:403.52, alim_fora:106.92, alim_total:510.44, despesa:2446.53, renda:2014.08, engel_desp:20.9, engel_renda:25.3, pct_fora:20.9, n:1154},
+  {faixa:'R$ 3.036–4.554', sm:'2 a 3 SM', alim_dom:566.58, alim_fora:154.15, alim_total:720.73, despesa:3563.19, renda:3717.44, engel_desp:20.2, engel_renda:19.4, pct_fora:21.4, n:863},
+  {faixa:'R$ 4.554–9.108', sm:'3 a 6 SM', alim_dom:672.30, alim_fora:292.03, alim_total:964.33, despesa:5504.02, renda:6439.74, engel_desp:17.5, engel_renda:15.0, pct_fora:30.3, n:1579},
+  {faixa:'R$ 9.108–15.180', sm:'6 a 10 SM', alim_dom:888.19, alim_fora:421.23, alim_total:1309.42, despesa:9434.67, renda:11316.80, engel_desp:13.9, engel_renda:11.6, pct_fora:32.2, n:780},
+  {faixa:'R$ 15.180–22.770', sm:'10 a 15 SM', alim_dom:1047.74, alim_fora:741.03, alim_total:1788.77, despesa:14020.94, renda:17985.27, engel_desp:12.8, engel_renda:9.9, pct_fora:41.4, n:419},
+  {faixa:'R$ 22.770–37.950', sm:'15 a 25 SM', alim_dom:1160.35, alim_fora:1086.60, alim_total:2246.95, despesa:20330.11, renda:26999.13, engel_desp:11.1, engel_renda:8.3, pct_fora:48.4, n:259},
+  {faixa:'Mais de R$ 37.950', sm:'Mais de 25 SM', alim_dom:1525.53, alim_fora:1343.58, alim_total:2869.12, despesa:38544.40, renda:74041.05, engel_desp:7.4, engel_renda:3.9, pct_fora:46.8, n:139},
+];
+const ENGEL_SM = ["Até 2 SM", "2 a 3 SM", "3 a 6 SM", "6 a 10 SM", "10 a 15 SM", "15 a 25 SM", "Mais de 25 SM"];
+const ENGEL_ED = {
+  '2018': {rot:'2017-2018', br:ENGEL_BR, rj:ENGEL_RJ, sm:954, fonte:'IBGE, POF 2017-2018 (SIDRA 6715, 6972, 6974 e 6977)'},
+  '2025': {rot:'2024-2025', br:ENGEL_BR_2025, rj:ENGEL_RJ_2025, sm:1518, fonte:'IBGE, POF 2024-2025, Primeiros Resultados (tabelas 1.1.1, 1.1.7 e 2.1.1; Rio de Janeiro, 1.3.33.1, 1.3.33.3 e 2.3.33.1)'},
+};
 const REGRESSAO_DATA = [];
 const REGRESSAO_META = {};
 // Relevo sombreado (Natural Earth 50m SR) — ver patch_v20.py
@@ -88991,7 +89018,8 @@ function syncURL(){
   p.set('m',modo);
   if(modo==='desig'){ p.set('dm',S.desigMarc); p.set('dd',S.desigDesf); p.set('de',S.desigEscala); history.replaceState(null,'','#'+p.toString()); return; }
   if(modo==='consumo'){ p.set('ci',S.e2Ind); history.replaceState(null,'','#'+p.toString()); return; }
-  if(modo==='engel'||modo==='lacunas'){ history.replaceState(null,'','#'+p.toString()); return; }
+  if(modo==='engel'){ p.set('ed',S.engelEd||'2025'); if((S.engelEd||'2025')==='comp') p.set('el',S.engelLocal||'br'); history.replaceState(null,'','#'+p.toString()); return; }
+  if(modo==='lacunas'){ history.replaceState(null,'','#'+p.toString()); return; }
   p.set('ano',getAno());
   if(v53VarAtivo()) p.set('med','var');
   if(S.ufSel) p.set('uf',S.ufSel);
@@ -89007,6 +89035,8 @@ function applyStateFromHash(){
   const modo0=p.get('m')||'ebia'; const modo=['ebia','filtros','pof','engel','desig','lacunas','consumo'].includes(modo0)?modo0:'ebia';
   if(['engel','desig','lacunas','consumo'].includes(modo)){
     if(p.get('ci') && V52.indicadores.some(i => i.id === p.get('ci'))) S.e2Ind=p.get('ci');
+    if(['2018','2025','comp'].includes(p.get('ed'))){ S.engelEd=p.get('ed'); document.querySelectorAll('.engel-ed-btn').forEach(b => b.classList.toggle('ativo', b.dataset.ed === S.engelEd)); }
+    if(['br','rj'].includes(p.get('el'))){ S.engelLocal=p.get('el'); document.querySelectorAll('.engel-local-btn').forEach(b => b.classList.toggle('ativo', b.dataset.l === S.engelLocal)); }
     if(p.get('dm')) S.desigMarc=p.get('dm'); if(p.get('dd')) S.desigDesf=p.get('dd'); if(p.get('de')) S.desigEscala=p.get('de');
     _suppressURL=false; setModo(modo); return true;
   }
@@ -89612,7 +89642,7 @@ document.addEventListener('keydown', ev => {
 
 // ════════ v47: % ou mil domicílios no mapa; dica com IC; CSV da visão; Quadro 6.1.1 ════════
 const V47 = {"q611":[["Subpergunta","O indicador e os dados autorizam","Exigem outros dados, escalas ou métodos","Seções"],["P1 Comparabilidade e trajetória","Descrever a prevalência de cada inquérito; comparar 2023 e 2024 e, com ressalva, as edições da PNAD de 2004, 2009 e 2013","Tratar 2013, a POF 2017-2018 e 2023 como série contínua: mudam instrumento, desenho e contexto, e a EBIA está em branco nos arquivos PNADC T4 de 2016 a 2019 e de 2021 examinados","5.1.1; 6.2.1"],["P2 Distribuição e escala","Descrever diferenças entre grupos de renda, raça/cor, sexo e instrução em escala absoluta e relativa, e testar sua mudança entre 2023 e 2024, em análise exploratória","Explicar as diferenças (mecanismos), examinar a sobreposição entre marcadores e atribuir a mudança a políticas","5.1.3; 5.1.4; 6.2.2; 6.2.3"],["P3 Território","Contrastar a capital e o restante do estado do Rio de Janeiro nos domínios amostrais, com n, IC95% e coeficiente de variação","Inferir para municípios, favelas ou subáreas do estado; estimar com precisão a insegurança grave na capital","5.1.5; 6.2.4"],["P4 Dimensão individual (Ondas 1 e 2)","Descrever associações ajustadas entre os níveis de EBIA e a energia relatada, a fibra e a participação de arroz e feijão e de hortaliças na energia, com intervalos de confiança, na Onda 1 e em 2B; sem diferença detectável na densidade energética dos alimentos sólidos;","Inferir causa ou mediação; caracterizar a qualidade global da dieta; afirmar consumo absoluto dos grupos (os indicadores são frações da energia)","5.2; 6.3.1"],["P5 Dimensão do orçamento","Descrever a aquisição domiciliar, a despesa e o coeficiente de Engel (a composição NOVA da aquisição fica no apêndice, não validada)","Relacionar esses dados aos níveis da EBIA (cruzamento em nível de domicílio) e inferir consumo individual ou privação alimentar","5.3; 6.3.2; 6.3.3"],["P6 Informação","Documentar lacunas, quebras e divergências (dez achados) e expressá-las como metadado","Demonstrar que o painel é compreensível ou altera decisões (avaliação com usuários e apreciação ética)","5.4; 6.4"]],"fonte":"DISSERTACAO_REVISADA_v22_20261015_ACEITA.docx"};
-const V47_VERSAO = 'v72';
+const V47_VERSAO = 'v73';
 const V47_ESCALA_MIL = [[0, '#F8E7E4'], [0.5, '#C9707A'], [1, '#6B1F2A']];   // um só tom, claro -> escuro
 S.mapaMil = false;
 function v47MilAtivo(){
@@ -89659,10 +89689,15 @@ function v47CSVVisao(){
   const modo = S.modoAtual || 'ebia';
   const ufs = Object.keys(UF_META).sort((x, y) => UF_META[x].nome.localeCompare(UF_META[y].nome, 'pt-BR'));
   if(modo === 'engel'){
-    return {nome:'engel_pof2017_2018', titulo:'Coeficiente de Engel por faixa de rendimento, Brasil e Rio de Janeiro, POF 2017-2018 (SIDRA 6715, 6972, 6974 e 6977)',
-      csv: v47tabela(['faixa_rendimento','local','alim_domicilio_rs','alim_fora_rs','alim_total_rs','despesa_corrente_rs','rendimento_rs','engel_despesa_pct','engel_renda_pct','alim_fora_pct'],
-        ENGEL_BR.map(d => [d.faixa,'Brasil',v47n(d.alim_dom,2),v47n(d.alim_fora,2),v47n(d.alim_total,2),v47n(d.despesa,2),v47n(d.renda,2),v47n(d.engel_desp),v47n(d.engel_renda),v47n(d.pct_fora)])
-        .concat(ENGEL_RJ.map(d => [d.faixa,'Rio de Janeiro','','','','','',v47n(d.engel_desp),v47n(d.engel_renda),v47n(d.pct_fora)])))};
+    const eds = (S.engelEd || '2025') === 'comp' ? ['2018', '2025'] : [S.engelEd || '2025'];
+    const L = [];
+    eds.forEach(e => [['br', 'Brasil'], ['rj', 'Rio de Janeiro']].forEach(([k, nome]) => ENGEL_ED[e][k].forEach((d, i) => L.push([
+      'POF ' + ENGEL_ED[e].rot, d.faixa, ENGEL_SM[i], nome, d.alim_dom != null ? v47n(d.alim_dom, 2) : '', d.alim_fora != null ? v47n(d.alim_fora, 2) : '',
+      d.alim_total != null ? v47n(d.alim_total, 2) : '', d.despesa != null ? v47n(d.despesa, 2) : '', d.renda != null ? v47n(d.renda, 2) : '',
+      v47n(d.engel_desp), v47n(d.engel_renda), v47n(d.pct_fora), d.n != null ? d.n : '']))));
+    const rot = eds.map(e => 'POF ' + ENGEL_ED[e].rot).join(' e ');
+    return {nome:'engel_' + eds.map(e => 'pof' + ENGEL_ED[e].rot.replace('-', '_')).join('_'), titulo:'Coeficiente de Engel por faixa de rendimento, Brasil e Rio de Janeiro, ' + rot + ' (' + eds.map(e => ENGEL_ED[e].fonte).join('; ') + ')',
+      csv: v47tabela(['edicao','faixa_rendimento','faixa_salarios_minimos','local','alim_domicilio_rs','alim_fora_rs','alim_total_rs','despesa_corrente_rs','rendimento_rs','engel_despesa_pct','engel_renda_pct','alim_fora_pct','n_familias_amostra'], L)};
   }
   if(modo === 'desig'){
     const m = V41.marcadores.find(x => x.id === S.desigMarc) || V41.marcadores[0];
@@ -89982,11 +90017,19 @@ function v49Spec(id){
     return {titulo: v49Txt('mapa-title'), sub: (rc ? 'Recorte: ' + rc + '. ' : '') + 'Por Unidade da Federação. Os números estão no CSV.', fonte: fonte, csvPronto: v.csv};
   }
   if(id === 'div-engel'){
-    const m = S.engelMetrica || 'engel_desp';
+    const m = S.engelMetrica || 'engel_desp', ed = S.engelEd || '2025';
     const rot = {engel_desp: '% da despesa corrente', engel_renda: '% do rendimento declarado', pct_fora: '% da despesa com alimentação feita fora do domicílio'}[m];
-    return {titulo: 'Coeficiente de Engel por faixa de rendimento — Brasil e Rio de Janeiro', sub: 'Medida: ' + rot + '. POF 2017-2018.',
-      fonte: 'IBGE, POF 2017-2018 (SIDRA 6715, 6972, 6974 e 6977)',
-      cab: ['faixa_rendimento', 'brasil', 'rio_de_janeiro', 'medida'], linhas: ENGEL_BR.map((d, i) => [d.faixa, v47n(d[m]), v47n(ENGEL_RJ[i]?.[m]), rot])};
+    if(ed === 'comp'){
+      const loc = S.engelLocal || 'br', nome = loc === 'rj' ? 'Rio de Janeiro' : 'Brasil';
+      return {titulo: 'Coeficiente de Engel por faixa de rendimento, ' + nome + ', POF 2017-2018 e 2024-2025', sub: 'Medida: ' + rot + '. Faixas em salários mínimos da época; estimativas pontuais, sem teste de diferença.',
+        fonte: ENGEL_ED['2018'].fonte + '; ' + ENGEL_ED['2025'].fonte,
+        cab: ['faixa_salarios_minimos', 'pof_2017_2018', 'pof_2024_2025', 'local', 'medida'],
+        linhas: ENGEL_SM.map((f, i) => [f, v47n(ENGEL_ED['2018'][loc][i][m]), v47n(ENGEL_ED['2025'][loc][i][m]), nome, rot])};
+    }
+    const E = ENGEL_ED[ed];
+    return {titulo: 'Coeficiente de Engel por faixa de rendimento — Brasil e Rio de Janeiro', sub: 'Medida: ' + rot + '. POF ' + E.rot + '.',
+      fonte: E.fonte,
+      cab: ['faixa_rendimento', 'brasil', 'rio_de_janeiro', 'medida'], linhas: E.br.map((d, i) => [d.faixa, v47n(d[m]), v47n(E.rj[i]?.[m]), rot])};
   }
   if(id === 'div-desig-prev' || id === 'div-desig-contr'){
     const mk = V41.marcadores.find(q => q.id === S.desigMarc) || V41.marcadores[0];
@@ -90556,7 +90599,7 @@ const MODO_INTRO = {
   filtros: '<strong>Fatores socioeconômicos e demográficos:</strong> como a insegurança alimentar se distribui por renda, cor/raça, instrução, sexo e composição domiciliar. Use <em>② Fatores socioecon.</em> para escolher um recorte.',
   pof:     '<strong>Aquisição domiciliar (POF):</strong> quantidade adquirida por domicílio em kg/per capita/ano — 17 grupos de alimentos (2002/2008/2018). Não mede insegurança alimentar; descreve o que o domicílio adquire.',
   nova4: '',
-  engel:   '<strong>Orçamento familiar (Coeficiente de Engel):</strong> comprometimento da despesa/renda com alimentação por faixa de rendimento, Brasil e Rio de Janeiro (POF 2017-2018). Quanto menor a renda, maior a proporção do orçamento dedicada à alimentação.',
+  engel:   '<strong>Orçamento familiar (Coeficiente de Engel):</strong> comprometimento da despesa/renda com alimentação por faixa de rendimento, Brasil e Rio de Janeiro (POF 2017-2018 e POF 2024-2025, com comparação entre as edições). Quanto menor a renda, maior a proporção do orçamento dedicada à alimentação.',
   regressao: '',
   desig:   '<strong>Desigualdades (Brasil):</strong> prevalência por marcador social com IC95% e a diferença entre grupos em duas escalas, absoluta (pontos percentuais) e relativa (razão). A conclusão sobre a mudança da desigualdade depende da escala.',
   consumo: '<strong>Consumo individual (Estudo 2):</strong> diferença na alimentação relatada por cada morador segundo o nível de insegurança alimentar do domicílio, ajustada por características demográficas, renda e escolaridade, Brasil, POF 2017-2018. Associação, não causa.',
@@ -90579,42 +90622,72 @@ function fecharFamilias(){
 
 // ── Família ⑤ — Coeficiente de Engel ───────────────────────────────────────────
 function buildEngelChart(){
-  // v44: paleta validada (Brasil #1F6FB2, Rio de Janeiro #E0622B), faixas em duas linhas,
-  // cantos arredondados, leitura conjunta ao passar o mouse e frase com as faixas extremas.
+  // v44: paleta validada (Brasil #1F6FB2, Rio de Janeiro #E0622B), faixas em duas linhas, leitura ao passar o mouse.
+  // v73: edicao da POF (2017-2018 ou 2024-2025) e comparacao entre edicoes por faixa em salarios minimos.
   const metrica = S.engelMetrica || 'engel_desp';
+  const ed = S.engelEd || '2025';
   const labelMap = {engel_desp:'% da despesa corrente', engel_renda:'% do rendimento declarado', pct_fora:'% da despesa com alimentação feita fora do domicílio'};
   const faixa2 = f => f.replace('Até R$ ', 'Até<br>R$ ').replace('Mais de R$ ', 'Mais de<br>R$ ').replace('–', ' a<br>');
-  const xs = ENGEL_BR.map(d => faixa2(d.faixa));
-  const yBr = ENGEL_BR.map(d => d[metrica]);
-  const yRj = ENGEL_RJ.map(d => d[metrica]);
-  const fx = ENGEL_BR.map(d => d.faixa);
-  const traces = [
-    {x:xs, y:yBr, type:'bar', name:'Brasil', customdata:fx, marker:{color:'#1F6FB2', cornerradius:4},
-     hovertemplate:'Brasil: %{y:.1f}%<extra></extra>'},
-    {x:xs, y:yRj, type:'bar', name:'Rio de Janeiro', customdata:fx, marker:{color:'#E0622B', cornerradius:4},
-     hovertemplate:'Rio de Janeiro: %{y:.1f}%<extra></extra>'},
-  ];
-  const layout = {
+  const f1 = v => v.toFixed(1).replace('.', ',') + '%';
+  const minus = f => f.charAt(0).toLowerCase() + f.slice(1);
+  const mono = arr => arr.every((v, i) => i === 0 || v < arr[i - 1]);
+  const lg = document.getElementById('engel-local-grupo'); if(lg) lg.style.display = ed === 'comp' ? '' : 'none';
+  const base = {
     barmode:'group', bargap:0.32, bargroupgap:0.1,
     margin:{t:18, r:18, l:58, b:62},
     yaxis:{title:{text:labelMap[metrica], font:{size:12, color:'#4E5968'}}, ticksuffix:'%', rangemode:'tozero',
       gridcolor:'rgba(22,28,36,0.07)', zeroline:false, tickfont:{size:12, color:'#1B2A38'}},
-    xaxis:{tickfont:{size:11.5, color:'#1B2A38'}, showline:true, linecolor:'rgba(28,45,64,.25)',
-      title:{text:'Rendimento mensal familiar (POF 2017-2018)', font:{size:11.5, color:'#4E5968'}, standoff:12}},
     legend:{orientation:'h', x:0, y:1.1, font:{size:12}},
     hovermode:'x unified',
     hoverlabel:{bgcolor:'#fff', bordercolor:'rgba(28,45,64,.2)', font:{color:'#1B2A38', size:12}},
     font:{family:'Inter, sans-serif', size:12, color:'#1B2A38'},
     paper_bgcolor:'transparent', plot_bgcolor:'transparent',
   };
+  const el = document.getElementById('engel-leitura'), nota = document.getElementById('engel-nota');
+  if(ed === 'comp'){
+    const loc = S.engelLocal || 'br', nomeLoc = loc === 'rj' ? 'Rio de Janeiro' : 'Brasil';
+    const cor = loc === 'rj' ? ['#F2B394', '#E0622B'] : ['#9EC3E6', '#1F6FB2'];
+    const A = ENGEL_ED['2018'][loc], B = ENGEL_ED['2025'][loc];
+    const xs = ENGEL_SM.map(x => x.replace('Mais de ', 'Mais de<br>'));
+    const yA = A.map(d => d[metrica]), yB = B.map(d => d[metrica]);
+    const traces = [
+      {x:xs, y:yA, type:'bar', name:nomeLoc + ', 2017-2018', customdata:A.map(d => d.faixa), marker:{color:cor[0], cornerradius:4},
+       hovertemplate:'2017-2018 (%{customdata}): %{y:.1f}%<extra></extra>'},
+      {x:xs, y:yB, type:'bar', name:nomeLoc + ', 2024-2025', customdata:B.map(d => d.faixa), marker:{color:cor[1], cornerradius:4},
+       hovertemplate:'2024-2025 (%{customdata}): %{y:.1f}%<extra></extra>'},
+    ];
+    const layout = Object.assign({}, base, {xaxis:{tickfont:{size:11.5, color:'#1B2A38'}, showline:true, linecolor:'rgba(28,45,64,.25)',
+      title:{text:'Rendimento mensal familiar, em salários mínimos da época', font:{size:11.5, color:'#4E5968'}, standoff:12}}});
+    Plotly.react('div-engel', traces, layout, {displayModeBar:false, responsive:true});
+    const n = yA.length - 1;
+    const dif = (a, b) => { const d = Math.round((b - a) * 10) / 10; return d === 0 ? 'sem diferença' : (d > 0 ? '+' : '−') + Math.abs(d).toFixed(1).replace('.', ',') + ' p.p.'; };
+    const nome = {engel_desp:'a alimentação representava', engel_renda:'a alimentação equivalia a', pct_fora:'a parcela da despesa com alimentação feita fora do domicílio era'}[metrica];
+    const med = {engel_desp:' da despesa corrente', engel_renda:' do rendimento declarado', pct_fora:''}[metrica];
+    if(el) el.innerHTML = '<strong>Leitura.</strong> ' + nomeLoc + ', faixa até 2 salários mínimos: ' + nome + ' ' + f1(yA[0]) + med +
+      ' em 2017-2018 e ' + f1(yB[0]) + ' em 2024-2025 (' + dif(yA[0], yB[0]) + '); na faixa de mais de 25 salários mínimos, ' +
+      f1(yA[n]) + ' e ' + f1(yB[n]) + ' (' + dif(yA[n], yB[n]) + '). São estimativas pontuais, sem intervalo de confiança: diferenças pequenas podem não ser reais.';
+    if(nota) nota.innerHTML = 'Fontes: ' + ENGEL_ED['2018'].fonte + '; ' + ENGEL_ED['2025'].fonte + '. As faixas são as do IBGE, em múltiplos do salário mínimo vigente em cada edição (R$ 954 em 2018 e R$ 1.518 em 2025). ' +
+      'Como o salário mínimo teve ganho real entre as edições, a mesma faixa em salários mínimos não corresponde exatamente ao mesmo poder de compra. Os percentuais podem ser comparados; os valores em reais não, porque não foram corrigidos pela inflação entre as edições. A comparação é descritiva e não testa diferenças.' +
+      B.filter(d => d.n != null && d.n < N_CAUTELA).map(d => ' Interpretar com cautela em 2024-2025, faixa ' + minus(d.sm) + ' (' + d.n + ' famílias na amostra).').join('');
+    return;
+  }
+  const E = ENGEL_ED[ed];
+  const BR = E.br, RJ = E.rj;
+  const xs = BR.map(d => faixa2(d.faixa));
+  const yBr = BR.map(d => d[metrica]);
+  const yRj = RJ.map(d => d[metrica]);
+  const fx = BR.map(d => d.faixa);
+  const traces = [
+    {x:xs, y:yBr, type:'bar', name:'Brasil', customdata:fx, marker:{color:'#1F6FB2', cornerradius:4},
+     hovertemplate:'Brasil: %{y:.1f}%<extra></extra>'},
+    {x:xs, y:yRj, type:'bar', name:'Rio de Janeiro', customdata:fx, marker:{color:'#E0622B', cornerradius:4},
+     hovertemplate:'Rio de Janeiro: %{y:.1f}%<extra></extra>'},
+  ];
+  const layout = Object.assign({}, base, {xaxis:{tickfont:{size:11.5, color:'#1B2A38'}, showline:true, linecolor:'rgba(28,45,64,.25)',
+    title:{text:'Rendimento mensal familiar (POF ' + E.rot + ')', font:{size:11.5, color:'#4E5968'}, standoff:12}}});
   Plotly.react('div-engel', traces, layout, {displayModeBar:false, responsive:true});
-  // frase de leitura: faixas extremas, com os valores que o gráfico mostra
-  const f1 = v => v.toFixed(1).replace('.', ',') + '%';
-  const n = ENGEL_BR.length - 1;
-  const minus = f => f.charAt(0).toLowerCase() + f.slice(1);   // 'Até R$ 1.908' -> 'até R$ 1.908'
-  const lo = minus(ENGEL_BR[0].faixa), hi = minus(ENGEL_BR[n].faixa);
-  // a frase sobre o gradiente sai dos dados: "cai a cada faixa" só se for monotônico
-  const mono = arr => arr.every((v, i) => i === 0 || v < arr[i - 1]);
+  const n = BR.length - 1;
+  const lo = minus(BR[0].faixa), hi = minus(BR[n].faixa);
   const mB = mono(yBr), mR = mono(yRj);
   const monoTxt = mB && mR ? 'Nos dois, a parcela cai a cada faixa de renda.'
     : mB ? 'No Brasil, a parcela cai a cada faixa de renda; no Rio de Janeiro, cai de forma menos regular.'
@@ -90625,12 +90698,32 @@ function buildEngelChart(){
     engel_renda: 'a alimentação equivale a ' + f1(yBr[0]) + ' do rendimento declarado no Brasil e ' + f1(yRj[0]) + ' no Rio de Janeiro; na faixa ' + hi + ', ' + f1(yBr[n]) + ' e ' + f1(yRj[n]) + '.',
     pct_fora: 'a parcela da despesa com alimentação feita fora do domicílio é de ' + f1(yBr[0]) + ' no Brasil e ' + f1(yRj[0]) + ' no Rio de Janeiro; na faixa ' + hi + ', ' + f1(yBr[n]) + ' e ' + f1(yRj[n]) + '.',
   }[metrica];
-  const el = document.getElementById('engel-leitura');
   if(el) el.innerHTML = '<strong>Leitura.</strong> Na faixa ' + lo + ', ' + txt;
+  const rs = v => 'R$ ' + v.toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
+  const b0 = BR[0], r0 = RJ[0], comp = r0.engel_desp < b0.engel_desp ? 'menor' : (r0.engel_desp > b0.engel_desp ? 'maior' : 'igual');
+  let t = 'Fonte: ' + E.fonte + '. Faixas do IBGE em múltiplos do salário mínimo de R$ ' + E.sm.toLocaleString('pt-BR') + '. Na faixa de menor rendimento (' + minus(b0.faixa) + '/mês), a despesa corrente média (' + rs(b0.despesa) +
+    ') é ' + (b0.despesa > b0.renda ? 'maior' : 'menor') + ' que o rendimento declarado (' + rs(b0.renda) + '). No Rio de Janeiro, o coeficiente de Engel nessa faixa é ' + comp + ' que o do Brasil (' +
+    f1(r0.engel_desp) + ' contra ' + f1(b0.engel_desp) + ' da despesa); o painel descreve a diferença e não testa a explicação para ela.';
+  if(ed === '2025'){
+    const pequenas = RJ.filter(d => d.n != null && d.n < N_CAUTELA).map(d => minus(d.faixa) + ' (' + d.n + ' famílias na amostra)');
+    if(pequenas.length) t += ' Interpretar com cautela no Rio de Janeiro, faixa ' + pequenas.join(', ') + '.';
+    t += ' Primeiros Resultados da POF 2024-2025 (IBGE, 27/11/2026); o gasto com alimentação foi conferido contra os microdados.';
+  }
+  if(nota) nota.innerHTML = t;
+}
+function setEngelEd(ed){
+  S.engelEd = ed;
+  document.querySelectorAll('.engel-ed-btn').forEach(b => b.classList.toggle('ativo', b.dataset.ed === ed));
+  buildEngelChart(); syncURL();
+}
+function setEngelLocal(l){
+  S.engelLocal = l;
+  document.querySelectorAll('.engel-local-btn').forEach(b => b.classList.toggle('ativo', b.dataset.l === l));
+  buildEngelChart(); syncURL();
 }
 function setEngelMetrica(m){
   S.engelMetrica = m;
-  document.querySelectorAll('.engel-metrica-btn').forEach(b => b.classList.toggle('ativo', b.dataset.m === m));
+  document.querySelectorAll('.engel-metrica-btn[data-m]').forEach(b => b.classList.toggle('ativo', b.dataset.m === m));
   buildEngelChart();
 }
 
@@ -92452,7 +92545,7 @@ window.addEventListener('DOMContentLoaded',()=>{
         <span id="citar-aviso" class="v46-aviso" aria-live="polite"></span>
       </div>
       <p class="v46-nota">O DOI acima reúne todas as versões e leva sempre à mais recente. Versão exibida:
-        <strong id="citar-versao">v72</strong>. A versão descrita na dissertação é a v58, de 29/10/2026 (<a href="https://doi.org/10.5281/zenodo.23769033" target="_blank" rel="noopener">doi.org/10.5281/zenodo.23769033</a>).
+        <strong id="citar-versao">v73</strong>. A versão descrita na dissertação é a v58, de 29/10/2026 (<a href="https://doi.org/10.5281/zenodo.23769033" target="_blank" rel="noopener">doi.org/10.5281/zenodo.23769033</a>).
         Licença CC BY 4.0: pode ser reutilizado e adaptado, desde que citado.</p>
     </div>
   </div>
@@ -93887,6 +93980,9 @@ window.addEventListener('resize', () => {
 
 </script>
 <style>
+/* v73: grupos de botoes da aba Engel (edicao, local e medida). */
+.v73-grupo{display:inline-flex;gap:4px;flex-wrap:wrap;align-items:center}
+.v73-grupo + .v73-grupo{padding-left:8px;margin-left:2px;border-left:1px solid var(--border)}
 /* v72: destaque da fonte dos dados (IBGE) no cabeçalho. Só texto e estilo; nenhum dado muda. */
 .v72-ibge{font-family:var(--disp,'Roboto Condensed',sans-serif);font-size:.64rem;letter-spacing:.12em;text-transform:uppercase;color:#4E5968;line-height:1.2;white-space:nowrap}
 .v72-ibge b{color:#1B2A38;font-weight:700;letter-spacing:.15em}

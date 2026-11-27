@@ -1,0 +1,92 @@
+{
+ "BR": [
+  {
+   "alim_dom": 420.84,
+   "alim_fora": 104.61,
+   "familias": 17289710,
+   "n_amostra": 18539
+  },
+  {
+   "alim_dom": 554.32,
+   "alim_fora": 170.38,
+   "familias": 13641084,
+   "n_amostra": 14775
+  },
+  {
+   "alim_dom": 741.95,
+   "alim_fora": 282.64,
+   "familias": 24922275,
+   "n_amostra": 24442
+  },
+  {
+   "alim_dom": 965.13,
+   "alim_fora": 485.95,
+   "familias": 12509384,
+   "n_amostra": 10578
+  },
+  {
+   "alim_dom": 1188.82,
+   "alim_fora": 740.75,
+   "familias": 5768667,
+   "n_amostra": 4690
+  },
+  {
+   "alim_dom": 1321.12,
+   "alim_fora": 1051.65,
+   "familias": 3392876,
+   "n_amostra": 2731
+  },
+  {
+   "alim_dom": 1647.16,
+   "alim_fora": 1647.2,
+   "familias": 2037640,
+   "n_amostra": 1537
+  }
+ ],
+ "RJ": [
+  {
+   "alim_dom": 403.52,
+   "alim_fora": 106.92,
+   "familias": 1490983,
+   "n_amostra": 1154
+  },
+  {
+   "alim_dom": 566.58,
+   "alim_fora": 154.15,
+   "familias": 1101247,
+   "n_amostra": 863
+  },
+  {
+   "alim_dom": 672.3,
+   "alim_fora": 292.03,
+   "familias": 2100433,
+   "n_amostra": 1579
+  },
+  {
+   "alim_dom": 888.19,
+   "alim_fora": 421.23,
+   "familias": 1061695,
+   "n_amostra": 780
+  },
+  {
+   "alim_dom": 1047.74,
+   "alim_fora": 741.03,
+   "familias": 579019,
+   "n_amostra": 419
+  },
+  {
+   "alim_dom": 1160.35,
+   "alim_fora": 1086.6,
+   "familias": 362431,
+   "n_amostra": 259
+  },
+  {
+   "alim_dom": 1525.53,
+   "alim_fora": 1343.58,
+   "familias": 206092,
+   "n_amostra": 139
+  }
+ ],
+ "n_uc": 77292,
+ "n_uc_rj": 5193
+}

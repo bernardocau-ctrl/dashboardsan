@@ -1,0 +1,392 @@
+{
+ "2018_BR": {
+  "cabecalho": null,
+  "total": {
+   "alim_dom": 442.27,
+   "alim_fora": 215.96,
+   "alim_total": 658.23,
+   "despesa": 4309.88,
+   "renda": 5088.7,
+   "familias": 69017704.0,
+   "engel_desp": 15.3,
+   "engel_renda": 12.9,
+   "pct_fora": 32.8
+  },
+  "classes": [
+   {
+    "alim_dom": 261.74,
+    "alim_fora": 68.1,
+    "alim_total": 329.84,
+    "despesa": 1448.92,
+    "renda": 1236.27,
+    "familias": 16737438.0,
+    "engel_desp": 22.8,
+    "engel_renda": 26.7,
+    "pct_fora": 20.6
+   },
+   {
+    "alim_dom": 333.89,
+    "alim_fora": 115.32,
+    "alim_total": 449.21,
+    "despesa": 2245.19,
+    "renda": 2345.2,
+    "familias": 13079821.0,
+    "engel_desp": 20.0,
+    "engel_renda": 19.2,
+    "pct_fora": 25.7
+   },
+   {
+    "alim_dom": 443.73,
+    "alim_fora": 190.67,
+    "alim_total": 634.41,
+    "despesa": 3508.03,
+    "renda": 3942.43,
+    "familias": 21099497.0,
+    "engel_desp": 18.1,
+    "engel_renda": 16.1,
+    "pct_fora": 30.1
+   },
+   {
+    "alim_dom": 560.16,
+    "alim_fora": 312.52,
+    "alim_total": 872.68,
+    "despesa": 5933.07,
+    "renda": 6917.78,
+    "familias": 9509008.0,
+    "engel_desp": 14.7,
+    "engel_renda": 12.6,
+    "pct_fora": 35.8
+   },
+   {
+    "alim_dom": 713.2,
+    "alim_fora": 430.63,
+    "alim_total": 1143.83,
+    "despesa": 8734.09,
+    "renda": 10819.3,
+    "familias": 4256727.0,
+    "engel_desp": 13.1,
+    "engel_renda": 10.6,
+    "pct_fora": 37.6
+   },
+   {
+    "alim_dom": 854.15,
+    "alim_fora": 624.53,
+    "alim_total": 1478.68,
+    "despesa": 13267.16,
+    "renda": 16682.15,
+    "familias": 2629450.0,
+    "engel_desp": 11.1,
+    "engel_renda": 8.9,
+    "pct_fora": 42.2
+   },
+   {
+    "alim_dom": 1058.28,
+    "alim_fora": 1047.64,
+    "alim_total": 2105.91,
+    "despesa": 24236.06,
+    "renda": 35737.32,
+    "familias": 1705764.0,
+    "engel_desp": 8.7,
+    "engel_renda": 5.9,
+    "pct_fora": 49.7
+   }
+  ]
+ },
+ "2018_RJ": {
+  "cabecalho": null,
+  "total": {
+   "alim_dom": 413.25,
+   "alim_fora": 182.89,
+   "alim_total": 596.14,
+   "despesa": 4380.78,
+   "renda": 5450.67,
+   "familias": 5954943.0,
+   "engel_desp": 13.6,
+   "engel_renda": 10.9,
+   "pct_fora": 30.7
+  },
+  "classes": [
+   {
+    "alim_dom": 242.39,
+    "alim_fora": 33.52,
+    "alim_total": 275.91,
+    "despesa": 1550.84,
+    "renda": 1286.52,
+    "familias": 1330121.0,
+    "engel_desp": 17.8,
+    "engel_renda": 21.4,
+    "pct_fora": 12.1
+   },
+   {
+    "alim_dom": 304.42,
+    "alim_fora": 68.87,
+    "alim_total": 373.29,
+    "despesa": 2310.61,
+    "renda": 2374.44,
+    "familias": 1152031.0,
+    "engel_desp": 16.2,
+    "engel_renda": 15.7,
+    "pct_fora": 18.4
+   },
+   {
+    "alim_dom": 413.8,
+    "alim_fora": 139.86,
+    "alim_total": 553.66,
+    "despesa": 3345.29,
+    "renda": 4016.54,
+    "familias": 1841226.0,
+    "engel_desp": 16.6,
+    "engel_renda": 13.8,
+    "pct_fora": 25.3
+   },
+   {
+    "alim_dom": 495.16,
+    "alim_fora": 225.42,
+    "alim_total": 720.58,
+    "despesa": 5841.95,
+    "renda": 7209.16,
+    "familias": 741427.0,
+    "engel_desp": 12.3,
+    "engel_renda": 10.0,
+    "pct_fora": 31.3
+   },
+   {
+    "alim_dom": 662.75,
+    "alim_fora": 412.85,
+    "alim_total": 1075.6,
+    "despesa": 8254.65,
+    "renda": 11115.52,
+    "familias": 492630.0,
+    "engel_desp": 13.0,
+    "engel_renda": 9.7,
+    "pct_fora": 38.4
+   },
+   {
+    "alim_dom": 726.62,
+    "alim_fora": 676.45,
+    "alim_total": 1403.07,
+    "despesa": 12990.21,
+    "renda": 17534.94,
+    "familias": 268416.0,
+    "engel_desp": 10.8,
+    "engel_renda": 8.0,
+    "pct_fora": 48.2
+   },
+   {
+    "alim_dom": 1062.87,
+    "alim_fora": 1205.01,
+    "alim_total": 2267.87,
+    "despesa": 25706.48,
+    "renda": 39420.69,
+    "familias": 129091.0,
+    "engel_desp": 8.8,
+    "engel_renda": 5.8,
+    "pct_fora": 53.1
+   }
+  ]
+ },
+ "2025_BR": {
+  "cabecalho": [
+   "Total",
+   "Até 3036 (2)",
+   "Mais de 3036 a 4554",
+   "Mais de 4554 a 9108",
+   "Mais de 9108 a 15180",
+   "Mais de 15180 a 22770",
+   "Mais de 22770 a 37950",
+   "Mais de 37950"
+  ],
+  "total": {
+   "alim_dom": 755.37,
+   "alim_fora": 357.63,
+   "alim_total": 1113.0,
+   "despesa": 7331.88,
+   "renda": 8699.46,
+   "familias": 79561637.0,
+   "engel_desp": 15.2,
+   "engel_renda": 12.8,
+   "pct_fora": 32.1
+  },
+  "classes": [
+   {
+    "alim_dom": 420.84,
+    "alim_fora": 104.61,
+    "alim_total": 525.46,
+    "despesa": 2405.68,
+    "renda": 1984.89,
+    "familias": 17289710.0,
+    "engel_desp": 21.8,
+    "engel_renda": 26.5,
+    "pct_fora": 19.9
+   },
+   {
+    "alim_dom": 554.32,
+    "alim_fora": 170.38,
+    "alim_total": 724.71,
+    "despesa": 3611.48,
+    "renda": 3728.16,
+    "familias": 13641084.0,
+    "engel_desp": 20.1,
+    "engel_renda": 19.4,
+    "pct_fora": 23.5
+   },
+   {
+    "alim_dom": 741.95,
+    "alim_fora": 282.64,
+    "alim_total": 1024.59,
+    "despesa": 5718.24,
+    "renda": 6340.05,
+    "familias": 24922275.0,
+    "engel_desp": 17.9,
+    "engel_renda": 16.2,
+    "pct_fora": 27.6
+   },
+   {
+    "alim_dom": 965.13,
+    "alim_fora": 485.95,
+    "alim_total": 1451.09,
+    "despesa": 9728.68,
+    "renda": 11282.04,
+    "familias": 12509384.0,
+    "engel_desp": 14.9,
+    "engel_renda": 12.9,
+    "pct_fora": 33.5
+   },
+   {
+    "alim_dom": 1188.82,
+    "alim_fora": 740.75,
+    "alim_total": 1929.57,
+    "despesa": 14700.91,
+    "renda": 17445.24,
+    "familias": 5768667.0,
+    "engel_desp": 13.1,
+    "engel_renda": 11.1,
+    "pct_fora": 38.4
+   },
+   {
+    "alim_dom": 1321.12,
+    "alim_fora": 1051.65,
+    "alim_total": 2372.77,
+    "despesa": 20864.53,
+    "renda": 26587.33,
+    "familias": 3392876.0,
+    "engel_desp": 11.4,
+    "engel_renda": 8.9,
+    "pct_fora": 44.3
+   },
+   {
+    "alim_dom": 1647.16,
+    "alim_fora": 1647.2,
+    "alim_total": 3294.36,
+    "despesa": 35664.61,
+    "renda": 57412.39,
+    "familias": 2037640.0,
+    "engel_desp": 9.2,
+    "engel_renda": 5.7,
+    "pct_fora": 50.0
+   }
+  ]
+ },
+ "2025_RJ": {
+  "cabecalho": [
+   "Total",
+   "Até 3036 (2)",
+   "Mais de 3036 a 4554",
+   "Mais de 4554 a 9108",
+   "Mais de 9108 a 15180",
+   "Mais de 15180 a 22770",
+   "Mais de 22770 a 37950",
+   "Mais de 37950"
+  ],
+  "total": {
+   "alim_dom": 713.18,
+   "alim_fora": 360.71,
+   "alim_total": 1073.89,
+   "despesa": 7618.14,
+   "renda": 9866.33,
+   "familias": 6901900.0,
+   "engel_desp": 14.1,
+   "engel_renda": 10.9,
+   "pct_fora": 33.6
+  },
+  "classes": [
+   {
+    "alim_dom": 403.52,
+    "alim_fora": 106.92,
+    "alim_total": 510.44,
+    "despesa": 2446.53,
+    "renda": 2014.08,
+    "familias": 1490983.0,
+    "engel_desp": 20.9,
+    "engel_renda": 25.3,
+    "pct_fora": 20.9
+   },
+   {
+    "alim_dom": 566.58,
+    "alim_fora": 154.15,
+    "alim_total": 720.73,
+    "despesa": 3563.19,
+    "renda": 3717.44,
+    "familias": 1101247.0,
+    "engel_desp": 20.2,
+    "engel_renda": 19.4,
+    "pct_fora": 21.4
+   },
+   {
+    "alim_dom": 672.3,
+    "alim_fora": 292.03,
+    "alim_total": 964.33,
+    "despesa": 5504.02,
+    "renda": 6439.74,
+    "familias": 2100433.0,
+    "engel_desp": 17.5,
+    "engel_renda": 15.0,
+    "pct_fora": 30.3
+   },
+   {
+    "alim_dom": 888.19,
+    "alim_fora": 421.23,
+    "alim_total": 1309.42,
+    "despesa": 9434.67,
+    "renda": 11316.8,
+    "familias": 1061695.0,
+    "engel_desp": 13.9,
+    "engel_renda": 11.6,
+    "pct_fora": 32.2
+   },
+   {
+    "alim_dom": 1047.74,
+    "alim_fora": 741.03,
+    "alim_total": 1788.77,
+    "despesa": 14020.94,
+    "renda": 17985.27,
+    "familias": 579019.0,
+    "engel_desp": 12.8,
+    "engel_renda": 9.9,
+    "pct_fora": 41.4
+   },
+   {
+    "alim_dom": 1160.35,
+    "alim_fora": 1086.6,
+    "alim_total": 2246.95,
+    "despesa": 20330.11,
+    "renda": 26999.13,
+    "familias": 362431.0,
+    "engel_desp": 11.1,
+    "engel_renda": 8.3,
+    "pct_fora": 48.4
+   },
+   {
+    "alim_dom": 1525.53,
+    "alim_fora": 1343.58,
+    "alim_total": 2869.12,
+    "despesa": 38544.4,
+    "renda": 74041.05,
+    "familias": 206092.0,
+    "engel_desp": 7.4,
+    "engel_renda": 3.9,
+    "pct_fora": 46.8
+   }
+  ]
+ }
+}

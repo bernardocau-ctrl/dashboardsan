@@ -5,7 +5,7 @@ Produto técnico da dissertação de mestrado em Segurança Alimentar e Nutricio
 
 Painel interativo com cinco famílias de indicadores: experiência de acesso aos alimentos (EBIA),
 fatores socioeconômicos e demográficos, aquisição domiciliar por grupos
-alimentares (POF), orçamento familiar (coeficiente de Engel) e consumo individual
+alimentares (POF), orçamento familiar (coeficiente de Engel, POF 2017-2018 e POF 2024-2025) e consumo individual
 (Estudo 2). Descreve prevalências e metadados dos inquéritos do IBGE; não inclui a
 regressão preliminar nem a participação de ultraprocessados na aquisição ou no consumo.
 
@@ -31,11 +31,11 @@ moderada ou grave. Os intervalos de diferença e de variação não têm correç
 nos marcadores (o resumo informa a de Bonferroni), e a PNAD tradicional não é comparável com a PNADC.
 
 **Como citar:** Castanho, Bernardo. *Painel de Insegurança Alimentar no Brasil*.
-Zenodo, 2026. https://doi.org/10.5281/zenodo.23405765 (todas as versões; a v71, atual,
+Zenodo, 2026. https://doi.org/10.5281/zenodo.23405765 (todas as versões; a v73, atual, ainda sem DOI próprio; a v71
 é https://doi.org/10.5281/zenodo.24178989; a v70 é https://doi.org/10.5281/zenodo.23784335; a v58 é https://doi.org/10.5281/zenodo.23769033; a v50,
 congelada anteriormente, é https://doi.org/10.5281/zenodo.23406463).
 
-**Fontes:** todos os dados são do Instituto Brasileiro de Geografia e Estatística (IBGE), exceto o VIGISAN: PNAD 2004/2009/2013 · POF 2002/2008/2017-2018 · PNAD Contínua
+**Fontes:** todos os dados são do Instituto Brasileiro de Geografia e Estatística (IBGE), exceto o VIGISAN: PNAD 2004/2009/2013 · POF 2002/2008/2017-2018 · POF 2024-2025 (só o coeficiente de Engel, Primeiros Resultados de 27/11/2026) · PNAD Contínua
 2023/2024 (IBGE) · VIGISAN 2021 (Rede PENSSAN).
 
 O arquivo `index.html` é autocontido: abre em qualquer navegador, inclusive sem
@@ -45,6 +45,14 @@ internet, sem instalar nada.
 
 ## Histórico
 
+- v73 (27/11/2026): coeficiente de Engel da POF 2024-2025 (Primeiros Resultados do IBGE, divulgados em 27/11/2026),
+  Brasil e Rio de Janeiro, com as mesmas definições de 2017-2018 (despesa corrente; rendimento total sem variação
+  patrimonial; classes do IBGE em múltiplos do salário mínimo). A aba ganha os botões 2017-2018, 2024-2025 (padrão) e
+  Comparar (por faixa em salários mínimos, Brasil ou Rio de Janeiro, sem teste de diferença). Os números vêm das tabelas
+  1.1.1, 1.1.7 e 2.1.1 (Brasil) e 1.3.33.1, 1.3.33.3 e 2.3.33.1 (Rio de Janeiro); o gasto com alimentação dentro e fora
+  do domicílio foi reproduzido ao centavo a partir dos microdados. As outras abas não mudam: a EBIA, a cor ou raça, a
+  instrução, as quantidades adquiridas e o consumo alimentar pessoal da POF 2024-2025 ainda não foram liberados.
+  Registro completo em `docs/registro_POF_2024_2025.docx`. DOI a atribuir no depósito.
 - v72 (13/11/2026): destaque da fonte dos dados (IBGE) no cabeçalho e no Sobre o painel, com o aviso de que o painel é elaboração própria e não publicação oficial do IBGE; nenhum dado muda. DOI a atribuir no depósito.
 - v71 (12/11/2026): camada de apresentação, sem alteração de dados (o bloco de dados é idêntico ao da v70): siglas das UF no mapa, contorno sob o cursor, legenda por faixas interativa, botão para percorrer os anos e setas do teclado, animações que respeitam o movimento reduzido, e correção de três defeitos de layout. Depositada no Zenodo (https://doi.org/10.5281/zenodo.24178989).
 - v70 (29/10/2026): variação 2023→2024 por grupo e UF, com IC95% (o erro-padrão trata os dois anos como
