@@ -257,6 +257,13 @@ const filhos = [
     [5126, 2700, 1200], { numericas: false }),
   legenda('Fonte: IBGE, microdados da POF 2024-2025 (27/11/2026); elaboração própria. Subgrupos selecionados; todos os 57 estão no painel e em pof2025/resultados/painel_v75.json. n = famílias na amostra (no valor da alimentação escolar, só as que têm a despesa). † interpretar com cautela.'),
 
+  h1('15. Reportagem "Cem moedas" no Retrato'),
+  p('Uma quinta página foi acrescentada ao Retrato (retrato/moedas.html), no estilo de "O prato": texto em cartões e uma animação em canvas que muda conforme a leitura. A metáfora é a de cem moedas, R$ 1 de cada R$ 100 de despesa da família; no fim, as moedas viram casas, uma por família. A página funciona sem internet e respeita a preferência por movimento reduzido.'),
+  item('Cenas: R$ 15 de cada R$ 100 para a comida (15,2%, contra 15,3% em 2017-2018); as sete faixas de rendimento (de 21,8% a 9,2%); a mesma escada em reais (de R$ 525 a R$ 3.294 por mês); dentro e fora de casa (de 19,9% a 50,0% fora); mapa de quadrados das UFs (de 11,7% no DF a 24,0% no AM), com as mudanças desde 2017-2018 (queda nas nove UFs do Nordeste, maior alta no Amazonas); a sacola em 16 grupos; arroz e feijão nas duas pontas da renda per capita; a comida obtida sem compra no urbano e no rural; o Bolsa Família em três recortes e por UF; e um fecho sobre o que ainda falta (a EBIA da POF 2024-2025).'),
+  item('Os números vêm dos mesmos arquivos conferidos do painel (Engel por faixa das tabelas publicadas; demais indicadores de painel_v75.json). O gerador pof2025/gerar_retrato.py injeta os dados no modelo pof2025/moedas_modelo.html e confere 16 números escritos no texto contra os dados.'),
+  item('Cautelas escritas na própria página: comparação com 2017-2018 descritiva (sem intervalo de confiança naquela edição); participação no gasto não é quantidade nem consumo; caderneta de 7 dias capta mal doações e produção sazonal; recebimento do Bolsa Família declarado; nenhum número da página mede insegurança alimentar.'),
+  item('As moedas arredondam: com poucas moedas por coluna ou quadrado, o desenho aproxima o valor, e o texto e as tabelas ao fim da página trazem os números exatos.'),
+
   h1('Referências'),
   p('IBGE. Pesquisa de Orçamentos Familiares 2024-2025: primeiros resultados. Tabelas e microdados. Rio de Janeiro: IBGE, 2026. Disponível em: ' + FTP + '. Acesso em: 27 nov. 2026.'),
   p('IBGE. Pesquisa de Orçamentos Familiares 2017-2018: primeiros resultados. Tabelas de despesas, rendimentos e Unidades da Federação. Rio de Janeiro: IBGE, 2019. Disponível em: https://ftp.ibge.gov.br/Orcamentos_Familiares/Pesquisa_de_Orcamentos_Familiares_2017_2018/Primeiros_resultados/. Acesso em: 27 nov. 2026.'),

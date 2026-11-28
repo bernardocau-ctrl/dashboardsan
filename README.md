@@ -49,6 +49,9 @@ internet, sem instalar nada.
 
 ## Histórico
 
+- Retrato, 28/11/2026: reportagem nova "Cem moedas" (`retrato/moedas.html`), com a POF 2024-2025: orçamento, renda,
+  estados, sacola, comida sem compra e Bolsa Família, em animação de moedas e casas. Gerada por `pof2025/gerar_retrato.py`
+  a partir dos dados conferidos do painel; link no menu das outras páginas do Retrato.
 - v75 (27/11/2026): aba Renda e acesso com os 57 subgrupos da composição do gasto com alimentação (arroz, feijão,
   carnes, refrigerantes e outros; conferidos contra a Tabela 1.1.7), o valor da alimentação escolar paga, o valor médio
   da cesta básica por família e o desconto de cesta básica no salário. Limite inferior dos IC cortado em zero.

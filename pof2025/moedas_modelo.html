@@ -1,0 +1,425 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Cem moedas: para onde vai o orçamento das famílias brasileiras</title>
+<meta name="description" content="De cada R$ 100 que as famílias brasileiras gastam no mês, R$ 15 vão para a comida. Como essa conta muda com a renda, o estado, o rural e o Bolsa Família. Dados da POF 2024-2025, IBGE.">
+<meta property="og:title" content="Cem moedas">
+<meta property="og:description" content="De cada R$ 100 de despesa, R$ 15 vão para a comida; R$ 22 nas famílias de renda mais baixa, R$ 9 nas de renda mais alta. Dados da POF 2024-2025, IBGE.">
+<meta property="og:type" content="article">
+<meta name="robots" content="noindex, nofollow">
+<style>
+:root{
+  --papel:#F4EFE6; --papel-2:#EAE2D4; --tinta:#26211B; --tinta-2:#5A5147; --tinta-3:#867B6E; --fio:rgba(38,33,27,.14);
+  --ouro:#C2922B; --comida:#B5482F; --fora:#2F5D8A; --verde:#3F7A34; --roxo:#6E5A96; --casa:#2A7F62;
+  --serif:Georgia,'Times New Roman',serif;
+  --sans:system-ui,-apple-system,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;
+}
+*{box-sizing:border-box}
+html{background:var(--papel)}
+body{margin:0;background:var(--papel);color:var(--tinta);font-family:var(--sans);line-height:1.55;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+a{color:var(--comida)}
+:focus-visible{outline:2px solid var(--comida);outline-offset:3px;border-radius:4px}
+.abas{position:fixed;top:0;left:0;right:0;z-index:30;display:flex;gap:4px;align-items:center;padding:10px 16px 26px;
+  background:linear-gradient(rgba(244,239,230,.97) 45%,rgba(244,239,230,0));pointer-events:none}
+.abas a{pointer-events:auto;text-decoration:none;font-size:.8rem;letter-spacing:.04em;padding:6px 12px;border-radius:100px;color:var(--tinta-2);border:1px solid transparent}
+.abas a:hover{color:var(--tinta);border-color:var(--fio)}
+.abas a[aria-current=page]{color:var(--papel);background:var(--tinta);font-weight:600}
+.abas .marca{margin-right:auto;font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--tinta-3)}
+.abas .marca b{color:var(--tinta);font-weight:700;letter-spacing:.14em}
+.aba-c{display:none} @media (max-width:760px){ .aba-l{display:none} .aba-c{display:inline} }
+a.aba-painel{background:#8B2E3A !important;color:#fff !important;font-weight:700 !important;border:1px solid #8B2E3A !important;margin-left:6px;box-shadow:0 2px 8px rgba(139,46,58,.35)}
+a.aba-painel:hover,a.aba-painel:focus-visible{background:#6E1F2B !important}
+#mesa{position:fixed;inset:0;width:100%;height:100%;display:block;z-index:1}
+#progresso{position:fixed;left:0;top:0;height:2px;width:0;background:linear-gradient(90deg,var(--ouro),var(--comida));z-index:31}
+main{position:relative;z-index:10;pointer-events:none}
+.passo{min-height:135vh;display:flex;align-items:center;padding:0 16px}
+.cartao{pointer-events:auto;width:min(410px,100%);margin-left:max(16px,5vw);padding:22px 24px 20px;border-radius:14px;
+  background:rgba(255,252,247,.92);border:1px solid var(--fio);box-shadow:0 1px 2px rgba(60,40,20,.06),0 14px 40px rgba(60,40,20,.12);
+  -webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px)}
+.cartao h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.45rem,3.6vw,2rem);line-height:1.12;letter-spacing:-.015em;margin:0 0 .5em}
+.cartao p{margin:.55em 0;color:var(--tinta-2);font-size:.98rem}
+.cartao p strong{color:var(--tinta);font-weight:600}
+.cartao .nota{font-size:.8rem;color:var(--tinta-3);border-top:1px solid var(--fio);margin-top:.9em;padding-top:.7em}
+.chapeu{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--tinta-3);margin-bottom:.9em}
+.n{font-family:var(--serif);font-size:clamp(2.6rem,9vw,4.2rem);line-height:.95;letter-spacing:-.03em;display:block;margin:0 0 .12em}
+.c-ouro{color:#9C7420} .c-comida{color:var(--comida)} .c-fora{color:var(--fora)} .c-verde{color:var(--verde)} .c-roxo{color:var(--roxo)} .c-casa{color:var(--casa)}
+.leg{display:inline-block;width:.8em;height:.8em;border-radius:50%;vertical-align:-.05em;margin-right:.3em}
+.capa{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:90px max(20px,6vw) 70px}
+.capa > *{pointer-events:auto;max-width:36rem}
+.capa h1{font-family:var(--serif);font-weight:400;font-size:clamp(3rem,12vw,7.4rem);line-height:.92;letter-spacing:-.035em;margin:0 0 .22em}
+.capa .lede{font-size:clamp(1.02rem,2.3vw,1.22rem);color:var(--tinta-2);margin:0 0 .7em}
+.capa .lede strong{color:var(--tinta)}
+.selo{display:inline-flex;align-items:center;gap:10px;margin-top:18px;padding:9px 14px;border-radius:10px;background:rgba(255,252,247,.85);border:1px solid var(--fio);font-size:.84rem;color:var(--tinta-2)}
+.selo b{font-size:.95rem;color:var(--tinta);letter-spacing:.06em}
+.rolar{margin-top:30px;font-size:.8rem;letter-spacing:.12em;text-transform:uppercase;color:var(--tinta-3);display:flex;align-items:center;gap:10px}
+.rolar i{width:1px;height:34px;background:linear-gradient(var(--tinta-3),transparent);display:block}
+.fecho{position:relative;z-index:10;background:linear-gradient(rgba(244,239,230,0),var(--papel) 22%);padding:26vh max(20px,6vw) 60px}
+.fecho .dentro{max-width:44rem}
+.fecho h2{font-family:var(--serif);font-weight:400;font-size:clamp(1.7rem,5vw,2.8rem);line-height:1.1;letter-spacing:-.02em;margin:0 0 .6em}
+.fecho p{color:var(--tinta-2)}
+.botoes{display:flex;flex-wrap:wrap;gap:10px;margin:22px 0 30px}
+.botoes a{display:inline-block;text-decoration:none;padding:11px 18px;border-radius:9px;border:1px solid rgba(38,33,27,.3);color:var(--tinta);font-size:.95rem}
+.botoes a.pri{background:var(--tinta);color:var(--papel);border-color:var(--tinta);font-weight:600}
+.fonte{font-size:.82rem;color:var(--tinta-3);border-top:1px solid var(--fio);padding-top:16px}
+.fonte p{color:var(--tinta-3);margin:.5em 0}
+table.dados{border-collapse:collapse;font-size:.8rem;color:var(--tinta-2);margin-top:10px;width:100%}
+table.dados th,table.dados td{padding:3px 8px;border-bottom:1px solid var(--fio);text-align:right}
+table.dados th:first-child,table.dados td:first-child{text-align:left}
+details{margin:.6em 0} details summary{cursor:pointer;color:var(--tinta-2)}
+.rolavel{overflow-x:auto}
+#dica{position:fixed;z-index:40;pointer-events:none;background:var(--tinta);color:var(--papel);font-size:.82rem;line-height:1.35;padding:7px 10px;border-radius:8px;opacity:0;transition:opacity .12s;max-width:240px}
+#dica.vis{opacity:1}
+@media (max-width:900px){
+  .abas{flex-wrap:wrap;justify-content:space-between;gap:3px;padding:6px 10px 18px;background:linear-gradient(rgba(244,239,230,.98) 70%,rgba(244,239,230,0))}
+  .abas .marca{flex:0 0 100%;margin:0 0 1px;font-size:.6rem;white-space:nowrap}
+  .abas a{flex:1 1 auto;text-align:center;padding:6px 4px;font-size:.76rem;white-space:nowrap}
+  a.aba-painel{margin-left:0}
+}
+@media (max-width:820px){
+  .passo{align-items:flex-start;padding:0 12px 5vh}
+  .cartao{position:sticky;top:53vh;margin:53vh auto 0;width:min(520px,100%);padding:14px 16px 12px;background:rgba(255,252,247,.95)}
+  .cartao h2{font-size:1.3rem}
+  .cartao p{font-size:.92rem}
+  .n{font-size:clamp(2.2rem,11vw,3rem)}
+  .capa{justify-content:flex-start;padding-top:48vh;padding-bottom:9vh}
+}
+@media (prefers-reduced-motion: reduce){ .rolar i{display:none} }
+</style>
+</head>
+<body>
+<nav class="abas" aria-label="Páginas do retrato">
+  <span class="marca">Dados do <b>IBGE</b><span> · Insegurança alimentar no Brasil</span></span>
+  <a href="index.html">Retrato</a>
+  <a href="aceso.html"><span class="aba-l">Luzes acesas</span><span class="aba-c">Luzes</span></a>
+  <a href="prato.html"><span class="aba-l">O prato</span><span class="aba-c">Prato</span></a>
+  <a href="moedas.html" aria-current="page"><span class="aba-l">Cem moedas</span><span class="aba-c">Moedas</span></a>
+  <a href="dados.html"><span class="aba-l">De onde vêm os dados</span><span class="aba-c">Dados</span></a>
+  <a href="../" class="aba-painel" title="Abrir o painel interativo com todos os dados">Painel <span aria-hidden="true">↗</span></a>
+</nav>
+<div id="progresso" aria-hidden="true"></div>
+<div id="dica" role="status" aria-live="polite"></div>
+<canvas id="mesa" role="img" aria-label="Animação: cem moedas, que representam cem reais de despesa de uma família, se reorganizam a cada trecho do texto em grupos, colunas por faixa de renda e um mapa dos estados; no fim, as moedas viram casas, uma por família. Todos os números estão no texto e nas tabelas ao final."></canvas>
+
+<main>
+<section class="capa" data-cena="capa">
+  <div class="chapeu">Orçamento das famílias · POF 2024-2025</div>
+  <h1>Cem moedas</h1>
+  <p class="lede">Para onde vai o orçamento das famílias brasileiras, e quanto dele vai para a comida.</p>
+  <p class="lede">Cada moeda é <strong>R$ 1 de cada R$ 100</strong> que uma família gasta no mês com as despesas do dia a dia. A conta é da nova Pesquisa de Orçamentos Familiares do IBGE, cujos primeiros resultados saíram em 27 de novembro de 2026.</p>
+  <div class="selo"><b>POF 2024-2025</b> 77.292 famílias entrevistadas, em todas as UFs, ao longo de um ano</div>
+  <div class="rolar"><i></i>Role para contar as moedas</div>
+</section>
+
+<section class="passo" data-cena="quinze"><div class="cartao">
+  <h2>Quinze moedas para a comida</h2>
+  <span class="n c-comida">R$ 15</span>
+  <p>De cada R$ 100 de despesa, as famílias brasileiras gastam <strong>R$ 15,20 com alimentação</strong>, em casa e fora dela. É o coeficiente de Engel: 15,2% (intervalo de confiança de 95%, de 15,0% a 15,4%).</p>
+  <p>Em 2017-2018, eram 15,3%. Na média do país, a parte da comida no orçamento <strong>quase não mudou</strong> em sete anos. Em reais, são R$ 1.113 por mês por família, ou R$ 416 por pessoa.</p>
+  <p class="nota">Despesa aqui é a despesa corrente: consumo, impostos e contribuições do mês, sem a compra de imóveis e o pagamento de dívidas. É a mesma definição do painel.</p>
+</div></section>
+
+<section class="passo" data-cena="escada"><div class="cartao">
+  <h2>Quanto menor a renda, mais moedas vão para a comida</h2>
+  <p>Agora as famílias estão separadas nas sete faixas de rendimento mensal que o IBGE usa. Cada coluna tem as suas cem moedas.</p>
+  <p>Na faixa <strong>até R$ 3.036 por mês</strong> (dois salários mínimos), <strong class="c-comida">22 de cada 100</strong> moedas vão para a comida. Na faixa <strong>acima de R$ 37.950</strong>, são <strong class="c-comida">9</strong>.</p>
+  <p>É a regularidade observada pelo estatístico alemão Ernst Engel no século XIX: a parte do orçamento gasta com comida cai quando a renda sobe.</p>
+</div></section>
+
+<section class="passo" data-cena="reais"><div class="cartao">
+  <h2>Mais reais, menor parte</h2>
+  <p>Mudamos a régua: agora cada moeda vale <strong>R$ 50 gastos com comida por mês</strong>.</p>
+  <p>As famílias da faixa mais alta gastam <strong>R$ 3.294</strong> por mês com comida, mais de seis vezes os <strong>R$ 525</strong> da faixa mais baixa. Gastam muito mais, mas isso pesa muito menos no orçamento, porque o resto da despesa cresce ainda mais.</p>
+  <p class="nota">Médias mensais por família. As famílias da faixa mais baixa são menores: 2,1 pessoas, contra 3,0 na faixa mais alta.</p>
+</div></section>
+
+<section class="passo" data-cena="fora"><div class="cartao">
+  <h2>Dentro e fora de casa</h2>
+  <p>Das moedas da comida, as <span class="leg" style="background:var(--fora)"></span><strong class="c-fora">azuis</strong> são gastas fora de casa: lanches, refeições no trabalho, restaurantes.</p>
+  <p>Na faixa mais baixa, <strong>20%</strong> do gasto com comida é fora de casa. Na mais alta, <strong>metade</strong>. Na média do Brasil, 32%.</p>
+  <p class="nota">Com poucas moedas por coluna, o desenho arredonda; os percentuais exatos estão no texto e nas tabelas do fim.</p>
+</div></section>
+
+<section class="passo" data-cena="mapa"><div class="cartao">
+  <h2>O mapa das moedas</h2>
+  <p>Cada quadrado é uma UF, com as suas cem moedas. No <strong>Amazonas</strong>, <strong class="c-comida">24,0</strong> vão para a comida; no <strong>Distrito Federal</strong>, <strong class="c-comida">11,7</strong>.</p>
+  <p>Por região, o Norte tem a maior parte (18,4%) e o Centro-Oeste, a menor (13,5%).</p>
+  <p class="nota">Passe o mouse ou toque numa UF para ver o valor e o intervalo de confiança.</p>
+</div></section>
+
+<section class="passo" data-cena="mapa18"><div class="cartao">
+  <h2>Sete anos depois</h2>
+  <p>As setas comparam com 2017-2018. A média do país ficou parada, mas os estados se moveram.</p>
+  <p>No <strong>Nordeste</strong>, a parte da comida caiu nas nove UFs; a maior queda foi no Rio Grande do Norte, de 22,2% para 14,1%. No Sul e no Sudeste, houve pequenas altas. A maior alta foi no <strong>Amazonas</strong>, de 18,1% para 24,0%.</p>
+  <p class="nota">Os valores de 2017-2018 vêm das tabelas publicadas e não têm intervalo de confiança: a comparação é descritiva, e mudanças pequenas podem não ser reais.</p>
+</div></section>
+
+<section class="passo" data-cena="sacola"><div class="cartao">
+  <h2>O que tem na sacola</h2>
+  <p>Agora as cem moedas são <strong>o gasto com comida para casa</strong>, dividido como o IBGE agrupa os alimentos.</p>
+  <p>Carnes, vísceras e pescados levam <strong>20</strong> moedas; bebidas e infusões, 13; leites e derivados, 11; panificados, 10; aves e ovos, 10. Arroz, feijão e outros cereais, 5.</p>
+  <p class="nota">É a parte do gasto, não da quantidade comprada nem do que cada pessoa come.</p>
+</div></section>
+
+<section class="passo" data-cena="arroz"><div class="cartao">
+  <h2>O arroz e o feijão pesam mais para quem tem menos</h2>
+  <p>Nas famílias com <strong>até 1/4 de salário mínimo por pessoa</strong>, arroz e feijão levam <strong>9 de cada 100</strong> moedas da comida em casa: 6,1 do <span class="leg" style="background:#E9DDBF;border:1px solid #B9A57A"></span>arroz e 2,7 do <span class="leg" style="background:#7A3E1D"></span>feijão.</p>
+  <p>Nas famílias com <strong>mais de 5 salários mínimos por pessoa</strong>, levam <strong>2</strong>: 1,5 do arroz e 0,6 do feijão. Os refrigerantes ficam com 3 moedas nas duas pontas.</p>
+  <p class="nota">Faixas de rendimento per capita da POF, que incluem rendimentos não monetários; não são comparáveis com as da PNAD Contínua.</p>
+</div></section>
+
+<section class="passo" data-cena="semcompra"><div class="cartao">
+  <h2>A comida que não passa pelo caixa</h2>
+  <p>No campo, <strong>12,1 de cada 100</strong> reais de comida em casa vêm sem compra: <span class="leg" style="background:var(--verde)"></span><strong class="c-verde">7,6</strong> de produção própria, <span class="leg" style="background:var(--roxo)"></span><strong class="c-roxo">3,1</strong> de doação e o resto de troca e outras formas. Na cidade, 2.</p>
+  <p>17% das famílias rurais registraram ao menos um alimento que elas mesmas produziram, na semana da caderneta de compras.</p>
+  <p class="nota">O valor do que não foi comprado é estimado. A caderneta cobre sete dias e capta mal a produção e as doações de outras épocas do ano.</p>
+</div></section>
+
+<section class="passo" data-cena="familias"><div class="cartao">
+  <h2>Agora, cada casinha é uma família</h2>
+  <p><strong class="c-casa">19 de cada 100</strong> famílias declararam receber o Bolsa Família.</p>
+  <p>Entre as famílias com <strong>criança menor de 5 anos</strong>, são <strong class="c-casa">42</strong>. Entre as com rendimento de <strong>1/4 a 1/2 salário mínimo por pessoa</strong>, <strong class="c-casa">59</strong>.</p>
+  <p class="nota">O recebimento é declarado pela família e pode estar abaixo do que mostram os registros do programa.</p>
+</div></section>
+
+<section class="passo" data-cena="bfmapa"><div class="cartao">
+  <h2>De Santa Catarina ao Maranhão</h2>
+  <p>De <strong>4 em cada 100</strong> famílias em Santa Catarina a <strong>45</strong> no Maranhão.</p>
+  <p>Nas famílias que recebem, o benefício é 14% do rendimento, e a comida leva <strong>20 de cada 100</strong> moedas da despesa, contra 15 nas que não recebem. A diferença descreve quem recebe, com renda mais baixa; não é efeito do programa.</p>
+</div></section>
+
+<section class="fecho">
+  <div class="dentro">
+    <h2>O que ainda falta</h2>
+    <p>Esta é a parte da POF 2024-2025 que o IBGE já liberou: despesas e rendimentos. A Escala Brasileira de Insegurança Alimentar (EBIA), o consumo de cada morador e as quantidades compradas foram coletados, mas ainda não saíram.</p>
+    <p>Quando saírem, será possível saber quantas dessas famílias convivem com a comida incerta, e as outras páginas deste retrato serão atualizadas. Nenhum número desta página mede insegurança alimentar: eles descrevem orçamento, renda e a forma de conseguir os alimentos.</p>
+    <div class="botoes">
+      <a class="pri" href="../#m=acesso&amp;xi=bf&amp;xr=uf">Explorar no painel: renda e acesso</a>
+      <a href="../#m=engel&amp;xi=engel_desp&amp;xr=uf">Painel: orçamento familiar</a>
+      <a href="prato.html">O prato</a>
+    </div>
+    <div class="fonte">
+      <p><strong>Fonte:</strong> IBGE, Pesquisa de Orçamentos Familiares 2024-2025, Primeiros Resultados e microdados (27/11/2026); POF 2017-2018, tabelas por UF. Elaboração própria. Intervalos de confiança de 95% pelos 200 pesos de replicação da pesquisa. O texto não arredonda além de uma casa decimal; as moedas, sim.</p>
+      <p><strong>Como citar:</strong> Castanho, Bernardo. Painel de Insegurança Alimentar no Brasil. Zenodo, 2026. https://doi.org/10.5281/zenodo.23405765.</p>
+      <details><summary>Tabela: coeficiente de Engel por faixa de rendimento (Brasil)</summary><div class="rolavel"><table class="dados" id="t-faixas"></table></div></details>
+      <details><summary>Tabela: coeficiente de Engel e Bolsa Família por UF</summary><div class="rolavel"><table class="dados" id="t-uf"></table></div></details>
+      <details><summary>Tabela: composição do gasto com comida em casa (Brasil)</summary><div class="rolavel"><table class="dados" id="t-grupos"></table></div></details>
+    </div>
+  </div>
+</section>
+</main>
+
+<script>
+const D = __DADOS__;
+const $ = id => document.getElementById(id);
+const cv = $('mesa'), ctx = cv.getContext('2d');
+const REDUZ = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const val = v => Array.isArray(v) ? v[0] : v;   // células do painel: [estimativa, ic95_inf, ic95_sup, n, cv, cautela]
+const f1 = v => v == null ? '—' : val(v).toFixed(1).replace('.', ',');
+const rs = v => 'R$ ' + v.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
+const N = 2700;                                    // 27 UFs x 100: o maior arranjo
+const COR = {ouro: '#C9992F', comida: '#B5482F', fora: '#2F5D8A', vazio: '#D9CFBF', verde: '#3F7A34', roxo: '#6E5A96', cinza: '#B9AF9F',
+  casa: '#2A7F62', casa0: '#D4CCBE', arroz: '#E9DDBF', feijao: '#7A3E1D', refri: '#8C2F39'};
+const GCOR = ['#9E3B2C', '#3E6E99', '#C9A227', '#B9824A', '#D6895B', '#6F9E4C', '#8C6A3F', '#D4A5A5', '#7C6FA6', '#C2B280', '#4E8F6F', '#A3A3A3', '#E0B44E', '#5E7B8C', '#8F5B7A', '#9DB4C0'];
+// mapa de quadrados das UFs (coluna, linha)
+const TILE = {RR:[2,0],AP:[4,0],AM:[1,1],PA:[3,1],MA:[5,1],CE:[6,1],RN:[7,1],AC:[0,2],RO:[1,2],MT:[2,2],TO:[4,2],PI:[5,2],PE:[6,2],PB:[7,2],
+  MS:[2,3],GO:[3,3],DF:[4,3],BA:[5,3],AL:[6,3],SP:[3,4],MG:[4,4],ES:[5,4],SE:[6,4],PR:[3,5],RJ:[4,5],SC:[3,6],RS:[3,7]};
+const UFS = Object.keys(TILE);
+let W, H, DPR, estreito, palco, CENAS = {}, SPR = {};
+
+function topoMenu(){ const n = document.querySelector('.abas'); return n ? n.getBoundingClientRect().bottom + 6 : 60; }
+// moeda e casa desenhadas uma vez por cor, depois copiadas (rápido para 2.700 peças)
+function sprite(forma, cor){
+  const k = forma + cor; if(SPR[k]) return SPR[k];
+  const S = 64, c = document.createElement('canvas'); c.width = c.height = S; const g = c.getContext('2d');
+  if(forma === 'm'){
+    const gr = g.createRadialGradient(S * .38, S * .34, S * .05, S / 2, S / 2, S * .5);
+    gr.addColorStop(0, clareia(cor, .45)); gr.addColorStop(.55, cor); gr.addColorStop(1, escurece(cor, .25));
+    g.fillStyle = gr; g.beginPath(); g.arc(S / 2, S / 2, S * .47, 0, 7); g.fill();
+    g.strokeStyle = escurece(cor, .35); g.lineWidth = S * .05; g.beginPath(); g.arc(S / 2, S / 2, S * .33, 0, 7); g.globalAlpha = .45; g.stroke();
+  } else {
+    g.fillStyle = cor; g.beginPath(); g.moveTo(S * .5, S * .08); g.lineTo(S * .94, S * .46); g.lineTo(S * .82, S * .46); g.lineTo(S * .82, S * .92);
+    g.lineTo(S * .18, S * .92); g.lineTo(S * .18, S * .46); g.lineTo(S * .06, S * .46); g.closePath(); g.fill();
+    g.fillStyle = 'rgba(255,255,255,.55)'; g.fillRect(S * .42, S * .62, S * .16, S * .3);
+  }
+  return SPR[k] = c;
+}
+function hex(c){ return [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16)); }
+function clareia(c, f){ return 'rgb(' + hex(c).map(v => Math.round(v + (255 - v) * f)).join(',') + ')'; }
+function escurece(c, f){ return 'rgb(' + hex(c).map(v => Math.round(v * (1 - f))).join(',') + ')'; }
+
+// 100 posições numa grade 10x10, preenchida de baixo para cima (as primeiras k são "as k moedas")
+function grade(x, y, lado, extra){
+  const cel = lado / 10, r = cel * .44, P = [];
+  for(let k = 0; k < 100; k++){ const lin = 9 - Math.floor(k / 10), col = k % 10; P.push({x: x + cel * (col + .5), y: y + cel * (lin + .5), r, ...(extra || {})}); }
+  return P;
+}
+function vazio(){ return {p: Array.from({length: N}, () => null), over: []}; }
+function completa(c, base){ // peças sem lugar nesta cena somem onde estavam na cena-base
+  for(let i = 0; i < N; i++) if(!c.p[i]){ const b = base.p[i] || base.p[i % 100]; c.p[i] = {x: b.x, y: b.y, r: b.r * .2, cor: b.cor, f: b.f || 'm', a: 0}; }
+  return c;
+}
+function pinta(P, cores){ // cores: lista de [cor, quantidade]; o resto fica com a última cor "resto"
+  let k = 0; cores.forEach(([cor, q]) => { for(let j = 0; j < q && k < P.length; j++, k++) P[k].cor = cor; });
+}
+const R = v => Math.round(val(v));
+
+function montaCenas(){
+  const {x, y, w, h} = palco, L = Math.min(w, h) * .82, cx = x + w / 2, cy = y + h / 2;
+  // capa e quinze: 100 moedas grandes
+  const g100 = grade(cx - L / 2, cy - L / 2, L);
+  const Lc = estreito ? Math.min(w, h) * .72 : Math.min(w * .62, h * .78), gc = estreito ? grade(cx - Lc / 2, y, Lc) : grade(x + w - Lc, cy - Lc / 2, Lc);
+  const capa = vazio(); gc.forEach((q, i) => capa.p[i] = {...q, cor: COR.ouro, f: 'm', a: 1});
+  CENAS.capa = completa(capa, capa);
+  const quinze = vazio(); g100.forEach((q, i) => quinze.p[i] = {...q, cor: COR.ouro, f: 'm', a: 1}); pinta(quinze.p, [[COR.comida, R(D.br.engel)]]);
+  quinze.over = [{t: 'R$ ' + f1(D.br.engel) + ' com comida', x: cx, y: cy + L / 2 + 26, f: 15, b: true, cor: COR.comida}];
+  CENAS.quinze = completa(quinze, capa);
+  // escada: 7 colunas de 100
+  const gap = estreito ? 6 : 14, lado = Math.min((w - gap * 6) / 7, h * .5), x0 = cx - (lado * 7 + gap * 6) / 2, yg = cy - lado / 2 + (estreito ? 6 : 10);
+  const col = k => x0 + k * (lado + gap);
+  const esc = vazio(), reais = vazio(), fora = vazio();
+  D.faixas.forEach((fx, k) => {
+    const gk = grade(col(k), yg, lado), ne = R(fx.engel), nf = R(fx.engel * fx.fora / 100);
+    gk.forEach((q, j) => { esc.p[k * 100 + j] = {...q, cor: j < ne ? COR.comida : COR.vazio, f: 'm', a: 1};
+      fora.p[k * 100 + j] = {...q, cor: j < nf ? COR.fora : (j < ne ? COR.comida : COR.vazio), f: 'm', a: 1}; });
+    // reais: uma moeda = R$ 50 de comida por mês, em pilhas de 5 por linha
+    const nr = R(fx.alim / 50), cel = lado / 5, base = yg + lado;
+    for(let j = 0; j < 100; j++){
+      if(j < nr){ const lin = Math.floor(j / 5), c5 = j % 5; reais.p[k * 100 + j] = {x: col(k) + cel * (c5 + .5), y: base - cel * .5 * (lin + .5) * 1.02, r: Math.min(cel * .44, lado / 22), cor: COR.comida, f: 'm', a: 1}; }
+    }
+    const fxr = estreito ? fx.sm.replace(' SM', '').replace('mais de ', '+') : fx.fx, xm = col(k) + lado / 2;
+    esc.over.push({t: f1(fx.engel) + '%', x: xm, y: yg - 10, f: 14, b: true, cor: COR.comida}, {t: fxr, x: xm, y: yg + lado + 18, f: 10.5, cor: '#5A5147'});
+    fora.over.push({t: f1(fx.fora) + (estreito ? '%' : '% fora'), x: xm, y: yg - 10, f: 12.5, b: true, cor: COR.fora}, {t: fxr, x: xm, y: yg + lado + 18, f: 10.5, cor: '#5A5147'});
+    reais.over.push({t: (estreito ? '' : 'R$ ') + Math.round(fx.alim).toLocaleString('pt-BR'), x: xm, y: yg + lado - Math.ceil(nr / 5) * lado / 10 * 1.02 - 10, f: estreito ? 10.5 : 12.5, b: true, cor: COR.comida},
+                    {t: fxr, x: xm, y: yg + lado + 18, f: 10.5, cor: '#5A5147'});
+  });
+  const eixo = {t: estreito ? 'rendimento mensal da família, em salários mínimos' : 'rendimento mensal da família', x: cx, y: yg + lado + (estreito ? 32 : 38), f: 11, cor: '#867B6E'};
+  esc.over.push(eixo); fora.over.push(eixo); reais.over.push(eixo);
+  CENAS.escada = completa(esc, capa); CENAS.fora = completa(fora, capa);
+  CENAS.reais = completa(reais, esc);
+  // mapas: quadrados 8 x 8
+  const lt = Math.min(w / 8, h / 8.2), mx0 = cx - lt * 4, my0 = y + (h - lt * 8.2) / 2 + lt * .2;
+  const mapa = vazio(), mapa18 = vazio(), bfm = vazio();
+  CENAS.tiles = {};
+  UFS.forEach((u, t) => {
+    const [c, l] = TILE[u], tx = mx0 + c * lt + lt * .08, ty = my0 + l * lt + lt * .2, s = lt * .8, d = D.uf[u];
+    CENAS.tiles[u] = {x: tx, y: ty - lt * .16, s, h: s + lt * .16};
+    grade(tx, ty, s).forEach((q, j) => {
+      mapa.p[t * 100 + j] = {...q, cor: j < R(d.e[0]) ? COR.comida : COR.vazio, f: 'm', a: 1};
+      mapa18.p[t * 100 + j] = {...q, cor: j < R(d.e[0]) ? COR.comida : COR.vazio, f: 'm', a: 1};
+      bfm.p[t * 100 + j] = {...q, r: q.r * 1.08, cor: j < R(d.bf[0]) ? COR.casa : COR.casa0, f: 'c', a: 1};
+    });
+    const fs = estreito ? Math.min(9, lt * .2) : Math.max(8.5, Math.min(12, lt * .17)), so = estreito;   // no celular, só a sigla: o valor fica na dica
+    mapa.over.push({t: so ? u : u + ' ' + f1(d.e[0]), x: tx + s / 2, y: ty - 3, f: fs, b: true, cor: '#26211B'});
+    const dd = d.e[0] - d.e18, seta = dd > 0 ? '▲' : '▼';
+    mapa18.over.push({t: so ? u + seta : u + ' ' + seta + (dd > 0 ? '+' : '−') + f1(Math.abs(dd)), x: tx + s / 2, y: ty - 3, f: fs, b: true, cor: dd > 0 ? '#B5482F' : '#2F5D8A'});
+    bfm.over.push({t: so ? u : u + ' ' + f1(d.bf[0]), x: tx + s / 2, y: ty - 3, f: fs, b: true, cor: '#1C5B45'});
+  });
+  CENAS.mapa = completa(mapa, esc); CENAS.mapa18 = completa(mapa18, esc); CENAS.bfmapa = completa(bfm, mapa);
+  // sacola: 100 moedas da comida em casa, por grupo (maiores restos para somar 100)
+  const sac = vazio(); const g2 = grade(cx - L / 2 - (estreito ? 0 : L * .25), cy - L / 2, L);
+  const qt = D.grupos.map(g => Math.floor(g[1])), resto = D.grupos.map((g, i) => [g[1] - qt[i], i]).sort((a, b) => b[0] - a[0]);
+  const falta = 100 - qt.reduce((a, b) => a + b, 0); for(let k = 0; k < falta; k++) qt[resto[k][1]]++;   // maiores restos completam 100
+  g2.forEach((q, i) => sac.p[i] = {...q, f: 'm', a: 1});
+  // ordem de cima para baixo: grupo maior no alto
+  const ordem = [...Array(100).keys()].reverse(); let k = 0;
+  D.grupos.forEach((g, gi) => { for(let j = 0; j < qt[gi]; j++, k++) sac.p[ordem[k]].cor = GCOR[gi % GCOR.length]; });
+  if(!estreito){ D.grupos.slice(0, 9).forEach((g, gi) => sac.over.push({t: '● ' + g[0] + ' ' + f1(g[1]), x: cx + L * .3, y: cy - L / 2 + 14 + gi * 22, f: 12.5, cor: GCOR[gi], al: 'left'}));
+    sac.over.push({t: 'demais grupos: ' + f1(D.grupos.slice(9).reduce((a, g) => a + g[1], 0)), x: cx + L * .3, y: cy - L / 2 + 14 + 9 * 22, f: 12, cor: '#867B6E', al: 'left'}); }
+  CENAS.sacola = completa(sac, capa);
+  // dois quadros lado a lado
+  const L2 = Math.min(w / 2.3, h * .7), xa = cx - L2 - (estreito ? 6 : 20), xb = cx + (estreito ? 6 : 20), y2 = cy - L2 / 2 + 8;
+  const dois = (a, b, fa, fb, rot) => { const c = vazio(); grade(xa, y2, L2).forEach((q, i) => c.p[i] = {...q, f: 'm', a: 1, cor: COR.ouro}); grade(xb, y2, L2).forEach((q, i) => c.p[100 + i] = {...q, f: 'm', a: 1, cor: COR.ouro});
+    pinta(c.p.slice(0, 100), a); pinta(c.p.slice(100, 200), b); fa(c); fb(c);
+    c.over.push({t: rot[0], x: xa + L2 / 2, y: y2 - 12, f: 13, b: true, cor: '#26211B'}, {t: rot[1], x: xb + L2 / 2, y: y2 - 12, f: 13, b: true, cor: '#26211B'});
+    return c; };
+  const A1 = D.arroz['Até 1/4 SM'], A2 = D.arroz['Mais de 5 SM'], nada = () => {};
+  const arr = dois([[COR.arroz, R(A1.arroz[0])], [COR.feijao, R(A1.feijao[0])], [COR.refri, R(A1.refri[0])]], [[COR.arroz, R(A2.arroz[0])], [COR.feijao, R(A2.feijao[0])], [COR.refri, R(A2.refri[0])]],
+    c => c.p.slice(0, 100).forEach(q => { if(q.cor === COR.ouro) q.cor = COR.vazio; }), c => c.p.slice(100, 200).forEach(q => { if(q.cor === COR.ouro) q.cor = COR.vazio; }),
+    [estreito ? 'até 1/4 SM por pessoa' : 'Até 1/4 de salário mínimo por pessoa', estreito ? 'mais de 5 SM' : 'Mais de 5 salários mínimos por pessoa']);
+  arr.over.push({t: 'arroz ' + f1(A1.arroz[0]) + ' · feijão ' + f1(A1.feijao[0]) + ' · refrigerante ' + f1(A1.refri[0]), x: xa + L2 / 2, y: y2 + L2 + 20, f: estreito ? 9.5 : 11.5, cor: '#5A5147'},
+               {t: 'arroz ' + f1(A2.arroz[0]) + ' · feijão ' + f1(A2.feijao[0]) + ' · refrigerante ' + f1(A2.refri[0]), x: xb + L2 / 2, y: y2 + L2 + 20, f: estreito ? 9.5 : 11.5, cor: '#5A5147'});
+  CENAS.arroz = completa(arr, capa);
+  const SU = D.sem.Urbano, SR = D.sem.Rural, outra = s => Math.max(0, R(s.total[0]) - R(s.prod[0]) - R(s.doado[0]));
+  const sem = dois([[COR.verde, R(SU.prod[0])], [COR.roxo, R(SU.doado[0])], [COR.cinza, outra(SU)]], [[COR.verde, R(SR.prod[0])], [COR.roxo, R(SR.doado[0])], [COR.cinza, outra(SR)]], nada, nada,
+    ['Urbano: ' + f1(SU.total[0]) + ' sem compra', 'Rural: ' + f1(SR.total[0]) + ' sem compra']);
+  CENAS.semcompra = completa(sem, capa);
+  // famílias: três quadros de casinhas
+  const L3 = Math.min(w / 3.4, h * .6), gp3 = estreito ? 6 : 18, x3 = cx - (L3 * 3 + gp3 * 2) / 2, y3 = cy - L3 / 2 + 8, B = D.bf, fam = vazio();
+  [[B.total[0], 'Todas as famílias'], [B.crianca[0], estreito ? 'com criança <5' : 'Com criança menor de 5 anos'], [B.renda[0], estreito ? '1/4 a 1/2 SM' : '1/4 a 1/2 SM por pessoa']].forEach(([v, rot], k) => {
+    grade(x3 + k * (L3 + gp3), y3, L3).forEach((q, j) => fam.p[k * 100 + j] = {...q, r: q.r * 1.08, f: 'c', a: 1, cor: j < R(v) ? COR.casa : COR.casa0});
+    fam.over.push({t: f1(v) + '%', x: x3 + k * (L3 + gp3) + L3 / 2, y: y3 - 30, f: 16, b: true, cor: '#1C5B45'}, {t: rot, x: x3 + k * (L3 + gp3) + L3 / 2, y: y3 - 11, f: estreito ? 9.5 : 11.5, cor: '#5A5147'});
+  });
+  CENAS.familias = completa(fam, capa);
+  const fe = vazio(); g100.forEach((q, i) => fe.p[i] = {...q, cor: COR.ouro, f: 'm', a: .18}); CENAS.fim = completa(fe, capa);
+}
+function mede(){
+  DPR = Math.min(window.devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight; estreito = W <= 820;
+  cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
+  palco = estreito ? {x: 12, y: topoMenu() + 18, w: W - 24, h: H * .5 - 24 - topoMenu()} : {x: Math.min(W * .05 + 410, W * .44) + 46, y: 80, w: 0, h: H - 80 - 48};
+  if(!estreito) palco.w = W - palco.x - Math.max(28, W * .04);
+  montaCenas();
+}
+const passos = [...document.querySelectorAll('[data-cena]')], fecho = document.querySelector('.fecho');
+let est = {a: 'capa', b: 'capa', t: 0};
+function leRolagem(){
+  const meio = innerHeight * .5; let i = 0;
+  for(let k = 0; k < passos.length; k++) if(passos[k].getBoundingClientRect().top <= meio) i = k;
+  const r = passos[i].getBoundingClientRect(), f = Math.max(0, Math.min(1, (meio - r.top) / r.height));
+  let t = Math.max(0, Math.min(1, (f - .58) / .42)); if(REDUZ) t = t > .5 ? 1 : 0;
+  const prox = i + 1 < passos.length ? passos[i + 1].dataset.cena : 'fim';
+  est = {a: passos[i].dataset.cena, b: prox, t};
+  if(fecho.getBoundingClientRect().top < innerHeight * .6) est = {a: 'fim', b: 'fim', t: 0};
+  const tot = document.documentElement.scrollHeight - innerHeight; $('progresso').style.width = (tot > 0 ? Math.min(100, 100 * scrollY / tot) : 0) + '%';
+}
+const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
+function txt(t, x, y, o){ ctx.font = (o.b ? '600 ' : '') + o.f + 'px system-ui,-apple-system,Segoe UI,Roboto,sans-serif'; ctx.fillStyle = o.cor || '#26211B'; ctx.textAlign = o.al || 'center'; ctx.textBaseline = 'alphabetic'; ctx.fillText(t, x, y); }
+function peca(q, a){ if(a <= .01 || q.r < .3) return; ctx.globalAlpha = a; const s = sprite(q.f, q.cor), d = q.r * 2.13; ctx.drawImage(s, q.x - d / 2, q.y - d / 2, d, d); }
+let relogio = 0;
+function quadro(ts){
+  const A = CENAS[est.a] || CENAS.capa, B = CENAS[est.b] || A, e = ease(est.t);
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.globalAlpha = 1; ctx.fillStyle = '#F4EFE6'; ctx.fillRect(0, 0, W, H);
+  // capa: as moedas caem e se assentam na primeira vez
+  const queda = REDUZ ? 1 : Math.min(1, (ts - relogio) / 1600);
+  for(let i = 0; i < N; i++){
+    const p = A.p[i], q = B.p[i]; if(!p || !q) continue;
+    let x = p.x + (q.x - p.x) * e, y = p.y + (q.y - p.y) * e, r = p.r + (q.r - p.r) * e, a = p.a + (q.a - p.a) * e;
+    if(est.a === 'capa' && queda < 1 && i < 100){ const atraso = (i % 10) * .03 + Math.floor(i / 10) * .045, u = Math.max(0, Math.min(1, (queda - atraso) / .45)); y = y - (1 - ease(u)) * (H * .7); a *= u; }
+    if(p.cor === q.cor && p.f === q.f) peca({x, y, r, cor: p.cor, f: p.f}, a);
+    else { peca({x, y, r, cor: p.cor, f: p.f}, a * (1 - e)); peca({x, y, r, cor: q.cor, f: q.f}, a * e); }
+  }
+  ctx.globalAlpha = 1;
+  [[A, 1 - e], [B, e]].forEach(([C, al]) => { if(A === B && C === B) return; if(al < .03) return; ctx.globalAlpha = al; (C.over || []).forEach(o => txt(o.t, o.x, o.y, {f: estreito ? o.f * .85 : o.f, b: o.b, cor: o.cor, al: o.al})); });
+  if(A === B){ ctx.globalAlpha = 1; (A.over || []).forEach(o => txt(o.t, o.x, o.y, {f: estreito ? o.f * .85 : o.f, b: o.b, cor: o.cor, al: o.al})); }
+  ctx.globalAlpha = 1;
+  requestAnimationFrame(quadro);
+}
+// dica sobre o mapa
+function dicaMapa(ev){
+  const d = $('dica'), cena = est.t < .5 ? est.a : est.b;
+  if(!['mapa', 'mapa18', 'bfmapa'].includes(cena) || !CENAS.tiles){ d.classList.remove('vis'); return; }
+  const x = ev.clientX, y = ev.clientY, u = UFS.find(k => { const t = CENAS.tiles[k]; return x >= t.x && x <= t.x + t.s && y >= t.y && y <= t.y + t.h; });
+  if(!u){ d.classList.remove('vis'); return; }
+  const v = D.uf[u];
+  d.innerHTML = cena === 'bfmapa' ? '<b>' + v.nome + '</b><br>Bolsa Família: ' + f1(v.bf[0]) + '% das famílias<br>IC95% ' + f1(v.bf[1]) + ' a ' + f1(v.bf[2])
+    : '<b>' + v.nome + '</b><br>Engel 2024-2025: ' + f1(v.e[0]) + '% (IC95% ' + f1(v.e[1]) + ' a ' + f1(v.e[2]) + ')<br>2017-2018: ' + f1(v.e18) + '% (sem IC)';
+  d.style.left = Math.min(x + 14, innerWidth - 250) + 'px'; d.style.top = (y + 14) + 'px'; d.classList.add('vis');
+}
+addEventListener('pointermove', dicaMapa); addEventListener('pointerdown', dicaMapa);
+// tabelas do fim
+function tabelas(){
+  $('t-faixas').innerHTML = '<tr><th>Rendimento mensal da família</th><th>Engel (% da despesa)</th><th>Comida (R$/mês)</th><th>% fora de casa</th></tr>' +
+    D.faixas.map(f => '<tr><td>' + f.fx + '</td><td>' + f1(f.engel) + '</td><td>' + rs(f.alim) + '</td><td>' + f1(f.fora) + '</td></tr>').join('') +
+    '<tr><td><b>Brasil</b></td><td><b>' + f1(D.br.engel[0]) + '</b></td><td><b>' + rs(D.br.alim) + '</b></td><td><b>' + f1(D.br.fora[0]) + '</b></td></tr>';
+  $('t-uf').innerHTML = '<tr><th>UF</th><th>Engel 2024-2025 (IC95%)</th><th>Engel 2017-2018</th><th>Bolsa Família, % famílias (IC95%)</th></tr>' +
+    Object.keys(D.uf).sort((a, b) => D.uf[a].nome.localeCompare(D.uf[b].nome, 'pt-BR')).map(u => { const v = D.uf[u];
+      return '<tr><td>' + v.nome + '</td><td>' + f1(v.e[0]) + ' (' + f1(v.e[1]) + ' a ' + f1(v.e[2]) + ')</td><td>' + f1(v.e18) + '</td><td>' + f1(v.bf[0]) + ' (' + f1(v.bf[1]) + ' a ' + f1(v.bf[2]) + ')</td></tr>'; }).join('');
+  $('t-grupos').innerHTML = '<tr><th>Grupo</th><th>% do gasto com comida em casa</th></tr>' + D.grupos.map(g => '<tr><td>' + g[0] + '</td><td>' + f1(g[1]) + '</td></tr>').join('');
+}
+tabelas();
+addEventListener('resize', mede); addEventListener('scroll', leRolagem, {passive: true});
+mede(); leRolagem(); requestAnimationFrame(ts => { relogio = ts; quadro(ts); });
+</script>
+</body>
+</html>
