@@ -45,7 +45,8 @@ main{position:relative;z-index:10;pointer-events:none}
 .chapeu{font-size:.72rem;letter-spacing:.16em;text-transform:uppercase;color:var(--tinta-3);margin-bottom:.9em}
 .n{font-family:var(--serif);font-size:clamp(2.6rem,9vw,4.2rem);line-height:.95;letter-spacing:-.03em;display:block;margin:0 0 .12em}
 .c-ouro{color:#9C7420} .c-comida{color:var(--comida)} .c-fora{color:var(--fora)} .c-verde{color:var(--verde)} .c-roxo{color:var(--roxo)} .c-casa{color:var(--casa)}
-.leg{display:inline-block;width:.8em;height:.8em;border-radius:50%;vertical-align:-.05em;margin-right:.3em}
+.leg{display:inline-block;width:.85em;height:.85em;border-radius:50%;vertical-align:-.08em;margin-right:.3em;box-shadow:inset -1px -1px 2px rgba(0,0,0,.3),inset 1px 1px 2px rgba(255,255,255,.5),0 1px 1px rgba(0,0,0,.2)}
+.l-cobre{background:radial-gradient(circle at 35% 30%,#F6B68C,#BE6840 55%,#602812)}.l-prata{background:radial-gradient(circle at 35% 30%,#F6F9FC,#B0BAC4 55%,#4E5864)}.l-ouro{background:radial-gradient(circle at 35% 30%,#FFEEAA,#D6A946 55%,#704C16)}
 .capa{min-height:100vh;display:flex;flex-direction:column;justify-content:center;padding:90px max(20px,6vw) 70px}
 .capa > *{pointer-events:auto;max-width:36rem}
 .capa h1{font-family:var(--serif);font-weight:400;font-size:clamp(3rem,12vw,7.4rem);line-height:.92;letter-spacing:-.035em;margin:0 0 .22em}
@@ -136,7 +137,7 @@ details{margin:.6em 0} details summary{cursor:pointer;color:var(--tinta-2)}
 
 <section class="passo" data-cena="fora"><div class="cartao">
   <h2>Dentro e fora de casa</h2>
-  <p>Das moedas da comida, as <span class="leg" style="background:var(--fora)"></span><strong class="c-fora">azuis</strong> são gastas fora de casa: lanches, refeições no trabalho, restaurantes.</p>
+  <p>Das moedas da comida, as <span class="leg l-prata"></span><strong class="c-fora">prateadas</strong> são gastas fora de casa; as <span class="leg l-cobre"></span><strong class="c-comida">de cobre</strong>, em casa: lanches, refeições no trabalho, restaurantes.</p>
   <p>Na faixa mais baixa, <strong>20%</strong> do gasto com comida é fora de casa. Na mais alta, <strong>metade</strong>. Na média do Brasil, 32%.</p>
   <p class="nota">Com poucas moedas por coluna, o desenho arredonda; os percentuais exatos estão no texto e nas tabelas do fim.</p>
 </div></section>
@@ -164,7 +165,7 @@ details{margin:.6em 0} details summary{cursor:pointer;color:var(--tinta-2)}
 
 <section class="passo" data-cena="arroz"><div class="cartao">
   <h2>O arroz e o feijão pesam mais para quem tem menos</h2>
-  <p>Nas famílias com <strong>até 1/4 de salário mínimo por pessoa</strong>, arroz e feijão levam <strong>9 de cada 100</strong> moedas da comida em casa: 6,1 do <span class="leg" style="background:#E9DDBF;border:1px solid #B9A57A"></span>arroz e 2,7 do <span class="leg" style="background:#7A3E1D"></span>feijão.</p>
+  <p>Nas famílias com <strong>até 1/4 de salário mínimo por pessoa</strong>, arroz e feijão levam <strong>9 de cada 100</strong> moedas da comida em casa: 6,1 do <span class="leg" style="background:radial-gradient(circle at 35% 30%,#fff,#F3ECDA 60%,#C9BC9A)"></span>arroz e 2,7 do <span class="leg" style="background:#7A3E1D"></span>feijão.</p>
   <p>Nas famílias com <strong>mais de 5 salários mínimos por pessoa</strong>, levam <strong>2</strong>: 1,5 do arroz e 0,6 do feijão. Os refrigerantes ficam com 3 moedas nas duas pontas.</p>
   <p class="nota">Faixas de rendimento per capita da POF, que incluem rendimentos não monetários; não são comparáveis com as da PNAD Contínua.</p>
 </div></section>
@@ -220,7 +221,7 @@ const f1 = v => v == null ? '—' : val(v).toFixed(1).replace('.', ',');
 const rs = v => 'R$ ' + v.toLocaleString('pt-BR', {minimumFractionDigits: 2, maximumFractionDigits: 2});
 const N = 2700;                                    // 27 UFs x 100: o maior arranjo
 const COR = {ouro: '#C9992F', comida: '#B5482F', fora: '#2F5D8A', vazio: '#D9CFBF', verde: '#3F7A34', roxo: '#6E5A96', cinza: '#B9AF9F',
-  casa: '#2A7F62', casa0: '#D4CCBE', arroz: '#E9DDBF', feijao: '#7A3E1D', refri: '#8C2F39'};
+  casa: '#2A7F62', casa0: '#D4CCBE', arroz: '#FBF7EC', feijao: '#7A3E1D', refri: '#8C2F39'};
 const GCOR = ['#9E3B2C', '#3E6E99', '#C9A227', '#B9824A', '#D6895B', '#6F9E4C', '#8C6A3F', '#D4A5A5', '#7C6FA6', '#C2B280', '#4E8F6F', '#A3A3A3', '#E0B44E', '#5E7B8C', '#8F5B7A', '#9DB4C0'];
 // mapa de quadrados das UFs (coluna, linha)
 const TILE = {RR:[2,0],AP:[4,0],AM:[1,1],PA:[3,1],MA:[5,1],CE:[6,1],RN:[7,1],AC:[0,2],RO:[1,2],MT:[2,2],TO:[4,2],PI:[5,2],PE:[6,2],PB:[7,2],
@@ -229,22 +230,6 @@ const UFS = Object.keys(TILE);
 let W, H, DPR, estreito, palco, CENAS = {}, SPR = {};
 
 function topoMenu(){ const n = document.querySelector('.abas'); return n ? n.getBoundingClientRect().bottom + 6 : 60; }
-// moeda e casa desenhadas uma vez por cor, depois copiadas (rápido para 2.700 peças)
-function sprite(forma, cor){
-  const k = forma + cor; if(SPR[k]) return SPR[k];
-  const S = 64, c = document.createElement('canvas'); c.width = c.height = S; const g = c.getContext('2d');
-  if(forma === 'm'){
-    const gr = g.createRadialGradient(S * .38, S * .34, S * .05, S / 2, S / 2, S * .5);
-    gr.addColorStop(0, clareia(cor, .45)); gr.addColorStop(.55, cor); gr.addColorStop(1, escurece(cor, .25));
-    g.fillStyle = gr; g.beginPath(); g.arc(S / 2, S / 2, S * .47, 0, 7); g.fill();
-    g.strokeStyle = escurece(cor, .35); g.lineWidth = S * .05; g.beginPath(); g.arc(S / 2, S / 2, S * .33, 0, 7); g.globalAlpha = .45; g.stroke();
-  } else {
-    g.fillStyle = cor; g.beginPath(); g.moveTo(S * .5, S * .08); g.lineTo(S * .94, S * .46); g.lineTo(S * .82, S * .46); g.lineTo(S * .82, S * .92);
-    g.lineTo(S * .18, S * .92); g.lineTo(S * .18, S * .46); g.lineTo(S * .06, S * .46); g.closePath(); g.fill();
-    g.fillStyle = 'rgba(255,255,255,.55)'; g.fillRect(S * .42, S * .62, S * .16, S * .3);
-  }
-  return SPR[k] = c;
-}
 function hex(c){ return [1, 3, 5].map(i => parseInt(c.slice(i, i + 2), 16)); }
 function clareia(c, f){ return 'rgb(' + hex(c).map(v => Math.round(v + (255 - v) * f)).join(',') + ')'; }
 function escurece(c, f){ return 'rgb(' + hex(c).map(v => Math.round(v * (1 - f))).join(',') + ')'; }
@@ -355,7 +340,7 @@ function montaCenas(){
   const fe = vazio(); g100.forEach((q, i) => fe.p[i] = {...q, cor: COR.ouro, f: 'm', a: .18}); CENAS.fim = completa(fe, capa);
 }
 function mede(){
-  DPR = Math.min(window.devicePixelRatio || 1, 2); W = innerWidth; H = innerHeight; estreito = W <= 820;
+  DPR = Math.min(window.devicePixelRatio || 1, 3); W = innerWidth; H = innerHeight; estreito = W <= 820;
   cv.width = Math.round(W * DPR); cv.height = Math.round(H * DPR);
   palco = estreito ? {x: 12, y: topoMenu() + 18, w: W - 24, h: H * .5 - 24 - topoMenu()} : {x: Math.min(W * .05 + 410, W * .44) + 46, y: 80, w: 0, h: H - 80 - 48};
   if(!estreito) palco.w = W - palco.x - Math.max(28, W * .04);
@@ -375,19 +360,199 @@ function leRolagem(){
 }
 const ease = t => t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2;
 function txt(t, x, y, o){ ctx.font = (o.b ? '600 ' : '') + o.f + 'px system-ui,-apple-system,Segoe UI,Roboto,sans-serif'; ctx.fillStyle = o.cor || '#26211B'; ctx.textAlign = o.al || 'center'; ctx.textBaseline = 'alphabetic'; ctx.fillText(t, x, y); }
-function peca(q, a){ if(a <= .01 || q.r < .3) return; ctx.globalAlpha = a; const s = sprite(q.f, q.cor), d = q.r * 2.13; ctx.drawImage(s, q.x - d / 2, q.y - d / 2, d, d); }
-let relogio = 0;
+// ───────── peças realistas: moedas e casas desenhadas em alta resolução, reduzidas por mipmap ─────────
+// A moeda é genérica (não reproduz o desenho de nenhuma moeda em circulação): latão, cobre, níquel ou estanho,
+// com borda elevada, serrilha na espessura, algarismo e espiga em relevo, marcas de uso e reflexo de luz.
+// O tipo da peça sai da cor da cena: ouro = latão; comida = cobre; fora = níquel; vazio = estanho fosco;
+// as demais cores viram esmalte no centro de uma moeda de latão. Casas: parede pintada, telhado de telha, porta e janela.
+const SPS = 320, SPC = 150, SPY = 146, SPR_R = 112;                  // tamanho do desenho, centro e raio da moeda nele
+const METAL = {
+  ouro:    {base: [214, 169, 70], claro: [255, 238, 170], escuro: [112, 76, 22]},
+  cobre:   {base: [190, 104, 64], claro: [246, 182, 140], escuro: [96, 40, 18]},
+  prata:   {base: [176, 186, 196], claro: [246, 249, 252], escuro: [78, 88, 100]},
+  estanho: {base: [206, 198, 184], claro: [240, 235, 225], escuro: [146, 137, 122]},
+};
+const rgb = (c, a) => 'rgba(' + c.map(Math.round).join(',') + ',' + (a == null ? 1 : a) + ')';
+const mix = (a, b, t) => a.map((v, i) => v + (b[i] - v) * t);
+let semente = 11;
+function aleat(){ semente = (semente * 16807) % 2147483647; return (semente - 1) / 2147483646; }
+function tipoDe(forma, cor){
+  if(forma === 'c') return cor === COR.casa ? 'casa' : 'casa0';
+  if(cor === COR.ouro) return 'ouro'; if(cor === COR.comida) return 'cobre'; if(cor === COR.fora) return 'prata'; if(cor === COR.vazio) return 'estanho';
+  return 'esmalte' + cor;
+}
+function comMip(cv){
+  const mip = [cv]; let c = cv;
+  while(c.width > 20){ const n = document.createElement('canvas'); n.width = Math.max(1, Math.round(c.width / 2)); n.height = n.width;
+    const g = n.getContext('2d'); g.imageSmoothingQuality = 'high'; g.drawImage(c, 0, 0, n.width, n.height); mip.push(n); c = n; }
+  return mip;
+}
+function sombra(g, cx, cy, rx, ry){
+  g.save(); g.filter = 'blur(14px)'; g.fillStyle = 'rgba(60,42,22,.32)'; g.beginPath(); g.ellipse(cx + 12, cy + 22, rx, ry, 0, 0, 7); g.fill(); g.restore();
+  g.save(); g.filter = 'blur(3px)'; g.fillStyle = 'rgba(50,34,18,.45)'; g.beginPath(); g.ellipse(cx + 3, cy + 8, rx * .98, ry * .98, 0, 0, 7); g.fill(); g.restore();
+}
+function desenhaMoeda(tipo, v){
+  semente = 101 + v * 977 + tipo.length * 31;
+  const cv = document.createElement('canvas'); cv.width = cv.height = SPS; const g = cv.getContext('2d');
+  const esm = tipo.startsWith('esmalte') ? hex(tipo.slice(7)) : null, M = METAL[esm ? 'ouro' : tipo], R = SPR_R, cx = SPC, cy = SPY, T = 11;
+  const fosco = tipo === 'estanho', var_ = (aleat() - .5) * 14, B = M.base.map(c => c + var_);
+  sombra(g, cx, cy + T * .5, R, R);
+  // espessura com serrilha: o crescente entre a face e o círculo deslocado para baixo
+  g.save(); g.beginPath(); g.arc(cx, cy + T, R, 0, 7); g.fill();
+  const lado = g.createLinearGradient(cx - R, 0, cx + R, 0);
+  lado.addColorStop(0, rgb(mix(M.escuro, B, .5))); lado.addColorStop(.35, rgb(mix(B, M.claro, .25))); lado.addColorStop(.7, rgb(B)); lado.addColorStop(1, rgb(M.escuro));
+  g.fillStyle = lado; g.fill(); g.clip();
+  g.lineWidth = 1.6;
+  for(let x = cx - R; x <= cx + R; x += 3.4){ g.strokeStyle = rgb(M.escuro, .55); g.beginPath(); g.moveTo(x, cy); g.lineTo(x, cy + T + R); g.stroke();
+    g.strokeStyle = rgb(M.claro, .35); g.beginPath(); g.moveTo(x + 1.4, cy); g.lineTo(x + 1.4, cy + T + R); g.stroke(); }
+  g.restore();
+  // face
+  g.save(); g.beginPath(); g.arc(cx, cy, R, 0, 7); g.clip();
+  const face = g.createLinearGradient(cx - R, cy - R, cx + R, cy + R);
+  face.addColorStop(0, rgb(mix(B, M.claro, .55))); face.addColorStop(.45, rgb(B)); face.addColorStop(1, rgb(mix(B, M.escuro, .55)));
+  g.fillStyle = face; g.fillRect(0, 0, SPS, SPS);
+  if(g.createConicGradient && !fosco){       // brilho anisotrópico de metal escovado
+    const cn = g.createConicGradient(-.6 + v * .4, cx, cy);
+    [[0, .0], [.12, .18], [.25, 0], [.4, .14], [.5, 0], [.62, .2], [.75, 0], [.88, .12], [1, 0]].forEach(([p, a]) => cn.addColorStop(p, 'rgba(255,255,255,' + a + ')'));
+    g.globalCompositeOperation = 'soft-light'; g.fillStyle = cn; g.fillRect(0, 0, SPS, SPS); g.globalCompositeOperation = 'source-over';
+  }
+  // campo rebaixado com linhas concêntricas de torno
+  const Rc = R * .84;
+  const campo = g.createRadialGradient(cx - R * .2, cy - R * .25, R * .1, cx, cy, Rc);
+  campo.addColorStop(0, rgb(mix(B, M.claro, .3))); campo.addColorStop(1, rgb(mix(B, M.escuro, .25)));
+  g.fillStyle = campo; g.beginPath(); g.arc(cx, cy, Rc, 0, 7); g.fill();
+  g.lineWidth = .7; for(let r = 8; r < Rc; r += 2.6){ g.strokeStyle = rgb(r % 5.2 < 2.6 ? M.claro : M.escuro, fosco ? .025 : .06); g.beginPath(); g.arc(cx, cy, r, 0, 7); g.stroke(); }
+  // borda elevada: chanfro externo claro em cima e escuro embaixo, e o inverso na parede interna
+  const aro = g.createLinearGradient(cx - R, cy - R, cx + R, cy + R);
+  aro.addColorStop(0, rgb(M.claro)); aro.addColorStop(.5, rgb(B)); aro.addColorStop(1, rgb(M.escuro));
+  g.lineWidth = R * .13; g.strokeStyle = aro; g.beginPath(); g.arc(cx, cy, R * .925, 0, 7); g.stroke();
+  const parede = g.createLinearGradient(cx - R, cy - R, cx + R, cy + R);
+  parede.addColorStop(0, rgb(M.escuro, .75)); parede.addColorStop(.5, rgb(B, 0)); parede.addColorStop(1, rgb(M.claro, .8));
+  g.lineWidth = 2.4; g.strokeStyle = parede; g.beginPath(); g.arc(cx, cy, Rc + 1, 0, 7); g.stroke();
+  g.lineWidth = 1.4; g.strokeStyle = rgb(M.claro, .7); g.beginPath(); g.arc(cx, cy, R - 1.2, Math.PI * .95, Math.PI * 1.75); g.stroke();
+  // relevo: luz vem do alto à esquerda (claro desloca para cima, escuro para baixo)
+  let GIRO = 0;
+  const des = (dx, dy) => [dx * Math.cos(-GIRO) - dy * Math.sin(-GIRO), dx * Math.sin(-GIRO) + dy * Math.cos(-GIRO)];   // deslocamento no espaço girado
+  const relevo = (desenho, a) => {
+    g.save(); g.translate(...des(2.4, 2.7)); g.fillStyle = rgb(M.escuro, .7 * a); g.strokeStyle = g.fillStyle; desenho(); g.restore();
+    g.save(); g.translate(...des(-1.6, -1.8)); g.fillStyle = rgb(M.claro, .9 * a); g.strokeStyle = g.fillStyle; desenho(); g.restore();
+    g.save(); const gr = g.createLinearGradient(cx - R, cy - R, cx + R, cy + R); gr.addColorStop(0, rgb(mix(B, M.claro, .62))); gr.addColorStop(1, rgb(mix(B, M.escuro, .08)));
+    g.fillStyle = gr; g.strokeStyle = gr; desenho(); g.restore();
+  };
+  const ar = fosco ? .45 : 1;
+  relevo(() => { for(let k = 0; k < 24; k++){ const t = k / 24 * 2 * Math.PI - Math.PI / 2; g.beginPath(); g.arc(cx + Math.cos(t) * R * .74, cy + Math.sin(t) * R * .74, 2.6, 0, 7); g.fill(); } }, ar);
+  if(esm){
+    // esmalte no centro, com aro de metal e reflexo de vidro
+    const Re = R * .6;
+    relevo(() => { g.lineWidth = 5; g.beginPath(); g.arc(cx, cy, Re + 3, 0, 7); g.stroke(); }, 1);
+    const ge = g.createRadialGradient(cx - Re * .35, cy - Re * .4, Re * .05, cx, cy, Re);
+    ge.addColorStop(0, rgb(mix(esm, [255, 255, 255], .45))); ge.addColorStop(.6, rgb(esm)); ge.addColorStop(1, rgb(mix(esm, [0, 0, 0], .35)));
+    g.fillStyle = ge; g.beginPath(); g.arc(cx, cy, Re, 0, 7); g.fill();
+    g.save(); g.beginPath(); g.arc(cx, cy, Re, 0, 7); g.clip();
+    g.fillStyle = 'rgba(255,255,255,.28)'; g.beginPath(); g.ellipse(cx - Re * .25, cy - Re * .45, Re * .75, Re * .32, -.5, 0, 7); g.fill();
+    for(let k = 0; k < 60; k++){ g.fillStyle = 'rgba(255,255,255,' + (aleat() * .12) + ')'; g.beginPath(); g.arc(cx + (aleat() - .5) * Re * 1.8, cy + (aleat() - .5) * Re * 1.8, aleat() * 1.6, 0, 7); g.fill(); }
+    g.restore();
+  } else {
+    // algarismo, espiga e ano em relevo
+    const giro = (aleat() - .5) * 1.6; GIRO = giro;
+    g.save(); g.translate(cx, cy); g.rotate(giro); g.translate(-cx, -cy);
+    g.font = '700 ' + Math.round(R * .82) + 'px Georgia,"Times New Roman",serif'; g.textAlign = 'center'; g.textBaseline = 'middle';
+    relevo(() => g.fillText('1', cx - R * .16, cy - R * .08), ar);
+    relevo(() => { g.lineWidth = 2.2; g.beginPath(); g.moveTo(cx + R * .36, cy + R * .46); g.quadraticCurveTo(cx + R * .42, cy + R * .1, cx + R * .38, cy - R * .32); g.stroke();
+      for(let k = 0; k < 6; k++){ const yk = cy + R * .32 - k * R * .11, xk = cx + R * .39;
+        [-1, 1].forEach(s => { g.beginPath(); g.ellipse(xk + s * R * .055, yk, R * .045, R * .022, s * .7, 0, 7); g.fill(); }); }
+      g.beginPath(); g.ellipse(cx + R * .38, cy - R * .38, R * .03, R * .055, 0, 0, 7); g.fill(); }, ar);
+    g.font = '600 ' + Math.round(R * .15) + 'px Georgia,serif';
+    relevo(() => g.fillText('2025', cx - R * .12, cy + R * .5), ar * .9);
+    g.restore(); GIRO = 0;
+  }
+  // uso: riscos finos, poeira e manchas
+  for(let k = 0; k < 7; k++){ const r0 = R * (.2 + aleat() * .6), t0 = aleat() * 6.28; g.strokeStyle = rgb(aleat() < .5 ? M.claro : M.escuro, .12 + aleat() * .1); g.lineWidth = .6 + aleat() * .6;
+    g.beginPath(); g.arc(cx + (aleat() - .5) * 30, cy + (aleat() - .5) * 30, r0, t0, t0 + .3 + aleat() * .7); g.stroke(); }
+  for(let k = 0; k < 900; k++){ const t = aleat() * 6.28, r = Math.sqrt(aleat()) * R; g.fillStyle = aleat() < .5 ? 'rgba(255,255,255,' + aleat() * .1 + ')' : 'rgba(40,25,10,' + aleat() * .09 + ')';
+    g.fillRect(cx + Math.cos(t) * r, cy + Math.sin(t) * r, 1.1, 1.1); }
+  if(fosco || tipo === 'cobre'){ for(let k = 0; k < 5; k++){ const mg = g.createRadialGradient(0, 0, 0, 0, 0, R * (.15 + aleat() * .2)); mg.addColorStop(0, tipo === 'cobre' ? 'rgba(70,110,90,.10)' : 'rgba(110,100,85,.12)'); mg.addColorStop(1, 'rgba(0,0,0,0)');
+    g.save(); g.translate(cx + (aleat() - .5) * R * 1.3, cy + (aleat() - .5) * R * 1.3); g.fillStyle = mg; g.fillRect(-R, -R, 2 * R, 2 * R); g.restore(); } }
+  // reflexo especular
+  const br = g.createRadialGradient(cx - R * .42, cy - R * .48, 0, cx - R * .42, cy - R * .48, R * .75);
+  br.addColorStop(0, 'rgba(255,255,255,' + (fosco ? .18 : .45) + ')'); br.addColorStop(1, 'rgba(255,255,255,0)');
+  g.globalCompositeOperation = 'screen'; g.fillStyle = br; g.fillRect(0, 0, SPS, SPS); g.globalCompositeOperation = 'source-over';
+  g.restore();
+  return comMip(cv);
+}
+function desenhaCasa(tipo, v){
+  semente = 501 + v * 613 + tipo.length * 7;
+  const cv = document.createElement('canvas'); cv.width = cv.height = SPS; const g = cv.getContext('2d');
+  const viva = tipo === 'casa', cx = SPC, base = SPY + 92, L = 150, A = 96, P = 34, topo = base - A, cume = topo - 64;
+  const parede = viva ? [[86, 170, 138], [52, 128, 101]][v % 2] : [222, 214, 199], telha = viva ? [190, 84, 52] : [196, 182, 164];
+  sombra(g, cx + P * .5, base - 4, L * .62, 16);
+  const xL = cx - L / 2, xR = cx + L / 2;
+  // parede lateral em perspectiva
+  g.fillStyle = rgb(mix(parede, [0, 0, 0], .28)); g.beginPath(); g.moveTo(xR, base); g.lineTo(xR + P, base - P * .55); g.lineTo(xR + P, topo - P * .55); g.lineTo(xR, topo); g.closePath(); g.fill();
+  // fachada com oitão
+  const fach = g.createLinearGradient(xL, 0, xR, 0); fach.addColorStop(0, rgb(mix(parede, [255, 255, 255], .18))); fach.addColorStop(1, rgb(mix(parede, [0, 0, 0], .08)));
+  g.fillStyle = fach; g.beginPath(); g.moveTo(xL, base); g.lineTo(xL, topo); g.lineTo(cx, cume); g.lineTo(xR, topo); g.lineTo(xR, base); g.closePath(); g.fill();
+  g.save(); g.clip(); for(let k = 0; k < 500; k++){ g.fillStyle = aleat() < .5 ? 'rgba(255,255,255,' + aleat() * .12 + ')' : 'rgba(0,0,0,' + aleat() * .07 + ')'; g.fillRect(xL + aleat() * L, cume + aleat() * (base - cume), 1.4, 1.4); }
+  g.fillStyle = 'rgba(0,0,0,.08)'; g.fillRect(xL, base - 12, L, 12); g.restore();
+  // telhado: água lateral com fiadas de telha
+  g.save(); g.beginPath(); g.moveTo(cx - 6, cume - 4); g.lineTo(xR + 12, topo + 6); g.lineTo(xR + P + 12, topo - P * .55 + 6); g.lineTo(cx + P - 6, cume - P * .55 - 4); g.closePath();
+  const tg = g.createLinearGradient(cx, cume, xR + P, topo); tg.addColorStop(0, rgb(mix(telha, [255, 255, 255], .2))); tg.addColorStop(1, rgb(mix(telha, [0, 0, 0], .2)));
+  g.fillStyle = tg; g.fill(); g.clip();
+  for(let f = 0; f < 9; f++){ const t = f / 8, x0 = cx - 6 + (xR + 12 - cx + 6) * t, y0 = cume - 4 + (topo + 6 - cume + 4) * t;
+    g.strokeStyle = rgb(mix(telha, [0, 0, 0], .4), .55); g.lineWidth = 2.2; g.beginPath(); g.moveTo(x0, y0); g.lineTo(x0 + P, y0 - P * .55); g.stroke();
+    for(let k = 0; k < 5; k++){ const u = (k + .5) / 5; g.fillStyle = rgb(mix(telha, [255, 255, 255], .25), .35); g.beginPath(); g.ellipse(x0 + P * u + 3, y0 - P * .55 * u + 4, 3.2, 5, -.5, 0, 7); g.fill(); } }
+  g.restore();
+  // beiral da fachada
+  g.strokeStyle = rgb(mix(telha, [0, 0, 0], .3)); g.lineWidth = 7; g.lineCap = 'round'; g.beginPath(); g.moveTo(xL - 10, topo + 8); g.lineTo(cx, cume - 4); g.lineTo(xR + 10, topo + 8); g.stroke();
+  // porta e janela
+  const pw = L * .22, ph = A * .62, px = xL + L * .18;
+  const pg = g.createLinearGradient(px, 0, px + pw, 0); pg.addColorStop(0, viva ? '#8B5A33' : '#B9A992'); pg.addColorStop(1, viva ? '#5E3A1E' : '#9E8F7A');
+  g.fillStyle = pg; g.fillRect(px, base - ph, pw, ph); g.strokeStyle = 'rgba(0,0,0,.25)'; g.lineWidth = 2; g.strokeRect(px, base - ph, pw, ph);
+  g.fillStyle = viva ? '#E8C766' : '#CFC4B3'; g.beginPath(); g.arc(px + pw * .78, base - ph * .45, 3.2, 0, 7); g.fill();
+  const jw = L * .3, jh = A * .38, jx = xL + L * .55, jy = topo + A * .2;
+  g.fillStyle = '#F7F3EA'; g.fillRect(jx - 5, jy - 5, jw + 10, jh + 10);
+  const vg = g.createLinearGradient(jx, jy, jx + jw, jy + jh); vg.addColorStop(0, viva ? '#BFD9E6' : '#DCD8D0'); vg.addColorStop(1, viva ? '#5D86A0' : '#B7B1A6');
+  g.fillStyle = vg; g.fillRect(jx, jy, jw, jh); g.fillStyle = 'rgba(255,255,255,.45)'; g.beginPath(); g.moveTo(jx, jy); g.lineTo(jx + jw * .45, jy); g.lineTo(jx, jy + jh * .7); g.closePath(); g.fill();
+  g.fillStyle = '#F7F3EA'; g.fillRect(jx + jw / 2 - 2, jy, 4, jh); g.fillRect(jx, jy + jh / 2 - 2, jw, 4);
+  if(viva){ g.fillStyle = 'rgba(255,214,120,.25)'; g.fillRect(jx, jy, jw, jh); }
+  return comMip(cv);
+}
+function peca(q, a){
+  if(a <= .01 || q.r < .3) return;
+  const k = tipoDe(q.f, q.cor) + '|' + (q.v || 0) % 8;
+  const mip = SPR[k] || (SPR[k] = q.f === 'c' ? desenhaCasa(tipoDe(q.f, q.cor), (q.v || 0) % 8) : desenhaMoeda(tipoDe(q.f, q.cor), (q.v || 0) % 8));
+  const esc = q.r * 1.06 / SPR_R, tam = SPS * esc, alvo = tam * DPR;
+  let im = mip[0]; for(let j = mip.length - 1; j >= 0; j--) if(mip[j].width >= alvo){ im = mip[j]; break; }
+  ctx.globalAlpha = a * (q.cor === COR.vazio || q.cor === COR.casa0 ? .78 : 1);
+  ctx.drawImage(im, q.x - SPC * esc, q.y - SPY * esc, tam, tam);
+}
+// fundo de linho, desenhado uma vez
+let FUNDO = null;
+function fundo(){
+  if(FUNDO) return FUNDO;
+  const c = document.createElement('canvas'); c.width = c.height = 512; const g = c.getContext('2d');
+  g.fillStyle = '#F2ECE1'; g.fillRect(0, 0, 512, 512); semente = 7;
+  for(let y = 0; y < 512; y += 2){ g.fillStyle = 'rgba(120,96,64,' + (.018 + aleat() * .02) + ')'; g.fillRect(0, y, 512, 1); }
+  for(let x = 0; x < 512; x += 2){ g.fillStyle = 'rgba(255,255,255,' + (.02 + aleat() * .03) + ')'; g.fillRect(x, 0, 1, 512); }
+  for(let k = 0; k < 9000; k++){ g.fillStyle = aleat() < .5 ? 'rgba(255,255,255,.05)' : 'rgba(90,70,40,.035)'; g.fillRect(aleat() * 512, aleat() * 512, 1 + aleat() * 2, 1); }
+  return FUNDO = ctx.createPattern(c, 'repeat');
+}
+let relogio = 0, ultimaChave = '';
 function quadro(ts){
+  // tela parada: nada mudou desde o último quadro, não redesenha
+  const caindo = !REDUZ && ts - relogio < 1700, chave = est.a + '|' + est.b + '|' + est.t.toFixed(4) + '|' + W + 'x' + H + '|' + DPR;
+  if(!caindo && chave === ultimaChave){ requestAnimationFrame(quadro); return; }
+  ultimaChave = chave;
   const A = CENAS[est.a] || CENAS.capa, B = CENAS[est.b] || A, e = ease(est.t);
-  ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.globalAlpha = 1; ctx.fillStyle = '#F4EFE6'; ctx.fillRect(0, 0, W, H);
+  ctx.setTransform(DPR, 0, 0, DPR, 0, 0); ctx.globalAlpha = 1; ctx.fillStyle = fundo(); ctx.fillRect(0, 0, W, H);
   // capa: as moedas caem e se assentam na primeira vez
   const queda = REDUZ ? 1 : Math.min(1, (ts - relogio) / 1600);
   for(let i = 0; i < N; i++){
     const p = A.p[i], q = B.p[i]; if(!p || !q) continue;
     let x = p.x + (q.x - p.x) * e, y = p.y + (q.y - p.y) * e, r = p.r + (q.r - p.r) * e, a = p.a + (q.a - p.a) * e;
     if(est.a === 'capa' && queda < 1 && i < 100){ const atraso = (i % 10) * .03 + Math.floor(i / 10) * .045, u = Math.max(0, Math.min(1, (queda - atraso) / .45)); y = y - (1 - ease(u)) * (H * .7); a *= u; }
-    if(p.cor === q.cor && p.f === q.f) peca({x, y, r, cor: p.cor, f: p.f}, a);
-    else { peca({x, y, r, cor: p.cor, f: p.f}, a * (1 - e)); peca({x, y, r, cor: q.cor, f: q.f}, a * e); }
+    if(p.cor === q.cor && p.f === q.f) peca({x, y, r, cor: p.cor, f: p.f, v: i}, a);
+    else { peca({x, y, r, cor: p.cor, f: p.f, v: i}, a * (1 - e)); peca({x, y, r, cor: q.cor, f: q.f, v: i}, a * e); }
   }
   ctx.globalAlpha = 1;
   [[A, 1 - e], [B, e]].forEach(([C, al]) => { if(A === B && C === B) return; if(al < .03) return; ctx.globalAlpha = al; (C.over || []).forEach(o => txt(o.t, o.x, o.y, {f: estreito ? o.f * .85 : o.f, b: o.b, cor: o.cor, al: o.al})); });
