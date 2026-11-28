@@ -68,7 +68,7 @@ const FTP = 'https://ftp.ibge.gov.br/Orcamentos_Familiares/Pesquisa_de_Orcamento
 const filhos = [
   new Paragraph({ heading: HeadingLevel.TITLE, children: [new TextRun({ text: 'Registro das inclusões da POF 2024-2025', font: FONT })] }),
   p([new TextRun({ text: 'Painel de Insegurança Alimentar no Brasil (produto técnico da dissertação, PPGSAN/UNIRIO)', font: FONT, size: 24, color: '4E5968' })]),
-  p([b('Versão do painel: '), 'v74 (inclui a v73). ', b('Data: '), hoje + '. ', b('Situação: '), 'versão de trabalho, ainda sem depósito no Zenodo e sem DOI próprio.']),
+  p([b('Versão do painel: '), 'v75 (inclui a v73 e a v74). ', b('Data: '), hoje + '. ', b('Situação: '), 'versão de trabalho, ainda sem depósito no Zenodo e sem DOI próprio.']),
   p([b('Finalidade deste documento: '), 'registrar, de forma rastreável, tudo o que entrar no painel a partir da Pesquisa de Orçamentos Familiares (POF) 2024-2025 do IBGE: o que foi incluído, de quais tabelas e arquivos, com quais definições, como foi conferido e com quais cautelas. Novas inclusões devem ser acrescentadas como novas seções da parte 9 (Histórico de inclusões), sem apagar as anteriores.']),
 
   h1('1. Resumo'),
@@ -160,6 +160,7 @@ const filhos = [
   titTab('Tabela 7. Inclusões da POF 2024-2025 no painel'),
   tabela(['Data', 'Versão', 'O que entrou', 'Fonte'], [
     ['27/11/2026', 'v73', 'Coeficiente de Engel, Brasil e Rio de Janeiro, 7 faixas; comparação com 2017-2018', 'Primeiros Resultados (tabelas 1.1.1, 1.1.7, 2.1.1, 1.3.33.1, 1.3.33.3, 2.3.33.1); microdados de 27/11/2026'],
+    ['27/11/2026', 'v75', 'Composição do gasto em 57 subgrupos (arroz, feijão, carnes, refrigerantes e outros); despesa com alimentação escolar (R$) e com cesta básica (R$, média de todas as famílias); desconto de cesta básica no salário', 'Microdados de 27/11/2026; conferência com a Tabela 1.1.7'],
     ['27/11/2026', 'v74', '33 indicadores por UF, Grande Região e 9 fatores, com IC95%: Engel, % fora, gasto por pessoa e gás (aba Orçamento familiar); transferências de renda, forma de aquisição e composição do gasto (aba nova Renda e acesso); Engel e % fora por UF em 2017-2018', 'Microdados de 27/11/2026; tabelas por UF da POF 2017-2018'],
   ], [1200, 900, 3426, 3500], { numericas: false }),
 
@@ -217,7 +218,7 @@ const filhos = [
   p('A v74 leva ao painel as informações da parte 12. Na aba Orçamento familiar, abaixo do gráfico por faixa de rendimento, um bloco novo mostra o Engel e indicadores do orçamento por UF (mapa e ranking), Grande Região e pelos 9 fatores. Uma aba nova, Renda e acesso, reúne as transferências de renda, a forma de aquisição dos alimentos e a composição do gasto com alimentação, com os mesmos recortes. Os dados vêm de pof2025/gerar_painel.py (arquivo pof2025/resultados/painel_v74.json).'),
   titTab('Tabela 10. Indicadores incluídos na v74, com o valor do Brasil (POF 2024-2025)'),
   tabela(['Aba e seção', 'Indicador', 'Brasil (IC95%)'],
-    P.ind.map(it => { const c = it.dados.total.Brasil, f = v => it.unid === 'R$' ? 'R$ ' + rs(v) : br(v, it.nd) + '%';
+    P.ind.filter(it => it.familia !== 'composicao_sub' && !['val_escolar', 'val_cesta', 'fam_desc_cesta'].includes(it.id)).map(it => { const c = it.dados.total.Brasil, f = v => it.unid === 'R$' ? 'R$ ' + rs(v) : br(v, it.nd) + '%';
       return [(it.familia === 'engel' ? 'Orçamento familiar' : 'Renda e acesso') + ': ' + it.secao, it.rot, f(c[0]) + ' (' + f(c[1]) + ' a ' + f(c[2]) + ')']; }),
     [2400, 4426, 2200], { numericas: false }),
   legenda('Fonte: IBGE, microdados da POF 2024-2025 (27/11/2026); elaboração própria. Cada indicador está disponível por UF (27), Grande Região (5) e pelas categorias dos 9 fatores da parte 11.'),
@@ -239,6 +240,22 @@ const filhos = [
   item('Doação, produção própria e cesta básica vêm da caderneta de 7 dias e captam mal aquisições esporádicas ou sazonais. A cesta básica é rara na amostra (0,16% das famílias, coeficiente de variação de 17%) e fica imprecisa por recorte.'),
   item('Faixa de rendimento per capita da POF e posição na ocupação seguem as diferenças da Tabela 9: não comparar com as categorias da PNADC das outras abas.'),
   item('Composição do gasto: participação no valor gasto, não na quantidade adquirida nem no consumo.'),
+
+  h1('14. Inclusões da v75: subgrupos, alimentação escolar e cesta básica'),
+  p('A v75 completa a aba Renda e acesso com três itens que a v74 tinha deixado parciais.'),
+  item([b('Composição do gasto em subgrupos. '), 'Além dos 16 grupos, o seletor passa a ter os 57 subgrupos da tabela de alimentação do IBGE, como arroz, feijão, carne de boi de primeira e de segunda, frango, ovo, leite de vaca, pão francês, biscoito, café moído, refrigerantes e cervejas, com os mesmos recortes e IC95%. Os 73 itens (grupos e subgrupos) foram conferidos contra a Tabela 1.1.7: a maior diferença é de 0,005 p.p., de arredondamento.']),
+  item([b('Alimentação escolar paga. '), 'Além do % de famílias com essa despesa, o valor mensal médio nas famílias que a têm.']),
+  item([b('Cesta básica. '), 'Além do % de famílias que adquiriram, o valor mensal médio por família, calculado sobre todas as famílias. A caderneta cobre 7 dias, e o IBGE converte o valor da semana em mensal (cerca de 4,3 vezes); essa conversão é válida para a média de todas as famílias, mas inflaria a média só de quem comprou na semana (R$ 1.352,56 por mês, valor que não representa o gasto real e por isso não foi usado).']),
+  item([b('Desconto de cesta básica no salário. '), 'Percentual de famílias. É muito raro na amostra e fica com estimativa imprecisa, sinalizada no painel.']),
+  item([b('Intervalos de confiança. '), 'O limite inferior passa a ser cortado em zero, porque o intervalo aproximado podia ficar negativo em proporções muito pequenas.']),
+  item([b('Correção da v74. '), 'As introduções das abas Orçamento familiar e Renda e acesso tinham ficado longas demais para o cartão de contexto, que as escondia e mostrava só o botão Sobre o painel. Os textos foram encurtados e voltaram a aparecer.']),
+  titTab('Tabela 11. Indicadores novos da v75, Brasil (POF 2024-2025)'),
+  tabela(['Indicador', 'Brasil (IC95%)', 'n'],
+    P.ind.filter(it => ['val_escolar', 'val_cesta', 'fam_desc_cesta', 's1011', 's1012', 's1071', 's1072', 's1081', 's1091', 's1101', 's1102', 's1121', 's1122', 's1124'].includes(it.id)).map(it => {
+      const c = it.dados.total.Brasil, f = v => it.unid === 'R$' ? 'R$ ' + rs(v) : br(v, it.nd) + '%';
+      return [it.rot, f(c[0]) + ' (' + f(c[1]) + ' a ' + f(c[2]) + ')' + (c[5] ? ' †' : ''), c[3].toLocaleString('pt-BR')]; }),
+    [5126, 2700, 1200], { numericas: false }),
+  legenda('Fonte: IBGE, microdados da POF 2024-2025 (27/11/2026); elaboração própria. Subgrupos selecionados; todos os 57 estão no painel e em pof2025/resultados/painel_v75.json. n = famílias na amostra (no valor da alimentação escolar, só as que têm a despesa). † interpretar com cautela.'),
 
   h1('Referências'),
   p('IBGE. Pesquisa de Orçamentos Familiares 2024-2025: primeiros resultados. Tabelas e microdados. Rio de Janeiro: IBGE, 2026. Disponível em: ' + FTP + '. Acesso em: 27 nov. 2026.'),
@@ -264,7 +281,7 @@ const doc = new Document({
   sections: [{
     properties: { page: { margin: { top: 1440, bottom: 1440, left: 1440, right: 1440 } } },
     footers: { default: new Footer({ children: [new Paragraph({ alignment: AlignmentType.RIGHT, children: [
-      new TextRun({ text: 'Registro POF 2024-2025 · Painel v74 · página ', font: FONT, size: 16, color: '6B7682' }),
+      new TextRun({ text: 'Registro POF 2024-2025 · Painel v75 · página ', font: FONT, size: 16, color: '6B7682' }),
       new TextRun({ children: [PageNumber.CURRENT], font: FONT, size: 16, color: '6B7682' })] })] }) },
     children: filhos,
   }],

@@ -24,8 +24,11 @@ if not m:
     raise SystemExit('bloco V74 nao encontrado')
 s = s[:m.start(1)] + json.dumps(V, ensure_ascii=False, separators=(',', ':')) + s[m.end(1):]
 troca("acesso: {familias:['acesso', 'composicao'],", "acesso: {familias:['acesso', 'composicao', 'composicao_sub'],")
-troca("alimentos obtidos sem compra (doação e produção própria) e composição do gasto com alimentação, por UF,",
-      "alimentos obtidos sem compra (doação e produção própria), cesta básica, alimentação escolar e composição do gasto com alimentação em grupos e subgrupos (arroz, feijão, carnes, refrigerantes e outros), por UF,")
+i = s.index("  acesso:  '<strong>Renda e acesso (POF 2024-2025):</strong>"); j = s.index("',\n", i)
+s = s[:i] + "  acesso:  '<strong>Renda e acesso (POF 2024-2025):</strong> transferências de renda, alimentos obtidos sem compra, cesta básica, alimentação escolar e composição do gasto com alimentação, por UF e características das famílias, com IC95%. Não medem insegurança alimentar." + s[j:]
+# introducao da aba Engel mais curta (a da v74 nao cabia no cartao de contexto e ficava escondida)
+i = s.index("  engel:   '<strong>Orçamento familiar (Coeficiente de Engel):</strong>"); j = s.index("',\n", i)
+s = s[:i] + "  engel:   '<strong>Orçamento familiar (Coeficiente de Engel):</strong> parte da despesa e da renda gasta com alimentação, por faixa de rendimento (POF 2017-2018 e 2024-2025) e, abaixo, por UF e características das famílias (2024-2025). Quanto menor a renda, maior essa parte." + s[j:]
 troca("const V47_VERSAO = 'v74';", "const V47_VERSAO = 'v75';")
 troca('<strong id="citar-versao">v74</strong>', '<strong id="citar-versao">v75</strong>')
 open(HTML, 'w', encoding='utf-8').write(s)
